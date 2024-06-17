@@ -27,9 +27,9 @@ function [] = initmatpbpk()
     addpath(genpath([basepath '/data']))
     addpath(genpath([basepath '/internal']))
     addpath(genpath([basepath '/models']))
-    addpath(genpath([basepath '/projects']))
-    addpath(genpath([basepath '/templates']))
-    addpath(genpath([basepath '/tests']))
+%    addpath(genpath([basepath '/projects']))
+%    addpath(genpath([basepath '/templates']))
+%    addpath(genpath([basepath '/tests']))
 
     % prepare updating of database templates
     evalin('base','clear classes')

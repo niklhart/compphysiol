@@ -1,13 +1,13 @@
 % Testing data import functions 
 
-test_folder = 'tests/data-for-testing/';
+test_folder = '../tests/data-for-testing/'; % QUICK FIX
 
 %% Test covariate tables
 
 % Value column --> ensure that it is read as char and that no rows are
 %                  skipped
 file = fullfile(test_folder,'Test_COVARIATES.csv');
-opts = detectImportOptions(file);
+opts = detectImportOptions(fullfile(pathPBPKtoolbox(), file));
 opts.VariableTypes{2} = 'char';  % read VALUE column as 'char'
 opts.DataLines(1) = 2;           % don't skip any data row
 

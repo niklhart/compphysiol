@@ -20,7 +20,7 @@ indv(1).sampling    = Sampling((0:0.1:10)*u.h, obs);
 indv(1).model       = sMD_PBPK_12CMT_permeabilityLimited; 
 indv(1).model.options.tissuePartitioning = @rodgersrowland;
 indv(1).drugdata    = loaddrugdata('Lidocaine','species','human');
-addrecord(indv(1).drugdata, 'cellPerm','human', u.km/u.sec); % extremely large permeability (permeability-limited model should equal well-stirred model)
+updaterecord(indv(1).drugdata, 'cellPerm','human', u.km/u.sec); % extremely large permeability (permeability-limited model should equal well-stirred model)
 
 indv(2)             = clone(indv(1));
 indv(2).name        = 'Well-stirred';

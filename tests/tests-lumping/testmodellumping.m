@@ -124,7 +124,9 @@ indv(1).physiology = Physiology('human35m');
 indv(1).sampling   = Sampling((0:24)*u.h, obs);
 indv(1).model      = m;
 indv(1).model.options.tissuePartitioning = @rodgersrowland;
-predict_cellperm(indv(1).drugdata)
+P = predict_perm(indv(1).drugdata,'cellular');
+addrecord(indv(1).drugdata,'cellPerm','human',P,[],'Predicted by PK-Sim formula');
+
 
 indv(2) = clone(indv(1));
 indv(2).model = l;

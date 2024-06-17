@@ -35,3 +35,7 @@ codegen/
 
 # MATLAB Project files
 resources/project/*
+
+
+# Coverage reports
+tests/coverageReport/*
