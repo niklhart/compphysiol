@@ -1,0 +1,59 @@
+drugA: variants found:
+parameter "fuP":
+     <strong>Species</strong>     <strong>Value</strong>    <strong>Source</strong>    <strong>Assumption</strong>
+    <strong>_________</strong>    <strong>_____</strong>    <strong>______</strong>    <strong>__________</strong>
+
+    {'rat'  }    0.38     {'?'}     {0×0 char}
+    {'human'}    0.01     {'?'}     {0×0 char}
+
+parameter "BP":
+     <strong>Species</strong>     <strong>Value</strong>    <strong>Source</strong>    <strong>Assumption</strong>
+    <strong>_________</strong>    <strong>_____</strong>    <strong>______</strong>    <strong>__________</strong>
+
+    {'rat'  }     1.27    {'?'}     {0×0 char}
+    {'human'}    0.567    {'?'}     {0×0 char}
+
+parameter "CLblood_hep":
+     <strong>Species</strong>           <strong>Value</strong>          <strong>Source</strong>    <strong>Assumption</strong>
+    <strong>_________</strong>    <strong>_________________</strong>    <strong>______</strong>    <strong>__________</strong>
+
+    {'rat'  }    0.1 mL/(min*kg)      {'?'}     {0×0 char}
+    {'human'}    0.081 mL/(min*kg)    {'?'}     {0×0 char}
+
+parameter "CLint_hep_perOWliv":
+     <strong>Species</strong>             <strong>Value</strong>               <strong>Source</strong>       <strong>Assumption</strong>
+    <strong>_________</strong>    <strong>______________________</strong>    <strong>___________</strong>    <strong>__________</strong>
+
+    {'rat'  }    1.5245e-07 m^3/[kg][s]    {'derived'}    {0×0 char}
+    {'human'}    3.1154e-06 m^3/[kg][s]    {'derived'}    {0×0 char}
+
+parameter "K_ery_up":
+     <strong>Species</strong>      <strong>Value</strong>       <strong>Source</strong>       <strong>Assumption</strong>
+    <strong>_________</strong>    <strong>_______</strong>    <strong>___________</strong>    <strong>__________</strong>
+
+    {'rat'  }      4.284    {'derived'}    {0×0 char}
+    {'human'}    0.22174    {'derived'}    {0×0 char}
+
+parameter "lambda_po":
+     <strong>Species</strong>         <strong>Value</strong>         <strong>Source</strong>    <strong>Assumption</strong>
+    <strong>_________</strong>    <strong>______________</strong>    <strong>______</strong>    <strong>__________</strong>
+
+    {'rat'  }    0.00016667 1/s    {'?'}     {0×0 char}
+    {'human'}    0.00016667 1/s    {'?'}     {0×0 char}
+
+parameter "Egut":
+     <strong>Species</strong>     <strong>Value</strong>       <strong>Source</strong>           <strong>Assumption</strong>    
+    <strong>_________</strong>    <strong>_____</strong>    <strong>____________</strong>    <strong>__________________</strong>
+
+    {'rat'  }      0      {0×0 double}    {'Assumed Egut=0'}
+    {'mouse'}      0      {0×0 double}    {'Assumed Egut=0'}
+    {'human'}      0      {0×0 double}    {'Assumed Egut=0'}
+
+parameter "Efeces":
+     <strong>Species</strong>     <strong>Value</strong>       <strong>Source</strong>            <strong>Assumption</strong>     
+    <strong>_________</strong>    <strong>_____</strong>    <strong>____________</strong>    <strong>____________________</strong>
+
+    {'rat'  }      0      {0×0 double}    {'Assumed Efeces=0'}
+    {'mouse'}      0      {0×0 double}    {'Assumed Efeces=0'}
+    {'human'}      0      {0×0 double}    {'Assumed Efeces=0'}
+

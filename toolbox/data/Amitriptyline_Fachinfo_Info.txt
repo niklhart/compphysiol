@@ -1,0 +1,19 @@
+
+Source
+------
+Digitized graphics from "Fachinfo Amitriptyline-CT 25mg/75mg Tabletten", Figure 1:
+
+https://www.abz.de/assets/products/de/label/Amitriptylin-CT%20Tabletten%20-%202.pdf
+
+(Accessed May 8, 2020)
+
+Original data
+------
+Mean and standard deviations of Amitriptyline plasma concentrations after oral dosing.
+
+Digitized values (columns in '*_Events.csv')
+------
+VALUE:    mean plasma concentration
+ERRBARUP: length of upper errorbar (should correspond to standard deviation) 
+ERRBARDN: length of lower errorbar (should correspond to standard deviation) 
+

@@ -1,0 +1,7 @@
+﻿TIME [h];TYPE;DOSE [mg];DURATION [min]
+0;Oral;15;
+1;Oral;20;
+1;Infusion;15;30
+2;Infusion;20;60
+4;Bolus;40;
+8;Bolus;30;

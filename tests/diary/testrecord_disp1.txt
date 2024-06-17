@@ -1,0 +1,6 @@
+	<a href="matlab:helpPopup Record">Record</a> array:
+
+    Time   Observable                       Value
+    ----   ------------------------------   -----
+1   0 h    SimplePK|pla-total-Mass/Volume   0 mg 
+

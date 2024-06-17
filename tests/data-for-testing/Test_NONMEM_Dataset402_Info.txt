@@ -1,0 +1,11 @@
+PK dataset "402" (30 patients, no covariates, iv bolus) used in the tutorial 
+
+Bauer R., NONMEM Tutorial Part I: Description of Commands and Options, With Simple Examples of Population Analysis, CPT:PSP (2019).
+
+https://doi.org/10.1002/psp4.12404
+
+Dataset specification:
+
+* TIME in [h]
+* DV (plasma concentration) in [ng/mL] ??
+* AMT in [mg]  

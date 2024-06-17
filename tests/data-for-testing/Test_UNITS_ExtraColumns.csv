@@ -1,0 +1,10 @@
+﻿TIME;TIME_UNITS;NAME;VALUE;VALUE_UNITS;Species
+0;h;Warfarin oral dose;15;mg;human
+0.5;h;Warfarin plasma concentration;472.4137;ug/L;human
+1;h;Warfarin plasma concentration;1079.3103;ug/L;human
+2;h;Warfarin plasma concentration;1351.7241;ug/L;human
+4;h;Warfarin plasma concentration;1258.6206;ug/L;human
+8;h;Warfarin plasma concentration;1110.3448;ug/L;human
+12;h;Warfarin plasma concentration;979.3103;ug/L;human
+24;h;Warfarin plasma concentration;713.7931;ug/L;human
+32;h;Warfarin plasma concentration;641.3793;ug/L;human

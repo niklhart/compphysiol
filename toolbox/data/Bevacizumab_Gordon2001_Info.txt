@@ -1,0 +1,13 @@
+Population: human patients with measurable or assessable solid tumor malignancies
+
+Demographics: 25 (17 female, 8 male) patients, median age 55 years (range: 21-70), mean BW not reported
+
+Drug:  recombinant human anti-VEGF mAb Bevacizumab
+
+Study: Phase I
+
+Comedication: none, since patients were excluded if they received chemotherapy or immunotherapy within prior 4 weeks before study or had taken any NSAIDs within 10 days of study entry
+
+PK assessment: intense sampling, serum mAb concentrations determined via ELISA; mean serum mab concentrations with 4-5 patients per dose group, no anti-drug antibodies measured in patients
+
+Source: digitized graphics from M.S. Gordon et al, 2001 J Clin Oncol, Figure 1 MEAN SERUM CONCENTRATIONS DISPLAYED

@@ -1,0 +1,8 @@
+%%% Experimental data
+%%% 
+%%% Species: rats (normal subjects) 
+%%% Drug:    (S-)Warfarin
+%%% Study:   0.13 mg/kg, po
+%%% Units:   time in [h], concentration in [ug/mL]
+%%% Source:  digitized graphics from Kim et al. (2013), doi: 10.1111/jphp.12084 483-504, Figure 2, bottom curve (Warfarin without comedication, control group)
+

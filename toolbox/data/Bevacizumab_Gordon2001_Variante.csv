@@ -1,0 +1,48 @@
+ID,TIME,NAME,VALUE,DOSE,DURATION
+1,0 day,Species,human,,
+1,0 day,Bevacizumab iv infusion,,10 mg/kg,90 min
+1,0.0625 day,Bevacizumab plasma concentration,238.073 ug/mL,,
+1,0.6128 day,Bevacizumab plasma concentration,177.0793 ug/mL,,
+1,1.7413 day,Bevacizumab plasma concentration,179.456 ug/mL,,
+1,3.5589 day,Bevacizumab plasma concentration,135.2585 ug/mL,,
+1,6.6537 day,Bevacizumab plasma concentration,107.9718 ug/mL,,
+1,9.6687 day,Bevacizumab plasma concentration,97.0023 ug/mL,,
+1,13.7438 day,Bevacizumab plasma concentration,73.9875 ug/mL,,
+1,20.8339 day,Bevacizumab plasma concentration,50.6998 ug/mL,,
+1,27.9375 day,Bevacizumab plasma concentration,35.7829 ug/mL,,
+1,28 day,Bevacizumab iv infusion,,10 mg/kg,90 min
+1,28.0625 day,Bevacizumab plasma concentration,274.3947 ug/mL,,
+1,34.9375 day,Bevacizumab plasma concentration,112.1854 ug/mL,,
+1,35 day,Bevacizumab iv infusion,,10 mg/kg,90 min
+1,35.0625 day,Bevacizumab plasma concentration,370.8454 ug/mL,,
+1,41.9375 day,Bevacizumab plasma concentration,186.4238 ug/mL,,
+1,42 day,Bevacizumab iv infusion,,10 mg/kg,90 min
+1,42.0625 day,Bevacizumab plasma concentration,407.626 ug/mL,,
+1,43.7869 day,Bevacizumab plasma concentration,383.1953 ug/mL,,
+1,48.7763 day,Bevacizumab plasma concentration,220.546 ug/mL,,
+1,55.8629 day,Bevacizumab plasma concentration,165.1242 ug/mL,,
+1,62.6519 day,Bevacizumab plasma concentration,113.1942 ug/mL,,
+1,71.9191 day,Bevacizumab plasma concentration,89.6558 ug/mL,,
+2,0 day,Species,human,,
+2,0 day,Bevacizumab iv infusion,,0.3 mg/kg,90 min
+2,0.0625 day,Bevacizumab plasma concentration,6.0334 ug/mL,,
+2,0.609 day,Bevacizumab plasma concentration,5.2014 ug/mL,,
+2,1.7675 day,Bevacizumab plasma concentration,4.1879 ug/mL,,
+2,3.6622 day,Bevacizumab plasma concentration,3.0096 ug/mL,,
+2,6.6509 day,Bevacizumab plasma concentration,2.3685 ug/mL,,
+2,9.6952 day,Bevacizumab plasma concentration,1.7172 ug/mL,,
+2,13.7311 day,Bevacizumab plasma concentration,1.2954 ug/mL,,
+2,20.8631 day,Bevacizumab plasma concentration,0.7157 ug/mL,,
+2,28 day,Bevacizumab iv infusion,,0.3 mg/kg,90 min
+2,28.0625 day,Bevacizumab plasma concentration,7.4951 ug/mL,,
+2,34.9375 day,Bevacizumab plasma concentration,2.8935 ug/mL,,
+2,35 day,Bevacizumab iv infusion,,0.3 mg/kg,90 min
+2,35.0625 day,Bevacizumab plasma concentration,9.8003 ug/mL,,
+2,41.9375 day,Bevacizumab plasma concentration,4.0633 ug/mL,,
+2,42 day,Bevacizumab iv infusion,,0.3 mg/kg,90 min
+2,42.0625 day,Bevacizumab plasma concentration,9.71 ug/mL,,
+2,43.8156 day,Bevacizumab plasma concentration,8.8332 ug/mL,,
+2,48.8558 day,Bevacizumab plasma concentration,4.9947 ug/mL,,
+2,55.9332 day,Bevacizumab plasma concentration,2.9349 ug/mL,,
+2,62.7483 day,Bevacizumab plasma concentration,1.7609 ug/mL,,
+2,72.0532 day,Bevacizumab plasma concentration,0.4544 ug/mL,,

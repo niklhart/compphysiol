@@ -1,0 +1,7 @@
+%%% Experimental data
+%%% 
+%%% Species: human (normal subjects) 
+%%% Drug:    Warfarin
+%%% Study:   15 mg, po
+%%% Units:   time in [h], concentration in [ug/L]
+%%% Source:  digitized graphics from N. Holford Clinical Pharmacokinetics Vol.11: 483-504, 1986 Figure 1

@@ -1,0 +1,11 @@
+%%% Contains experimental data for the following study:
+%%%
+%%%     Species: mouse, 25g, wild-type
+%%%     Drug:    mAb7E3
+%%%     Study:   8 mg/kg BW, i.v. bolus dosing
+%%%     Units:   time in [day], concentration in [nmol/L]
+%%%     Measurement types: 
+%%%              - plasma concentrations
+%%%              - tissue concentrations (contaminated with residual blood)
+%%%     Source:  digitized graphics from Garg, PhD thesis (2007)
+%%%

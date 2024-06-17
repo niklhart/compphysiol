@@ -1,0 +1,11 @@
+TIME,NAME,VALUE,COMPOUND,SITE
+0 h,Species,human,,
+0 h,Oral dose,15 mg,Warfarin,
+0.5 h,Concentration,472.4137 ug/L,Warfarin,pla
+1 h,Concentration,1079.3103 ug/L,Warfarin,pla
+2 h,Concentration,1351.7241 ug/L,Warfarin,pla
+4 h,Concentration,1258.6206 ug/L,Warfarin,pla
+8 h,Concentration,1110.3448 ug/L,Warfarin,pla
+12 h,Concentration,979.3103 ug/L,Warfarin,pla
+24 h,Concentration,713.7931 ug/L,Warfarin,pla
+32 h,Concentration,641.3793 ug/L,Warfarin,pla

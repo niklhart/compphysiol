@@ -1,0 +1,37 @@
+	<a href="matlab:helpPopup Physiology">Physiology</a> object (human35f) with parameters:
+
+species: human
+type: Caucasian
+sex: female
+age: 35 year
+BH: 163 cm
+BW: 60 kg
+LBW: 41 kg
+BMI: 22.5827 kg/m^2
+BSA: 1.66 m^2
+fowtisBW: [11 values]
+hct: 0.38462
+pH: [13 values]
+OWtis: [67 values]
+OWtbl: 3900 g
+dens: [12 values]
+Vtot: [11 values]
+Vtis: [13 values]
+Vvas: [11 values]
+Vtbl: 0.0039 m^3
+fcelVtis: [11 values]
+fintVtis: [11 values]
+fnliVtis: [13 values]
+fnphVtis: [13 values]
+faphVtis: [12 values]
+fwecVtis: [11 values]
+fwicVtis: [12 values]
+fwtotVtis: [13 values]
+fregVtbl: [37 values]
+fartVtbl: 0.295
+fvenVtbl: 0.705
+rtpAlb: [11 values]
+rtpLip: [11 values]
+co: 5.9 L/min
+fqbloCO: [34 values]
+Qblo: [10 values]

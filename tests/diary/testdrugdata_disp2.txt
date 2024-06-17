@@ -1,0 +1,9 @@
+  1×2 <a href="matlab:helpPopup DrugData" style="font-weight:bold">DrugData</a> array with properties:
+
+    name
+    class
+    subclass
+    units
+    perspecies
+    db
+

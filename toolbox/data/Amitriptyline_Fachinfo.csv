@@ -1,0 +1,15 @@
+TIME [h];NAME;MEAN [ng/mL];ERRBARUP [ng/mL];ERRBARDN [ng/mL];Dose [mg]
+0;Amitriptyline oral dose;;;;25
+0;Amitriptyline plasma concentration;0;0;0;
+0.5;Amitriptyline plasma concentration;0.0639;0.2132;0.064;
+1;Amitriptyline plasma concentration;1.7697;1.791;1.4925;
+2;Amitriptyline plasma concentration;4.2004;1.9829;2.4094;
+3;Amitriptyline plasma concentration;6.4605;2.2814;2.6439;
+4;Amitriptyline plasma concentration;6.1194;2.0256;2.3881;
+5;Amitriptyline plasma concentration;5.9701;2.1535;2.0896;
+6;Amitriptyline plasma concentration;5.4157;1.9616;1.8337;
+8;Amitriptyline plasma concentration;4.5842;1.6844;1.5565;
+10;Amitriptyline plasma concentration;3.8166;1.4499;1.4712;
+12;Amitriptyline plasma concentration;3.5607;1.2154;1.2154;
+16;Amitriptyline plasma concentration;2.4946;0.9808;0.8742;
+24;Amitriptyline plasma concentration;1.8976;0.7463;0.7676;

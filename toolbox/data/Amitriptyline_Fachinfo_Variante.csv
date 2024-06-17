@@ -1,0 +1,42 @@
+TIME,NAME,VALUE,ATTR
+0 h,Amitriptyline oral dose,25 mg,
+0 h,Species,human,
+0 h,Amitriptyline plasma concentration,0 ng/mL,mean
+0.5 h,Amitriptyline plasma concentration,0.0639 ng/mL,mean
+1 h,Amitriptyline plasma concentration,1.7697 ng/mL,mean
+2 h,Amitriptyline plasma concentration,4.2004 ng/mL,mean
+3 h,Amitriptyline plasma concentration,6.4605 ng/mL,mean
+4 h,Amitriptyline plasma concentration,6.1194 ng/mL,mean
+5 h,Amitriptyline plasma concentration,5.9701 ng/mL,mean
+6 h,Amitriptyline plasma concentration,5.4157 ng/mL,mean
+8 h,Amitriptyline plasma concentration,4.5842 ng/mL,mean
+10 h,Amitriptyline plasma concentration,3.8166 ng/mL,mean
+12 h,Amitriptyline plasma concentration,3.5607 ng/mL,mean
+16 h,Amitriptyline plasma concentration,2.4946 ng/mL,mean
+24 h,Amitriptyline plasma concentration,1.8976 ng/mL,mean
+0 h,Amitriptyline plasma concentration,0 ng/mL,errorbar up
+0.5 h,Amitriptyline plasma concentration,0.2132 ng/mL,errorbar up
+1 h,Amitriptyline plasma concentration,1.7910 ng/mL,errorbar up
+2 h,Amitriptyline plasma concentration,1.9829 ng/mL,errorbar up
+3 h,Amitriptyline plasma concentration,2.2814 ng/mL,errorbar up
+4 h,Amitriptyline plasma concentration,2.0256 ng/mL,errorbar up
+5 h,Amitriptyline plasma concentration,2.1535 ng/mL,errorbar up
+6 h,Amitriptyline plasma concentration,1.9616 ng/mL,errorbar up
+8 h,Amitriptyline plasma concentration,1.6844 ng/mL,errorbar up
+10 h,Amitriptyline plasma concentration,1.4499 ng/mL,errorbar up
+12 h,Amitriptyline plasma concentration,1.2154 ng/mL,errorbar up
+16 h,Amitriptyline plasma concentration,0.9808 ng/mL,errorbar up
+24 h,Amitriptyline plasma concentration,0.7463 ng/mL,errorbar up
+0 h,Amitriptyline plasma concentration,0 ng/mL,errorbar down
+0.5 h,Amitriptyline plasma concentration,0.0640 ng/mL,errorbar down
+1 h,Amitriptyline plasma concentration,1.4925 ng/mL,errorbar down
+2 h,Amitriptyline plasma concentration,2.4094 ng/mL,errorbar down
+3 h,Amitriptyline plasma concentration,2.6439 ng/mL,errorbar down
+4 h,Amitriptyline plasma concentration,2.3881 ng/mL,errorbar down
+5 h,Amitriptyline plasma concentration,2.0896 ng/mL,errorbar down
+6 h,Amitriptyline plasma concentration,1.8337 ng/mL,errorbar down
+8 h,Amitriptyline plasma concentration,1.5565 ng/mL,errorbar down
+10 h,Amitriptyline plasma concentration,1.4712 ng/mL,errorbar down
+12 h,Amitriptyline plasma concentration,1.2154 ng/mL,errorbar down
+16 h,Amitriptyline plasma concentration,0.8742 ng/mL,errorbar down
+24 h,Amitriptyline plasma concentration,0.7676 ng/mL,errorbar down

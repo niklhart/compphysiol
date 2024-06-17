@@ -1,0 +1,6 @@
+	2x1 <a href="matlab:helpPopup Individual">Individual</a> array (E: experimental data, V: virtual individuals):
+
+    {'V'}
+    {'V'}
+
+Use builtin('disp',OBJ)) to see the underlying structure of the Individual object OBJ

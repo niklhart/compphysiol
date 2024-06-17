@@ -1,0 +1,10 @@
+﻿TIME;NAME;VALUE;Dose;Species
+0;Warfarin oral dose;;15;human
+0.5;Warfarin plasma concentration;472.4137;;human
+1;Warfarin plasma concentration;1079.3103;;human
+2;Warfarin plasma concentration;1351.7241;;human
+4;Warfarin plasma concentration;1258.6206;;human
+8;Warfarin plasma concentration;1110.3448;;human
+12;Warfarin plasma concentration;979.3103;;human
+24;Warfarin plasma concentration;713.7931;;human
+32;Warfarin plasma concentration;641.3793;;human
