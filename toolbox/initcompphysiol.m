@@ -63,6 +63,10 @@ function [] = initcompphysiol(flag)
     ddb=initdrugdb();
     fprintf('finished.\nThe following drugs are defined:\n')
     disp({ddb.name}')
-    fprintf('Initialization successful.\n')
+    fprintf('Initialization successful.\n\n')
+    fprintf('Toolbox path:\n%s\n\n\n',pathPBPKtoolbox())
+    fprintf('Diary path:\n%s\n\n\n',diaryPath())
+
+
 
 end
