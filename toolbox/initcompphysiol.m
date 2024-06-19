@@ -9,18 +9,19 @@
 %   when calling INITCOMPPHYSIOL, which ensures that the physiology and
 %   drug templates can be updated correctly.
 
-function [] = initcompphysiol()
+function [] = initcompphysiol(flag)
     
-    vars = evalin('base','who');
-    if ~isempty(vars)
-        msg = 'All workspace variables will be cleared. Continue? Y/N [Y]: ';
-        str = input(msg,'s');
-        if ~startsWith('Y',str,'IgnoreCase',true)
-            fprintf('...installation aborted.\n')
-            return
+    if nargin == 1 && strcmp(flag,'silent')
+        vars = evalin('base','who');
+        if ~isempty(vars)
+            msg = 'All workspace variables will be cleared. Continue? Y/N [Y]: ';
+            str = input(msg,'s');
+            if ~startsWith('Y',str,'IgnoreCase',true)
+                fprintf('...installation aborted.\n')
+                return
+            end
         end
     end
-
     S = dbstack('-completenames');
     basepath = fileparts(S(1).file);
     

@@ -1,25 +1,18 @@
 # Computational Physiology Toolbox
 
+[![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=niklhart/compphysiol)
 
+The Computational Physiology Toolbox is a MATLAB toolbox for computations with 
+physiology-based models, in particular physiologically-based pharmacokinetics (PBPK). 
+It features a modular object-oriented design, has fully integrated unit 
+computation capabilities and an intuitive scripting language.
 
-Badges (will probably only work when visibility is set to public):
+## Using the Computational Physiology Toolbox
 
-[![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=niklhart/matpbpk)
+See `gettingStarted.mlx` for a first overview, and the `examples` folder
+for a more detailed introduction to specific topics.
 
-## Initialization and getting started
-
-Initialization
-
-- execute `initPBPKtoolbox.m`
-- now all toolbox folders are on the Matlab path
-
-Getting started
-
-- Cheatsheets are available online on the Moodle page, the MATLAB file containing code for the Toolbox cheatsheet is located in folder "projects".
-- Tutorials are available online on the Moodle page, corresponding MATLAB files are located in folder "projects/Tutorials". At the end, these files contain solutions to the exercises shown in the Tutorial videos. 
-- Create your own scripts in another subfolder of the "projects" folder.
-
-## Important abbreviations
+## Physiological abbreviations used in the toolbox
 
 ### Tissue subspaces
 
@@ -39,7 +32,7 @@ The following abbreviations are used to label particular tissue subspaces, expre
 | `res`     | Residual blood (contained in `vas`)                                                        |
 | `rbt`     | Tissue contaminated with residual blood (`tis` + `res`)                                    |
 | `exp`     | Experimentally measured (depending on the experimental conditions, `tis`, `rbt`, or `tot`) |
-| **`spc`** | **To discuss** Generic notation for a tissue subspace (any of the above)                   |
+| `spc`     | Generic notation for a tissue subspace (any of the above)                   |
 
 **Difference `vas` vs `reg`**   
 
@@ -72,19 +65,11 @@ subspace notation above to denote the respective tissue subspaces.
 | `spl`     | spleen tissue                                                                                            |
 | `tbl`     | total blood, incl. vascular part of tissues, i.e. regional blood                                         |
 | `ven`     | venous blood                                                                                             |
-| **`org`** | **To discuss** Generic notation for a site (any of the above)                                            |
+| `org`     | Generic notation for a site (any of the above)                                            |
 
 ### Tissue composition (constituents)
 
 Used for prediction of tissue partitioning.
-
-| Abbr (old) | Description           |
-| ---------- | --------------------- |
-| `nli`      | Neutral lipids        |
-| `nph`      | Neutral phospholipids |
-| `aph`      | Acidic phospholipids  |
-| `Alb`      | Albumin               |
-| `Lip`      | Lipoprotein           |
 
 | Abbr (new) | Description           |
 | ---------- | --------------------- |
