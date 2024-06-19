@@ -11,6 +11,11 @@ function assertEqualsDiary(fh, refDiary)
     refFile = diaryPath(refDiary);
     output_ref = fileread(refFile);
     
-    assert(isequal(output_test, output_ref))
+    success = isequal(output_test, output_ref);
+
+    if ~success
+        msg = 'Expected console output:\n%s\n\n Actual console output\n %s\n';
+        error(msg, output_ref, output_test)
+    end
 
 end
