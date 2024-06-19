@@ -11,29 +11,28 @@
 
 function [] = initmatpbpk()
     
-    vars = evalin('base','who');
-    if ~isempty(vars)
-        msg = 'All workspace variables will be cleared. Continue? Y/N [Y]: ';
-        str = input(msg,'s');
-        if ~startsWith('Y',str,'IgnoreCase',true)
-            fprintf('...installation aborted.\n')
-            return
-        end
-    end
+    % vars = evalin('base','who');
+    % if ~isempty(vars)
+    %     msg = 'All workspace variables will be cleared. Continue? Y/N [Y]: ';
+    %     str = input(msg,'s');
+    %     if ~startsWith('Y',str,'IgnoreCase',true)
+    %         fprintf('...installation aborted.\n')
+    %         return
+    %     end
+    % end
 
     S = dbstack('-completenames');
-    basepath = fileparts(S(1).file);
+    basepath = fullfile(fileparts(S(1).file), 'toolbox');
     
-    addpath(genpath([basepath '/data']))
-    addpath(genpath([basepath '/internal']))
-    addpath(genpath([basepath '/models']))
-%    addpath(genpath([basepath '/projects']))
-%    addpath(genpath([basepath '/templates']))
-%    addpath(genpath([basepath '/tests']))
+    addpath(genpath(fullfile(basepath, 'data')))
+    addpath(genpath(fullfile(basepath, 'internal')))
+    addpath(genpath(fullfile(basepath, 'models')))
 
     % prepare updating of database templates
-    evalin('base','clear classes')
-    evalin('base','clearvars')
+%    evalin('base','clear classes')      % not needed any more?
+%    evalin('base','clearvars')          % not needed any more?
+
+    clear pathPBPKtoolbox
 
     % set project path
     pathPBPKtoolbox(basepath);

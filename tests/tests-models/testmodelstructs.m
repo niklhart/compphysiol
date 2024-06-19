@@ -59,9 +59,6 @@ phys = Physiology('human35m');
 dos  = Bolus('Lidocaine',t0,10*u.mg,'iv');
 drug = loaddrugdata(compounds(dos),'species',getvalue(phys,'species'));
 
-P = predict_perm(drug,'cellular');
-drug.addrecord('cellPerm','human',P,[],'Predicted by PK-Sim formula');
-
 par  = [];
 opt  = struct('tissuePartitioning',@rodgersrowland);
 

@@ -1,0 +1,15 @@
+name: Test toolbox
+on: [push]
+jobs:
+  test:
+    name: Run MATLAB Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up MATLAB
+        uses: matlab-actions/setup-matlab@v2
+        with:
+          release: R2023b
+      - name: Run code checks and tests using buildtool
+        uses: matlab-actions/run-build@v2

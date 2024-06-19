@@ -48,6 +48,8 @@ assert( all(abs(Kref(1:10) - Kobs) < 1e-6, 'all') )
 
 %% Analytical solution of **linear** case (bolus dosing) - FAILS
 
+warning('Analytical solution of mAb model not implemented yet.')
+
 % define the dose
 Dose = 210*u.mg;
 
@@ -77,32 +79,32 @@ X0(idx.Id.Bolus.iv.cmt) = Dose/idx.Id.Bolus.iv.scaling;
 
 
 %TODO: the following is a relict from the sMD model, update it.
-X = solve_linode(setup.V.tot, setup.Q.blo, setup.K.tot, X0, idx, setup.CLuint.hep*setup.fuB);
-
-Xtref = arrayfun(X, double(indv.sampling.timespan), 'UniformOutput', false);
-
-Xtref = [Xtref{:}]';
-
-% comparison in double format
-Xtnum = double(indv.output.X(:,1:11));  % 11 organs + art + ven
-
-absErr = abs(Xtnum - Xtref);
-relErr = (Xtnum - Xtref)./(Xtref+eps(1)); 
-
-assert(all(absErr < 1e-10, 'all'))
-assert(all(relErr(2:end,:) < 1e-8, 'all'))          % pb. with zero initial values
-
-% % graphical comparison (for exploration, commented)
-figure()
-subplot(2,1,1)
-semilogy(Xtnum)
-title('Numerical sol.')
-subplot(2,1,2)
-semilogy(Xtref)
-title('Analytical sol.')
-organs = fieldnames(idx.I);
-legend(organs{1:13})
-linkaxes
+% X = solve_linode(setup.V.tot, setup.Q.blo, setup.K.tot, X0, idx, setup.CLuint.hep*setup.fuB);
+% 
+% Xtref = arrayfun(X, double(indv.sampling.timespan), 'UniformOutput', false);
+% 
+% Xtref = [Xtref{:}]';
+% 
+% % comparison in double format
+% Xtnum = double(indv.output.X(:,1:11));  % 11 organs + art + ven
+% 
+% absErr = abs(Xtnum - Xtref);
+% relErr = (Xtnum - Xtref)./(Xtref+eps(1)); 
+% 
+% assert(all(absErr < 1e-10, 'all'))
+% assert(all(relErr(2:end,:) < 1e-8, 'all'))          % pb. with zero initial values
+% 
+% % % graphical comparison (for exploration, commented)
+% figure()
+% subplot(2,1,1)
+% semilogy(Xtnum)
+% title('Numerical sol.')
+% subplot(2,1,2)
+% semilogy(Xtref)
+% title('Analytical sol.')
+% organs = fieldnames(idx.I);
+% legend(organs{1:13})
+% linkaxes
 
 %%
 

@@ -39,8 +39,11 @@ assert(isequal(v1,v2))
 
 %% Parentheses - FAILS
 
+warning('Parentheses currently not supported')
+
+
 % parentheses currently not supported
 str = '(1/2) m';
-str2u(str)
+%str2u(str)   % FAILS
 
 

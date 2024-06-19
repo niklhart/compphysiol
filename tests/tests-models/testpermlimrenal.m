@@ -17,7 +17,7 @@ refphys  = Physiology('human35m');
 addrecord(refphys,'GFR',0*u.L/u.h)
 
 drug = loaddrugdata('Lidocaine','species','human');
-addrecord(drug, 'cellPerm','human', u.cm/u.h); 
+updaterecord(drug, 'cellPerm','human', u.cm/u.h); 
 addrecord(drug, 'Freabs', 'human',0)
 
 % define sampling (S), dosing (D), physiology (P), model (M)
