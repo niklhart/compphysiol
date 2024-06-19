@@ -6,7 +6,7 @@ function testToolbox()
 
     wd = pathPBPKtoolbox();
 
-    suite = testsuite('tests',...[wd '/tests'], ...
+    suite = testsuite('tests',...
         'IncludeSubfolders',true, ...
         'BaseFolder', '*tests-*');
 
@@ -18,8 +18,8 @@ function testToolbox()
     finalize = onCleanup(@()(path(oldpath)));
 
     runner = testrunner('textoutput');
-    sourceCodeFolder = strcat(wd, {'/internal/','/models/'});
-    reportFolder = 'tests/coverageReport'; %[wd '/tests/coverageReport'];
+    sourceCodeFolder = fullfile(wd, {'internal','models'});
+    reportFolder = fullfile('tests','coverageReport');
     reportFormat = CoverageReport(reportFolder);
     p = CodeCoveragePlugin.forFolder(sourceCodeFolder,...
         'Producing',reportFormat,'IncludingSubfolders',true);

@@ -1,28 +1,28 @@
-%INITMATPBPK Add PBPK toolbox to Matlab path & initialize databases
-%   INITMATPBPK only needs to be executed in the following two 
+%INITCOMPPHYSIOL Add compphysiol toolbox to path & initialize databases
+%   INITCOMPPHYSIOL only needs to be executed in the following two 
 %   situations:
 %   
 %    - directly after starting MATLAB 
 %    - when changing the physiologytemplate or drugtemplate
 %   
 %   Note that any variable defined in the global workspace will be deleted
-%   when calling INITMATPBPK, which ensures that the physiology and
+%   when calling INITCOMPPHYSIOL, which ensures that the physiology and
 %   drug templates can be updated correctly.
 
-function [] = initmatpbpk()
+function [] = initcompphysiol()
     
-    % vars = evalin('base','who');
-    % if ~isempty(vars)
-    %     msg = 'All workspace variables will be cleared. Continue? Y/N [Y]: ';
-    %     str = input(msg,'s');
-    %     if ~startsWith('Y',str,'IgnoreCase',true)
-    %         fprintf('...installation aborted.\n')
-    %         return
-    %     end
-    % end
+    vars = evalin('base','who');
+    if ~isempty(vars)
+        msg = 'All workspace variables will be cleared. Continue? Y/N [Y]: ';
+        str = input(msg,'s');
+        if ~startsWith('Y',str,'IgnoreCase',true)
+            fprintf('...installation aborted.\n')
+            return
+        end
+    end
 
     S = dbstack('-completenames');
-    basepath = fullfile(fileparts(S(1).file), 'toolbox');
+    basepath = fileparts(S(1).file);
     
     addpath(genpath(fullfile(basepath, 'data')))
     addpath(genpath(fullfile(basepath, 'internal')))
@@ -39,18 +39,13 @@ function [] = initmatpbpk()
     
     fprintf(['\n\n'...
         ' --------------------------------------------------------------- \n'...
-        '|                 matpbpk: MATLAB PBPK toolbox                  |\n'...
+        '|         compphysiol: Computational Physiology Toolbox         |\n'...
         '|                                                               |\n'...
         '|             (c) Niklas Hartung, Wilhelm Huisinga              |\n'...
         '|                   University of Potsdam, 2024                 |\n'...
         '|                                                               |\n'...
         '|  The program is distributed under the terms of the            |\n'...
         '|  BSD 2-Clause License (see file license.txt).                 |\n'...
-        '|                                                               |\n'...
-        '|  This is the development version of the Matlab PBPK toolbox.  |\n'...
-        '|  If you wish to use the toolbox for your research, please     |\n'...
-        '|  contact us. The toolbox is under active development;         |\n'...
-        '|  some features might change in the future.                    |\n'...
         '|                                                               |\n'...
         ' --------------------------------------------------------------- \n\n\n'])
     

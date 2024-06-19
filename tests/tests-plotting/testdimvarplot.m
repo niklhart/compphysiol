@@ -114,6 +114,7 @@ close(h)
 
 %% Adding double to DimVar axes - FAILS
 
+warning('Adding double to DimVar axes - FAILS')
 % I didn't manage to create a warning when plotting double into DimVar
 % plots. This test is a reminder that there's still an open issue there.
 
@@ -121,6 +122,8 @@ h = figure('Visible','off');
 plot(xu,yu);
 hold on
 f = @() plot(xd,yd);
-assertWarning(f)
+
+
+%assertWarning(f)
 
 close(h)

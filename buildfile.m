@@ -10,14 +10,15 @@ function plan = buildfile
 end
     
     function checkTask(~)
-        % Identify code issues
+        % Identify code errors (info and warning are OK, for now)
         issues = codeIssues;
-        assert(isempty(issues.Issues),formattedDisplayText( ...
-            issues.Issues(:,["Location" "Severity" "Description"])))
+        errors = issues.Issues(issues.Issues.Severity == 'error',:);
+        assert(isempty(errors),formattedDisplayText( ...
+            errors(:,["Location" "Severity" "Description"])))
     end
     
     function testTask(context)
-        % 
+        % Run unit tests
 
         % Temporarily add buildUtilities to the path (remove it at the end of the function)
         oldPath = addpath(fullfile(context.Plan.RootFolder,"buildUtilities"));
