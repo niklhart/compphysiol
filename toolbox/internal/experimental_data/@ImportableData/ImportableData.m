@@ -74,7 +74,7 @@ classdef ImportableData < handle & matlab.mixin.Copyable % & CompactTabularDispl
                 folder = fullfile(pathPBPKtoolbox(), folder);
             end
             assert(isfile(fullfile(folder,filename)), ...
-                'Couldn''t find data file "%s" in folder "%s".',filename,folder)
+                'Couldn''t find data file "%s".',filename)
 
             % before reading in the data table, turn off the modified
             % varnames warning, since we explicitly want to use this syntax

@@ -88,7 +88,7 @@ data4.maprow('Warfarin plasma concentration','Record','Site','pla');
 testid4 = import(data4,'silent');
 
 % Units hard-coded in mapping (column UNITS is not mapped, i.e. ignored)
-file5 = fullfile(test_folder,'Test_Units_Unitless.csv');
+file5 = fullfile(test_folder,'Test_UNITS_Unitless.csv');
 data5 = ImportableData(file5);
 data5.maprow('Warfarin plasma concentration','Record',...
     'Site','pla',...

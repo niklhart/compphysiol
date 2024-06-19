@@ -5,5 +5,6 @@
 %   file FILE in subfolder(s) DIR1/DIR2/... within the main diary path
 %   returned by DIARYPATH().
 function path = diaryPath(varargin)
-        path = fullfile('tests','diary',varargin{:});
+        wd = pathPBPKtoolbox();
+        path = fullfile(wd,'..','tests','diary',varargin{:});
 end

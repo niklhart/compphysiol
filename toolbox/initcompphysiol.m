@@ -65,8 +65,5 @@ function [] = initcompphysiol(flag)
     disp({ddb.name}')
     fprintf('Initialization successful.\n\n')
     fprintf('Toolbox path:\n%s\n\n\n',pathPBPKtoolbox())
-    fprintf('Diary path:\n%s\n\n\n',diaryPath())
-
-
 
 end
