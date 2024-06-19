@@ -11,7 +11,7 @@
 
 function [] = initcompphysiol(flag)
     
-    if nargin == 1 && strcmp(flag,'silent')
+    if nargin < 1 || ~strcmp(flag,'silent')
         vars = evalin('base','who');
         if ~isempty(vars)
             msg = 'All workspace variables will be cleared. Continue? Y/N [Y]: ';

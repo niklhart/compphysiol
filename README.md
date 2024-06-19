@@ -7,6 +7,8 @@ physiology-based models, in particular physiologically-based pharmacokinetics (P
 It features a modular object-oriented design, has fully integrated unit 
 computation capabilities and an intuitive scripting language.
 
+![Toolbox Logo](images/readmeImage.png)
+
 ## Using the Computational Physiology Toolbox
 
 See `gettingStarted.mlx` for a first overview, and the `examples` folder
