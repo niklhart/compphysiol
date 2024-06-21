@@ -22,7 +22,7 @@ end
 
         % Temporarily add buildUtilities to the path (remove it at the end of the function)
         oldPath = addpath(fullfile(context.Plan.RootFolder,"buildUtilities"));
-        raii = onCleanup(@()(path(oldPath)));
+        cleanup = onCleanup(@()(path(oldPath)));
 
         testToolbox()
     end

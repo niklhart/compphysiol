@@ -1,4 +1,4 @@
-name: Test toolbox
+name: compphysiol CI
 on: [push]
 jobs:
   test:
