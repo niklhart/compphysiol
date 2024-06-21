@@ -1,10 +1,7 @@
 # Computational Physiology Toolbox
 
-[![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=niklhart/compphysiol)
-
+[![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=niklhart/compphysiol) 
 [![compphysiol](https://github.com/niklhart/compphysiol/actions/workflows/runtests.yml/badge.svg)](https://github.com/niklhart/compphysiol/actions/workflows/runtests.yml)
-
-<img title="" src="images/readmeImage.png" alt="Toolbox Logo" width="250" data-align="center">
 
 The Computational Physiology Toolbox is a MATLAB toolbox for computations with 
 physiology-based models, in particular physiologically-based pharmacokinetics (PBPK). 
