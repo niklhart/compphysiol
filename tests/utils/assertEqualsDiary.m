@@ -11,9 +11,9 @@ function assertEqualsDiary(fh, refDiary)
     refFile = diaryPath(refDiary);
     output_ref = fileread(refFile);
     
-    % remove line breaks, which might differ between systems:
-    output_test = strrep(output_test,'\n',' ');
-    output_ref  = strrep(output_ref,'\n',' ');
+    % remove line breaks / tabs, which might differ between systems:
+    output_test = strrep(output_test, newline,' ');
+    output_ref  = strrep(output_ref, newline,' ');
 
     % merge repeated spaces
     output_test = regexprep(output_test,' +',' ');
