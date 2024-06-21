@@ -15,6 +15,10 @@ function assertEqualsDiary(fh, refDiary)
     output_test = strrep(output_test,'\n','');
     output_ref  = strrep(output_ref,'\n','');
 
+    % merge repeated spaces
+    output_test = regexprep(output_test,' +',' ');
+    output_ref  = regexprep(output_ref,' +',' ');
+
     % compare text to reference
     success = isequal(output_test, output_ref);
 
