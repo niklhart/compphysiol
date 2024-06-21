@@ -11,6 +11,11 @@ function assertEqualsDiary(fh, refDiary)
     refFile = diaryPath(refDiary);
     output_ref = fileread(refFile);
     
+    % remove line breaks, which might differ between systems:
+    output_test = strrep(output_test,'\n','');
+    output_ref  = strrep(output_ref,'\n','');
+
+    % compare text to reference
     success = isequal(output_test, output_ref);
 
     if ~success

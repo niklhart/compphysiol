@@ -90,6 +90,7 @@
       <file>${PROJECT_ROOT}/toolbox/demos.xml</file>
       <file>${PROJECT_ROOT}/toolbox/examples</file>
       <file>${PROJECT_ROOT}/toolbox/gettingStarted.mlx</file>
+      <file>${PROJECT_ROOT}/toolbox/initcompphysiol.asv</file>
       <file>${PROJECT_ROOT}/toolbox/initcompphysiol.m</file>
       <file>${PROJECT_ROOT}/toolbox/internal</file>
       <file>${PROJECT_ROOT}/toolbox/models</file>
