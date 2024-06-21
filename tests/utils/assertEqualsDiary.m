@@ -15,6 +15,10 @@ function assertEqualsDiary(fh, refDiary)
     output_test = strrep(output_test, newline, ' ');
     output_ref  = strrep(output_ref, newline, ' ');
 
+    % remove multiplication sign '×' by letter 'x':
+    output_test = strrep(output_test, char(215), 'x');
+    output_ref  = strrep(output_ref, char(215), 'x');
+
     % merge repeated spaces, remove leading/trailing spaces
     output_test = strtrim(regexprep(output_test, ' +', ' '));
     output_ref  = strtrim(regexprep(output_ref, ' +', ' '));
