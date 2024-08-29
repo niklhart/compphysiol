@@ -23,3 +23,4 @@ jobs:
         with:
           files: reports/codecoverage.xml
           token: ${{ secrets.CODECOV_TOKEN }}
+          slug: niklhart/compphysiol
