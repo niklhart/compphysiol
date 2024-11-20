@@ -1,0 +1,118 @@
+name: compphysiol release
+on: 
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  test:
+    strategy: 
+      fail-fast: false
+      matrix: 
+        MATLABVersion: [R2022b, R2023a, R2023b, R2024a]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      - name: Set up MATLAB
+        uses: matlab-actions/setup-matlab@v2
+        with:
+          release: ${{ matrix.MATLABVersion }}
+
+      - name: Run tests
+        uses: matlab-actions/run-command@v2
+        with:
+          command: addpath("buildUtilities"),testToolbox("${{ matrix.MATLABVersion }}")  
+   
+        # Save the contents of the report directory from each release into a single artifact.  Since each release makes their own directory, they all update the same artifact.
+      - name: Save Report Directory
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reports
+          path: reports
+
+
+  # Report on what releases tested successfully.
+  # Generate a draft release based on the tag
+  # Recreate the tag with the final version of JSON files and the ToolboxPackaging.prj
+  release:
+    needs: test
+    if: always()
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+            ref: refs/heads/main
+    
+      - name: Set up MATLAB
+        uses: matlab-actions/setup-matlab@v2
+
+      # Copy all the reports down into the container
+      - uses: actions/download-artifact@v4
+        with:
+          name: reports
+          path: reports
+
+      # Generate the JSON for the releases tested badge
+      - name: Generate tested with badge
+        uses: matlab-actions/run-command@v2
+        with:
+          command: addpath("buildUtilities"),badgesforToolbox()     
+          
+      # Publish test results from all the releases
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          junit_files: "reports/*/test-results.xml"
+
+      # Package the MLTBX
+      - name: Package Toolbox
+        uses: matlab-actions/run-command@v2
+        with:
+          command: addpath("buildUtilities"),packageToolbox("specific","${{  github.ref_name }}")     
+
+      # Save the MLTBX.
+      - name: Save Packaged Toolbox
+        uses: actions/upload-artifact@v4
+        with:
+          name: compphysiol.mltbx
+          path: release/compphysiol.mltbx
+
+      # Commit the JSON for the MATLAB releases badge and ToolboxPackaging.prj
+      - name: commit changed files
+        continue-on-error: true
+        run: |
+          git config user.name "${{ github.workflow }} by ${{ github.actor }}"
+          git config user.email "<>"
+          git commit reports/badge/tested_with.json -m "Final checkins for release ${{  github.ref_name }}"
+          git commit ToolboxPackaging.prj -m "Final checkins for release ${{  github.ref_name }}"
+          git fetch
+          git push
+
+      # Retag the repo so that the updated files are included in the release tag
+      - name: update tag
+        if: always()
+        continue-on-error: true
+        run: |
+          git config user.name "${{ github.workflow }} by ${{ github.actor }}"
+          git config user.email "<>"
+          git tag -d "${{  github.ref_name }}" 
+          git push --delete origin ${{  github.ref_name }}
+          git tag -m "Release ${{  github.ref_name }}" ${{  github.ref_name }}
+          git push --tag
+
+      # Create the release
+      - name: Create GitHub Release
+        uses: ncipollo/release-action@v1
+        with:
+          draft: true        
+          artifacts: "release/compphysiol.mltbx"
+          generateReleaseNotes: true
+
+
+
+
+

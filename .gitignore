@@ -5,6 +5,9 @@
 *.slx.r*
 *.mdl.r*
 
+# Mac indexing files
+.DS_Store
+
 # Derived content-obscured files
 *.p
 
@@ -36,6 +39,9 @@ codegen/
 # MATLAB Project files
 resources/project/*
 
+
+# Reports generated during build
+reports/*
 
 # Coverage reports
 tests/coverageReport/*

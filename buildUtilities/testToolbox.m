@@ -1,5 +1,9 @@
 % main testing function (merging my own function and the MATLAB mock tbx)
-function testToolbox()
+function testToolbox(ReportSubdirectory)
+
+    arguments
+        ReportSubdirectory (1,1) string = "";
+    end
 
     import matlab.unittest.plugins.CodeCoveragePlugin;
     import matlab.unittest.plugins.XMLPlugin;
@@ -14,7 +18,7 @@ function testToolbox()
         'toolbox');
     finalize = onCleanup(@()(path(oldpath)));
 
-    outputDirectory = "reports";
+    outputDirectory = fullfile("reports",ReportSubdirectory);
     if isempty(dir(outputDirectory))
         mkdir(outputDirectory)
     end
@@ -30,14 +34,7 @@ function testToolbox()
     runner = testrunner('textoutput');
 
     sourceCodeFolder = fullfile(wd, {'internal','models'});
-
     codecoverageFileName = fullfile(outputDirectory,"codecoverage.xml");
-
-%    reportFolder = fullfile('tests','coverageReport');
-%    reportFormat = CoverageReport(reportFolder);
-%    p = CodeCoveragePlugin.forFolder(sourceCodeFolder,...
-%        'Producing',reportFormat,'IncludingSubfolders',true);
-%    runner.addPlugin(p)
 
     runner.addPlugin(XMLPlugin.producingJUnitFormat(fullfile(outputDirectory,'test-results.xml')));
     runner.addPlugin(CodeCoveragePlugin.forFolder(sourceCodeFolder, ...
