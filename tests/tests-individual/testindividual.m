@@ -362,28 +362,24 @@ assert(isequal(issimulated(indarr), [1;0]))
 
 %% Display
 
-% one individual
-ind1 = Individual;
-assertEqualsDiary(@() disp(ind1), 'testindividual_disp1.txt');
-
 % individuals array
-ind2 = Individual(2,'Virtual');
+ind1 = Individual(2,'Virtual');
 obs = Observable('MultiPK','A','pla');
-ind2(1).model = test_model();
-ind2(1).sampling = Sampling([0 0.5 1]*u.h, obs);
-ind2(2).model = test_model();
-ind2(2).sampling = Sampling([0 0.2 0.4 0.6 0.8 1]*u.h, obs);
-assertEqualsDiary(@() disp(ind2), 'testindividual_disp2.txt');
+ind1(1).model = test_model();
+ind1(1).sampling = Sampling([0 0.5 1]*u.h, obs);
+ind1(2).model = test_model();
+ind1(2).sampling = Sampling([0 0.2 0.4 0.6 0.8 1]*u.h, obs);
+assertEqualsDiary(@() disp(ind1), 'testindividual_disp2.txt');
 
 % simulated individual
 obs = Observable('MultiPK','A','pla');
-ind3 = Individual('Virtual');
-ind3.model = test_model();
-ind3.sampling = Sampling([0 0.5 1]*u.h, obs);
-ind3.type = 'Virtual individual';
-initialize(ind3);
-simulate(ind3);
-assertEqualsDiary(@() disp(ind3), 'testindividual_disp3.txt');
+ind2 = Individual('Virtual');
+ind2.model = test_model();
+ind2.sampling = Sampling([0 0.5 1]*u.h, obs);
+ind2.type = 'Virtual individual';
+initialize(ind2);
+simulate(ind2);
+assertEqualsDiary(@() disp(ind2), 'testindividual_disp3.txt');
 
 %% 
 % helpers

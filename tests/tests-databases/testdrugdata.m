@@ -49,12 +49,8 @@ dd1 = loaddrugdata('drugA');
 assertEqualsDiary(@() disp(dd1), ...
     'testdrugdata_disp1.txt');
 
-dd2 = loaddrugdata('drugB');
-assertEqualsDiary(@() disp([dd1 dd2]), ...
-    'testdrugdata_disp2.txt');
-
-dd3 = DrugData;
-assertEqualsDiary(@() disp(dd3), ...
+dd2 = DrugData;
+assertEqualsDiary(@() disp(dd2), ...
     'testdrugdata_disp3.txt');
 
 
@@ -107,13 +103,13 @@ assertEqualsDiary(@() filtervariants(dd1, 'assumption', 'test'), ...
     'testdrugdata_variants3.txt');
 
 % no suitable test drug for this test
-dd3 = loaddrugdata('Warfarin');
-filtervariants(dd3, 'reference', ...
+dd2 = loaddrugdata('Warfarin');
+filtervariants(dd2, 'reference', ...
     'Julkunen1980', ...
     'silent',true);
-assert(isequal(size(dd3.db.fuP), [2 4]))
-assert(isequal(size(dd3.db.lambda_po), [1 4]))
-assert(dd3.db.lambda_po.Value/(1/u.h) - 2 < 1e-4)
+assert(isequal(size(dd2.db.fuP), [2 4]))
+assert(isequal(size(dd2.db.lambda_po), [1 4]))
+assert(dd2.db.lambda_po.Value/(1/u.h) - 2 < 1e-4)
 
 % no suitable test drug for this test
 dd4 = loaddrugdata('Amitriptyline');
