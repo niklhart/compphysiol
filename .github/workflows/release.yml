@@ -7,7 +7,7 @@ on:
   push:
     tags:
       - 'v*'
-    branches: [ "v0.1.1" ]
+    branches: [ "0.1.1" ]
   workflow_dispatch:
 
 jobs:
