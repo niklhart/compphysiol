@@ -1,9 +1,9 @@
 name: compphysiol release
 on: 
-  workflow_dispatch:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
 
 jobs:
   test:
