@@ -224,6 +224,8 @@ addrecord(rat, 'fvasOWtot', 'lun', 0.262, ref.kawai, [])    % [0.26-0.52], n=3
 addrecord(rat, 'fvasOWtot', 'mus', 0.026, ref.kawai, [])    % [0.01-0.04], n=3
 addrecord(rat, 'fvasOWtot', 'ski', 0.019, ref.kawai, [])    % 0.02
 addrecord(rat, 'fvasOWtot', 'spl', 0.282, ref.kawai, [])    % [0.17-0.28], n=3
+addrecord(rat, 'fvasOWtot', 'pan', 0.180, ref.kawai, [])    % 
+addrecord(rat, 'fvasOWtot', 'thy', 0.030, ref.kawai, [])    % 
 
 addrecord(rat, 'fintOWtot', 'adi', 0.135, ref.kawai, [])   
 addrecord(rat, 'fintOWtot', 'bon', 0.100, ref.kawai, [])   
@@ -236,10 +238,14 @@ addrecord(rat, 'fintOWtot', 'lun', 0.188, ref.kawai, [])
 addrecord(rat, 'fintOWtot', 'mus', 0.120, ref.kawai, [])   
 addrecord(rat, 'fintOWtot', 'ski', 0.302, ref.kawai, [])   
 addrecord(rat, 'fintOWtot', 'spl', 0.150, ref.kawai, [])  
+addrecord(rat, 'fintOWtot', 'pan', 0.120, ref.kawai, [])    % 
+addrecord(rat, 'fintOWtot', 'thy', 0.150, ref.kawai, [])    % 
 
-for i = 1:numel(tissues)
+tissues_kawai = {'adi','bon','bra','gut','hea','kid','liv','lun','mus','ski','spl','pan','thy'};
+
+for i = 1:numel(tissues_kawai)
     
-    tis = tissues{i};
+    tis = tissues_kawai{i};
     
     fvasOWtot = getrecord(rat,'fvasOWtot',tis);
     fintOWtot = getrecord(rat,'fintOWtot',tis);
@@ -434,7 +440,7 @@ addrecord(rat, 'fwtotVtis', 'spl', 0.562, ref, [])
 
 ref = 'Rodgers, Leahy, and Rowland, J Pharm Sci (2005)';
 
-%%% tissue water (extra-cellular)           %NH unused??
+%%% tissue water (extra-cellular)           
 
 addrecord(rat, 'fwecVrbt', 'adi', 0.135, ref, [])
 addrecord(rat, 'fwecVrbt', 'bon', 0.100, ref, [])

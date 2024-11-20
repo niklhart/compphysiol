@@ -87,7 +87,8 @@ params = {
     'fregVtbl'    'unitless'       true     'Regional peripheral blood fraction of total blood volume'  
     'fartVtbl'    'unitless'       false    'Arterial fraction of total blood volume'  
     'fvenVtbl'    'unitless'       false    'Venous fraction of total blood volume'  
-        
+     
+    'fpwVpla'     'unitless'       false    'Water fraction of plasma'
     'rtpAlb'      'unitless'       true     'Tissue-to-plasma ratio of albumin'   
     'rtpLip'      'unitless'       true     'Tissue-to-plasma ratio of lipoprotein'     
 
