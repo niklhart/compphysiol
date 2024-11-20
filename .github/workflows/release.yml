@@ -1,4 +1,8 @@
 name: compphysiol release
+
+permissions:
+  checks: write
+
 on: 
   push:
     tags:
@@ -61,7 +65,11 @@ jobs:
         uses: matlab-actions/run-command@v2
         with:
           command: addpath("buildUtilities"),badgesforToolbox()     
-          
+
+      # Debugging 
+      - name: Debug JUnit Files
+        run: ls -R reports/      
+    
       # Publish test results from all the releases
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
