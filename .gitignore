@@ -42,7 +42,7 @@ resources/project/*
 
 # Reports generated during build
 reports/*
-!reports/badge/tested-with.json
+!reports/badge
 
 # Coverage reports
 tests/coverageReport/*
