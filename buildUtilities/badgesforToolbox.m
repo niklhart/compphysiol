@@ -12,7 +12,7 @@ function badgesforToolbox(rootDir)
     % Select only folders
     releaseDirectoryInfo = releaseDirectoryInfo([releaseDirectoryInfo.isdir]);
     % with a name like R2*
-    releaseDirectoryInfo = releaseDirectoryInfo(startsWith(string({releaseDirectoryInfo.name}),"R2","IgnoreCase",true));
+    releaseDirectoryInfo = releaseDirectoryInfo(startsWith(string({releaseDirectoryInfo.name}),"reports-R2","IgnoreCase",true));
 
     % Sort releases newest to oldest
     [~,ix] = sort(string({releaseDirectoryInfo.name}),"descend");
