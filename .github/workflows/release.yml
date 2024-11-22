@@ -92,21 +92,27 @@ jobs:
 
       # Commit the JSON for the MATLAB releases badge and ToolboxPackaging.prj
       - name: commit changed files
+        env:
+          PAT: ${{ secrets.PAT }}
         continue-on-error: true
         run: |
           git config user.name "${{ github.workflow }} by ${{ github.actor }}"
           git config user.email "<>"
           git commit reports/badge/tested_with.json -m "Final checkins for release ${{  github.ref_name }}"
+          git remote set-url origin https://x-access-token:${PAT}@github.com/${{ github.repository }}
           git fetch
           git push
 
       # Retag the repo so that the updated files are included in the release tag
       - name: update tag
         if: always()
+        env:
+          PAT: ${{ secrets.PAT }}
         continue-on-error: true
         run: |
           git config user.name "${{ github.workflow }} by ${{ github.actor }}"
           git config user.email "<>"
+          git remote set-url origin https://x-access-token:${PAT}@github.com/${{ github.repository }}
           # Check if triggered by a tag or branch
           if [ "${{ github.ref_type }}" = "tag" ]; then
             git tag -d "${{ github.ref_name }}" 
