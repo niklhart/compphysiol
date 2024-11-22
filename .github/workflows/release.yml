@@ -49,6 +49,8 @@ jobs:
     
     steps:
       - uses: actions/checkout@v4
+        with:
+            ref: refs/heads/master
     
       - name: Set up MATLAB
         uses: matlab-actions/setup-matlab@v2
@@ -95,7 +97,6 @@ jobs:
           git config user.name "${{ github.workflow }} by ${{ github.actor }}"
           git config user.email "<>"
           git commit reports/badge/tested_with.json -m "Final checkins for release ${{  github.ref_name }}"
-          git commit ToolboxPackaging.prj -m "Final checkins for release ${{  github.ref_name }}"
           git fetch
           git push
 
