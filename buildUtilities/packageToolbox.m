@@ -6,7 +6,7 @@ function newVersion = packageToolbox(releaseType, versionString)
 % packageToolbox() Build is automatically incremented.  
 %
 % packageTookbox(releaseType) RELEASETYPE  can be "major", "minor", or "patch" 
-% to update semantic version number appropriately.  Build (fourth elecment in 
+% to update semantic version number appropriately.  Build (fourth element in 
 % semantic versioning) is always updated automatically.
 %
 % packageTookbox('specific',versionString) VERSIONSTRING is a string containing
@@ -25,11 +25,12 @@ function newVersion = packageToolbox(releaseType, versionString)
         error("releaseToolbox:NoTbxPrjFound","No Toolbox Packaging Project found.")
     end
 
-    % GitHub issue #11.  Toolbox packaging from GitHub action does not put <toolboxdir>/internal and <toolboxdir>/doc on the path.
+    % GitHub issue #11.  Toolbox packaging from GitHub action does not put <toolboxdir>/... on the path.
     previouspath = addpath(fullfile(pwd,"toolbox","internal"),...
-            fullfile(pwd,"toolbox","doc"));
+                           fullfile(pwd,"toolbox","data"),...
+                           fullfile(pwd,"toolbox","models"));
 
-    newVersion = updateMLTBXVersion(tbxPackagingProjectFile,releaseType, versionString);
+    newVersion = updateMLTBXVersion(tbxPackagingProjectFile, releaseType, versionString);
     matlab.addons.toolbox.packageToolbox(tbxPackagingProjectFile);
 
     % Revert path changes
@@ -52,15 +53,15 @@ function newVersion = packageToolbox(releaseType, versionString)
         prjFiles  = fullfile(directoryToSearch,string({prjFiles.name}));
         tbxPackagingProjectFilename = "";
         for iPrjFile = 1:numel(prjFiles)
-            try
+            try %#ok<TRYNC>
                 % try to get the version number, if it fails, try the next
                 % one
                 matlab.addons.toolbox.toolboxVersion(prjFiles(iPrjFile));
                 tbxPackagingProjectFilename = prjFiles(iPrjFile);
                 return
-            catch %#ok<CTCH> 
-                tbxPackagingProjectFilename = "";
-                break
+            % catch %#ok<CTCH> 
+            %     tbxPackagingProjectFilename = "";
+            %     break
             end
         end
     end
