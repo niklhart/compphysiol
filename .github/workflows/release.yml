@@ -8,7 +8,6 @@ on:
   push:
     tags:
       - 'v*'
-    branches: [ "v0.1.1" ]
   workflow_dispatch:
 
 jobs:
@@ -114,16 +113,10 @@ jobs:
           git config user.name "${{ github.workflow }} by ${{ github.actor }}"
           git config user.email "<>"
           git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}
-          # Check if triggered by a tag or branch
-          if [ "${{ github.ref_type }}" = "tag" ]; then
-            git tag -d "${{ github.ref_name }}" 
-            git push --delete origin ${{ github.ref_name }}
-            git tag -m "Release ${{ github.ref_name }}" ${{ github.ref_name }}
-            git push --tag
-          else
-            git tag -m "Simulated Release ${{ github.ref_name }}" simulated-${{ github.ref_name }}
-            git push --tag
-          fi
+          git tag -d "${{ github.ref_name }}" 
+          git push --delete origin ${{ github.ref_name }}
+          git tag -m "Release ${{ github.ref_name }}" ${{ github.ref_name }}
+          git push --tag
 
 
       # Create the release
