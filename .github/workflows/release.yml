@@ -2,6 +2,7 @@ name: compphysiol release
 
 permissions:
   checks: write
+  contents: write
 
 on: 
   push:
