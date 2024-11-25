@@ -63,8 +63,9 @@ jobs:
       # Normalize directory structure
       - name: Normalize report directories
         run: |
+          cd reports
           for d in reports-*; do
-            mv "$d" "reports/${d#reports-}";
+            mv "$d" "${d#reports-}";
           done
 
       # Generate the JSON for the releases tested badge
