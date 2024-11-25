@@ -178,7 +178,9 @@ assertError(@() setModel(ind1, 'abc'), 'PBPK:Individual:setmodel:wrongObjType')
 %% Test conversion methods
 
 % exp2sim
-data = ImportableData('../tests/data-for-testing/Test_UNITS_DimVarColumns.csv','Delimiter',',');
+[testDirectory] = fileparts(mfilename('fullpath'));
+file = fullfile(testDirectory,'..','data-for-testing','Test_UNITS_DimVarColumns.csv');
+data = ImportableData(file,'Delimiter',',');
 data.maprow('Species','Covariate');
 data.maprow('Warfarin oral dose','Oral dosing','Compound','Warfarin');
 data.maprow('Warfarin plasma concentration','Record','Site','pla');

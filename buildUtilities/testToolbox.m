@@ -15,7 +15,7 @@ function testToolbox(ReportSubdirectory)
         fullfile('tests','data-for-testing'), ...
         fullfile('tests','models-for-testing'), ...
         fullfile('tests','diary'), ...
-        'toolbox');
+        genpath('toolbox'));
     finalize = onCleanup(@()(path(oldpath)));
 
     outputDirectory = fullfile("reports",ReportSubdirectory);
@@ -27,9 +27,7 @@ function testToolbox(ReportSubdirectory)
         'IncludeSubfolders',true, ...
         'BaseFolder', '*tests-*');
 
-    initcompphysiol('silent');
-
-    wd = pathPBPKtoolbox();
+    wd = 'toolbox';
 
     runner = testrunner('textoutput');
 

@@ -9,14 +9,6 @@
 %   
 %   YScaleLog - Log y scale in plots by default [ true | {false} ]
 %   
-%   PhysiologyDBhandle - Physiology of reference individuals [ Physiology array {empty} ]
-%       This option is set during initialization of the toolbox and need
-%       not be updated manually.
-%   
-%   DrugDBhandle - Drug properties database [ DrugData array {empty} ]
-%       This option is set during initialization of the toolbox and need
-%       not be updated manually.
-%   
 %   OdeUnitCheck - Unit check frequency when solving ODEs [ never | {once} | always] 
 %   
 %   DisplayUnits - List of preferred display units [ cellstr {empty} ]
@@ -69,9 +61,6 @@ function options = optionsparser(options, varargin)
     p.addParameter('reporting',          'Assumptions',                  @ischar);
     p.addParameter('XScaleLog',          false,                          @isboolean);
     p.addParameter('YScaleLog',          false,                          @isboolean);
-    p.addParameter('PhysiologyDBhandle', [],                             @(x) isa(x,'Physiology'));
-    p.addParameter('DrugDBhandle',       [],                             @(x) isa(x,'DrugData'));
-    p.addParameter('ExpDrugDBhandle',    [],                             @(x) isa(x,'ExpDrugData'));
     p.addParameter('OdeUnitCheck',       'once',                         @(x) ismember(x,{'never','once','always'}));
     p.addParameter('DisplayUnits',       {},                             @iscellstr);
     p.addParameter('AutoAssignDrugData', false,                          @isboolean);
@@ -87,11 +76,7 @@ function options = optionsparser(options, varargin)
     
     % resetting options to default
     if ~isempty(p.Results.reset)
-        phys = options.PhysiologyDBhandle;
-        drug = options.DrugDBhandle;
         options = rmfield(p.Results, 'reset');
-        options.PhysiologyDBhandle = phys;  
-        options.DrugDBhandle       = drug;
         return
     end
     

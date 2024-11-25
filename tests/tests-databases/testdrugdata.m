@@ -2,16 +2,6 @@
 
 %% loaddrugdata function
 
-% database not initialized
-ddHandle = copy(getoptPBPKtoolbox('DrugDBhandle'));
-cleanup = onCleanup(@() setoptPBPKtoolbox('DrugDBhandle', ddHandle));
-setoptPBPKtoolbox('DrugDBhandle', DrugData);
-% TODO: does not work, because isempty(DrugData) == false (see loaddrugdata 
-% function). 
-% assertError(@() loaddrugdata('drugA'), 'PBPK:DrugData:drugDatabaseEmpty')
-assertError(@() loaddrugdata('drugA'))
-setoptPBPKtoolbox('DrugDBhandle', ddHandle);
-
 % correct usage: no filtering
 dd1 = loaddrugdata('drugA');
 assert(strcmp(dd1.name, 'drugA'))

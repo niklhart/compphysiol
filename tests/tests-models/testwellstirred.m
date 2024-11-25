@@ -19,7 +19,8 @@ indv.drugdata    = loaddrugdata('Lidocaine','species','human');
 
 initialize(indv)
 
-ddb = getoptPBPKtoolbox('DrugDBhandle');
+ddb = DrugDB.Instance;
+
 cls = {ddb.class};
 cpd = {ddb.name};
 cpd = cpd(strcmp(cls,'sMD'));

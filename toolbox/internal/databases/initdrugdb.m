@@ -1,6 +1,11 @@
 %INITDRUGDB Initialize the drug database
-%   DDB = INITDRUGDB() initializes a drug database DDB (an array of class
-%   'DrugData') that can be queried in different ways:
+%   DDB = INITDRUGDB() initializes the drug database DDB (an array of class
+%   'DrugData'). The function is executed the first time that
+%   
+%   DrugDB.Instance
+%   
+%   is accessed. The resulting DrugData object can be queried in different 
+%   ways:
 %   
 %   1) direct queries corresponding to a compound CPD (character array):
 %       a) getvalue(DDB{CPD}, NM) retrieves a species-independent parameter
@@ -8,30 +13,27 @@
 %       b) getvalue(DDB{CPD}, NM, SPEC) retrieves a per-species parameter
 %          NM for species SPEC ('human', 'rat' or 'mouse')
 %   2) loading a physiology and drug database with function loaddatabases()
-%       
-%   A handle to the drug database is returned AND stored
-%   in the global toolbox options; it can be retrieved via 
-%
-%   getoptPBPKtoolbox('DrugDBhandle')
+%   
+%   See DrugData for more details.
 %
 %   Since some parameters are scaled from reference individuals during
-%   database setup, the physiology database must be initialized before the
-%   drug database (this is done automatically in 'initPBPKtoolbox').
+%   database setup, the physiology database is initializes as well when
+%   be initializing the drug database.
 %
 %   Function INITDRUGDB can be edited to add additional entries into the
 %   database, see subfunction build_database() below. To define new types
 %   of parameters, function drugtemplate() must be extended.
+%   
+%   For a change in INITDRUGDB() to take effect, clear the DrugDB class 
+%   first:
+%   
+%   clear DrugDB
 %
-%   See also initphysiologydb, loaddatabases, initPBPKtoolbox, drugtemplate 
+%   See also initphysiologydb, DrugDB, DrugData loaddatabases, drugtemplate 
 
 function ddb = initdrugdb()
-    
-    if getoptPBPKtoolbox('LoadExpDrugData')
-        
-        edb = initexpdrugdb();
-        setoptPBPKtoolbox('ExpDrugDBhandle', edb);
 
-    end
+    fprintf('Initializing the drug database...\n')
 
     % add entries to the drug database
     ddb = build_database();
@@ -41,9 +43,9 @@ function ddb = initdrugdb()
 
     % derive scalable quantities in the reference individuals 
     ddb = finish_database(ddb, refids);
-    
-    % leave a handle to the DrugDB in global options
-    setoptPBPKtoolbox('DrugDBhandle', ddb);
+
+    fprintf('...finished.\n')
+
 end
 
 function ddb = build_database()
@@ -533,7 +535,8 @@ function refid = getrefids()
     % for each species, choose a reference individual in which to convert into
     % scalable quantities
 
-    phys = getoptPBPKtoolbox('PhysiologyDBhandle');
+    phys = PhysiologyDB.Instance;   
+
     refid = struct;
     refid.rat   = phys{'rat250'};
     refid.mouse = phys{'mouse25'};

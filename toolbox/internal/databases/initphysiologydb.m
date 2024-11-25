@@ -1,6 +1,9 @@
 %INITPHYSIOLOGYDB Initialize the physiological database    
 %   PHYSIOLOGYDB = INITPHYSIOLOGYDB() creates an array of reference 
-%   individuals of class Physiology, which can be queried in different ways:
+%   individuals of class Physiology. It is executed automatically the first
+%   time that PhysiologyDB.Instance is accessed. 
+% 
+%   The resulting Physiology array can be queried in different ways:
 %
 %   1) direct queries corresponding to a reference individual ID:
 %       a) getvalue(PHYSIOLOGYDB{ID}, NM) retrieves a tissue-independent parameter
@@ -9,23 +12,26 @@
 %          NM for tissue TIS
 %   2) loading a physiology and drug database with function loaddatabases()
 %   
-%   A handle to the reference individuals is returned AND stored
-%   in the global toolbox options; it can be retrieved via 
+%   See Physiology for details.
 %
-%   getoptPBPKtoolbox('PhysiologyDBhandle')
-%
-%   To extend the species database, the following options are available:
+%   To extend the physiology database, the following options are available:
 %   
 %   1) add a new reference individual in INITPHYSIOLOGYDB()
 %   2) add a physiological parameter in physiologytemplate() and add 
 %      records in INITPHYSIOLOGYDB() for an existing or new reference 
 %      individual.
 %   
-%   See also physiologytemplate, Physiology, loaddatabases, initdrugdb
+%   For a change in INITPHYSIOLOGYDB() to take effect, clear the 
+%   PhysiologyDB class first:
+%   
+%   clear PhysiologyDB
+%
+%   See also physiologytemplate, Physiology, PhysiologyDB, loaddatabases, 
+%   initdrugdb
 
 function physiologydb = initphysiologydb()
 
-
+fprintf('Initializing the physiology database...\n')
 %%% ========================================================================================================
 %%% Data: Mostly reported for F344 rats
 %%% 
@@ -1776,10 +1782,9 @@ clonerecord(human, 'rtpLip', rat{'rat250'})
 %%%                            finish database creation 
 %%% +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-%sdb = [rat mouse human];
 physiologydb = [rat mouse human];
-% leave a handle to the PhysiologyDB in global options
-setoptPBPKtoolbox('PhysiologyDBhandle', physiologydb);
-    
+
+fprintf('...finished.\n')
+
 end
 

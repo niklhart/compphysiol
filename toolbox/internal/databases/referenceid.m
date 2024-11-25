@@ -8,12 +8,9 @@ function out = referenceid(name)
 %   NAMES = REFERENCEID() returns the names of available reference
 %   individuals as a cellstr.
 
-    h = getoptPBPKtoolbox('PhysiologyDBhandle');
+    h = PhysiologyDB.Instance;
     
-    if isempty(h)
-        error('PBPK:referenceid:dbNotInitialized', ...
-            'Physiological database must be initialized first.')
-    elseif nargin == 0
+    if nargin == 0
         out = {h.name};
     else
         valid = {h.name};

@@ -30,8 +30,7 @@ classdef ImportableData < handle & matlab.mixin.Copyable % & CompactTabularDispl
             %   OBJ = ImportableData(FILENAME) creates an object OBJ of
             %   class ImportableData from a valid data file named FILENAME,
             %   which can either be a relative path with respect to the
-            %   main toolbox folder returned by pathPBPKtoolbox() or an
-            %   absolute path.
+            %   main toolbox folder or an absolute path.
             %   
             %   OBJ can then be manipulated using ImportableData methods,
             %   in particular mappings. EXPID = import(OBJ) finishes the
@@ -43,20 +42,9 @@ classdef ImportableData < handle & matlab.mixin.Copyable % & CompactTabularDispl
             %
             %   Examples:
             %   
-            %   % Defaults
-            %   file = 'tests/data-for-testing/Test_COVARIATES_POP.csv';
+            %   % With defaults
+            %   file = 'data/Theophylline.csv';
             %   data = ImportableData(file)
-            %   
-            %   % Custom options #1
-            %   file = 'tests/data-for-testing/Test_UNITS_DimVarColumns.csv';
-            %   data = ImportableData(file,'Delimiter',',')
-            %   
-            %   % Custom options #2 
-            %   file = 'tests/data-for-testing/Test_COVARIATES.csv';
-            %   opts = detectImportOptions(file);
-            %   opts.VariableTypes{2} = 'char';   % read VALUE column as 'char'
-            %   opts.DataLines(1) = 2;            % don't skip any data row
-            %   data = ImportableData(file, opts)
             %   
             %   See also ImportableData/import, readtable, pathPBPKtoolbox,
             %   ImportableData/maprow, ImportableData/flagcov,
@@ -69,11 +57,13 @@ classdef ImportableData < handle & matlab.mixin.Copyable % & CompactTabularDispl
             end
             filename = [filename ext];
 
+
             % relative path to toolbox folder or absolute path?
-            if isfile(fullfile(pathPBPKtoolbox(),folder,filename))
-                folder = fullfile(pathPBPKtoolbox(), folder);
+            tbx_folder = 'toolbox';
+            if isfile(fullfile(tbx_folder,folder,filename)) % relative path
+                folder = fullfile(tbx_folder, folder);
             end
-            assert(isfile(fullfile(folder,filename)), ...
+            assert(isfile(fullfile(folder,filename)), ...   % absolute path
                 'Couldn''t find data file "%s".',filename)
 
             % before reading in the data table, turn off the modified

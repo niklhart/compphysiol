@@ -15,10 +15,7 @@
 %       loaddrugdata(compounds(dosing))
 function drugdata = loaddrugdata(compounds, varargin)
 
-    ddb = getoptPBPKtoolbox('DrugDBhandle');
-
-    assert(~isempty(ddb), 'PBPK:DrugData:drugDatabaseEmpty', ...
-        'Drug database is empty, please initialize first.')
+    ddb = DrugDB.Instance;
 
     compounds = cellstr(compounds);
     drugdata = copy(ddb{compounds{:}});

@@ -1,13 +1,16 @@
 % Testing data import functions 
 
-test_folder = '../tests/data-for-testing/'; % QUICK FIX
+%test_folder = '../tests/data-for-testing/'; % QUICK FIX
+testDirectory = fileparts(mfilename('fullpath'));
 
 %% Test covariate tables
 
 % Value column --> ensure that it is read as char and that no rows are
 %                  skipped
-file = fullfile(test_folder,'Test_COVARIATES.csv');
-opts = detectImportOptions(fullfile(pathPBPKtoolbox(), file));
+file = fullfile(testDirectory,'..','data-for-testing','Test_COVARIATES.csv');
+
+opts = detectImportOptions(file);
+%opts = detectImportOptions(fullfile(pathPBPKtoolbox(), file));
 opts.VariableTypes{2} = 'char';  % read VALUE column as 'char'
 opts.DataLines(1) = 2;           % don't skip any data row
 
@@ -23,7 +26,7 @@ refphys = Covariates('species','human','sex','female','age',35*u.year,...
 assert(isequal(expid.physiology,refphys))
 
 % One column per Covariate, multiple IDs
-file2 = fullfile(test_folder,'Test_COVARIATES_POP.csv');
+file2 = fullfile(testDirectory,'..','data-for-testing','Test_COVARIATES_POP.csv');
 data2 = ImportableData(file2);
 data2.flagcov('BW', 'BW');
 data2.flagcov('Age','age');
@@ -39,7 +42,7 @@ assert(all(hasrecord(physarr,'BH')))
 
 %% Test different dosing formats
 
-file = fullfile(test_folder,'Test_DOSING.csv');
+file = fullfile(testDirectory,'..','data-for-testing','Test_DOSING.csv');
 
 data = ImportableData(file);
 data.setattr('Name','TYPE');
@@ -60,19 +63,19 @@ assert(isequal(impdos,refdos))
 %% Different ways of encoding units in the dataset
 
 % Units encoded in VALUE column
-file = fullfile(test_folder,'Test_UNITS_DimVarColumns.csv');
+file = fullfile(testDirectory,'..','data-for-testing','Test_UNITS_DimVarColumns.csv');
 data = ImportableData(file,'Delimiter',',');
 data.maprow('Warfarin plasma concentration','Record','Site','pla');
 testid = import(data,'silent');
 
 % Units encoded in column headers
-file2 = fullfile(test_folder,'Test_UNITS_InHeader.csv');
+file2 = fullfile(testDirectory,'..','data-for-testing','Test_UNITS_InHeader.csv');
 data2 = ImportableData(file2);
 data2.maprow('Warfarin plasma concentration','Record','Site','pla');
 testid2 = import(data2,'silent');
 
 % Units encoded in a column UNITS, "map-then-set"
-file3 = fullfile(test_folder,'Test_UNITS_ExtraColumns.csv');
+file3 = fullfile(testDirectory,'..','data-for-testing','Test_UNITS_ExtraColumns.csv');
 data3 = ImportableData(file3);
 data3.maprow('Warfarin plasma concentration','Record','Site','pla');
 data3.setattr('[Time]','TIME_UNITS');
@@ -80,7 +83,7 @@ data3.setattr('[Value]','VALUE_UNITS');
 testid3 = import(data3,'silent');
 
 % Units encoded in a column UNITS, "set-then-map"
-file4 = fullfile(test_folder,'Test_UNITS_ExtraColumns.csv');
+file4 = fullfile(testDirectory,'..','data-for-testing','Test_UNITS_ExtraColumns.csv');
 data4 = ImportableData(file4);
 data4.setattr('[Time]','TIME_UNITS');
 data4.setattr('[Value]','VALUE_UNITS');
@@ -88,7 +91,7 @@ data4.maprow('Warfarin plasma concentration','Record','Site','pla');
 testid4 = import(data4,'silent');
 
 % Units hard-coded in mapping (column UNITS is not mapped, i.e. ignored)
-file5 = fullfile(test_folder,'Test_UNITS_Unitless.csv');
+file5 = fullfile(testDirectory,'..','data-for-testing','Test_UNITS_Unitless.csv');
 data5 = ImportableData(file5);
 data5.maprow('Warfarin plasma concentration','Record',...
     'Site','pla',...
