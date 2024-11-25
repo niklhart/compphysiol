@@ -60,6 +60,13 @@ jobs:
         with:
           path: reports
 
+      # Normalize directory structure
+      - name: Normalize report directories
+        run: |
+          for d in reports-*; do
+            mv "$d" "reports/${d#reports-}";
+          done
+
       # Generate the JSON for the releases tested badge
       - name: Generate tested with badge
         uses: matlab-actions/run-command@v2
