@@ -25,7 +25,8 @@ function params = drugtemplate()
 params = {
     'formula'             'char'           false      'Molecular formula'
     'MW'                  'Mass/Amount'    false      'Molecular weight'
-    'pKa'                 'unitless'       false      'log10 acid dissociation constant'
+    'pKa_acidic'          'unitless'       false      'acidic log10 acid dissociation constant'
+    'pKa_basic'           'unitless'       false      'basic log10 acid dissociation constant'
     'logPow'              'unitless'       false      'log10 octanol-water partition coefficient'
     'logPvow'             'unitless'       false      'log10 vegetable oil-water partition coefficient'
     'logMA'               'unitless'       false      'log10 membrane affinity (phosphatidylcholin:water partition coefficient at pH 7.4)'

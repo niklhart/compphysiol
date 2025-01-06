@@ -77,10 +77,20 @@ pH_pla = queryphys('pH','pla');
 pH_ery = queryphys('pH','ery');
 
 % drug-specific or mixed data
-if strcmp(drug.subclass,'neutral')
-    pKa = [];
-else
-    pKa = querydrug('pKa');  
+acidic_pKa = [];
+basic_pKa  = [];
+switch drug.subclass 
+    case 'neutral'
+        % pass
+    case {'acid','diprotic acid'}
+        acidic_pKa = querydrug('pKa_acidic');  
+    case {'base','diprotic base'}
+        basic_pKa  = querydrug('pKa_basic');  
+    case 'zwitter ion'
+        acidic_pKa = querydrug('pKa_acidic');  
+        basic_pKa  = querydrug('pKa_basic');  
+    otherwise 
+        error('unknown drug subclass "%s".', drug.subclass)
 end
 fuP      = querydrug('fuP');         
 Kery_up  = querydrug('K_ery_up'); 
@@ -96,9 +106,9 @@ end
 
 % fraction neutral due to ionization effects
 % (same pH in plasma and extracellular space --> same ionization)
-[fnC,   ~,fcatC]     = ionized_fractions(drug.subclass,pKa,pH_cel);
-[fnP,   ~,  ~  ]     = ionized_fractions(drug.subclass,pKa,pH_pla);
-[fn_ery,~,fcat_ery] = ionized_fractions(drug.subclass,pKa,pH_ery);
+[fnC,   ~,fcatC]    = ionized_fractions(pH_cel, acidic_pKa, basic_pKa);
+[fnP,   ~,  ~  ]    = ionized_fractions(pH_pla, acidic_pKa, basic_pKa);
+[fn_ery,~,fcat_ery] = ionized_fractions(pH_ery, acidic_pKa, basic_pKa);
 
 %  
 
@@ -124,14 +134,14 @@ Knp_pla = 0.3*Knl_pla + 0.7 * fnP;
 % R&R method distinguishes bases dependent on pKa
 RRsubclass = drug.subclass;
 if strcmp(RRsubclass,'base')
-    if pKa > 7
+    if any(basic_pKa > 7)
         RRsubclass = 'mod. to strong base';
     else
         RRsubclass = 'weak base';
     end
 end
 if strcmp(RRsubclass,'zwitter ion')
-    if max(pKa) > 7
+    if any(basic_pKa > 7)
         RRsubclass = 'zwitter ion type I';
     else
         RRsubclass = 'zwitter ion type II';

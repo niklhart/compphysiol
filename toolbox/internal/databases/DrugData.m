@@ -101,25 +101,11 @@ classdef DrugData < DB
                 varargin{iVal} = tounit(varargin{iVal});
             end
 
-            % TODO: find a more general rule than this one.
+            % scalar values required except for pKa
             provided = numel(varargin{iVal});
-            if strcmp(nm,'pKa')
-                switch obj.subclass
-                    case {'neutral'}
-                        expected = 0;
-                    case {'acid','base'}
-                        expected = 1;
-                    case {'zwitter ion','diprotic base','diprotic acid'}
-                        expected = 2;
-                    otherwise
-                        error('Cannot determine expected pKa length for drug subclass "%s".',obj.subclass)
-                end
-            else
-                expected = 1;
-            end
-            assert(provided == expected, ...
-                'Exactly %i value required, but %i elements provided.',...
-                expected, provided)
+            assert(ismember(nm,{'pKa_acidic','pKa_basic'}) || provided == 1, ...
+                'Exactly 1 value required, but %i elements provided.',...
+                provided)
 
             
             toadd = cell2table(varargin, 'VariableNames', colnames);

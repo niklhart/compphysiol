@@ -101,7 +101,7 @@ function ddb = build_database()
 
     addrecord(ddb(i), 'formula',     'C20H23N',   'DrugBank.ca',    [])
     addrecord(ddb(i), 'MW',     277.40*u.g/u.mol, 'DrugBank.ca',    [])
-    addrecord(ddb(i), 'pKa',    9.40,             rodgers2007.Tab2, [])
+    addrecord(ddb(i), 'pKa_basic',    9.40,       rodgers2007.Tab2, [])
     addrecord(ddb(i), 'logPow', 4.9,              rodgers2007.Tab2, [])
 
     addrecord(ddb(i), 'fuP',         'rat', 0.056,             '?', [])
@@ -128,7 +128,7 @@ function ddb = build_database()
     
     addrecord(ddb(i), 'formula',     'C16H20FN3O4', 'DrugBank.ca', [])
     addrecord(ddb(i), 'MW',     337.35*u.g/u.mol,   'DrugBank.ca', [])
-    addrecord(ddb(i), 'pKa',    1.8,                gandelman2011, [])
+    addrecord(ddb(i), 'pKa_basic',    1.8,          gandelman2011, [])
     addrecord(ddb(i), 'logPow', 0.9,                rowland2012,   [])
 
     addrecord(ddb(i), 'fuP',         'human', 0.86,                ehmann2020, [])
@@ -154,7 +154,8 @@ function ddb = build_database()
 
     addrecord(ddb(i), 'formula', 'C17H25N3O5S', 'DrugBank.ca', [])
     addrecord(ddb(i), 'MW',      MW,            'DrugBank.ca', [])
-    addrecord(ddb(i), 'pKa',    [2.9 7.4],      az1991,        [])
+    addrecord(ddb(i), 'pKa_acidic',   2.9,      az1991,        [])
+    addrecord(ddb(i), 'pKa_basic',    7.4,      az1991,        [])
     addrecord(ddb(i), 'logPow', -3.0,           az1991,        [])  
 
     addrecord(ddb(i), 'fuP',                'human', 0.98,           az1991, [])
@@ -176,7 +177,7 @@ function ddb = build_database()
     addrecord(ddb(i), 'formula',     'C3H7O4P',    'DrugBank.ca', [])
     addrecord(ddb(i), 'MW',     138.1*u.g/u.mol,   'DrugBank.ca', [])
 %    addrecord(ddb(i), 'pKa',    [2.5 6.7],         TGA,  [])
-    addrecord(ddb(i), 'pKa',    [1.3 7.82],         fedrigo2017,  [])
+    addrecord(ddb(i), 'pKa_acidic', [1.3 7.82],    fedrigo2017,  [])
     addrecord(ddb(i), 'logPow', -1.6,              'DrugBank.ca', [])  
 
     addrecord(ddb(i), 'fuP',         'human',  0.99,            fedrigo2017, [])
@@ -199,7 +200,7 @@ function ddb = build_database()
     addrecord(ddb(i), 'formula','C8H10N4O2',     'DrugBank.ca',    [])
     addrecord(ddb(i), 'MW',     194.2*u.g/u.mol, 'DrugBank.ca',    [])
 %    addrecord(ddb(i), 'pKa',    10.4,            rodgers2007.Tab2, [])
-    addrecord(ddb(i), 'pKa',    0.6,             'google search', [])
+    addrecord(ddb(i), 'pKa_basic', 0.6,          'google search', [])
     addrecord(ddb(i), 'logPow', 1.29,            rodgers2007.Tab2, [])
     addrecord(ddb(i), 'logMA', 0.602,            willmann2004,     [])
 
@@ -220,7 +221,7 @@ function ddb = build_database()
 
     addrecord(ddb(i), 'formula','C18H22N2',       'DrugBank.ca',    [])
     addrecord(ddb(i), 'MW',     266.38*u.g/u.mol, 'DrugBank.ca',    [])
-    addrecord(ddb(i), 'pKa',   10.32,             rodgers2007.Tab2, [])
+    addrecord(ddb(i), 'pKa_basic', 10.32,         rodgers2007.Tab2, [])
     addrecord(ddb(i), 'logPow', 4.45,             rodgers2007.Tab2, [])
     addrecord(ddb(i), 'logMA', 3.725,             willmann2004,     [])
 
@@ -241,7 +242,7 @@ function ddb = build_database()
 
     addrecord(ddb(i), 'formula','C22H26N2O4S',   'DrugBank.ca', [])
     addrecord(ddb(i), 'MW',    414.52*u.g/u.mol, 'DrugBank.ca', [])
-    addrecord(ddb(i), 'pKa',     7.7,            '?',  [])
+    addrecord(ddb(i), 'pKa_basic', 7.7,          '?',  [])
     addrecord(ddb(i), 'logPow',  2.67,           '?',  [])
     addrecord(ddb(i), 'logMA', 2.544,             willmann2004, [])
 
@@ -263,7 +264,7 @@ function ddb = build_database()
 
     addrecord(ddb(i), 'formula','C17H21NO',       'DrugBank.ca',    [])    
     addrecord(ddb(i), 'MW',     255.35*u.g/u.mol, 'DrugBank.ca',    [])
-    addrecord(ddb(i), 'pKa',     8.98,            rodgers2007.Tab2, [])
+    addrecord(ddb(i), 'pKa_basic',  8.98,         rodgers2007.Tab2, [])
     addrecord(ddb(i), 'logPow',  3.31,            rodgers2007.Tab2, [])
 
     addrecord(ddb(i), 'fuP',         'human', 0.089,            rodgers2007.Tab2, [])
@@ -281,7 +282,7 @@ function ddb = build_database()
 
     addrecord(ddb(i), 'formula','C19H24N2',      'DrugBank.ca',    [])    
     addrecord(ddb(i), 'MW',    280.41*u.g/u.mol, 'DrugBank.ca',    [])
-    addrecord(ddb(i), 'pKa',     9.5,            rodgers2007.Tab2, [])
+    addrecord(ddb(i), 'pKa_basic', 9.5,          rodgers2007.Tab2, [])
     addrecord(ddb(i), 'logPow',  4.80,           rodgers2007.Tab2, [])
     addrecord(ddb(i), 'logPvow', 4.00,           '?',              [])
     addrecord(ddb(i), 'logMA',   3.00,           schmitt2008,      [])
@@ -304,7 +305,7 @@ function ddb = build_database()
 
     addrecord(ddb(i), 'formula', 'C14H22N2O',    'DrugBank.ca',    [])
     addrecord(ddb(i), 'MW',    234.34*u.g/u.mol, 'DrugBank.ca',    [])
-    addrecord(ddb(i), 'pKa',     8.01,           rodgers2007.Tab2, [])
+    addrecord(ddb(i), 'pKa_basic', 8.01,         rodgers2007.Tab2, [])
     addrecord(ddb(i), 'logPow',  2.44,           rodgers2007.Tab2, [])
     addrecord(ddb(i), 'logPvow', 1.27,           '?',              [])
     addrecord(ddb(i), 'logMA',   1.80,           schmitt2008,      [])
@@ -328,7 +329,7 @@ function ddb = build_database()
 
     addrecord(ddb(i), 'formula', 'C16H13ClN2O',  'DrugBank.ca',    [])
     addrecord(ddb(i), 'MW',    284.74*u.g/u.mol, 'DrugBank.ca',    [])
-    addrecord(ddb(i), 'pKa',     3.38,           rodgers2007.Tab3, [])
+    addrecord(ddb(i), 'pKa_basic', 3.38,         rodgers2007.Tab3, [])
     addrecord(ddb(i), 'logPow',  2.84,           rodgers2007.Tab3, [])
     addrecord(ddb(i), 'logMA',   2.76,           schmitt2008,      [])
 %    addrecord(ddb(i), 'logMA',   3.17,           willmann2004,     [])
@@ -350,7 +351,7 @@ function ddb = build_database()
     
     addrecord(ddb(i), 'formula', 'C26H28Cl2N4O4', 'DrugBank.ca', [])
     addrecord(ddb(i), 'MW',    531.431*u.g/u.mol, 'DrugBank.ca', [])
-    addrecord(ddb(i), 'pKa',     6.75,            'DrugBank.ca', [])
+    addrecord(ddb(i), 'pKa_basic', 6.75,          'DrugBank.ca', [])
     addrecord(ddb(i), 'logPow',  4.35,            'DrugBank.ca', [])
 
     addrecord(ddb(i), 'fuP',         'human', 0.01,               'DrugBank.ca', [])
@@ -369,7 +370,7 @@ function ddb = build_database()
 
     addrecord(ddb(i), 'formula', 'C18H13ClFN3',  'DrugBank.ca',    [])
     addrecord(ddb(i), 'MW',    325.77*u.g/u.mol, 'DrugBank.ca',    [])
-    addrecord(ddb(i), 'pKa',     6.01,           rodgers2007.Tab3, [])
+    addrecord(ddb(i), 'pKa_basic', 6.01,         rodgers2007.Tab3, [])
     addrecord(ddb(i), 'logPow',  3.15,           rodgers2007.Tab3, [])
     addrecord(ddb(i), 'logMA',  2.897,           schmitt2008,      [])
 
@@ -426,7 +427,7 @@ function ddb = build_database()
 
     addrecord(ddb(i), 'formula', 'C13H18O2',     'DrugBank.ca',    [])
     addrecord(ddb(i), 'MW',    206.28*u.g/u.mol, 'DrugBank.ca',    [])
-    addrecord(ddb(i), 'pKa',     4.70,           rodgers2007.Tab4, [])
+    addrecord(ddb(i), 'pKa_acidic', 4.70,        rodgers2007.Tab4, [])
     addrecord(ddb(i), 'logPow',  4.06,           rodgers2007.Tab4, [])
 
     addrecord(ddb(i), 'fuP',         'human', 0.01,              obach1999.Tab2, [])
@@ -444,7 +445,7 @@ function ddb = build_database()
 
     addrecord(ddb(i), 'formula', 'C19H16O4',      'DrugBank.ca',  [])
     addrecord(ddb(i), 'MW',     308.33*u.g/u.mol, 'DrugBank.ca',  [])
-    addrecord(ddb(i), 'pKa',    5.08,             'DrugBank.ca',  [])
+    addrecord(ddb(i), 'pKa_acidic',    5.08,      'DrugBank.ca',  [])
     addrecord(ddb(i), 'logPow', 3,                'Wolfram Alpha',[])
 
     addrecord(ddb(i), 'fuP',         'rat', 0.02,                  sawada1985, [])
@@ -467,7 +468,7 @@ function ddb = build_database()
     ddb(i).subclass = 'acid';                                        
 
     addrecord(ddb(i), 'MW',     308.33*u.g/u.mol, '?', [])
-    addrecord(ddb(i), 'pKa',    5.08,             '?', [])
+    addrecord(ddb(i), 'pKa_acidic', 5.08,         '?', [])
     addrecord(ddb(i), 'logPow', 3,                '?', [])
 
     addrecord(ddb(i), 'fuP',         'rat', 0.38,              '?', [])
@@ -490,7 +491,7 @@ function ddb = build_database()
     ddb(i).subclass = 'base';                                        
 
     addrecord(ddb(i), 'MW',      234.34*u.g/u.mol, '?', [])
-    addrecord(ddb(i), 'pKa',     8.01,             '?', [])
+    addrecord(ddb(i), 'pKa_basic',  8.01,          '?', [])
     addrecord(ddb(i), 'logPow',  2.26,             '?', [])
     addrecord(ddb(i), 'logPvow', 1.27,             '?', [])
 

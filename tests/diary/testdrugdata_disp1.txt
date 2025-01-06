@@ -1,7 +1,7 @@
 	<a href="matlab:helpPopup DrugData">DrugData</a> object (drugA,sMD,acid) with parameters:
 
 MW: 0.30833 kg/mol
-pKa: 5.08
+pKa_acidic: 5.08
 logPow: 3
 fuP: [2 values]
 BP: [2 values]

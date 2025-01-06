@@ -1,45 +1,53 @@
-%IONIZED_FRACTIONS Neutral/anionic/cationic fractions for a small molecule
-%   [FN, FANI, FCAT] = IONIZED_FRACTIONS(SUBCLASS, PKA, PH) computes
+% IONIZED_FRACTIONS Neutral/anionic/cationic fractions for a small molecule
+%   [FN, FANI, FCAT] = IONIZED_FRACTIONS(PH, ACIDIC_PKA, BASIC_PKA) computes
 %   fractions neutral (FN), anionic (FANI) and cationic (FCAT) for a small
-%   molecule drug of a certain SUBCLASS (acid, base, neutral, ...) with
-%   given pKa value(s) (PKA) and at a given environmental pH (PH). 
-function [fn,fani,fcat] = ionized_fractions(subclass, pKa, pH)
+%   molecule drug, given the environmental pH (PH) and its acidic and/or 
+%   basic pKa value(s) (ACIDIC_PKA, BASIC_PKA). 
+%
+%   Note: for zwitter ions, FN represents the net neutral molecule form.
+%
+%   Examples:
+%   % neutral drug
+%   [fn,fani,fcat] = ionized_fractions(7.4,[],[])
+%   
+%   monoprotic acid
+%   [fn,fani,fcat] = ionized_fractions(7.4,5,[])
+%   
+%   % monoprotic base
+%   [fn,fani,fcat] = ionized_fractions(7.4,[],10)
+%   
+%   % diprotic acid
+%   [fn,fani,fcat] = ionized_fractions(7.4,[5 7],[])
+%   
+%   % diprotic base
+%   [fn,fani,fcat] = ionized_fractions(7.4,[],[8 10])
+%
+%   % zwitter ion
+%   [fn,fani,fcat] = ionized_fractions(7.4,5,10)
+%   
+function [fn,fani,fcat] = ionized_fractions(pH, acidic_pKa, basic_pKa)
 
-    % pka values need to be in decreasing order
-    pKa = sort(pKa,'ascend');
-
-    switch subclass
-        case 'acid' 
-            fn   = 1./(1+10.^(pH-pKa(1)));
-            fani = 1 - fn;
-            fcat = zeros(size(pH));
-        case 'base' 
-            fn   = 1./(1+10.^-(pH-pKa(1)));
-            fani = zeros(size(pH));
-            fcat = 1 - fn;
-        case 'neutral' 
-            fn   = ones(size(pH));
-            fani = zeros(size(pH));
-            fcat = zeros(size(pH));
-        case 'diprotic acid'
-            % implicit assumption: single- and double-ionized species have 
-            %                      the same partitioning behaviour
-            fn = 1./(1+10.^(pH-pKa(1))+10.^(2*pH-pKa(1)-pKa(2)));               
-            fani = 1 - fn;
-            fcat = zeros(size(pH));
-        case 'diprotic base'
-            % implicit assumption: single- and double-ionized species have 
-            %                      the same partitioning behaviour
-            fn   = 1./(1+10.^-(pH-pKa(2))+ 10.^-(2*pH-pKa(1)-pKa(2)));
-            fani = zeros(size(pH));
-            fcat = 1 - fn;
-        case 'zwitter ion'
-
-            fn   = 1./(1+10.^(pH-pKa(2))+ 10.^-(pH-pKa(1)));
-            fani = (10.^(pH-pKa(2)))./(1+10.^(pH-pKa(2))+ 10.^-(pH-pKa(1)));
-            fcat = (10.^-(pH-pKa(1)))./(1+10.^(pH-pKa(2))+ 10.^-(pH-pKa(1)));
-            
-        otherwise
-            error('Cannot compute ionization states for drug subclass "%s".',subclass)
+    if ~isscalar(pH)
+        [fn, fani, fcat] = arrayfun(@(x) ionized_fractions(x,acidic_pKa, basic_pKa), pH);
+        return
     end
-end 
+    
+    nacid = numel(acidic_pKa);
+    nbase = numel(basic_pKa);
+
+    % sort pKa values in ascending order and reallocate basic/acidic
+    pKa = sort([acidic_pKa(:); basic_pKa(:)])';
+    basic_pKa   = pKa(1:nbase);
+    acidic_pKa  = pKa(nbase+(1:nacid));
+
+    sn = 1;
+    sani = sum(10 .^ ((1:nacid)*pH - cumsum(acidic_pKa)));
+    scat = sum(10 .^ (cumsum(flip(basic_pKa)) - (1:nbase)*pH));
+
+    stot = sn + sani + scat;
+
+    fn = sn / stot;
+    fani = sani / stot;
+    fcat = scat / stot;
+
+end
