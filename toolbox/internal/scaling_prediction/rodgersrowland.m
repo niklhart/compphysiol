@@ -55,6 +55,7 @@ hct      = queryphys('hct');
 pH_cel   = queryphys('pH');    
 
 fpwVpla = 0.93;   % RR approximate this quantity by 1, which is inconsistent (add [REF])
+%fpwVpla = 1;   % RR approximate this quantity by 1, which is inconsistent (add [REF])
 
 fcelVtis  = queryphys('fcelVtis');
 fintVtis  = queryphys('fintVtis');
@@ -163,7 +164,7 @@ switch RRsubclass
             PRtis_to_PRpla = queryphys('rtpLip');  % binding to lipoproteins (Lip)
         else
             PRtis_to_PRpla = queryphys('rtpAlb');  % binding to albumin (Alb)
-        end        
+        end
        
        % Association constant to binding proteins x protein concentrations
         KA_PR_x_PRpla = 1/fuP - fpwVpla - Knl_pla*fnlVtis_pla - Knp_pla*fnpVtis_pla;
