@@ -1,6 +1,6 @@
 %RODGERSROWLAND Rodgers and Rowland's tissue partition prediction method
 %   K = RODGERSROWLAND(PHYS, DRUG, ORGANS) predicts tissue-to-unbound plasma 
-%   partition coefficients using the method described in Rodgers/Rowland.
+%   partition coefficients using the method described in Rodgers et al.
 %   Input PHYS is a Physiology object, DRUG a DrugData object and ORGANS a 
 %   cellstr with the compartment names (e.g. {'adi','bon',...}).
 %   Output is a struct that can be appended to the initialized model. 
@@ -27,6 +27,28 @@
 %       .np: neutral phospholipids (pla + cel)
 %       .ap: acidic phospholipids  (cel)
 %
+%   RODGERSROWLAND(___, N1 = V1, N2 = V2, ...) allows to additionally 
+%   specify any of the following optional name-value pairs:
+%   
+%   - plasmaWaterFraction (default: 0.93)
+%       Water subspace fraction of plasma, which was set to 1 in the 
+%       original Rodgers et al. publications. 
+%   - fupIncludesLipids (default: true)
+%       If the experimentally determined fuP values doesn't account for 
+%       binding to lipids, this option can be set to false to reflect this 
+%       fact when determining binding to plasma proteins. A typical case
+%       would be a reported fuP = 1.
+%   - treatNegativeBindingAsZero (default: false)
+%       Due to inconsistencies in the experimental inputs, the calculated
+%       binding constants to proteins or acidic phospholipids can become
+%       negative. By default, this will result in an error. In contrast,
+%       Rodgers et al. set binding constants to zero in such a case. This
+%       behaviour is recovered when setting this option to true.
+%
+%   References: 
+%   - Rodgers et al. (2005), DOI: 10.1002/jps.20322
+%   - Rodgers/Rowland (2006), DOI: 10.1002/jps.20502
+%
 %   Example:
 %
 %       phys = Physiology('human35m');
@@ -35,15 +57,18 @@
 %
 %       K = rodgersrowland(phys,drug,organs);
 %
-%   See also lukacova, Physiology, DrugData
+%   See also Physiology, DrugData
 
-function [K, f, fC] = rodgersrowland(phys, drug, organs)
+function [K, f, fC] = rodgersrowland(phys, drug, organs, options)
 
-assert(isa(phys,'Physiology'), 'Input #1 must be a Physiology object.')
-assert(isa(drug,'DrugData'),   'Input #2 must be a DrugData object.')
-
-assert(strcmp(drug.class,'sMD'),...
-    "Rodgers & Rowland's method is only valid for small molecule drugs.");
+arguments
+    phys (1,1) Physiology
+    drug (1,1) DrugData {mustBeSmallMolecule}
+    organs {mustBeText}
+    options.plasmaWaterFraction (1,1) double {mustBePositive} = 0.93
+    options.fupIncludesLipids (1,1) logical = true
+    options.treatNegativeBindingAsZero (1,1) logical = false
+end
 
 organs = cellstr(organs);
 organs = organs(:);
@@ -54,8 +79,7 @@ organs = organs(:);
 hct      = queryphys('hct');  
 pH_cel   = queryphys('pH');    
 
-fpwVpla = 0.93;   % RR approximate this quantity by 1, which is inconsistent (add [REF])
-%fpwVpla = 1;   % RR approximate this quantity by 1, which is inconsistent (add [REF])
+fpwVpla = options.plasmaWaterFraction;
 
 fcelVtis  = queryphys('fcelVtis');
 fintVtis  = queryphys('fintVtis');
@@ -76,41 +100,25 @@ fapVtis_ery = queryphys('faphVtis','ery');
 pH_pla = queryphys('pH','pla');
 pH_ery = queryphys('pH','ery');
 
-% drug-specific or mixed data
-acidic_pKa = [];
-basic_pKa  = [];
-switch drug.subclass 
-    case 'neutral'
-        % pass
-    case {'acid','diprotic acid'}
-        acidic_pKa = querydrug('pKa_acidic');  
-    case {'base','diprotic base'}
-        basic_pKa  = querydrug('pKa_basic');  
-    case 'zwitter ion'
-        acidic_pKa = querydrug('pKa_acidic');  
-        basic_pKa  = querydrug('pKa_basic');  
-    otherwise 
-        error('unknown drug subclass "%s".', drug.subclass)
-end
+%%% drug-specific or mixed data
+
+% no acidic/basic pKa values given = drug doesn't have such a pKa
+acidic_pKa = querydrug('pKa_acidic', Default = []);  
+basic_pKa  = querydrug('pKa_basic',  Default = []);  
+
 fuP      = querydrug('fuP');         
 Kery_up  = querydrug('K_ery_up'); 
 logPow   = querydrug('logPow');
 
 % assign logPvow value. Otherwise, estimate logPvow based on logPow 
 % according to Poulin & Theil
-try
-    logPvow = querydrug('logPvow');
-catch
-    logPvow = 1.115*logPow - 1.35;  %TODO: add an assumption here.
-end
+logPvow = querydrug('logPvow', Default = 1.115*logPow - 1.35);
 
 % fraction neutral due to ionization effects
 % (same pH in plasma and extracellular space --> same ionization)
 [fnC,   ~,fcatC]    = ionized_fractions(pH_cel, acidic_pKa, basic_pKa);
 [fnP,   ~,  ~  ]    = ionized_fractions(pH_pla, acidic_pKa, basic_pKa);
 [fn_ery,~,fcat_ery] = ionized_fractions(pH_ery, acidic_pKa, basic_pKa);
-
-%  
 
 % Acidic phospholipid concentration (as a mass fraction)
 AP     = fapVtis;
@@ -131,6 +139,15 @@ Knp     = 0.3*Knl     + 0.7 * fnC;
 Knp_ery = 0.3*Knl_ery + 0.7 * fn_ery;
 Knp_pla = 0.3*Knl_pla + 0.7 * fnP;
 
+% account for lipid binding in fuP if not accounted for in the fuP assay
+if ~options.fupIncludesLipids 
+    
+    fuP_exp = fuP;
+    fuP = 1 / (1/fuP + Knl_pla*fnlVtis_pla + Knp_pla*fnpVtis_pla);
+    Kery_up = Kery_up * fuP_exp / fuP;
+
+end
+
 % R&R method distinguishes bases dependent on pKa
 RRsubclass = drug.subclass;
 if strcmp(RRsubclass,'base')
@@ -150,8 +167,7 @@ end
 
 KA_PR_x_PRtis = NaNsizeof(organs);
 switch RRsubclass   
-    % Rodgers, Leahy, Rowland (2005), doi: 10.1002/jps.20322
-    % substances with at least one basic pKa > 7
+    % Rodgers et al. (2005): substances with at least one basic pKa > 7
     case {'mod. to strong base','diprotic base','zwitter ion type I'} % binding to acidic phospholipids (aph)
         % Association constant to acidic phospholipids
         KA_AP  = (Kery_up*fn_ery/fnP - fcwVtis_ery - Knl_ery*fnlVtis_ery...
@@ -165,8 +181,7 @@ switch RRsubclass
         % Compound fuP is ignored, otherwise the RR method is inconsistent 
         fuP = 1./(fpwVpla + Knl_pla*fnlVtis_pla + Knp_pla*fnpVtis_pla);
 
-    % Rodgers, Rowland (2006), doi:  10.1002/jps.20502
-    % substances without any basic pKa > 7
+    % Rodgers/Rowland (2006): substances without any basic pKa > 7
     case {'neutral','acid','weak base','diprotic acid','zwitter ion type II'}
 
         % tissue-to-plasma protein ratio
@@ -176,8 +191,8 @@ switch RRsubclass
             PRtis_to_PRpla = queryphys('rtpAlb');  % binding to albumin (Alb)
         end
        
-       % Association constant to binding proteins x protein concentrations
-        KA_PR_x_PRpla = 1/fuP - fpwVpla - Knl_pla*fnlVtis_pla - Knp_pla*fnpVtis_pla;
+        % Association constant to binding proteins x protein concentrations
+        KA_PR_x_PRpla = (1/fuP - Knl_pla*fnlVtis_pla - Knp_pla*fnpVtis_pla)/fpwVpla - 1;
         KA_PR_x_PRtis = KA_PR_x_PRpla * PRtis_to_PRpla;
 
         % No association to acidic phospholipids
@@ -190,8 +205,12 @@ switch RRsubclass
         error(['Unknown drug subclass "' RRsubclass '".'])
 end
 
+if options.treatNegativeBindingAsZero
+    KA_AP         = max(KA_AP,0);
+    KA_PR_x_PRtis = max(KA_PR_x_PRtis,0);
+end
 
-%%% check for plausibility of estimated KA values
+% check for plausibility of estimated KA values
 assert(all(KA_AP >= 0), sprintf(...
     ['The relationship defining association to acidic phospholipids,\n\n'...
     'KA_AP  = (Kery_up*fn_ery/fnP - fcwVtis_ery - Knl_ery*fnlVtis_ery - Knp_ery*fnpVtis_ery) / (AP_ery*fcatC_ery),\n\n'...    
@@ -268,12 +287,14 @@ if nargout > 2
     Vnl_pla = fnlVtis_pla * Vpla;
     Vnp_pla = fnpVtis_pla * Vpla;
 
-    denominator = sum(Vtis.*K.tis_up) + Very*Kery_up + Vpla/fuP;
+    Kpla_up = 1/fuP;
+
+    denominator = sum(Vtis.*K.tis_up) + Very*Kery_up + Vpla * Kpla_up;
 
     fC = struct;
 
     fC.uw = (sum(Viw + Vcw.*fnP./fnC) + Vcw_ery*fnP/fn_ery + Vpw) / denominator;    
-    fC.pr = (KA_PR_x_PRpla*Vpla + sum(KA_PR_x_PRtis.*Vtis) ) / denominator;    
+    fC.pr = (KA_PR_x_PRpla*Vpw + sum(KA_PR_x_PRtis.*Vtis) ) / denominator;    
     fC.nl = (Vnl_pla * Knl_pla + fnP * (sum(Vnl .* Knl ./ fnC) + Vnl_ery * Knl_ery / fn_ery)) / denominator;
     fC.np = (Vnp_pla * Knp_pla + fnP * (sum(Vnp .* Knp ./ fnC) + Vnp_ery * Knp_ery / fn_ery)) / denominator;
     fC.ap = KA_AP * fnP * (sum(Vtis.*AP.*fcatC./fnC) + Very*AP_ery*fcat_ery/fn_ery )/ denominator;   

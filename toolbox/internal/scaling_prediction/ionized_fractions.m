@@ -1,8 +1,9 @@
 % IONIZED_FRACTIONS Neutral/anionic/cationic fractions for a small molecule
 %   [FN, FANI, FCAT] = IONIZED_FRACTIONS(PH, ACIDIC_PKA, BASIC_PKA) computes
-%   fractions neutral (FN), anionic (FANI) and cationic (FCAT) for a small
-%   molecule drug, given the environmental pH (PH) and its acidic and/or 
-%   basic pKa value(s) (ACIDIC_PKA, BASIC_PKA). 
+%   fractions neutral FN, fraction anionic (negatively charged) FANI and 
+%   fraction cationic (positively charged) FCAT for a small molecule drug, 
+%   given the environmental pH (PH) and its acidic and/or basic pKa value(s) 
+%   (ACIDIC_PKA, BASIC_PKA). 
 %
 %   Note: for zwitter ions, FN represents the net neutral molecule form.
 %
