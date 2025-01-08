@@ -29,25 +29,20 @@
 function [fn,fani,fcat] = ionized_fractions(pH, acidic_pKa, basic_pKa)
 
     if ~isscalar(pH)
-        [fn, fani, fcat] = arrayfun(@(x) ionized_fractions(x,acidic_pKa, basic_pKa), pH);
+        [fn, fani, fcat] = arrayfun(@(x) ionized_fractions(x, acidic_pKa, basic_pKa), pH);
         return
     end
+
+    acidic_pKa = sort(acidic_pKa,'ascend');
+    basic_pKa  = sort(basic_pKa, 'descend');
     
-    nacid = numel(acidic_pKa);
-    nbase = numel(basic_pKa);
-
-    % sort pKa values in ascending order and reallocate basic/acidic
-    pKa = sort([acidic_pKa(:); basic_pKa(:)])';
-    basic_pKa   = pKa(1:nbase);
-    acidic_pKa  = pKa(nbase+(1:nacid));
-
     sn = 1;
-    sani = sum(10 .^ ((1:nacid)*pH - cumsum(acidic_pKa)));
-    scat = sum(10 .^ (cumsum(flip(basic_pKa)) - (1:nbase)*pH));
+    sani = sum(10 .^ cumsum(pH - acidic_pKa));
+    scat = sum(10 .^ cumsum(basic_pKa - pH));
 
     stot = sn + sani + scat;
 
-    fn = sn / stot;
+    fn   = sn   / stot;
     fani = sani / stot;
     fcat = scat / stot;
 
