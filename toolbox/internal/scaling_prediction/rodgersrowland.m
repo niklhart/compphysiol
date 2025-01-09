@@ -120,7 +120,7 @@ logPvow = querydrug('logPvow', Default = 1.115*logPow - 1.35);
 [fnP,   ~,  ~  ]    = ionized_fractions(pH_pla, acidic_pKa, basic_pKa);
 [fn_ery,~,fcat_ery] = ionized_fractions(pH_ery, acidic_pKa, basic_pKa);
 
-% Acidic phospholipid concentration (as a mass fraction)
+% acidic phospholipid concentration (as a mass fraction)
 AP     = fapVtis;
 AP_ery = fapVtis_ery;
 
@@ -141,11 +141,9 @@ Knp_pla = 0.3*Knl_pla + 0.7 * fnP;
 
 % account for lipid binding in fuP if not accounted for in the fuP assay
 if ~options.fupIncludesLipids 
-    
     fuP_exp = fuP;
     fuP = 1 / (1/fuP + Knl_pla*fnlVtis_pla + Knp_pla*fnpVtis_pla);
     Kery_up = Kery_up * fuP_exp / fuP;
-
 end
 
 % R&R method distinguishes bases dependent on pKa
@@ -257,9 +255,9 @@ if nargout > 1
     f = struct;
     
     f.u.pla = fuP;
-    f.u.ery   = 1/K.ery_uery;
-    f.u.int   = 1./K.int_uint;
-    f.u.cel   = 1./K.cel_ucel;
+    f.u.ery = 1/K.ery_uery;
+    f.u.int = 1./K.int_uint;
+    f.u.cel = 1./K.cel_ucel;
     
     f.n.pla = fnP;
     f.n.ery = fn_ery;

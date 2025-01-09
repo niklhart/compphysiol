@@ -3,7 +3,8 @@
 %   partition coefficients using the unified Rodgers et al. method, which
 %   includes all processes in the Rodgers et al. (2005) method for
 %   moderately-to-strong bases and in the Rodgers/Rowland (2006) method for
-%   other substance classes.
+%   other substance classes. Note: for substances without any basic pKa
+%   value, this method is identical to standard Rodgers/Rowland (2006).
 %   
 %   Input PHYS is a Physiology object, DRUG a DrugData object and ORGANS a 
 %   cellstr with the compartment names (e.g. {'adi','bon',...}).
@@ -31,6 +32,28 @@
 %       .np: neutral phospholipids (pla + cel)
 %       .ap: acidic phospholipids  (cel)
 %   
+%   UNIFIED_RODGERS(___, N1 = V1, N2 = V2, ...) allows to additionally 
+%   specify any of the following optional name-value pairs:
+%   
+%   - plasmaWaterFraction (default: 0.93)
+%       Water subspace fraction of plasma, which was set to 1 in the 
+%       original Rodgers et al. publications. 
+%   - fupIncludesLipids (default: true)
+%       If the experimentally determined fuP values doesn't account for 
+%       binding to lipids, this option can be set to false to reflect this 
+%       fact when determining binding to plasma proteins. A typical case
+%       would be a reported fuP = 1.
+%   - treatNegativeBindingAsZero (default: false)
+%       Due to inconsistencies in the experimental inputs, the calculated
+%       binding constants to proteins or acidic phospholipids can become
+%       negative. By default, this will result in an error. In contrast,
+%       Rodgers et al. set binding constants to zero in such a case. This
+%       behaviour is recovered when setting this option to true.
+%
+%   References: 
+%   - Rodgers et al. (2005), DOI: 10.1002/jps.20322
+%   - Rodgers/Rowland (2006), DOI: 10.1002/jps.20502
+%   
 %   Example:
 %
 %       phys = Physiology('human35m');
@@ -41,14 +64,18 @@
 %
 %   See also rodgersrowland, Physiology, DrugData
 
-function [K, f, fC] = unified_rodgers(phys, drug, organs)
+function [K, f, fC] = unified_rodgers(phys, drug, organs, options)
 
-assert(isa(phys,'Physiology'), 'Input #1 must be a Physiology object.')
-assert(isa(drug,'DrugData'),   'Input #2 must be a DrugData object.')
+arguments
+    phys (1,1) Physiology
+    drug (1,1) DrugData {mustBeSmallMolecule}
+    organs {mustBeText}
+    options.plasmaWaterFraction (1,1) double {mustBePositive} = 0.93
+    options.fupIncludesLipids (1,1) logical = true
+    options.treatNegativeBindingAsZero (1,1) logical = false
+end
 
-assert(strcmp(drug.class,'sMD'),...
-    "The unified Rodgers et al. method is only valid for small molecule drugs.");
-
+organs = cellstr(organs);
 organs = organs(:);
 
 [queryphys, querydrug, I] = loaddatabases(phys, drug, organs);
@@ -57,8 +84,7 @@ organs = organs(:);
 hct      = queryphys('hct');  
 pH_cel   = queryphys('pH');    
 
-fpwVpla = 0.93;
-%fpwVpla = 1;
+fpwVpla = options.plasmaWaterFraction;
 
 fcelVtis  = queryphys('fcelVtis');
 fintVtis  = queryphys('fintVtis');
@@ -79,30 +105,24 @@ fapVtis_ery = queryphys('faphVtis','ery');
 pH_pla = queryphys('pH','pla');
 pH_ery = queryphys('pH','ery');
 
-% drug-specific or mixed data
-if strcmp(drug.subclass,'neutral')
-    pKa = [];
-else
-    pKa = querydrug('pKa');  
-end
+%%% drug-specific or mixed data
+
+% no acidic/basic pKa values given = drug doesn't have such a pKa
+acidic_pKa = querydrug('pKa_acidic', Default = []);  
+basic_pKa  = querydrug('pKa_basic',  Default = []);  
+
 fuP      = querydrug('fuP');         
 Kery_up  = querydrug('K_ery_up'); 
 logPow   = querydrug('logPow');
 
-%%% assign logPvow value. Otherwise, estimate logPvow based on logPow 
-%%% according to Poulin & Theil
-try
-    logPvow = querydrug('logPvow');
-catch
-    logPvow = 1.115*logPow - 1.35;  %TODO: add an assumption here.
-end
+% assign logPvow value. Otherwise, estimate logPvow based on logPow 
+% according to Poulin & Theil
+logPvow = querydrug('logPvow', Default = 1.115*logPow - 1.35);
 
-
-%%% fraction neutral due to ionization effects
-%%%
-[fnC, ~,    fcatC]   = ionized_fractions(drug.subclass,pKa,pH_cel);
-[fnP, faniP, ~   ]   = ionized_fractions(drug.subclass,pKa,pH_pla);
-[fn_ery,~,fcat_ery] = ionized_fractions(drug.subclass,pKa,pH_ery);
+% fraction neutral due to ionization effects
+[fnC,   ~,fcatC]    = ionized_fractions(pH_cel, acidic_pKa, basic_pKa);
+[fnP,faniP,  ~  ]   = ionized_fractions(pH_pla, acidic_pKa, basic_pKa);
+[fn_ery,~,fcat_ery] = ionized_fractions(pH_ery, acidic_pKa, basic_pKa);
 
 % same pH in plasma and extracellular space --> same ionization  
 fnE   = fnP;
@@ -117,19 +137,24 @@ end
 Knl_ery = 10^logPow * fn_ery;
 Knl_pla = 10^logPow * fnP;
 
-%%% approximate neutral phospholipids-to-water partition coefficient
-%%%
+% approximate neutral phospholipids-to-water partition coefficient
 Knp     = 0.3*Knl     + 0.7*fnC;
 Knp_ery = 0.3*Knl_ery + 0.7*fn_ery;
 Knp_pla = 0.3*Knl_pla + 0.7*fnP;
 
-% association constant to proteins x concentration
-KA_PR_x_PRpla = 1/fuP - fpwVpla - Knl_pla*fnlVtis_pla - Knp_pla*fnpVtis_pla;
+% account for lipid binding in fuP if not accounted for in the fuP assay
+if ~options.fupIncludesLipids 
+    fuP_exp = fuP;
+    fuP = 1 / (1/fuP + Knl_pla*fnlVtis_pla + Knp_pla*fnpVtis_pla);
+    Kery_up = Kery_up * fuP_exp / fuP;
+end
 
-% Association constant to acidic phospholipids
+% association constant to proteins x concentration
+KA_PR_x_PRpla = (1/fuP - Knl_pla*fnlVtis_pla - Knp_pla*fnpVtis_pla)/fpwVpla - 1;
+
+% assiciation to acidic phospholipids
 AP     = fapVtis;
 AP_ery = fapVtis_ery;
-
 
 if fcat_ery > 0
     KA_AP  = (Kery_up*fn_ery/fnP - fcwVtis_ery - Knl_ery*fnlVtis_ery...
@@ -158,7 +183,12 @@ if ismember('ery',organs)
     fiwVtis(I.ery) = 0;  % no interstitial space in ery
 end
     
-%%% check for plausibility of estimated KA values
+if options.treatNegativeBindingAsZero
+    KA_AP         = max(KA_AP,0);
+    KA_PR_x_PRpla = max(KA_PR_x_PRpla,0);
+end
+
+% check for plausibility of estimated KA values
 mustBeNonnegative(KA_AP)
 mustBeNonnegative(KA_PR_x_PRpla(~isnan(KA_PR_x_PRpla)))
 
@@ -187,9 +217,8 @@ if ismember('ery',organs)
     K.tis_up(I.ery) = Kery_up;  % erythrocyte-to-unbound plasma partition coefficient
 end
 
-%%% determine also total-to-unbound partition coefficients, i.e., 1/fu, for RBCs,
-%%% interstitial and intra-cellular spaces
-%%%
+% determine also total-to-unbound partition coefficients, i.e., 1/fu, for RBCs,
+% interstitial and intra-cellular spaces
 K.cel_ucel = ( fcwVtis + Knl.*fnlVtis + Knp.*fnpVtis + ...
                   KA_AP*AP.*fcatC ) ./ fcelVtis;
 
@@ -239,7 +268,7 @@ if nargout > 2
     fC = struct;
 
     fC.uw = (sum(Viw + Vcw.*fnP./fnC) + Vcw_ery*fnP/fn_ery + Vpw) / denominator;    
-    fC.pr = (KA_PR_x_PRpla*Vpla + sum(KA_PR_x_PRtis.*Vtis)* (fnE + faniE) ) / denominator;    
+    fC.pr = (KA_PR_x_PRpla*Vpw + sum(KA_PR_x_PRtis.*Vtis)* (fnE + faniE) ) / denominator;    
     fC.nl = (Vnl_pla * Knl_pla + fnP * (sum(Vnl .* Knl ./ fnC) + Vnl_ery * Knl_ery / fn_ery)) / denominator;
     fC.np = (Vnp_pla * Knp_pla + fnP * (sum(Vnp .* Knp ./ fnC) + Vnp_ery * Knp_ery / fn_ery)) / denominator;
     fC.ap = KA_AP * fnP * (sum(Vtis.*AP.*fcatC./fnC) + Very*AP_ery*fcat_ery/fn_ery )/ denominator;   
