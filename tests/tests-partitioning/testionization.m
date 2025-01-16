@@ -37,38 +37,40 @@ assert(fn == 0.5 && fani == 0.5 && fcat == 0)
 [fn, fani, fcat] = ionized_fractions(7,[],[-Inf 7]);
 assert(fn == 0.5 && fani == 0 && fcat == 0.5)
 
-%% zwitter ion
+%% ampholyte
 
 % check symmetric case, and the non-trivial mass balance
-[fn, fani, fcat] = ionized_fractions(7,5,9);
+[fn, fani, fcat] = ionized_fractions(7,9,5);
 assert(fani == fcat)                 
 assert(abs(fn+fani+fcat-1) < 1e-10)
-
-% very weak acid/base --> should behave like neutral
-[fn, fani, fcat] = ionized_fractions(7,Inf,-Inf);
-assert(fn == 1 && fani == 0 && fcat == 0)
 
 % equilibrium at pKa
 [fn, fani, fcat] = ionized_fractions(7,7,7);
 assert(fn == fani && fn == fcat)
 
-%% complex scenarios compared to httk R package
+% equilibrium at pKa including zwitter ions
+[fn, fani, fcat, fz] = ionized_fractions(7,7,7,1);
+fnz = fn+fz;
+assert(fnz == fani && fnz == fcat && fn == fz)
 
-% skipping this test for now since I'm unsure whether the httk 
-% implementation is correct.
-if false
-    % zwitter ion with two acidic pKa
-    [fn, fani, fcat] = ionized_fractions(7,[4 8],6); %#ok<UNRCH>
-    fn_ref   = 0.08333;
-    fani_ref = 0.9166;
-    fcat_ref = 8.333e-05;
-    assert(all(abs([fn fani fcat]-[fn_ref fani_ref fcat_ref]) < 1e-5)) 
-    
-    % zwitter ion with two basic pKa
-    [fn, fani, fcat] = ionized_fractions(7,6,[5 8]);
-    fn_ref   = 0.8326;
-    fani_ref = 0.08326;
-    fcat_ref = 0.0841;
-    assert(all(abs([fn fani fcat]-[fn_ref fani_ref fcat_ref]) < 4e-4)) 
-end
+%% complex scenarios compared to httk R package
+% Nomenclature and behaviour of httk::calc_ionization() is a bit different:
+% In compphysiol, any cationic pKa must be less than any anionic pKa, 
+% whereas in httk, they are simply reordered to fulfill this property. 
+% Therefore, care must be taken to specify pKas in a consistent way.
+
+% zwitter ion with two cationic pKa values
+[fn, fani, fcat] = ionized_fractions(7,8,[4 6]);
+fn_ref   = 0.8333;
+fani_ref = 0.08333;
+fcat_ref = 0.08341;
+assert(all(abs([fn fani fcat]-[fn_ref fani_ref fcat_ref]) < 4e-5)) 
+
+% zwitter ion with two anionic pKa values
+[fn, fani, fcat] = ionized_fractions(7,[6 8],5);
+fn_ref   = 0.08326;
+fani_ref = 0.9159;
+fcat_ref = 0.0008326;
+assert(all(abs([fn fani fcat]-[fn_ref fani_ref fcat_ref]) < 1e-5)) 
+
 
