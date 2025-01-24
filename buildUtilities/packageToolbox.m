@@ -1,7 +1,7 @@
 function newVersion = packageToolbox(releaseType, versionString)
-% packageToolbox Package a new version of a toolbox. Package a new version
-% of the toolbox based on the toolbox packaging (.prj) file in current
-% working directory. MLTBX file is put in ./release directory. 
+% packageToolbox Package a new version of a toolbox. 
+% Package a new version of the toolbox based on the toolbox packaging (.prj) 
+% file in current working directory. MLTBX file is put in ./release directory. 
 %
 % packageToolbox() Build is automatically incremented.  
 %
@@ -9,8 +9,8 @@ function newVersion = packageToolbox(releaseType, versionString)
 % to update semantic version number appropriately.  Build (fourth element in 
 % semantic versioning) is always updated automatically.
 %
-% packageTookbox('specific',versionString) VERSIONSTRING is a string containing
-% the specific 3 part semantic version (i.e. "2.3.4") to use.
+% packageTookbox('specific',versionString) VERSIONSTRING is a string 
+% containing    the specific 3 part semantic version (i.e. "2.3.4") to use.
 
     arguments
         releaseType {mustBeTextScalar,mustBeMember(releaseType,["build","major","minor","patch","specific"])} = "build"
@@ -22,7 +22,7 @@ function newVersion = packageToolbox(releaseType, versionString)
     % Look for the Toolbox packaging file in the current working directory
     tbxPackagingProjectFile = findTBXPackagingProjectFile(pwd);
     if tbxPackagingProjectFile == ""
-        error("releaseToolbox:NoTbxPrjFound","No Toolbox Packaging Project found.")
+        error("packageToolbox:NoTbxPrjFound","No Toolbox Packaging Project found.")
     end
 
     % GitHub issue #11.  Toolbox packaging from GitHub action does not put <toolboxdir>/... on the path.
@@ -31,6 +31,10 @@ function newVersion = packageToolbox(releaseType, versionString)
                            fullfile(pwd,"toolbox","models"));
 
     newVersion = updateMLTBXVersion(tbxPackagingProjectFile, releaseType, versionString);
+
+    % update Contents.m
+    updateContentsFile(newVersion,date) %#ok<DATE>
+
     matlab.addons.toolbox.packageToolbox(tbxPackagingProjectFile);
 
     % Revert path changes
@@ -45,6 +49,7 @@ function newVersion = packageToolbox(releaseType, versionString)
     end
     movefile(mltbxFile,fullfile(filepath,outputDirectory,newMltbxFilename+ext));
     
+
     function tbxPackagingProjectFilename = findTBXPackagingProjectFile(directoryToSearch)
         % Unfortunately, Toolbox Packaging Projects and MATLAB projects both use the
         % .PRJ extension, and so we have to interrogate each one to see if
@@ -97,7 +102,7 @@ function newVersion = packageToolbox(releaseType, versionString)
                 end
                 newVersionParts = extract(versionString,pat);
                 if any(size(newVersionParts) ~= [3 1])
-                    error("releaseToolbox:versionMustBe3part","VersionString must be a 3 part semantic version (i.e. ""1.2.3"").")
+                    error("packageToolbox:versionMustBe3part","VersionString must be a 3 part semantic version (i.e. ""1.2.3"").")
                 end
                 versionParts(1) = newVersionParts(1);
                 versionParts(2) = newVersionParts(2);
@@ -118,4 +123,9 @@ function newVersion = packageToolbox(releaseType, versionString)
             mltbxFilename = mltbxFiles(1);
         end
     end
+
+    
+
+
+
 end 

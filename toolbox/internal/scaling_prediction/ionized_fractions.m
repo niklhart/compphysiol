@@ -11,7 +11,11 @@
 %   [FN, FANI, FCAT, FZ] = IONIZED_FRACTIONS(___, KZ) allows to specify the 
 %   tautomeric constant (defaulting to zero) for ampholytes (substances 
 %   with non-empty PKA_ANI and PKA_CAT), which defines the ratio of 
-%   zwitterionic to neutral fractions, i.e. KZ = FZ/FN.
+%   zwitterionic to neutral fractions, i.e. KZ = FZ/FN (the value KZ = +Inf
+%   is allowed and means that the shift from anionic to cationic species 
+%   occurs exclusively via the zwitter ion). For ampholytes, it is required
+%   that PKA_CAT <= PKA_ANI, which can be derived from theory based on 
+%   electrostatic interactions.
 %
 %   Examples:
 %   % neutral drug
@@ -30,17 +34,17 @@
 %   [fn,fani,fcat] = ionized_fractions(7.4, [], [8 10])
 %
 %   % ordinary ampholyte
-%   [fn,fani,fcat] = ionized_fractions(7.4, 5, 10)
+%   [fn,fani,fcat] = ionized_fractions(7.4, 10, 5)
 %   
 %   % purely zwitterionic ampholyte 
-%   [fn,fani,fcat,fz] = ionized_fractions(7.4, 5, 10, Inf)
+%   [fn,fani,fcat,fz] = ionized_fractions(7.4, 10, 5, Inf)
 function [fn, fani, fcat, fz] = ionized_fractions(pH, pKa_ani, pKa_cat, Kz)
 
     arguments
         pH double
         pKa_ani double
         pKa_cat double {mustBeAllLessThanOrEqual(pKa_cat,pKa_ani)}
-        Kz (1,1) double = 0
+        Kz (1,1) double {mustBeNonnegative} = 0
     end
 
     assert(~(isempty(pKa_ani) || isempty(pKa_cat)) || Kz == 0, ...
@@ -71,12 +75,6 @@ function [fn, fani, fcat, fz] = ionized_fractions(pH, pKa_ani, pKa_cat, Kz)
     fz = fnz-fn;
 end
 
-
-function mustBeAllGreaterThanOrEqual(A,B)
-    if ~isempty(A) && ~isempty(B)
-        mustBeGreaterThanOrEqual(min(A,[],"all"),max(B,[],"all"))
-    end
-end
 
 function mustBeAllLessThanOrEqual(A,B)
     if ~isempty(A) && ~isempty(B)
