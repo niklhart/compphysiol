@@ -121,9 +121,10 @@ logPvow = querydrug('logPvow', Default = 1.115*logPow - 1.35);
 
 % fraction neutral due to ionization effects
 % (same pH in plasma and extracellular space --> same ionization)
-[fnC,   ~,fcatC,fzC]       = ionized_fractions(pH_cel, pKa_ani, pKa_cat);
-[fnP,   ~,  ~  ,fzP]       = ionized_fractions(pH_pla, pKa_ani, pKa_cat);
-[fn_ery,~,fcat_ery,fz_ery] = ionized_fractions(pH_ery, pKa_ani, pKa_cat);
+therm = options.respectThermodynamics;
+[fnC,   ~,fcatC,fzC]       = ionized_fractions(pH_cel, pKa_ani, pKa_cat, 0, therm);
+[fnP,   ~,  ~  ,fzP]       = ionized_fractions(pH_pla, pKa_ani, pKa_cat, 0, therm);
+[fn_ery,~,fcat_ery,fz_ery] = ionized_fractions(pH_ery, pKa_ani, pKa_cat, 0, therm);
 
 % Rodgers et al. treat neutral and zwitter ion fraction identically
 % (hence, the constant of tautomeric equilibrium doesn't matter)

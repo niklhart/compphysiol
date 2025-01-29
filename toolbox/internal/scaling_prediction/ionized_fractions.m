@@ -63,7 +63,7 @@ function [fn, fani, fcat, fz] = ionized_fractions(pH, pKa_ani, pKa_cat, Kz, resp
         'Kz must be zero except for ampholytes.')
 
     if ~isscalar(pH)
-        [fn, fani, fcat, fz] = arrayfun(@(x) ionized_fractions(x,pKa_ani,pKa_cat,Kz), pH);
+        [fn, fani, fcat, fz] = arrayfun(@(x) ionized_fractions(x,pKa_ani,pKa_cat,Kz,respectThermodynamics), pH);
         return
     end
     
