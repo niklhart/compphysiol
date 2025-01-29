@@ -44,6 +44,10 @@
 %       negative. By default, this will result in an error. In contrast,
 %       Rodgers et al. set binding constants to zero in such a case. This
 %       behaviour is recovered when setting this option to true.
+%   - respectThermodynamics (default: true)
+%       This option is passed on to function ionized_fractions() and is
+%       provided to reproduce Rodgers et al.'s original results. It is
+%       not recommended to change the default value otherwise.
 %
 %   References: 
 %   - Rodgers et al. (2005), DOI: 10.1002/jps.20322
@@ -68,6 +72,7 @@ arguments
     options.plasmaWaterFraction (1,1) double {mustBePositive} = 0.93
     options.fupIncludesLipids (1,1) logical = true
     options.treatNegativeBindingAsZero (1,1) logical = false
+    options.respectThermodynamics (1,1) logical = true
 end
 
 organs = cellstr(organs);
@@ -103,8 +108,8 @@ pH_ery = queryphys('pH','ery');
 %%% drug-specific or mixed data
 
 % no acidic/basic pKa values given = drug doesn't have such a pKa
-acidic_pKa = querydrug('pKa_acidic', Default = []);  
-basic_pKa  = querydrug('pKa_basic',  Default = []);  
+pKa_ani = querydrug('pKa_ani', Default = []);  
+pKa_cat  = querydrug('pKa_cat',  Default = []);  
 
 fuP      = querydrug('fuP');         
 Kery_up  = querydrug('K_ery_up'); 
@@ -116,9 +121,15 @@ logPvow = querydrug('logPvow', Default = 1.115*logPow - 1.35);
 
 % fraction neutral due to ionization effects
 % (same pH in plasma and extracellular space --> same ionization)
-[fnC,   ~,fcatC]    = ionized_fractions(pH_cel, acidic_pKa, basic_pKa);
-[fnP,   ~,  ~  ]    = ionized_fractions(pH_pla, acidic_pKa, basic_pKa);
-[fn_ery,~,fcat_ery] = ionized_fractions(pH_ery, acidic_pKa, basic_pKa);
+[fnC,   ~,fcatC,fzC]       = ionized_fractions(pH_cel, pKa_ani, pKa_cat);
+[fnP,   ~,  ~  ,fzP]       = ionized_fractions(pH_pla, pKa_ani, pKa_cat);
+[fn_ery,~,fcat_ery,fz_ery] = ionized_fractions(pH_ery, pKa_ani, pKa_cat);
+
+% Rodgers et al. treat neutral and zwitter ion fraction identically
+% (hence, the constant of tautomeric equilibrium doesn't matter)
+fnnC    = fnC    + fzC;
+fnnP    = fnP    + fzP;
+fnn_ery = fn_ery + fz_ery;
 
 % acidic phospholipid concentration (as a mass fraction)
 AP     = fapVtis;
@@ -126,18 +137,18 @@ AP_ery = fapVtis_ery;
 
 %%% neutral lipids-to-water partition coefficient
 %%%
-Knl   = 10^logPow * fnC;
+Knl   = 10^logPow * fnnC;
 if ismember('adi',organs)
-    Knl(I.adi) = 10^logPvow * fnC(I.adi);
+    Knl(I.adi) = 10^logPvow * fnnC(I.adi);
 end
-Knl_ery = 10^logPow * fn_ery;
-Knl_pla = 10^logPow * fnP;
+Knl_ery = 10^logPow * fnn_ery;
+Knl_pla = 10^logPow * fnnP;
 
 %%% approximate neutral phospholipids-to-water partition coefficient
 %%%
-Knp     = 0.3*Knl     + 0.7 * fnC;
-Knp_ery = 0.3*Knl_ery + 0.7 * fn_ery;
-Knp_pla = 0.3*Knl_pla + 0.7 * fnP;
+Knp     = 0.3*Knl     + 0.7 * fnnC;
+Knp_ery = 0.3*Knl_ery + 0.7 * fnn_ery;
+Knp_pla = 0.3*Knl_pla + 0.7 * fnnP;
 
 % account for lipid binding in fuP if not accounted for in the fuP assay
 if ~options.fupIncludesLipids 
@@ -149,14 +160,14 @@ end
 % R&R method distinguishes bases dependent on pKa
 RRsubclass = drug.subclass;
 if strcmp(RRsubclass,'base')
-    if any(basic_pKa > 7)
+    if any(pKa_cat > 7)
         RRsubclass = 'mod. to strong base';
     else
         RRsubclass = 'weak base';
     end
 end
-if strcmp(RRsubclass,'zwitter ion')
-    if any(basic_pKa > 7)
+if strcmp(RRsubclass,'ampholyte')
+    if any(pKa_cat > 7)
         RRsubclass = 'zwitter ion type I';
     else
         RRsubclass = 'zwitter ion type II';
@@ -168,7 +179,7 @@ switch RRsubclass
     % Rodgers et al. (2005): substances with at least one basic pKa > 7
     case {'mod. to strong base','diprotic base','zwitter ion type I'} % binding to acidic phospholipids (aph)
         % Association constant to acidic phospholipids
-        KA_AP  = (Kery_up*fn_ery/fnP - fcwVtis_ery - Knl_ery*fnlVtis_ery...
+        KA_AP  = (Kery_up*fnn_ery/fnnP - fcwVtis_ery - Knl_ery*fnlVtis_ery...
                          -Knp_ery*fnpVtis_ery) / (AP_ery*fcat_ery);
 
 
@@ -197,7 +208,7 @@ switch RRsubclass
         KA_AP  = 0;
 
         % Compound Kery is ignored, otherwise the method is inconsistent
-        Kery_up = (fcwVtis_ery + Knl_ery*fnlVtis_ery + Knp_ery*fnpVtis_ery)*fnP/fn_ery;
+        Kery_up = (fcwVtis_ery + Knl_ery*fnlVtis_ery + Knp_ery*fnpVtis_ery)*fnnP/fnn_ery;
 
     otherwise
         error(['Unknown drug subclass "' RRsubclass '".'])
@@ -211,7 +222,7 @@ end
 % check for plausibility of estimated KA values
 assert(all(KA_AP >= 0), sprintf(...
     ['The relationship defining association to acidic phospholipids,\n\n'...
-    'KA_AP  = (Kery_up*fn_ery/fnP - fcwVtis_ery - Knl_ery*fnlVtis_ery - Knp_ery*fnpVtis_ery) / (AP_ery*fcatC_ery),\n\n'...    
+    'KA_AP  = (Kery_up*fnn_ery/fnnP - fcwVtis_ery - Knl_ery*fnlVtis_ery - Knp_ery*fnpVtis_ery) / (AP_ery*fcatC_ery),\n\n'...    
     'resulted in a negative association constant KA_AP.']))
 assert(all(KA_PR_x_PRtis(~isnan(KA_PR_x_PRtis)) >= 0), sprintf(...
     ['The relationship defining association to proteins,\n\n'...
@@ -223,12 +234,12 @@ assert(all(KA_PR_x_PRtis(~isnan(KA_PR_x_PRtis)) >= 0), sprintf(...
 K.cel_ucel = ( fcwVtis + Knl.*fnlVtis + Knp.*fnpVtis + ...
                   KA_AP*AP.*fcatC ) ./ fcelVtis;
 
-K.ery_uery = fn_ery/fnP * Kery_up;
+K.ery_uery = fnn_ery/fnnP * Kery_up;
               
 K.int_uint = (fiwVtis + KA_PR_x_PRtis) ./ fintVtis;   
 
 % tis = int + cel --> weighted partition coefficients (incl. ionization) 
-K.tis_up = fintVtis .* K.int_uint + fnP./fnC.*fcelVtis.*K.cel_ucel;
+K.tis_up = fintVtis .* K.int_uint + fnnP./fnnC.*fcelVtis.*K.cel_ucel;
 
 % blood-to-plasma concentration ratio
 BP = hct*fuP*Kery_up + (1-hct);
@@ -259,10 +270,10 @@ if nargout > 1
     f.u.int = 1./K.int_uint;
     f.u.cel = 1./K.cel_ucel;
     
-    f.n.pla = fnP;
-    f.n.ery = fn_ery;
-    f.n.int = repmat(fnP, size(organs));
-    f.n.cel = fnC;
+    f.n.pla = fnnP;
+    f.n.ery = fnn_ery;
+    f.n.int = repmat(fnnP, size(organs));
+    f.n.cel = fnnC;
 end
 
 % partitioning into tissue constituents
@@ -291,11 +302,11 @@ if nargout > 2
 
     fC = struct;
 
-    fC.uw = (sum(Viw + Vcw.*fnP./fnC) + Vcw_ery*fnP/fn_ery + Vpw) / denominator;    
+    fC.uw = (sum(Viw + Vcw.*fnnP./fnnC) + Vcw_ery*fnnP/fnn_ery + Vpw) / denominator;    
     fC.pr = (KA_PR_x_PRpla*Vpw + sum(KA_PR_x_PRtis.*Vtis) ) / denominator;    
-    fC.nl = (Vnl_pla * Knl_pla + fnP * (sum(Vnl .* Knl ./ fnC) + Vnl_ery * Knl_ery / fn_ery)) / denominator;
-    fC.np = (Vnp_pla * Knp_pla + fnP * (sum(Vnp .* Knp ./ fnC) + Vnp_ery * Knp_ery / fn_ery)) / denominator;
-    fC.ap = KA_AP * fnP * (sum(Vtis.*AP.*fcatC./fnC) + Very*AP_ery*fcat_ery/fn_ery )/ denominator;   
+    fC.nl = (Vnl_pla * Knl_pla + fnnP * (sum(Vnl .* Knl ./ fnnC) + Vnl_ery * Knl_ery / fnn_ery)) / denominator;
+    fC.np = (Vnp_pla * Knp_pla + fnnP * (sum(Vnp .* Knp ./ fnnC) + Vnp_ery * Knp_ery / fnn_ery)) / denominator;
+    fC.ap = KA_AP * fnnP * (sum(Vtis.*AP.*fcatC./fnnC) + Very*AP_ery*fcat_ery/fnn_ery )/ denominator;   
     
 end
 

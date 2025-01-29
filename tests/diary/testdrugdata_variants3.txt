@@ -1,7 +1,8 @@
 Assumption "test" not found for drug parameter "formula"; parameter not filtered.
 Assumption "test" not found for drug parameter "MW"; parameter not filtered.
-Assumption "test" not found for drug parameter "pKa_acidic"; parameter not filtered.
-Assumption "test" not found for drug parameter "pKa_basic"; parameter not filtered.
+Assumption "test" not found for drug parameter "pKa_ani"; parameter not filtered.
+Assumption "test" not found for drug parameter "pKa_cat"; parameter not filtered.
+Assumption "test" not found for drug parameter "Kz"; parameter not filtered.
 Assumption "test" not found for drug parameter "logPow"; parameter not filtered.
 Assumption "test" not found for drug parameter "logPvow"; parameter not filtered.
 Assumption "test" not found for drug parameter "logMA"; parameter not filtered.

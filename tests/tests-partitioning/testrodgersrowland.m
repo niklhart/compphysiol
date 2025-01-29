@@ -35,9 +35,9 @@ for i = 1:height(T)
         case 'neutral'
             % pass, no pKa to add
         case 'acid'
-            addrecord(drug,'pKa_acidic',T.pKa(i))
+            addrecord(drug,'pKa_ani',T.pKa(i))
         case 'base'
-            addrecord(drug,'pKa_basic',T.pKa(i))
+            addrecord(drug,'pKa_cat',T.pKa(i))
     end
 
     BP = T.BP(i);
@@ -100,7 +100,7 @@ drug.class = 'sMD';
 drug.subclass = 'acid';
 
 addrecord(drug,'logPow',0);
-addrecord(drug,'pKa_acidic',5);
+addrecord(drug,'pKa_ani',5);
 addrecord(drug,'fuP',spec,0.9);
 addrecord(drug,'K_ery_up',spec,1);
 
@@ -117,7 +117,7 @@ drug.class = 'sMD';
 drug.subclass = 'base';
 
 addrecord(drug,'logPow',0);
-addrecord(drug,'pKa_basic',10);
+addrecord(drug,'pKa_cat',10);
 addrecord(drug,'fuP',spec,0.9);
 addrecord(drug,'K_ery_up',spec,1);
 

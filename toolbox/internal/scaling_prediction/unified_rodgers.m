@@ -108,8 +108,8 @@ pH_ery = queryphys('pH','ery');
 %%% drug-specific or mixed data
 
 % no acidic/basic pKa values given = drug doesn't have such a pKa
-acidic_pKa = querydrug('pKa_acidic', Default = []);  
-basic_pKa  = querydrug('pKa_basic',  Default = []);  
+pKa_ani = querydrug('pKa_ani', Default = []);  
+pKa_cat  = querydrug('pKa_cat',  Default = []);  
 
 fuP      = querydrug('fuP');         
 Kery_up  = querydrug('K_ery_up'); 
@@ -120,9 +120,9 @@ logPow   = querydrug('logPow');
 logPvow = querydrug('logPvow', Default = 1.115*logPow - 1.35);
 
 % fraction neutral due to ionization effects
-[fnC,   ~,fcatC]    = ionized_fractions(pH_cel, acidic_pKa, basic_pKa);
-[fnP,faniP,  ~  ]   = ionized_fractions(pH_pla, acidic_pKa, basic_pKa);
-[fn_ery,~,fcat_ery] = ionized_fractions(pH_ery, acidic_pKa, basic_pKa);
+[fnC,   ~,fcatC]    = ionized_fractions(pH_cel, pKa_ani, pKa_cat);
+[fnP,faniP,  ~  ]   = ionized_fractions(pH_pla, pKa_ani, pKa_cat);
+[fn_ery,~,fcat_ery] = ionized_fractions(pH_ery, pKa_ani, pKa_cat);
 
 % same pH in plasma and extracellular space --> same ionization  
 fnE   = fnP;

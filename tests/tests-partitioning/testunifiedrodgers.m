@@ -31,7 +31,7 @@ drug.class = 'sMD';
 drug.subclass = 'acid';
 
 addrecord(drug,'logPow',-2);
-addrecord(drug,'pKa_acidic',5);
+addrecord(drug,'pKa_ani',5);
 addrecord(drug,'fuP',spec,0.9);
 addrecord(drug,'K_ery_up',spec,1);
 
@@ -51,7 +51,7 @@ drug.class = 'sMD';
 drug.subclass = 'base';
 
 addrecord(drug,'logPow',-2);
-addrecord(drug,'pKa_basic',10);
+addrecord(drug,'pKa_cat',10);
 addrecord(drug,'fuP',spec,1);     
 addrecord(drug,'K_ery_up',spec,1);
 

@@ -17,6 +17,12 @@
 %   that PKA_CAT <= PKA_ANI, which can be derived from theory based on 
 %   electrostatic interactions.
 %
+%   [___] = IONIZED_FRACTIONS(___,KZ,RESPECTTHERMODYNAMICS) allows to
+%   specify whether pKa values of ampholytes must be ordered in accordance 
+%   with thermodynamics (every anionic pKa larger than any cationic pKa)
+%   (default: true). This option is mainly provided to be able to reproduce
+%   Rodgers et al.'s results, it is not recommended to change the default.
+%
 %   Examples:
 %   % neutral drug
 %   [fn,fani,fcat] = ionized_fractions(7.4, [], [])
@@ -38,13 +44,19 @@
 %   
 %   % purely zwitterionic ampholyte 
 %   [fn,fani,fcat,fz] = ionized_fractions(7.4, 10, 5, Inf)
-function [fn, fani, fcat, fz] = ionized_fractions(pH, pKa_ani, pKa_cat, Kz)
+function [fn, fani, fcat, fz] = ionized_fractions(pH, pKa_ani, pKa_cat, Kz, respectThermodynamics)
 
     arguments
         pH double
         pKa_ani double
-        pKa_cat double {mustBeAllLessThanOrEqual(pKa_cat,pKa_ani)}
+        pKa_cat double
         Kz (1,1) double {mustBeNonnegative} = 0
+        respectThermodynamics (1,1) logical = true
+    end
+
+    if respectThermodynamics && ~isempty(pKa_cat) && ~isempty(pKa_ani)
+        assert(max(pKa_cat,[],"all") <= min(pKa_ani,[],"all"), ...
+            'cationic pKa value(s) (input 3) must be smaller than anionic pKa value(s) (input 2).')
     end
 
     assert(~(isempty(pKa_ani) || isempty(pKa_cat)) || Kz == 0, ...
@@ -73,11 +85,4 @@ function [fn, fani, fcat, fz] = ionized_fractions(pH, pKa_ani, pKa_cat, Kz)
     % allocate fractions neutral/zwitterionic by tautomeric constant Kz
     fn = fnz/(1+Kz);
     fz = fnz-fn;
-end
-
-
-function mustBeAllLessThanOrEqual(A,B)
-    if ~isempty(A) && ~isempty(B)
-        mustBeLessThanOrEqual(max(A,[],"all"),min(B,[],"all"))
-    end
 end
