@@ -28,7 +28,7 @@ classdef (Abstract) DB < matlab.mixin.Copyable
                         [lia, locb] = ismember(subs, {A.name});
                         if ~all(lia(:)) %unmatched compound
                             unmatched = subs(~lia);
-                            error('PBPK:DB:subsref:noEntryFound',['No entry/entries named "' strjoin(unmatched,',') '" in the database.'])
+                            error('compphysiol:DB:subsref:noEntryFound',['No entry/entries named "' strjoin(unmatched,',') '" in the database.'])
                         end
                         varargout{1} = A(locb);
                         if numel(S) > 1  
@@ -76,7 +76,7 @@ classdef (Abstract) DB < matlab.mixin.Copyable
 
             % syntax getvalue(obj) --> early return
             if nargin == 1
-                assert(isscalar(obj), 'PBPK:DB:getvalue:nonscalarSingleInput' ,'Cannot use single-input call for a non-scalar object.')
+                assert(isscalar(obj), 'compphysiol:DB:getvalue:nonscalarSingleInput' ,'Cannot use single-input call for a non-scalar object.')
                 val = obj.db;
                 return
             end
@@ -86,7 +86,7 @@ classdef (Abstract) DB < matlab.mixin.Copyable
             
             % recursive call in case of non-scalar OBJ
             if isobjarr
-                assert(~any(isclstr,'all'), 'PBPK:DB:getvalue:objarrayAndCellstrArgs', ...
+                assert(~any(isclstr,'all'), 'compphysiol:DB:getvalue:objarrayAndCellstrArgs', ...
                     'If OBJ is an array, all categories must be scalar.')
                 if strcmp(obj(1).units.(nm), 'char')
                     val = arrayfun(@(x) {getvalue(x, nm, varargin{:})}, obj);
@@ -117,7 +117,7 @@ classdef (Abstract) DB < matlab.mixin.Copyable
                     val = arrayfun(@(i) helper(obj, nm, varargin, isclstr, i), ...
                         reshape(1:numel(varargin{isclstr}),size(varargin{isclstr})));
                 otherwise 
-                    error('PBPK:DB:getvalue:multipleCellstrArgs','At most one category can be cellstr.')
+                    error('compphysiol:DB:getvalue:multipleCellstrArgs','At most one category can be cellstr.')
             end
 
             function val = helper(obj, nm, categ, icellstr, ival)
@@ -234,10 +234,10 @@ classdef (Abstract) DB < matlab.mixin.Copyable
                         out = options.Default;
                         return
                     end
-                    mident = 'PBPK:DB:noDbMatch';
+                    mident = 'compphysiol:DB:noDbMatch';
                     mstart = 'No matches';
                 else % nmatch > 1
-                    mident = 'PBPK:DB:multiDbMatch';
+                    mident = 'compphysiol:DB:multiDbMatch';
                     mstart = 'Several matches';
 
                 end

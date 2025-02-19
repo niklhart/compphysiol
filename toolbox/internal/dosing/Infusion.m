@@ -100,13 +100,13 @@ classdef Infusion < SimpleDosing
                 rate = dose ./ duration;
             elseif istype(dose,'Time')
                 % argument switch dose <--> duration
-                error('PBPK:Infusion:doseDurationSwitched', ...
+                error('compphysiol:Infusion:doseDurationSwitched', ...
                     'Wrong input units. Maybe the order of inputs "dose" and "duration" was switched?')
             else
                 dose_per_durorrate = unitsOf(dose)/unitsOf(dur_or_rate);
                 if istype(dose_per_durorrate,'1/Time')
                     % argument switch dose <--> rate
-                    error('PBPK:Infusion:doseRateSwitched', ...
+                    error('compphysiol:Infusion:doseRateSwitched', ...
                         'Wrong input units. Maybe the order of inputs "dose" and "rate" was switched?')
                 else
                     % rate specified

@@ -42,15 +42,13 @@
 %       which means that these plots can be customized afterwards using
 %       dimensioned variables. It also shows units in a different location.
 %
-%Customization of global options:
+%   PhysiologyDB - Function handle to the initialization function of the
+%       physiological database
 %   
-%   To customize the default for a global option, change the value marked
-%   as 'Default' in the input parser scheme (second input to
-%   p.addParameter). To define a new option, add a new p.addParameter 
-%   statement to the input parser scheme. In both cases, make sure to 
-%   update this help text accordingly.
+%   DrugDB - Function handle to the initialization function of the drug
+%       database
 %
-%   See also optionsPBPKtoolbox, getoptPBPKtoolbox, setoptPBPKtoolbox
+%   See also optionscompphysiol, getoptcompphysiol, setoptcompphysiol
 
 function options = optionsparser(options, varargin)
 
@@ -71,6 +69,8 @@ function options = optionsparser(options, varargin)
     p.addParameter('DefaultObservable',  [],                             @(x) isempty(x) || isa(x,'Observable'));
     p.addParameter('ReportToConsole',    false,                          @isboolean);
     p.addParameter('DimVarPlot',         false,                          @isboolean);
+    p.addParameter('PhysiologyDB',       @initphysiologydb,              @(x) isa(x,'function_handle'));
+    p.addParameter('DrugDB',             @initdrugdb,                    @(x) isa(x,'function_handle'));
 
     p.parse(varargin{:});
     

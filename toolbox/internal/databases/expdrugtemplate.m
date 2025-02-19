@@ -3,7 +3,7 @@
 %   experimental drug-related parameters that may be added to the drug database. 
 %
 %   Note that in order for a change in EXPDRUGTEMPLATE to take effect,
-%   function 'initPBPKtoolbox' must be re-run, and that this clears all
+%   function 'resetcompphysiol' must be re-run, and that this clears all
 %   variables from the global workspace.
 %
 %   PARAMS = EXPDRUGTEMPLATE() returns a N-by-4 cell array PARAMS, where each
@@ -17,7 +17,7 @@
 %   - column 4 is an explanatory text that can be queried with function
 %     about()
 %
-%   See also initexpdrugdb, ExpDrugData, typecheck, about, initPBPKtoolbox
+%   See also initexpdrugdb, ExpDrugData, typecheck, about, resetcompphysiol
 
 function params = expdrugtemplate()
 

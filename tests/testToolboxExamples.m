@@ -18,7 +18,7 @@ function testToolboxExamples(verbosity,includeMethods)
     verbosity = validatestring(verbosity,{'all','run','error'});
 
     wd = ['toolbox' filesep 'internal'];
-%    wd = [pathPBPKtoolbox() filesep 'internal'];
+
     toolboxFiles = dir(fullfile(wd,['**' filesep '*.m']));
     
     % filter out methods in separate files, which may pose problems 

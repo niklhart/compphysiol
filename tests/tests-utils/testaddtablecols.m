@@ -12,7 +12,7 @@ assert(isequal(size(tab2), [3 2]))
 assert(all(isnan(tab2.col2)))
 
 assertError(@() addtablecols(tab, 'col2', 'test'), ...
-    'PBPK:Utils:addtablecols:wrongColumnType')
+    'compphysiol:Utils:addtablecols:wrongColumnType')
 
 %% Empty table
 
@@ -35,10 +35,10 @@ assert(all(isnan(tab1.col3)))
 col1 = [1; 2; 3];
 tab = table(col1);
 assertError(@() addtablecols(tab, {'col2', 'col3'}, {'char', 'char', 'double'}), ...
-    'PBPK:Utils:Uniformize_size:wrongInputDimensions')
+    'compphysiol:Utils:Uniformize_size:wrongInputDimensions')
 
 %% Wrong argument type
 
 col1 = [1; 2; 3];
 assertError(@() addtablecols(col1, 'col2', 'char'), ...
-    'PBPK:Utils:addtablecols:wrongInputType')
+    'compphysiol:Utils:addtablecols:wrongInputType')

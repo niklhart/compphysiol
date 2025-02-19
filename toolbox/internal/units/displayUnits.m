@@ -23,7 +23,7 @@ function dispUnits = displayUnits()
 
 %% PBPK toolbox
 
-dispUnits  = getoptPBPKtoolbox('DisplayUnits');
+dispUnits  = getoptcompphysiol('DisplayUnits');
 
 %% More elaborate SI.
 % dispUnits = {

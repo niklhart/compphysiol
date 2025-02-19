@@ -156,7 +156,7 @@ function ddb = build_database()
     addrecord(ddb(i), 'MW',      MW,            'DrugBank.ca',  [])
     addrecord(ddb(i), 'pKa_cat', 2.9,            az1991,         [])
     addrecord(ddb(i), 'pKa_ani', 7.4,            az1991,         [])
-    addrecord(ddb(i), 'Kz',      Inf,            [],'approximation')
+    addrecord(ddb(i), 'Kz',      Inf,            [],'zwitterionic ampholyte')
     addrecord(ddb(i), 'logPow', -3.0,            az1991,         [])  
 
     addrecord(ddb(i), 'fuP',                'human', 0.98,           az1991, [])

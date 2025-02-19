@@ -77,10 +77,10 @@ ind1.drugdata = [];
 assert(isempty(ind1.drugdata))
 
 % wrong object type
-assertError(@() setDrugdata(ind1, 'abc'), 'PBPK:Individual:setdrugdata:wrongObjType')
+assertError(@() setDrugdata(ind1, 'abc'), 'compphysiol:Individual:setdrugdata:wrongObjType')
 
 % with AutoAssignDrugData option
-setoptPBPKtoolbox('AutoAssignDrugData', true)
+setoptcompphysiol('AutoAssignDrugData', true)
 
 ind1.drugdata = [];
 ind1.dosing = Oral('drugB', 0*u.h, 50*u.mg);
@@ -90,7 +90,7 @@ assert(strcmp(ind1.drugdata.subclass, 'base'))
 assert(abs(ind1.drugdata.db.('MW').Value - 0.2343*(u.kg/u.mol)) < 1e-04*(u.kg/u.mol))
 
 % AutoAssignDrugData + AutoFilterDrugData options
-setoptPBPKtoolbox('AutoFilterDrugData', true)
+setoptcompphysiol('AutoFilterDrugData', true)
 ind1.drugdata = [];
 ind1.physiology = Physiology('human35f');
 assert(strcmp(ind1.drugdata.name, 'drugB'))
@@ -98,15 +98,15 @@ assert(strcmp(ind1.drugdata.class, 'sMD'))
 assert(strcmp(ind1.drugdata.subclass, 'base'))
 assert(abs(ind1.drugdata.db.('MW').Value - 0.2343*(u.kg/u.mol)) < 1e-04*(u.kg/u.mol))
 
-setoptPBPKtoolbox('AutoFilterDrugData', false)
-setoptPBPKtoolbox('AutoAssignDrugData', false)
+setoptcompphysiol('AutoFilterDrugData', false)
+setoptcompphysiol('AutoAssignDrugData', false)
 
 % only AutoFilterDrugData option
-setoptPBPKtoolbox('AutoFilterDrugData', true)
+setoptcompphysiol('AutoFilterDrugData', true)
 assert(isempty(ind1.drugdata))
 assertWarning(@() ind1.drugdata)
 % TODO: check for warning
-setoptPBPKtoolbox('AutoFilterDrugData', false)
+setoptcompphysiol('AutoFilterDrugData', false)
 
 
 %% Test set.physiology
@@ -124,7 +124,7 @@ ind1.physiology = [];
 assert(isempty(ind1.physiology))
 
 % wrong object type
-assertError(@() setPhysiology(ind1, 'abc'), 'PBPK:Individual:setphysiology:wrongObjType')
+assertError(@() setPhysiology(ind1, 'abc'), 'compphysiol:Individual:setphysiology:wrongObjType')
 
 
 %% Test set.sampling
@@ -140,7 +140,7 @@ ind1.sampling = [];
 assert(isempty(ind1.sampling))
 
 % wrong object type
-assertError(@() setSampling(ind1, 'abc'), 'PBPK:Individual:setsampling:wrongObjType')
+assertError(@() setSampling(ind1, 'abc'), 'compphysiol:Individual:setsampling:wrongObjType')
 
 
 %% Test set.observation
@@ -154,7 +154,7 @@ ind1.observation = [];
 assert(isempty(ind1.observation))
 
 % wrong object type
-assertError(@() setObservation(ind1, 'abc'), 'PBPK:Individual:setobservation:wrongObjType')
+assertError(@() setObservation(ind1, 'abc'), 'compphysiol:Individual:setobservation:wrongObjType')
 
 %% Test set.model
 
@@ -170,7 +170,7 @@ ind1.model = [];
 assert(isempty(ind1.model))
 
 % wrong object type
-assertError(@() setModel(ind1, 'abc'), 'PBPK:Individual:setmodel:wrongObjType')
+assertError(@() setModel(ind1, 'abc'), 'compphysiol:Individual:setmodel:wrongObjType')
 
 %% Test cloning
 
@@ -196,13 +196,13 @@ assert(isequal(sim.sampling.schedule.Time, [0.5 1 2 4 8 12 24 32]'*u.h))
 
 % exp2sim: virtual individual input
 expid.type = 'Virtual individual';
-assertError(@() exp2sim(expid), 'PBPK:Individual:exp2sim:needExperimentalData')
+assertError(@() exp2sim(expid), 'compphysiol:Individual:exp2sim:needExperimentalData')
 
 % sim2exp
 vid = Individual('Virtual');
 
 % sim2exp: no simulation
-assertError(@() sim2exp(vid), 'PBPK:Individual:checkSimulated:notSimulated')
+assertError(@() sim2exp(vid), 'compphysiol:Individual:checkSimulated:notSimulated')
 
 % sim2exp correct usage
 vid.model = test_model();
@@ -219,7 +219,7 @@ assert(isequal(expdata.observation.Time, [0 0 1 1 2 2]'*u.h))
 
 % sim2exp: experimental data input
 vid.type = 'Experimental data';
-assertError(@() sim2exp(vid), 'PBPK:Individual:sim2exp:needVirtualIndividual')
+assertError(@() sim2exp(vid), 'compphysiol:Individual:sim2exp:needVirtualIndividual')
 
 % TODO: sim2exp: no sampling schedule
 
@@ -229,7 +229,7 @@ assertError(@() sim2exp(vid), 'PBPK:Individual:sim2exp:needVirtualIndividual')
 vid = Individual(2,'Virtual');
 
 % not simulated virtual individual
-assertError(@() plot(vid), 'PBPK:Individual:plot:missingSimulation')
+assertError(@() plot(vid), 'compphysiol:Individual:plot:missingSimulation')
 
 obs = Observable('MultiPK','A','pla');
 vid(1).model = test_model();
@@ -299,7 +299,7 @@ obs = Observable('MultiPK','A','pla');
 indarr = Individual(2,'Virtual');
 
 % Individual is not initialized
-assertError(@() simulate(indarr), 'PBPK:Individual:checkInitialized:notInitialized')
+assertError(@() simulate(indarr), 'compphysiol:Individual:checkInitialized:notInitialized')
 
 indarr(1).model = test_model();
 indarr(1).sampling = Sampling([0 0.5 1]*u.h, obs);
@@ -338,7 +338,7 @@ indarr(1).sampling = Sampling([0 0.5 1]*u.h, obs);
 indarr(2) = indarr(1);
 
 assertError(@() checkHandleDuplicates(indarr), ...
-    'PBPK:Individual:checkHandleDuplicates:handleDuplicates')
+    'compphysiol:Individual:checkHandleDuplicates:handleDuplicates')
 
 indarr(2) = clone(indarr(1));
 checkHandleDuplicates(indarr)

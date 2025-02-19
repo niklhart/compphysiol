@@ -1,12 +1,12 @@
-%OPTIONSPBPKTOOLBOX Global options for the PBPK toolbox
+%OPTIONSCOMPPHYSIOL Global options for the compphysiol toolbox
 %   This function stores global options in a persistent variable. Options
-%   can be get/set using getoptPBPKtoolbox() or setoptPBPKtoolbox(),
+%   can be get/set using getoptcompphysiol() or setoptcompphysiol(),
 %   respectively. For a list of available options and instructions on how 
-%   to customize these, refer to the help of function optionsparser 
+%   to customize these, refer to the help of function optionsparser.
 %
-%   See also getoptPBPKtoolbox, setoptPBPKtoolbox, optionsparser
+%   See also getoptcompphysiol, setoptcompphysiol, optionsparser
 
-function out = optionsPBPKtoolbox(type, varargin)
+function out = optionscompphysiol(type, varargin)
     
     persistent options
 

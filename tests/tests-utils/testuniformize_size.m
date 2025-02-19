@@ -15,19 +15,19 @@ assert(isequal(o6,[3 3]))
 %% Wrong number of inputs
 
 assertError(@() err_wrongInputNumber(1,[2,3]), ...
-    'PBPK:Utils:Uniformize_size:wrongNumberOfInputsOrOutputs')
+    'compphysiol:Utils:Uniformize_size:wrongNumberOfInputsOrOutputs')
 
 
 %% Wrong input dimensions
 
 assertError(@() err_wrongInputDimensions2([1,2,3],[4,5]), ...
-    'PBPK:Utils:Uniformize_size:wrongInputDimensions')
+    'compphysiol:Utils:Uniformize_size:wrongInputDimensions')
 
 assertError(@() err_wrongInputDimensions2([1,2],[3,4,5,6]), ...
-    'PBPK:Utils:Uniformize_size:wrongInputDimensions')
+    'compphysiol:Utils:Uniformize_size:wrongInputDimensions')
 
 assertError(@() err_wrongInputDimensions3(1,[2,3],[4,5,6]), ...
-    'PBPK:Utils:Uniformize_size:wrongInputDimensions')
+    'compphysiol:Utils:Uniformize_size:wrongInputDimensions')
 
 function err_wrongInputDimensions2(varargin)
     [~,~] = uniformize_size(varargin{:});

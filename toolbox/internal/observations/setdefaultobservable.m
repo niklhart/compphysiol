@@ -21,7 +21,7 @@ function setdefaultobservable(varargin)
     else
         obs = PBPKobservables(varargin{:});
     end
-    setoptPBPKtoolbox('DefaultObservable',obs);
+    setoptcompphysiol('DefaultObservable',obs);
 
 end
 

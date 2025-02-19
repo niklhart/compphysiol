@@ -10,7 +10,7 @@ function mustContainColumns(tab, cols)
     tabcols = tab.Properties.VariableNames;
     if ~all(ismember(cols, tabcols))
         missing = setdiff(cols, tabcols);
-        me = MException('PBPK:missingCol','Mandatory column(s) missing: %s.',strjoin(missing,','));
+        me = MException('compphysiol:missingCol','Mandatory column(s) missing: %s.',strjoin(missing,','));
         throwAsCaller(me)
     end
 

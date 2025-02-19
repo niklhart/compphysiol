@@ -53,30 +53,30 @@ dd2 = loaddrugdata('drugB');
 assert(abs(getrecord(dd1,'MW')/(u.kg/u.mol) - 0.3083) < 1e-4)
 assert(all(abs(getrecord([dd1 dd2], 'MW')/(u.kg/u.mol) - [0.3083 0.2343]) < 1e-4))
 assertError(@() getrecord(dd1, 'test'), ...
-    'PBPK:DrugData:getrecord:parameterNotFound')
+    'compphysiol:DrugData:getrecord:parameterNotFound')
 assertError(@() getrecord(dd1, 'CLint_hep_perOWliv'), ...
-    'PBPK:DrugData:getrecord:severalEntriesFound')
+    'compphysiol:DrugData:getrecord:severalEntriesFound')
 assertError(@() getrecord(dd1, 'fuP', 'mouse'), ...
-    'PBPK:DrugData:getrecord:noEntriesFound')
+    'compphysiol:DrugData:getrecord:noEntriesFound')
 
 % hasrecord
 assert(hasrecord(dd1, 'MW'))
 assert(~hasrecord(dd1, 'fuP', 'mouse'))
 assertError(@() hasrecord(dd1, 'test'), ...
-    'PBPK:DrugData:hasrecord:parameterNotFound')
+    'compphysiol:DrugData:hasrecord:parameterNotFound')
 
 % updaterecord
 updaterecord(dd1, 'MW', 1*u.kg/u.mol);
 assert(dd1.db.MW.Value == 1*u.kg/u.mol)
 assertError(@() updaterecord(dd1, 'test', 1), ...
-    'PBPK:DrugData:updaterecord:parameterNotFound')
+    'compphysiol:DrugData:updaterecord:parameterNotFound')
 
 % addrecord
 addrecord(dd1, 'fuP', 'mouse', 1);
 assert(all(abs(dd1.db.fuP.Value - [0.38;0.01;1.00]) < 1e-4))
 assert(isequal(dd1.db.fuP.Source{3}, 'derived'))
 assertError(@() addrecord(dd1, 'test', 1), ...
-    'PBPK:DrugData:addrecord:parameterNotFound')
+    'compphysiol:DrugData:addrecord:parameterNotFound')
 
 
 %% Variants / filtervariants
@@ -104,6 +104,6 @@ assert(dd2.db.lambda_po.Value/(1/u.h) - 2 < 1e-4)
 % no suitable test drug for this test
 dd4 = loaddrugdata('Amitriptyline');
 assertError(@() filtervariants(dd4, 'reference', 'test', 'assumption', 'test'), ...
-    'PBPK:DrugData:filtervariants:wrongFilterParameters')
+    'compphysiol:DrugData:filtervariants:wrongFilterParameters')
 filtervariants(dd4, 'assumption', 'Assumed Egut=0','silent',true);
 assert(isequal(size(dd4.db.Egut), [2 4]))

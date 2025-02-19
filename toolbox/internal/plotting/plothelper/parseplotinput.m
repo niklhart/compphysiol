@@ -54,8 +54,8 @@ function pRes = parseplotinput(varargin)
     p.addParameter('Type',           [],             @ischar);
     p.addParameter('xlabel',         'Time',         @ischar);
     p.addParameter('ylabel',         'Data',         @ischar);
-    p.addParameter('xscalelog',      getoptPBPKtoolbox('XScaleLog'),  @isboolean);
-    p.addParameter('yscalelog',      getoptPBPKtoolbox('YScaleLog'),  @isboolean);
+    p.addParameter('xscalelog',      getoptcompphysiol('XScaleLog'),  @isboolean);
+    p.addParameter('yscalelog',      getoptcompphysiol('YScaleLog'),  @isboolean);
     p.addParameter('title',          [],             @ischar);
     p.addParameter('maxSubplots',    12,             @isnumeric);
     p.addParameter('maxSubplotRows',  3,             @isnumeric);
@@ -76,7 +76,7 @@ function pRes = parseplotinput(varargin)
     %   1) input argument 'polish'
     %   2) global plot options
     %   3) defaults defined in polish 
-    pRes.polish = mergestructs(getoptPBPKtoolbox('PlotOptions'), pRes.polish);
+    pRes.polish = mergestructs(getoptcompphysiol('PlotOptions'), pRes.polish);
 end
     
 function tf = isaggregation(x)

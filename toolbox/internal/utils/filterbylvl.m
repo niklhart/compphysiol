@@ -27,7 +27,7 @@ function lvl = levels(aggr)
     elseif iscellstr(aggr)
         lvl = aggr;
     else 
-        error('PBPK:Utils:Filterbylvl:Levels:invalidInputArgument', ...
+        error('compphysiol:Utils:Filterbylvl:Levels:invalidInputArgument', ...
             'Invalid input argument.')
     end
 

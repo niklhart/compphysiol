@@ -1,6 +1,5 @@
 % Testing data import functions 
 
-%test_folder = '../tests/data-for-testing/'; % QUICK FIX
 testDirectory = fileparts(mfilename('fullpath'));
 
 %% Test covariate tables
@@ -10,7 +9,6 @@ testDirectory = fileparts(mfilename('fullpath'));
 file = fullfile(testDirectory,'..','data-for-testing','Test_COVARIATES.csv');
 
 opts = detectImportOptions(file);
-%opts = detectImportOptions(fullfile(pathPBPKtoolbox(), file));
 opts.VariableTypes{2} = 'char';  % read VALUE column as 'char'
 opts.DataLines(1) = 2;           % don't skip any data row
 

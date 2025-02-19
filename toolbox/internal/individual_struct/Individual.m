@@ -82,14 +82,14 @@ classdef Individual < matlab.mixin.Copyable
         
         function out = get.drugdata(obj)
             assert(isscalar(obj), 'Property can only be retrieved for a scalar Individual object.')
-            if getoptPBPKtoolbox('AutoAssignDrugData') && isempty(obj.drugdata)
+            if getoptcompphysiol('AutoAssignDrugData') && isempty(obj.drugdata)
                 out = obj.pdrugdata;
                 phys = obj.physiology;
-                if getoptPBPKtoolbox('AutoFilterDrugData') && hasuniquerecord(phys,'species')
+                if getoptcompphysiol('AutoFilterDrugData') && hasuniquerecord(phys,'species')
                     filtervariants(out, 'species', getvalue(phys,'species'));
                 end
             else
-                if getoptPBPKtoolbox('AutoFilterDrugData')
+                if getoptcompphysiol('AutoFilterDrugData')
                     msg = ['Option "AutoFilterDrugData" only takes effect'...
                            'when "AutoAssignDrugData" is true.'];
                     warning(msg)
@@ -102,7 +102,7 @@ classdef Individual < matlab.mixin.Copyable
             assert(isscalar(obj), ...
                 'Properties can only be set for a scalar Individual object.')
             assert(isempty(drugdata) || isa(drugdata,'DrugData'), ...
-                'PBPK:Individual:setdrugdata:wrongObjType', ...
+                'compphysiol:Individual:setdrugdata:wrongObjType', ...
                 'Property "drugdata" must be a DrugData object.') 
             obj.drugdata = drugdata;            
         end
@@ -116,7 +116,7 @@ classdef Individual < matlab.mixin.Copyable
         function set.physiology(obj,phys)
             assert(isscalar(obj), 'Properties can only be set for a scalar Individual object.')
             assert(isempty(phys) || isa(phys,'Physiology'), ...
-                'PBPK:Individual:setphysiology:wrongObjType', ...
+                'compphysiol:Individual:setphysiology:wrongObjType', ...
                 'Property "physiology" must be a Physiology object.') 
             obj.physiology = phys;
         end
@@ -124,14 +124,14 @@ classdef Individual < matlab.mixin.Copyable
         function set.sampling(obj,smpl)
             assert(isscalar(obj), 'Properties can only be set for a scalar Individual object.')
             assert(isempty(smpl) || isa(smpl,'Sampling'), ...
-                'PBPK:Individual:setsampling:wrongObjType', ...
+                'compphysiol:Individual:setsampling:wrongObjType', ...
                 'Property "sampling" must be a Sampling object.') 
             obj.sampling = smpl;
         end
         function set.observation(obj,obs)
             assert(isscalar(obj), 'Properties can only be set for a scalar Individual object.')
             assert(isempty(obs) || isa(obs,'Record'), ...
-                'PBPK:Individual:setobservation:wrongObjType', ...
+                'compphysiol:Individual:setobservation:wrongObjType', ...
                 'Property "observation" must be a Record object.') 
             obj.observation = obs;
         end
@@ -140,7 +140,7 @@ classdef Individual < matlab.mixin.Copyable
                 obj.model = [];
             else
                 assert(isa(model,'Model'), ...
-                    'PBPK:Individual:setmodel:wrongObjType', ...
+                    'compphysiol:Individual:setmodel:wrongObjType', ...
                     'Property "model" must be a Model object.')
                 obj.model = copy(model);
             end
@@ -193,7 +193,7 @@ classdef Individual < matlab.mixin.Copyable
             %   See also Individual, sim2exp.
 
             assert(all(isexpid(obj),'all'), ...
-                'PBPK:Individual:exp2sim:needExperimentalData', ...
+                'compphysiol:Individual:exp2sim:needExperimentalData', ...
                 'Input array must contain experimental data only.')
             
             out = clone(obj);
@@ -216,7 +216,7 @@ classdef Individual < matlab.mixin.Copyable
 
               
             assert(all(issimid(obj),'all'), ...
-                'PBPK:Individual:sim2exp:needVirtualIndividual', ...
+                'compphysiol:Individual:sim2exp:needVirtualIndividual', ...
                 'Input array must contain virtual individuals only.')
             checkSimulated(obj)
             
@@ -315,7 +315,7 @@ classdef Individual < matlab.mixin.Copyable
             checkHandleDuplicates(obj)
 
             assert(all(isexpid(obj) | issimulated(obj),'all'), ...
-                'PBPK:Individual:plot:missingSimulation', ...
+                'compphysiol:Individual:plot:missingSimulation', ...
                 'Virtual individuals must be simulated prior to plotting.')
         
             h = plottemplate(obj,varargin{:});
@@ -371,7 +371,7 @@ classdef Individual < matlab.mixin.Copyable
 
             end  
 
-            if getoptPBPKtoolbox('ReportToConsole')
+            if getoptcompphysiol('ReportToConsole')
                 fprintf('%d virtual individuals initialized.\n',sum(is_sim))
             end
         end
@@ -393,7 +393,7 @@ classdef Individual < matlab.mixin.Copyable
                 obj(i).observation = simulate(obj(i).model, obj(i).dosing, obj(i).sampling);
             end        
 
-            if getoptPBPKtoolbox('ReportToConsole')
+            if getoptcompphysiol('ReportToConsole')
                fprintf('%d virtual individuals simulated.\n',sum(is_sim))
             end
         end
@@ -433,8 +433,8 @@ classdef Individual < matlab.mixin.Copyable
      
             checkHandleDuplicates(obj)
 
-            oldopt = setoptPBPKtoolbox('ReportToConsole', false);
-            cleanup_Reporting = onCleanup(@()setoptPBPKtoolbox(oldopt));
+            oldopt = setoptcompphysiol('ReportToConsole', false);
+            cleanup_Reporting = onCleanup(@()setoptcompphysiol(oldopt));
 
             for i = findAsRow(issimid(obj))
                 
@@ -460,7 +460,7 @@ classdef Individual < matlab.mixin.Copyable
 
             clearvars cleanup_Reporting
 
-            if getoptPBPKtoolbox('ReportToConsole')
+            if getoptcompphysiol('ReportToConsole')
                 fprintf('%d estimation task(s) completed.\n',sum(is_sim))
             end
         end
@@ -532,14 +532,14 @@ classdef Individual < matlab.mixin.Copyable
         function checkInitialized(obj)
             if ~all(isinitialized(obj),'all')
                 msg = 'All elements in Individual array must be initialized.';
-                error('PBPK:Individual:checkInitialized:notInitialized', msg)
+                error('compphysiol:Individual:checkInitialized:notInitialized', msg)
             end
         end
 
         function checkSimulated(obj)
             if ~all(issimulated(obj),'all')
                 msg = 'All elements in Individual array must have simulation output.';
-                error('PBPK:Individual:checkSimulated:notSimulated', msg)
+                error('compphysiol:Individual:checkSimulated:notSimulated', msg)
             end
         end
 
@@ -550,7 +550,7 @@ classdef Individual < matlab.mixin.Copyable
                 msg = ['Handle duplicates found in Individual array. To copy ' ...
                        'the content of an Individual object OBJ, use ' ...
                        'OBJ2 = clone(OBJ) instead of OBJ2 = OBJ.'];
-                error('PBPK:Individual:checkHandleDuplicates:handleDuplicates', msg)
+                error('compphysiol:Individual:checkHandleDuplicates:handleDuplicates', msg)
             end
 
         end

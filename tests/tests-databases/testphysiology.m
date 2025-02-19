@@ -32,7 +32,7 @@ phys1 = Physiology;
 phys1.name = 'test';
 assert(strcmp(phys1.name, 'test'))
 assertError(@() setName(phys1, 1), ...
-    'PBPK:Physiology:setname:charInputExpected')
+    'compphysiol:Physiology:setname:charInputExpected')
 
 
 %% Database record manipulation
@@ -55,10 +55,10 @@ assert(strcmp(phys1.db.sex.Value{2}, 'male'))
 
 % wrong parameter name
 assertError(@() addrecord(phys1, 'test', 'test'), ...
-    'PBPK:Physiology:addrecord:parameterNotFound')
+    'compphysiol:Physiology:addrecord:parameterNotFound')
 
 % wrong value type
-assertError(@() addrecord(phys1, 'sex', 1), 'PBPK:typecheck:nonChar')
+assertError(@() addrecord(phys1, 'sex', 1), 'compphysiol:typecheck:nonChar')
 
 
 %% hasrecord
@@ -71,7 +71,7 @@ assert(~hasrecord(phys1, 'age'))
 
 % wrong parameter name
 assertError(@() hasrecord(phys1, 'test'), ...
-    'PBPK:Physiology:hasrecord:parameterNotFound')
+    'compphysiol:Physiology:hasrecord:parameterNotFound')
 
 
 %% getrecord
@@ -84,22 +84,22 @@ assert(strcmp(getrecord(phys1, 'sex'), 'female'))
 
 % No entries found
 assertError(@() getrecord(phys1, 'age'), ...
-    'PBPK:Physiology:getrecord:noEntriesFound1')
+    'compphysiol:Physiology:getrecord:noEntriesFound1')
 assertError(@() getrecord(phys1, 'pH', 'blood'), ...
-    'PBPK:Physiology:getrecord:noEntriesFound2')
+    'compphysiol:Physiology:getrecord:noEntriesFound2')
 
 % Multiple entries
 addrecord(phys1, 'sex', 'male');
 addrecord(phys1, 'pH', 'blood', 1);
 addrecord(phys1, 'pH', 'blood', 2);
 assertError(@() getrecord(phys1, 'sex'), ...
-    'PBPK:Physiology:getrecord:multipleEntries1')
+    'compphysiol:Physiology:getrecord:multipleEntries1')
 assertError(@() getrecord(phys1, 'pH', 'blood'), ...
-    'PBPK:Physiology:getrecord:multipleEntries2')
+    'compphysiol:Physiology:getrecord:multipleEntries2')
 
 % Wrong parameter name
 assertError(@() getrecord(phys1, 'test'), ...
-    'PBPK:Physiology:getrecord:parameterNotFound')
+    'compphysiol:Physiology:getrecord:parameterNotFound')
 
 
 %% updaterecord
@@ -113,11 +113,11 @@ assert(strcmp(phys1.db.sex.Value, 'male'))
 
 % Wrong argument type
 assertError(@() updaterecord(phys1, 1, 1), ...
-    'PBPK:Physiology:updaterecord:valueMustBeChar')
+    'compphysiol:Physiology:updaterecord:valueMustBeChar')
 
 % No entries found
 assertError(@() updaterecord(phys1, 'pH', 'blood', 1), ...
-    'PBPK:Physiology:updaterecord:noEntriesFound')
+    'compphysiol:Physiology:updaterecord:noEntriesFound')
 
 
 %% aliasrecord
@@ -133,19 +133,19 @@ assert(strcmp(phys1.db.pH.Source{2}, 'derived (identical to blood)'))
 
 % Not a per-tissue parameter
 assertError(@() aliasrecord(phys1, 'sex', 'blood', 'blood1'), ...
-    'PBPK:Physiology:aliasrecord:mustBePerTissueParameter')
+    'compphysiol:Physiology:aliasrecord:mustBePerTissueParameter')
 
 % No entry
 assertError(@() aliasrecord(phys1, 'pH', 'blood2', 'blood3'), ...
-    'PBPK:Physiology:aliasrecord:noEntriesFound')
+    'compphysiol:Physiology:aliasrecord:noEntriesFound')
 
 % Wrong parameter type
 assertError(@() aliasrecord(phys1, 'pH', 'blood', 1), ...
-    'PBPK:Physiology:aliasrecord:mustBeChar')
+    'compphysiol:Physiology:aliasrecord:mustBeChar')
 assertError(@() aliasrecord(phys1, 'pH', 1, 'test'), ...
-    'PBPK:Physiology:aliasrecord:mustBeChar')
+    'compphysiol:Physiology:aliasrecord:mustBeChar')
 assertError(@() aliasrecord(phys1, 1, 'blood', 'test'), ...
-    'PBPK:Physiology:aliasrecord:mustBeChar')
+    'compphysiol:Physiology:aliasrecord:mustBeChar')
 
 
 %% deleterecord
@@ -166,11 +166,10 @@ assert(isempty(phys1.db.pH))
 
 % Wrong parameter name
 assertError(@() deleterecord(phys1, 'test'), ...
-    'PBPK:Physiology:deleterecord:parameterNotFound')
+    'compphysiol:Physiology:deleterecord:parameterNotFound')
 
 
 %% Display
-
 
 phys1 = Physiology;
 assertEqualsDiary(@() disp(phys1), 'testphysiology_disp1.txt');
@@ -185,7 +184,7 @@ str2 = obj2str(phys2, 'table');
 assert(isequal(str1, ...
     'human	Caucasian	female	35.00 year	163.00 cm	60.00 kg...'))
 assertError(@() obj2str(phys2, 'test'), ...
-    'PBPK:Physiology:obj2str:unknownContext')
+    'compphysiol:Physiology:obj2str:unknownContext')
 
 %% getvalue (inherited from superclass DB)
 
@@ -203,16 +202,13 @@ assert(BW == BW_)
 assert(Qliv == Qliv_)
 assert(Qliv2 == Qliv_)
 assert(rho == rho_)
-assertError(@() getvalue(phys,'BH'), 'PBPK:DB:noDbMatch')
-assertError(@() getvalue(phys,'dens'), 'PBPK:DB:multiDbMatch')
+assertError(@() getvalue(phys,'BH'), 'compphysiol:DB:noDbMatch')
+assertError(@() getvalue(phys,'dens'), 'compphysiol:DB:multiDbMatch')
 
 
 %% subsref (inherited from superclass DB)
 
-
-
-
-
+% TODO: needed?
 
 % helpers
 function setName(obj, val)

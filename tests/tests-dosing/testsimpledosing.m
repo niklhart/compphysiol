@@ -121,10 +121,10 @@ f_infus1 = @() Infusion('Warfarin',0*u.h,1*u.h,5*u.mg);     % dose <--> duration
 f_infus2 = @() Infusion('Warfarin',0*u.h,u.mg/u.h,5*u.mg);  % dose <--> rate
 
 % checking error messages
-assertError(f_bol,'PBPK:typecheck:incompatibleUnits') 
-assertError(f_oral,'PBPK:typecheck:incompatibleUnits') 
-assertError(f_infus1,'PBPK:Infusion:doseDurationSwitched') 
-assertError(f_infus2,'PBPK:Infusion:doseRateSwitched') 
+assertError(f_bol,'compphysiol:typecheck:incompatibleUnits') 
+assertError(f_oral,'compphysiol:typecheck:incompatibleUnits') 
+assertError(f_infus1,'compphysiol:Infusion:doseDurationSwitched') 
+assertError(f_infus2,'compphysiol:Infusion:doseRateSwitched') 
 
 
 

@@ -5,7 +5,7 @@ function percentileplotter(tab, xvar, yvar, xunit, yunit, percentiles)
         percentiles = [5 25 50 75 95];
     end
 
-    if getoptPBPKtoolbox('DimVarPlot')
+    if getoptcompphysiol('DimVarPlot')
         if isempty(tab)
             x = NaN*str2u(xunit);
             y = NaN*str2u(yunit);

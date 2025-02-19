@@ -93,7 +93,7 @@ classdef OdeModel < Model
                 if ~isempty(sampling.obs)   % sampling window
                     sampling = Sampling(t, sampling.obs);
                 else                            % sampling times w/o observable
-                    obs = getoptPBPKtoolbox('DefaultObservable');
+                    obs = getoptcompphysiol('DefaultObservable');
                     assert(~isempty(obs), ...
                         'For sampling timespans, default observables must be defined.')
                     sampling = Sampling(t, obs);

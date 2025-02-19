@@ -48,4 +48,4 @@ col2 = categorical({'a';'a';'b'});
 tab1 = table(col1, col2);
 
 assertError(@() filterbylvl(tab1, 'col1', 'a'), ...
-    'PBPK:Utils:Filterbylvl:Levels:invalidInputArgument')
+    'compphysiol:Utils:Filterbylvl:Levels:invalidInputArgument')

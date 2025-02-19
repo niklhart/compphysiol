@@ -3,7 +3,7 @@
 %   physiological parameters that may be added to the physiology database. 
 %   
 %   Note that in order for a change in PHYSIOLOGYTEMPLATE to take effect,
-%   function 'initPBPKtoolbox' must be re-run, and that this clears all
+%   function 'resetcompphysiol' must be re-run, and that this clears all
 %   variables from the global workspace.
 %
 %   PARAMS = PHYSIOLOGYTEMPLATE() returns a N-by-4 cell array PARAMS. Every 
@@ -27,7 +27,7 @@
 %   	f<what><OF WHAT>, like fuP for fraction unbound in plasma.
 %
 %   See also initphysiologydb, Physiology, typecheck, about, 
-%   initPBPKtoolbox
+%       resetcompphysiol
 
 function params = physiologytemplate()
 

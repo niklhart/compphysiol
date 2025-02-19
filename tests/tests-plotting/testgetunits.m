@@ -11,8 +11,8 @@ tbl = table(Time, Site, Subspace, Value);
 %% Correct usage: single plot
 
 % temporarily deactivate display units for this test
-oldopt = setoptPBPKtoolbox('DisplayUnits',{});
-c = onCleanup(@() setoptPBPKtoolbox(oldopt));
+oldopt = setoptcompphysiol('DisplayUnits',{});
+c = onCleanup(@() setoptcompphysiol(oldopt));
 
 % empty input units
 [tUnit, yUnit] = getunits(tbl, [], []);
@@ -48,8 +48,8 @@ assert(isequal(getunitstr(1*u.kg/u.s), 'kg/s'))
 assert(isequal(getunitstr(1*u.mg), 'mg'))      
 
 % custom display (global)
-opt = setoptPBPKtoolbox('DisplayUnits',{'mg'});
-c = onCleanup(@() setoptPBPKtoolbox(opt));
+opt = setoptcompphysiol('DisplayUnits',{'mg'});
+c = onCleanup(@() setoptcompphysiol(opt));
 
 assert(isequal(getunitstr(scd(u.kg)),'mg'))      
 

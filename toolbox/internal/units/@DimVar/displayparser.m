@@ -34,7 +34,7 @@ end
 
 % Determine if it matches a preferred unit. Preferred units can be list or
 % 2-column cell array.
-dispUnits = getoptPBPKtoolbox('displayUnits');  % NH removed dependency on u.dispUnits 
+dispUnits = getoptcompphysiol('displayUnits');  % NH removed dependency on u.dispUnits 
 if isempty(dispUnits) 
     % Do nothing.
 elseif iscellstr(dispUnits)

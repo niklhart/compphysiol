@@ -28,7 +28,7 @@ function typecheck(val, type, form)
     % early return for categorical type
     if strcmp(type,'char')
         if ~ischar(val)
-            throwAsCaller(MException('PBPK:typecheck:nonChar',...
+            throwAsCaller(MException('compphysiol:typecheck:nonChar',...
                 'Argument must be char.'));
         end
         return
@@ -38,14 +38,14 @@ function typecheck(val, type, form)
     try
         val = tounit(val);
     catch 
-        throwAsCaller(MException('PBPK:typecheck:noDimVar',...
+        throwAsCaller(MException('compphysiol:typecheck:noDimVar',...
             'Cannot convert argument to class "DimVar"'));
     end
     
     % early return for double type
     if isa(type,'double')
         if ~isa(val,'double')
-            throwAsCaller(MException('PBPK:typecheck:noDouble',...
+            throwAsCaller(MException('compphysiol:typecheck:noDouble',...
                 'Input has class "%s", but expected "double".',class(val)));
         end
         return
@@ -61,7 +61,7 @@ function typecheck(val, type, form)
     if ischar(type) % might be a DimVar string (e.g. 'km'), or a unit type (e.g. 'Length')
         if istype(val, type)
             if ~formcheck(val)
-                throwAsCaller(MException('PBPK:typecheck:nonScalar',...
+                throwAsCaller(MException('compphysiol:typecheck:nonScalar',...
                         'Argument must be %s.',form));
             end
             return
@@ -71,19 +71,19 @@ function typecheck(val, type, form)
                                            % 2-arg call avoids infinite
                                            % scd <-> str2u loop
             catch
-                throwAsCaller(MException('PBPK:typecheck:incompatibleUnits',...
+                throwAsCaller(MException('compphysiol:typecheck:incompatibleUnits',...
                     'Unit "%s" is incompatible with unit type "%s".', vstr, type));
             end
         end
     elseif iscellstr(type) %#ok<ISCLSTR>
         if any(cellfun(@(t) istype(val, t), type))
             if ~formcheck(val)
-                throwAsCaller(MException('PBPK:typecheck:nonScalar',...
+                throwAsCaller(MException('compphysiol:typecheck:nonScalar',...
                         'Argument must be %s.',form));
             end
             return
         else
-            throwAsCaller(MException('PBPK:typecheck:incompatibleUnits',...
+            throwAsCaller(MException('compphysiol:typecheck:incompatibleUnits',...
                 'Unit "%s" is incompatible with unit type(s): "%s"', vstr, strjoin(type,', ')));
         end
     end
@@ -91,16 +91,16 @@ function typecheck(val, type, form)
     if isa(type, 'DimVar') || isa(type,'double')
         if ~iscompatible(val, type)
             [~, ~, tstr] = displayparser(type);
-            throwAsCaller(MException('PBPK:typecheck:incompatibleUnits',...
+            throwAsCaller(MException('compphysiol:typecheck:incompatibleUnits',...
                 'Unit "%s" is incompatible with unit "%s".', vstr, tstr));
         end
     else
-        throwAsCaller(MException('PBPK:typecheck:invalidType',...
+        throwAsCaller(MException('compphysiol:typecheck:invalidType',...
             'Argument "type" must be a DimVar, a character array, or a string.'));
     end
     
     if ~formcheck(val)
-        throwAsCaller(MException('PBPK:typecheck:nonScalar',...
+        throwAsCaller(MException('compphysiol:typecheck:nonScalar',...
                 'Argument must be %s.',form));
     end
 end

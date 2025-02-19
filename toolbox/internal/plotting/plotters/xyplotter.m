@@ -1,7 +1,7 @@
 %XYPLOTTER Plotting function for dimensioned tabular longitudinal data
 function xyplotter(tab, xvar, yvar, xunit, yunit, style)
 
-    if getoptPBPKtoolbox('DimVarPlot')
+    if getoptcompphysiol('DimVarPlot')
         if isempty(tab)
             x = NaN*str2u(xunit);
             y = NaN*str2u(yunit);

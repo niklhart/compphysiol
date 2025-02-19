@@ -46,7 +46,7 @@ classdef ImportableData < handle & matlab.mixin.Copyable % & CompactTabularDispl
             %   file = 'data/Theophylline.csv';
             %   data = ImportableData(file)
             %   
-            %   See also ImportableData/import, readtable, pathPBPKtoolbox,
+            %   See also ImportableData/import, readtable,
             %   ImportableData/maprow, ImportableData/flagcov,
             %   ImportableData/setattr.
 

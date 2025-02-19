@@ -12,17 +12,13 @@
 %   A handle to the drug database is returned AND stored
 %   in the global toolbox options; it can be retrieved via 
 %
-%   getoptPBPKtoolbox('ExpDrugDBhandle')
+%   getoptcompphysiol('ExpDrugDBhandle')
 %
-%   Since some parameters are scaled from reference individuals during
-%   database setup, the physiology database must be initialized before the
-%   drug database (this is done automatically in 'initPBPKtoolbox').
-%
-%   Function INITDRUGDB can be edited to add additional entries into the
+%   Function INITEXPDRUGDB can be edited to add additional entries into the
 %   database, see subfunction build_database() below. To define new types
 %   of parameters, function drugtemplate() must be extended.
 %
-%   See also initphysiologydb, loaddatabases, initPBPKtoolbox, drugtemplate 
+%   See also initphysiologydb, loaddatabases, drugtemplate 
 
 function edb = initexpdrugdb()
     
@@ -30,7 +26,7 @@ function edb = initexpdrugdb()
     edb = build_database();
     
     % leave a handle to the DrugDB in global options
-    setoptPBPKtoolbox('ExpDrugDBhandle', edb);
+    setoptcompphysiol('ExpDrugDBhandle', edb);
 end
 
 function edb = build_database()

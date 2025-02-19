@@ -17,7 +17,7 @@ function varargout = odeunits(solver, rhsu, tspanu, y0u, modelu, varargin)
         '"rhsu" must be a function handle with three arguments.')
     nargoutchk(2,Inf)
 
-    check = getoptPBPKtoolbox('OdeUnitCheck');
+    check = getoptcompphysiol('OdeUnitCheck');
     
     y0u = y0u(:);
     [tunits, tdispunit] = unitsOf(tspanu);

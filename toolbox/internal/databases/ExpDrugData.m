@@ -1,5 +1,8 @@
 classdef ExpDrugData < DB 
     %ExpDrugData A handle class for storing experimental drug information
+    %
+    %NOTE: THIS FUNCTION IS CURRENTLY NOT FUNCTIONAL AND UNUSED
+    %
     %   For each drug, the following information can be stored:
     %   - MW           molecular weight
     %   - pKa          acid dissociation constant

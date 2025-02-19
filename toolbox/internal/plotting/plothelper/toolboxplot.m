@@ -62,7 +62,7 @@ function h = toolboxplot(tab, plotter, options)
         if isplotgrid
             title([options.subplot_by ' = ' num2str(subplot_lvl{i})])
         end
-        if getoptPBPKtoolbox('DimVarPlot')
+        if getoptcompphysiol('DimVarPlot')
             xlabel(options.xlabel)
             ylabel(options.ylabel)
         else

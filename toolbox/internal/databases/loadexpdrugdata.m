@@ -15,7 +15,7 @@
 %       loadexpdrugdata(compounds(dosing))
 function eD = loadexpdrugdata(compounds, varargin)
 
-    ddb = getoptPBPKtoolbox('ExpDrugDBhandle');
+    ddb = getoptcompphysiol('ExpDrugDBhandle');
     compounds = cellstr(compounds);
     eD = copy(ddb{compounds{:}});
                 

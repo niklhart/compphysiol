@@ -1,5 +1,8 @@
 %MAB_PBPK_11CMT_EXTRAVASLIM_INT 11cmt extravasation-limited mAb PBPK model
-%    This function specifies a simplfied PBPK model for mAb with
+%
+%    NOTE: THIS FUNCTION IS CURRENTLY NOT FUNCTIONAL AND UNUSED
+%   
+%    This function specifies a simplified PBPK model for mAb with
 %    extravasation-limited tissue distribution and no target, parameterized
 %    in terms of interstitial volume rather than tissue volume. In the
 %    default setting, clearance only occurs from plasma.

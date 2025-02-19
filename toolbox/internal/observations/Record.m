@@ -58,7 +58,7 @@ classdef Record < CompactTabularDisplay
                     end
 
                     % guess UnitType for ExpData
-                    if ~istablecol(tab,'UnitType') && getoptPBPKtoolbox('AutoExpDataUnitType') 
+                    if ~istablecol(tab,'UnitType') && getoptcompphysiol('AutoExpDataUnitType') 
                         tab.UnitType = gettype(tab.Value);
                     end
                     tab.Observable = Observable(tab);
@@ -84,7 +84,7 @@ classdef Record < CompactTabularDisplay
         
         function ind = end(obj,k,n)
         %END Last index in a Record object
-            assert(n == 2 && k == 1, 'PBPK:Record:invalidUseOfEndKeyword', ...
+            assert(n == 2 && k == 1, 'compphysiol:Record:invalidUseOfEndKeyword', ...
                 "Invalid use of 'end' keyword")
             ind = height(obj.record);
         end

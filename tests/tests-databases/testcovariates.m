@@ -31,13 +31,13 @@ assert(p3.db.BH.Value == 1.80*u.m)
 Name = {'Species'; 'sex'; 'BH'};
 Value = {'human'; 'male'; 1.80*u.m};
 assertError(@() Covariates(table(Name)), ...
-    'PBPK:Covariates:wrongInputTableColumns');
+    'compphysiol:Covariates:wrongInputTableColumns');
 assertError(@() Covariates(table(Name, Name)), ...
-    'PBPK:Covariates:wrongInputTableColumns');
+    'compphysiol:Covariates:wrongInputTableColumns');
 % no error expected in case of additional columns:
 Name1 = Name;
 p4 = Covariates(table(Name, Value, Name1));
 
 %% missing value in a property-value pair
 assertError(@() Covariates('Species','human','sex'), ...
-    'PBPK:Covariates:missingValue')
+    'compphysiol:Covariates:missingValue')

@@ -11,7 +11,7 @@ function varargout = uniformize_size(varargin)
 %
 
 assert(nargin == nargout, ...
-    'PBPK:Utils:Uniformize_size:wrongNumberOfInputsOrOutputs', ...
+    'compphysiol:Utils:Uniformize_size:wrongNumberOfInputsOrOutputs', ...
     'Number of inputs and outputs must be the same.')
 varargout = varargin;
 
@@ -47,7 +47,7 @@ switch size(usz,1)
         % pass to error
 end
 
-   error('PBPK:Utils:Uniformize_size:wrongInputDimensions', ...
+   error('compphysiol:Utils:Uniformize_size:wrongInputDimensions', ...
        'All input arguments must either be scalar or have a common size.')
 end
 

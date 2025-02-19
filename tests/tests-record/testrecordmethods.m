@@ -92,4 +92,4 @@ tab = table([1;2;3]*u.h,Observable('SimplePK',{'a','b','c'},'',''),[1;2;3], ...
 r1 = Record(tab);
 
 assert(isequal(r1(end,:), r1(3,:)))
-assertError(@() r1(:,end), 'PBPK:Record:invalidUseOfEndKeyword')
+assertError(@() r1(:,end), 'compphysiol:Record:invalidUseOfEndKeyword')
