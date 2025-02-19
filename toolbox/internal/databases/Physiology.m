@@ -28,7 +28,7 @@ classdef Physiology < DB & CompactColumnDisplay
     end
     
     properties(Constant = true, Access = protected)
-        tmp = physiologytemplate();
+        tmp = evalfhopt('PhysiologyTemplate');
     end
     
     methods
@@ -390,10 +390,9 @@ classdef Physiology < DB & CompactColumnDisplay
                 end 
             else
                 disp@CompactColumnDisplay(obj)
-%                builtin('disp',obj)
             end
         end
 
-
     end
+
 end

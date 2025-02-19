@@ -12,13 +12,7 @@ classdef DrugDB < handle
     %   See also setoptcompphysiol, loaddrugdata, DrugData
 
     properties (Constant)
-        Instance = DrugDB.init;
+        Instance = evalfhopt('DrugDB');
     end
 
-    methods (Access = private, Static = true)
-        function db = init()
-            h = getoptcompphysiol('DrugDB');
-            db = h();
-        end
-    end
 end

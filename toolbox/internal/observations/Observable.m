@@ -15,7 +15,7 @@ classdef Observable < CompactColumnDisplay
             %   Observable object OBS of type TYPE (character array) and
             %   with attributes ATTR1,ATTR2,... (character arrays or 
             %   cellstr). The required attributes for a particular TYPE are
-            %   defined in function obstemplate.
+            %   defined in the observable template.
             %
             %   Specifying any attribute as cellstr results in OBJ being
             %   an array of Observable objects rather than a scalar one,
@@ -54,7 +54,7 @@ classdef Observable < CompactColumnDisplay
 
                     assert(ischar(type), 'Input #1 must be char for multiple-input calls.')
 
-                    attr = obstemplate(type);
+                    attr = evalfhopt('ObservableTemplate',type);
 
                     if numel(varargin) ~= size(attr,1)
                         error('Wrong number of attributes for observable type "%s" (%d expected, %d provided)', ...
@@ -82,7 +82,7 @@ classdef Observable < CompactColumnDisplay
             % helper function
             function obs = renderObservable(x, tab)
                 typ = id{x};
-                attrnm = obstemplate(typ);
+                attrnm = evalfhopt('ObservableTemplate',typ);
                 tabx = addtablecols(tab(grp==x,:), attrnm(:,1), 'char');
                 attrcl = varfun(@(z)z, tabx(:, attrnm(:,1)), ...
                     'OutputFormat', 'cell');

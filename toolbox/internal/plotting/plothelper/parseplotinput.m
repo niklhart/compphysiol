@@ -46,7 +46,7 @@ function pRes = parseplotinput(varargin)
     p.addParameter('group_by',       [],             @(x) isempty(x) || ischar(x));
     p.addParameter('group_lvl',      {},             @isaggregation); 
 
-    obsattr = obstemplate();
+    obsattr = evalfhopt('ObservableTemplate');
     for i = 1:size(obsattr,1)
         p.addParameter(obsattr{i,1}, '',    @(x) ischar(x) || iscellstr(x));
     end

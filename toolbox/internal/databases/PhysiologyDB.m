@@ -12,13 +12,7 @@ classdef PhysiologyDB < handle
     %   See also setoptcompphysiol, Physiology
 
     properties (Constant)
-        Instance = PhysiologyDB.init;
+        Instance = evalfhopt('PhysiologyDB');
     end
 
-    methods (Access = private, Static = true)
-        function db = init()
-            h = getoptcompphysiol('PhysiologyDB');
-            db = h();
-        end
-    end
 end

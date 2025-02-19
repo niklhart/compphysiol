@@ -30,7 +30,7 @@ classdef DrugData < DB
             %   OBJ = DRUGDATA(CPD) loads compound(s) CPD from the drug 
             %         database.
                         
-            params = drugtemplate();
+            params = evalfhopt('DrugTemplate');
             
             perspecies = [params{:,3}];
 

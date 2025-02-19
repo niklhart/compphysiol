@@ -300,15 +300,19 @@ classdef Individual < matlab.mixin.Copyable
 
         function varargout = plot(obj,varargin)
         %PLOT Plot experimental data and simulations
-        %   PLOT(OBJ) displays the default plots defined in function
-        %   plottemplate().
+        %   PLOT(OBJ) displays the default plots defined in the plot
+        %   template.
         %
         %   PLOT(OBJ, TYPE) displays graphics TYPE, which must also be
-        %   defined in plottemplate(), but not necessarily be a default
+        %   defined in the plot template, but not necessarily as a default
         %   plot.
         %
-        %   Customize plottemplate() for changing the behaviour of the plot
-        %   method.
+        %   For changing the behaviour of the plot method, define a custom 
+        %   version of plottemplate() and activate it using 
+        %
+        %   setoptcompphysiol('PlotTemplate', @PLOTTEMPL)
+        %
+        %   where PLOTTEMPL is the name of the custom plot template.
         %      
         %   See also PLOTTEMPLATE, LONGITUDINALPLOT
 
@@ -318,7 +322,7 @@ classdef Individual < matlab.mixin.Copyable
                 'compphysiol:Individual:plot:missingSimulation', ...
                 'Virtual individuals must be simulated prior to plotting.')
         
-            h = plottemplate(obj,varargin{:});
+            h = evalfhopt('PlotTemplate',obj,varargin{:});
             
             switch nargout
                 case 1

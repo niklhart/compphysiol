@@ -5,7 +5,7 @@ function [allAttr, mandatoryAttr] = expectattr(categ)
 
     switch categ
         case 'Record'
-            obs = obstemplate('ExpData');
+            obs = evalfhopt('ObservableTemplate','ExpData');
             allAttr = [{'Time';'Value';'[Time]';'[Value]'}; obs(:,1)];
             mandatoryAttr = [{'Time'}; {'Value'}];
         case {'Bolus dosing','Oral dosing','Infusion dosing'}

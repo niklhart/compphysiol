@@ -1,33 +1,40 @@
-%INITPHYSIOLOGYDB Initialize the physiological database    
+%INITPHYSIOLOGYDB Initialize the physiology database    
 %   PHYSIOLOGYDB = INITPHYSIOLOGYDB() creates an array of reference 
 %   individuals of class Physiology. It is executed automatically the first
 %   time that PhysiologyDB.Instance is accessed. 
 % 
 %   The resulting Physiology array can be queried in different ways:
 %
-%   1) direct queries corresponding to a reference individual ID:
-%       a) getvalue(PHYSIOLOGYDB{ID}, NM) retrieves a tissue-independent parameter
-%          NM corresponding to reference individual ID
-%       b) getvalue(PHYSIOLOGYDB{ID}, NM, TIS) retrieves a per-tissue parameter
-%          NM for tissue TIS
-%   2) loading a physiology and drug database with function loaddatabases()
+%   1) Physiology(ID), with char ID corresponding to the name of a
+%      reference individual, retrieves the individual from the physiology
+%      database
+%   2) Physiology and drug databases can be loaded jointly with function 
+%      loaddatabases()
 %   
 %   See Physiology for details.
 %
-%   To extend the physiology database, the following options are available:
+%   To customize the physiology database, use one or both of the following 
+%   options:
 %   
-%   1) add a new reference individual in INITPHYSIOLOGYDB()
-%   2) add a physiological parameter in physiologytemplate() and add 
-%      records in INITPHYSIOLOGYDB() for an existing or new reference 
-%      individual.
+%   1) write a custom initialization function (see this function for syntax)
+%      and activate it using 
 %   
-%   For a change in INITPHYSIOLOGYDB() to take effect, clear the 
-%   PhysiologyDB class first:
+%      setoptcompphysiol('PhysiologyDB', @INITFUN)
+%
+%      where INITFUN is the name of the custom initialization function.
 %   
-%   clear PhysiologyDB
+%   2) write a custom physiology template and activate it using 
+%   
+%      setoptcompphysiol('PhysiologyTemplate', @TEMPLATE)
+%
+%      where TEMPLATE is the name of the custom physiology template.
+%
+%   In either of these cases, for the changes to take an effect, first call 
+%
+%   resetcompphysiol() 
 %
 %   See also physiologytemplate, Physiology, PhysiologyDB, loaddatabases, 
-%   initdrugdb
+%   resetcompphysiol
 
 function physiologydb = initphysiologydb()
 

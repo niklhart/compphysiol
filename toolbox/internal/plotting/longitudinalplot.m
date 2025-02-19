@@ -62,7 +62,7 @@ function varargout = longitudinalplot(individual, varargin)
     %% Create plotting table
     
     % create a (potentially) large table for plotting
-    obsattr = obstemplate();
+    obsattr = evalfhopt('ObservableTemplate');
     obs_args = selectfields(pRes,obsattr(:,1));
     tab = compileplottable(individual, obs_args);
         

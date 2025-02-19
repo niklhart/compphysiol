@@ -48,6 +48,14 @@
 %   DrugDB - Function handle to the initialization function of the drug
 %       database
 %
+%   PhysiologyTemplate - Function handle to the physiology template
+%
+%   DrugTemplate - Function handle to the drug template
+%
+%   PlotTemplate - Function handle to the plot template
+%
+%   ObservableTemplate - Function handle to the observable template
+%
 %   See also optionscompphysiol, getoptcompphysiol, setoptcompphysiol
 
 function options = optionsparser(options, varargin)
@@ -69,8 +77,12 @@ function options = optionsparser(options, varargin)
     p.addParameter('DefaultObservable',  [],                             @(x) isempty(x) || isa(x,'Observable'));
     p.addParameter('ReportToConsole',    false,                          @isboolean);
     p.addParameter('DimVarPlot',         false,                          @isboolean);
-    p.addParameter('PhysiologyDB',       @initphysiologydb,              @(x) isa(x,'function_handle'));
-    p.addParameter('DrugDB',             @initdrugdb,                    @(x) isa(x,'function_handle'));
+    p.addParameter('PhysiologyDB',       @initphysiologydb,              @isfunctionhandle);
+    p.addParameter('DrugDB',             @initdrugdb,                    @isfunctionhandle);
+    p.addParameter('PhysiologyTemplate', @physiologytemplate,            @isfunctionhandle);
+    p.addParameter('DrugTemplate',       @drugtemplate,                  @isfunctionhandle);
+    p.addParameter('PlotTemplate',       @plottemplate,                  @isfunctionhandle);
+    p.addParameter('ObservableTemplate', @obstemplate,                   @isfunctionhandle);
 
     p.parse(varargin{:});
     
@@ -108,3 +120,9 @@ function TF = isplotoptions(x)
         TF = true;
     end
 end
+
+function TF = isfunctionhandle(x)
+    TF = isa(x,'function_handle');
+    assert(TF, 'Must be a function handle.')
+end
+

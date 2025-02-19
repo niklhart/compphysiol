@@ -51,7 +51,7 @@ function varargout = percentileplot(individual, varargin)
     assert(isempty(pRes.group_by),'Option "group_by" is not available for percentile plots.')
 
     % create a (potentially) large table for plotting
-    obsattr = obstemplate();
+    obsattr = evalfhopt('ObservableTemplate');
     obs_args = selectfields(pRes, obsattr(:,1));
     tab = compileplottable(individual, obs_args);
 

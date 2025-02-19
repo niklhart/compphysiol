@@ -66,7 +66,8 @@ classdef Record < CompactTabularDisplay
                     % delete any column that turned into the Observable
                     % object, but leave additional columns unchanged.
                     obstypes = unique(tab.Type);
-                    attr = cellfun(@obstemplate, obstypes, 'UniformOutput', false);
+                    attr = cellfun(@(x) evalfhopt('ObservableTemplate',x), ...
+                        obstypes, 'UniformOutput', false);
                     attr = vertcat(attr{:});
                     tab = removevars(tab, intersect(tab.Properties.VariableNames,attr(:,1)));
                     tab.Type = [];
