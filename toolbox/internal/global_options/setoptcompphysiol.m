@@ -14,14 +14,22 @@
 %   to any change. This allows to revert any change in the global options 
 %   by SETOPTCOMPPHYSIOL(OLDOPT).
 %   
-%   SETOPTCOMPPHYSIOL('reset') restores the default options (without 
-%   unloading the physiology / drug databases).
+%   To restore the defaults, use 
+%
+%   clear optionscompphysiol
 %
 %   See also getoptcompphysiol, optionscompphysiol, optionsparser
 
-function varargout = setoptcompphysiol(varargin)
+function varargout = setoptcompphysiol(S, options)
 
-    oldopt = optionscompphysiol('set', varargin{:});
+    arguments
+        S = struct
+        options.?optionsClass
+    end
+
+    options = mergestructs(S, options);
+
+    oldopt = optionscompphysiol('set', options);
 
     if nargout == 1
         varargout{1} = oldopt;

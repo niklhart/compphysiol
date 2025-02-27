@@ -10,9 +10,13 @@
 %
 %   See also setoptcompphysiol, optionscompphysiol, optionsparser
 
-function opt = getoptcompphysiol(varargin)
+function opt = getoptcompphysiol(name)
 
-    opt = optionscompphysiol('get',varargin{:});
+    arguments
+        name char {mustBeMember(name, {'reporting','XScaleLog','YScaleLog','OdeUnitCheck','DisplayUnits','AutoAssignDrugData','AutoFilterDrugData','AutoExpDataUnitType','PlotOptions','LoadExpDrugData','DefaultObservable','ReportToConsole','DimVarPlot','PhysiologyDB','DrugDB','PhysiologyTemplate','DrugTemplate','PlotTemplate','ObservableTemplate','all'})} = 'all'
+    end
+
+    opt = optionscompphysiol('get',name);
 
 end
 

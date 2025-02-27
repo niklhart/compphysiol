@@ -2,35 +2,35 @@
 %   This function stores global options in a persistent variable. Options
 %   can be get/set using getoptcompphysiol() or setoptcompphysiol(),
 %   respectively. For a list of available options and instructions on how 
-%   to customize these, refer to the help of function optionsparser.
+%   to customize these, refer to the help of class optionsClass.
 %
-%   See also getoptcompphysiol, setoptcompphysiol, optionsparser
+%   See also getoptcompphysiol, setoptcompphysiol, optionsClass
 
-function out = optionscompphysiol(type, varargin)
+function out = optionscompphysiol(action, opt)
     
     persistent options
 
-    if isempty(options)
-        options = optionsparser(struct); % get default options
+    if isempty(options)   % get default options
+        state = warning('query', 'MATLAB:structOnObject');
+        warning('off','MATLAB:structOnObject')
+        options = struct(optionsClass); 
+        warning(state)
     end
     
-    switch type
+    switch action
         case 'get'
-            assert(nargin <= 2, 'Either a single option or the entire options struct can be accessed.')
-            if nargin == 1 || strcmpi(varargin{1}, 'all')
+
+            if strcmp(opt, 'all')
                 out = options;
             else
-                opt = validatestring(varargin{1}, fieldnames(options));
                 out = options.(opt);
             end
             
         case 'set'
+
             out = options; % old options
-            if nargin == 2 && isstruct(varargin{1}) 
-                options = optionsparser(varargin{1});
-            else
-                options = optionsparser(options, varargin{:});
-            end
+            options = mergestructs(options, opt);
+
         otherwise
             error('Argument "type" must be either "get" or "set".') 
     end
