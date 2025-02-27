@@ -54,7 +54,10 @@ function [] = polish(varargin)
     li = findobj(h, 'Type', 'Line');
     set(li,'LineWidth',lw);
     set(li,'MarkerSize',ms);
-    
+
+    eb = findobj(h, 'Type', 'ErrorBar');
+    set(eb,'LineWidth',lw);
+
     tx = findobj(h, 'Type', 'Subplottext');
     isplotgrid = ~isempty(tx);
     if isplotgrid

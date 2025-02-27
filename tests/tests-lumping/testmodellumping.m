@@ -1,11 +1,5 @@
 % test model lumping function
 
-%TODO: design test cases based on the script 'testscript_lumpedmodel.m'.
-
-% First define an easy test model
-
-
-
 %% Empty or atomic partitioning should leave the model unchanged
 
 tis = {'pla','liv','mus'};

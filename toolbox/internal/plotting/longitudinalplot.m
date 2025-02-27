@@ -47,8 +47,9 @@
 %   polish           Arg. OPTS to polish()      From global options
 %   tableOutput      Return table output in-    false
 %                    stead of creating figure?
+%   plotter          Fct. handle for plotting   xyplotter (Time/Value args)
 %   
-%   See also Individual/plot, plottemplate, parseplotinput, 
+%   See also Individual/plot, plottemplate, parseplotinput, xyplotter
 %   compileplottable, aggregatelevels, toolboxplot, percentileplot
 
 function varargout = longitudinalplot(individual, varargin)
@@ -57,7 +58,8 @@ function varargout = longitudinalplot(individual, varargin)
     nargoutchk(0,1)
 
     % process varargin with input parser
-    pRes  = parseplotinput(varargin{:});
+    defaultPlotter = @(T,u,s) xyplotter(T,'Time','Value',u{1},u{2},s);
+    pRes  = parseplotinput('plotter',defaultPlotter,varargin{:});
     
     %% Create plotting table
     
@@ -141,9 +143,7 @@ function varargout = longitudinalplot(individual, varargin)
         
     %% create figure
 
-    longitudinalplotter = @(T,u,s) xyplotter(T,'Time','Value',u{1},u{2},s);
-    
-    h = toolboxplot(tab, longitudinalplotter, pRes);
+    h = toolboxplot(tab, pRes.plotter, pRes);
         
     %% Assign output if requested
     if nargout

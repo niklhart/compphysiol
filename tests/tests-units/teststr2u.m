@@ -37,6 +37,14 @@ v2 = 1e-5*u.m;
 
 assert(isequal(v1,v2))
 
+%% NaN input
+
+v1 = str2u('NaN');
+v2 = str2u('NaN m');
+
+assert(isequaln(v1,NaN))
+assert(isequaln(v2,NaN*u.m))
+
 %% Parentheses - FAILS
 
 warning('Parentheses currently not supported')

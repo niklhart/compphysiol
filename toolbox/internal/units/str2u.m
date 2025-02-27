@@ -81,7 +81,7 @@ validateattributes(inStr,{'char' 'string'},{'row'},'str2u');
 inStr = strtrim(inStr);
 
 %% First separate out the leading number.
-[number, unitStr] = regexp(inStr,'^[-+.0-9eE]+','match','split');
+[number, unitStr] = regexp(inStr,'^(NaN|[-+.0-9eE]+)','match','split');
 
 % distinguish scientific notation 'e' from unit 'e' (elementary charge)
 if endsWith(number,'e')
@@ -135,6 +135,9 @@ rep = {
     };                
 
 evalStr = regexprep(unitStr,exp,rep);
+if strcmp(evalStr(1),char(160))
+    evalStr = evalStr(2:end);
+end
 out = eval([number '*' evalStr]);
 
 if isa(out,'DimVar')

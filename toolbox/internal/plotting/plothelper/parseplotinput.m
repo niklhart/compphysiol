@@ -64,12 +64,19 @@ function pRes = parseplotinput(varargin)
     p.addParameter('polish',         struct,         @isstruct);
     p.addParameter('tableOutput',    false,          @isboolean);
     p.addParameter('percentiles',    [5 25 50 75 95],@isnumeric);
+    p.addParameter('plotter',        []);
     
     p.parse(varargin{:});
        
     %% string input validation & standardization
     pRes = p.Results;
         
+    %% percentile plotter default
+    if isempty(pRes.plotter)
+        pRes.plotter = @(T,u,~) percentileplotter(T,'Time','Value',u{1},u{2},pRes.percentiles);
+    end
+
+
     %% Derived plot options
     
     % polish option priority: 

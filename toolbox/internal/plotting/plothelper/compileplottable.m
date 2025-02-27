@@ -59,6 +59,8 @@ function tab = compileplottable(individual, obsargs)
     % convert columns to categorical type -> comparison with '=='
     attrCols = setdiff(tab.Properties.VariableNames, ...
         {'Time','ID','Name','IdType','Value'});
+    obstmp = evalfhopt('ObservableTemplate');
+    attrCols = intersect(attrCols,[obstmp(:,1); {'Observable'}]);
     tab.ID     = categorical(tab.ID);           
     tab.Name   = categorical(tab.Name);         
     tab.IdType = categorical(tab.IdType, {'Experimental data','Virtual individual'});        

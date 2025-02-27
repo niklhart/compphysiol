@@ -35,6 +35,7 @@
 %   maxSubplotCols   Max # of subplot cols       4 
 %   linkAxes         Link axes of subplots?     true if all yunits are equal
 %   polish           Arg. OPTS to polish()      From global options
+%   plotter          Fct. handle for plotting   percentileplotter
 %   
 %   Note: groupings are not supported by PERCENTILEPLOT.
 %
@@ -87,9 +88,7 @@ function varargout = percentileplot(individual, varargin)
         
     %% Create figure
 
-    percentileplotfun = @(T,u,~) percentileplotter(T,'Time','Value',u{1},u{2},pRes.percentiles);
-    
-    h = toolboxplot(tab, percentileplotfun, pRes);
+    h = toolboxplot(tab, pRes.plotter, pRes);
     
     perc = cellfun(@num2str,num2cell(pRes.percentiles),'UniformOutput',false);
     hleg = legend(perc{3}, [perc{2} '-' perc{4}], [perc{1} '-' perc{5}]);
