@@ -1,0 +1,9 @@
+{
+"getoptcompphysiol":
+{
+    "inputs": 
+    [
+        {"name":"name", "kind":"ordered", "type":"choices=[{'all'};properties(optionsClass)]", "purpose":"Name of option"}
+    ]
+}
+}

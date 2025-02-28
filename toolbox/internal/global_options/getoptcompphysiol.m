@@ -13,7 +13,7 @@
 function opt = getoptcompphysiol(name)
 
     arguments
-        name char {mustBeMember(name, {'reporting','XScaleLog','YScaleLog','OdeUnitCheck','DisplayUnits','AutoAssignDrugData','AutoFilterDrugData','AutoExpDataUnitType','PlotOptions','LoadExpDrugData','DefaultObservable','ReportToConsole','DimVarPlot','PhysiologyDB','DrugDB','PhysiologyTemplate','DrugTemplate','PlotTemplate','ObservableTemplate','all'})} = 'all'
+        name char = 'all'
     end
 
     opt = optionscompphysiol('get',name);

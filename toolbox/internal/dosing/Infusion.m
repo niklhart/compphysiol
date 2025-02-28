@@ -120,16 +120,8 @@ classdef Infusion < SimpleDosing
                 
                             
             % validate compound and target arguments
-            if ischar(compound)
-                compound = {compound};
-            else
-                assert(iscellstr(compound), 'Argument "compound" must be char or cellstr.')
-            end
-            if ischar(target)
-                target = {target};
-            else
-                assert(iscellstr(target), 'Argument "target" must be char or cellstr.')
-            end
+            compound = cellstr(compound);
+            target   = cellstr(target);
             
             Ncpd = numel(compound);
             Ntrg = numel(target);

@@ -1,0 +1,31 @@
+{
+    "Observable.Observable": 
+    {
+        "inputs": 
+        [
+            {"name":"type", "kind":"required", "type":"choices={'SimplePK'}", "purpose":"Observable type"},
+            {"name":"site", "kind":"required", "type":"char", "purpose":"Observation site"},
+            {"name":"binding", "kind":"required", "type":"char", "purpose":"Type of binding"},
+            {"name":"unittype", "kind":"required", "type":"char", "purpose":"Unit type"}
+        ]
+    },
+    "Observable.Observable": 
+    {
+        "inputs": 
+        [
+            {"name":"type", "kind":"required", "type":"choices={'PBPK'}", "purpose":"Observable type"},
+            {"name":"site", "kind":"required", "type":"char", "purpose":"Observation site"},
+            {"name":"subspace", "kind":"required", "type":"char", "purpose":"Tissue subspace"},
+            {"name":"binding", "kind":"required", "type":"char", "purpose":"Type of binding"},
+            {"name":"unittype", "kind":"required", "type":"char", "purpose":"Unit type"}
+        ]
+    },
+    "Sampling.Sampling": 
+    {
+        "inputs": 
+        [
+            {"name":"time", "kind":"required", "type":"DimVar", "purpose":"Sampling times"},
+            {"name":"obs", "kind":"ordered", "type":"Observable", "purpose":"Observable(s)"}
+        ]
+    }
+}

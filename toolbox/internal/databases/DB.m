@@ -45,7 +45,6 @@ classdef (Abstract) DB < matlab.mixin.Copyable
 
         % Accessing database values
 
-
         function val = getvalue(obj, nm, varargin, options)
         %GETVALUE Get a value from a database
         %   VAL = GETVALUE(OBJ,NM,CAT1,...,CATN) accesses the DB object
@@ -102,6 +101,7 @@ classdef (Abstract) DB < matlab.mixin.Copyable
             isclstr = cellfun(@iscellstr, varargin);
             switch sum(isclstr)
                 case 0
+                    varargin = cellstr(varargin);
                     tab = subset(obj.db.(nm), varargin{:});
                     parnm = strjoin([cellstr(nm) varargin],'/');
                     val = dbmatch(obj, tab, parnm, options);
@@ -171,6 +171,13 @@ classdef (Abstract) DB < matlab.mixin.Copyable
            %SUMMARY Summary of a DB object 
            n   = sum(~structfun(@isempty,obj.db));
            str = [num2str(n) ' parameters defined'];
+        end
+
+        function str = definedParams(obj)
+            %DEFINEDPARAMS Obtain list of parameters defined in database
+            hasValue = structfun(@(x) ~isempty(x), obj.db);
+            fld = fieldnames(obj.db);
+            str = fld(hasValue);
         end
 
     end

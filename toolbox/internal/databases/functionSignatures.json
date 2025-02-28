@@ -1,0 +1,29 @@
+{
+    "Physiology.Physiology": 
+    {
+        "inputs": 
+        [
+            {"name":"refid", "kind":"ordered", "type":"choices=referenceid()", "purpose":"Name of reference ID"}
+        ]
+    },
+    "DB.getvalue": 
+    {
+        "inputs": 
+        [
+            {"name":"obj", "kind":"required", "type":"Physiology", "purpose":"Object to query"},        
+            {"name":"nm", "kind":"required", "type":["char","choices=definedParams(obj)"], "purpose":"Parameter to query"},
+            {"name":"tis", "kind":"ordered", "type":["char","choices=obj.db.(nm).Tissue"], "purpose":"Tissue to query"},
+            {"name":"Default", "kind":"namevalue", "purpose":"Default value of io match is found"}
+        ]
+    },
+    "DB.getvalue": 
+    {
+        "inputs": 
+        [
+            {"name":"obj", "kind":"required", "type":"DrugData", "purpose":"Object to query"},        
+            {"name":"nm", "kind":"required", "type":["char","choices=definedParams(obj)"], "purpose":"Parameter to query"},
+            {"name":"spc", "kind":"ordered", "type":["char","choices=obj.db.(nm).Species"], "purpose":"Species to query"},
+            {"name":"Default", "kind":"namevalue", "purpose":"Default value if no match is found"}
+        ]
+    }
+}

@@ -1,0 +1,32 @@
+{
+    "Oral.Oral": 
+    {
+        "inputs": 
+        [
+            {"name":"compound", "kind":"required", "type":"choices={DrugDB.Instance.name}", "purpose":"Name of compound"},
+            {"name":"time", "kind":"required", "type":"DimVar", "purpose":"Dosing time(s)"},
+            {"name":"dose", "kind":"required", "type":[["double"],["DimVar"]], "purpose":"Dosing amount(s)"}
+        ]
+    },
+    "Bolus.Bolus": 
+    {
+        "inputs": 
+        [
+            {"name":"compound", "kind":"required", "type":"choices={DrugDB.Instance.name}", "purpose":"Name of compound"},
+            {"name":"time", "kind":"required", "type":"DimVar", "purpose":"Dosing time(s)"},
+            {"name":"dose", "kind":"required", "type":[["double"],["DimVar"]], "purpose":"Dosing amount(s)"},
+            {"name":"target", "kind":"required", "type":"char", "purpose":"Dosing target"}
+        ]
+    },
+    "Infusion.Infusion": 
+    {
+        "inputs": 
+        [
+            {"name":"compound", "kind":"required", "type":"choices={DrugDB.Instance.name}", "purpose":"Name of compound"},
+            {"name":"tstart", "kind":"required", "type":"DimVar", "purpose":"Start of infusion"},
+            {"name":"dose", "kind":"required", "type":[["double"],["DimVar"]], "purpose":"Dosing amount"},
+            {"name":"dur_or_rate", "kind":"required", "type":"DimVar", "purpose":"Infusion duration or rate"},
+            {"name":"target", "kind":"required", "type":"char", "purpose":"Dosing target"}
+        ]
+    }
+}

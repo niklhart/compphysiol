@@ -60,7 +60,7 @@ classdef Physiology < DB & CompactColumnDisplay
                 obj.name = '';            
             end
         end
-        
+
         function set.name(obj, nm)
             assert(ischar(nm), ...
                 'compphysiol:Physiology:setname:charInputExpected', ...
