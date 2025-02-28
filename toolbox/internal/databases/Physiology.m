@@ -39,6 +39,11 @@ classdef Physiology < DB & CompactColumnDisplay
             %       reference individual with identifier REFID. The list of valid 
             %       identifiers can be obtained via function referenceid().
             %   
+
+            arguments
+                refid string = string.empty
+            end
+            
             if nargin == 1
                 obj = referenceid(refid);
             else

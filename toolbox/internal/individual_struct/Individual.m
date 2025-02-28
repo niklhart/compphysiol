@@ -37,32 +37,29 @@ classdef Individual < matlab.mixin.Copyable
     methods
         
         %% Constructor 
-        function obj = Individual(n,type)
+        function obj = Individual(type,n)
         %INDIVIDUAL Construct an object of class Invididual.
         %   OBJ = INDIVIDUAL(TYPE), with TYPE 'Experimental data' or 
         %       'Virtual individual' (with partial string matching), creates
         %       a scalar object of class Individual of the respective type.
-        %   OBJ = INDIVIDUAL(N, TYPE), with an integer N and TYPE as
-        %       described above, creates a length N array of Individual
-        %       objects, each of the respective TYPE.
+        %   OBJ = INDIVIDUAL(TYPE, N), with TYPE as above and an integer N, 
+        %       creates a length N array of Individual objects, each of the
+        %       respective TYPE.
         %
         %   Examples:
         %   
         %   obj  = Individual('Virtual');
-        %   obj2 = Individual(5,'Virtual');        
+        %   obj2 = Individual('Virtual',5);        
             
+            arguments
+                type char {mustBeMember(type,{'Virtual','Experimental',''})} = []
+                n (1,1) double {mustBeInteger,mustBePositive} = 1
+            end            
+
             if nargin > 0
-                if isnumeric(n)
-                    obj(n,1) = Individual();
-                    if nargin > 1
-                        [obj.type] = deal(type);
-                    end
-                else
-                    narginchk(1,1)
-                    obj = Individual();
-                    obj.type = n;
-                end
-            end        
+                obj(n,1) = Individual();
+                [obj.type] = deal(type);
+            end
         end
         
         %% Set methods

@@ -33,8 +33,6 @@ function about(varargin)
             par = varargin{2};
             aboutdbpar(db,par)
     end
-    
-
 
 end
 

@@ -5,7 +5,7 @@
 warning('Amount per Volume observable in 1-CMT model not implemented yet')
 
 %TODO: implement this observable, test not working yet
-indv = Individual(1,'Virtual');
+indv = Individual('Virtual');
 
 obs = Observable('SimplePK','pla','total','Amount/Volume');
 

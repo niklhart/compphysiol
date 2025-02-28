@@ -42,7 +42,7 @@
 %   m = sMD_PBPK_12CMT_wellstirred();
 %   l = lump_model(m, {{'art','lun','ven'}});
 %   
-%   indv = Individual(2,'Virtual');
+%   indv = Individual('Virtual',2);
 % 
 %   indv(1).name       = 'Full model';
 %   indv(1).dosing     = Bolus('Warfarin',0*u.h,1*u.mg,'iv');

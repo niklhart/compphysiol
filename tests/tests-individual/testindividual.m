@@ -3,7 +3,7 @@
 %% Constructor - correct usage
 
 % One individual
-ind1 = Individual('Virtual Individual');
+ind1 = Individual('Virtual');
 
 assert(isequal(class(ind1), 'Individual'))
 assert(isequal(ind1.type, 'Virtual individual'))
@@ -16,7 +16,7 @@ assert(isempty(ind1.physiology.name))
 assert(isempty(ind1.drugdata.name))
 
 % Individual array
-indarr = Individual(2, 'Virtual Individual');
+indarr = Individual('Virtual',2);
 
 assert(isequal(size(indarr), [2 1]))
 
@@ -42,7 +42,7 @@ assert(isempty(indarr(2).drugdata.name))
 
 %% Test simple set methods
 
-ind1 = Individual('Virtual Individual');
+ind1 = Individual('Virtual');
 
 %type
 ind1.type = 'Experimental data';
@@ -60,7 +60,7 @@ assert(strcmp(ind1.name, '123'))
 
 %% Test set/get.drugdata
 
-ind1 = Individual('Virtual Individual');
+ind1 = Individual('Virtual');
 
 % TODO: is this a good idea to use drugA and drugB from the database?
 ind1.drugdata = loaddrugdata('drugB','species','human');
@@ -111,7 +111,7 @@ setoptcompphysiol('AutoFilterDrugData', false)
 
 %% Test set.physiology
 
-ind1 = Individual('Virtual Individual');
+ind1 = Individual('Virtual');
 
 % correct usage
 % TODO: test Physiology object similar to drugA/drugB
@@ -129,7 +129,7 @@ assertError(@() setPhysiology(ind1, 'abc'), 'compphysiol:Individual:setphysiolog
 
 %% Test set.sampling
 
-ind1 = Individual('Virtual Individual');
+ind1 = Individual('Virtual');
 
 % correct usage
 ind1.sampling = Sampling((0:0.1:0.2)*u.h);
@@ -145,7 +145,7 @@ assertError(@() setSampling(ind1, 'abc'), 'compphysiol:Individual:setsampling:wr
 
 %% Test set.observation
 
-ind1 = Individual('Virtual Individual');
+ind1 = Individual('Virtual');
 
 % TODO: correct usage
 
@@ -158,7 +158,7 @@ assertError(@() setObservation(ind1, 'abc'), 'compphysiol:Individual:setobservat
 
 %% Test set.model
 
-ind1 = Individual('Virtual Individual');
+ind1 = Individual('Virtual');
 
 % correct usage
 ind1.model = test_model();
@@ -226,7 +226,7 @@ assertError(@() sim2exp(vid), 'compphysiol:Individual:sim2exp:needVirtualIndivid
 
 
 %% Test plot
-vid = Individual(2,'Virtual');
+vid = Individual('Virtual',2);
 
 % not simulated virtual individual
 assertError(@() plot(vid), 'compphysiol:Individual:plot:missingSimulation')
@@ -277,7 +277,7 @@ assert(isequal(xobs2,xplot2) && isequal(yobs2,yplot2), ...
 %% Test initialization
 
 obs = Observable('MultiPK','A','pla');
-indarr = Individual(2,'Virtual');
+indarr = Individual('Virtual',2);
 
 % Model property not set
 assertError(@() initialize(indarr))
@@ -296,7 +296,7 @@ initialize(indarr)
 %% Test simulation
 
 obs = Observable('MultiPK','A','pla');
-indarr = Individual(2,'Virtual');
+indarr = Individual('Virtual',2);
 
 % Individual is not initialized
 assertError(@() simulate(indarr), 'compphysiol:Individual:checkInitialized:notInitialized')
@@ -327,12 +327,12 @@ assert(isequal(indarr(2).observation.Time, [0 0.5 1]'*u.h))
 %% Test helpers
 
 obs = Observable('MultiPK','A','pla');
-indarr = Individual(2,'Virtual');
+indarr = Individual('Virtual',2);
 indarr(1).model = test_model();
 indarr(1).sampling = Sampling([0 0.5 1]*u.h, obs);
 
 % checkHandleDuplicates
-indarr = Individual(2,'Virtual');
+indarr = Individual('Virtual',2);
 indarr(1).model = test_model();
 indarr(1).sampling = Sampling([0 0.5 1]*u.h, obs);
 indarr(2) = indarr(1);
@@ -365,7 +365,7 @@ assert(isequal(issimulated(indarr), [1;0]))
 %% Display
 
 % individuals array
-ind1 = Individual(2,'Virtual');
+ind1 = Individual('Virtual',2);
 obs = Observable('MultiPK','A','pla');
 ind1(1).model = test_model();
 ind1(1).sampling = Sampling([0 0.5 1]*u.h, obs);

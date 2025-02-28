@@ -24,6 +24,10 @@
 
 function phys = Covariates(varargin)
     
+    arguments (Repeating)
+        varargin
+    end
+
     if nargin == 1
         argtab = varargin{1};
         assert(istable(argtab) && all(ismember({'Name','Value'}, argtab.Properties.VariableNames)), ...

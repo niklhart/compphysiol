@@ -15,8 +15,8 @@ classdef Ref < CompactColumnDisplay
     %   r.description
     
     properties
-        label
-        description
+        label char
+        description char
     end
     
     methods

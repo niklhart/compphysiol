@@ -11,7 +11,7 @@ organs = {'adi','bon','gut','hea','kid','liv','lun','mus','ski','spl'};
 obs = Observable('PBPK',organs,'tot','total','Mass/Volume');
 
 % define individuals
-indv = Individual(2,'Virtual');
+indv = Individual('Virtual',2);
 
 refphys  = Physiology('human35m');
 addrecord(refphys,'GFR',0*u.L/u.h)

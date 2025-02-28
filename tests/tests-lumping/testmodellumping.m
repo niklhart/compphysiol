@@ -8,7 +8,7 @@ m = test_3cmt_model();
 l1 = lump_model(m, {});
 l2 = lump_model(m, arrayfun(@(x){x}, tis));
 
-indv = Individual(3,'Virtual');
+indv = Individual('Virtual',3);
 
 indv(1).dosing     = Bolus('test',0*u.h,1*u.mg,'iv');
 indv(1).sampling   = Sampling((0:24)*u.h, obs);
@@ -44,7 +44,7 @@ obs = Observable('SimplePK',tis,'','');
 m = test_3cmt_model();
 l = lump_model(m, {{'liv','mus'}});
 
-indv = Individual(2,'Virtual');
+indv = Individual('Virtual',2);
 
 indv(1).dosing     = EmptyDosing();
 indv(1).sampling   = Sampling((0:24)*u.h, obs);
@@ -73,7 +73,7 @@ obs = PBPKobservables();
 m = sMD_PBPK_12CMT_wellstirred();
 l = lump_model(m, {{'art','lun','ven'}});
 
-indv = Individual(2,'Virtual');
+indv = Individual('Virtual',2);
 
 indv(1).dosing     = Bolus('Warfarin',0*u.h,1*u.mg,'iv');
 indv(1).drugdata   = loaddrugdata('Warfarin','species','human');
@@ -110,7 +110,7 @@ obs = [Observable('PBPK',organs,'cel','total','Mass/Volume');
 m = sMD_PBPK_12CMT_permeabilityLimited();
 l = lump_model(m, {{'art','lun-exc','ven'}});
 
-indv = Individual(2,'Virtual');
+indv = Individual('Virtual',2);
 
 indv(1).dosing     = Bolus('Warfarin', 0*u.h, 60*u.mg, 'iv'); 
 indv(1).drugdata   = loaddrugdata('Warfarin','species','human');

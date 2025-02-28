@@ -10,7 +10,7 @@ data.maprow('Warfarin plasma concentration','Record','Site','pla');
 expid = import(data)
 
 % virtual individual
-simid = Individual(1,'Virtual');
+simid = Individual('Virtual');
 simid.name = 'Initial guess';
 simid.dosing    = expid.dosing;
 simid.drugdata  = loaddrugdata('Warfarin','species','human');
@@ -31,7 +31,7 @@ plot([expid simid],'plasmaConcentration','group_by','Name')
 %% Estimation using method 'estimate()'
 
 % virtual individual for specifying the estimation task
-estid = Individual(1,'Virtual');
+estid = Individual('Virtual');
 
 estid.model.fun  = @empirical1CMT_PLASMA_macroConstants_linearCL;
 

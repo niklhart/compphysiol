@@ -4,7 +4,7 @@
 % solutions
 
 % common part
-tmp = Individual(1,'Virtual');
+tmp = Individual('Virtual');
 
 p = parameters(...
     'V',          1*u.L, ...

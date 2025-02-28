@@ -10,6 +10,11 @@
 
 function humans = humancovdistrib(N, sex)
 
+    arguments
+        N (1,1) double {mustBeInteger,mustBePositive}
+        sex char {mustBeMember(sex,{'male','female'})}
+    end
+
     % Assign parameter values for underlying distributions.
     % To generate pairs of (BH,BW) values, independent (BH, BMI) 
     % pairs are first generated, assuming 
@@ -17,7 +22,7 @@ function humans = humancovdistrib(N, sex)
     % BMI ~ logNormal(log_muBMI,log_sdBMI^2)
     % These are then used to generate BW from the relation BMI = BW/BH^2
 
-    sex = validatestring(sex, {'male','female'});
+%    sex = validatestring(sex, {'male','female'});
 
     switch sex
         % Ref.: de la Grandmaison et al., Forensic Sci. Int. 119 (2001): 149-154
