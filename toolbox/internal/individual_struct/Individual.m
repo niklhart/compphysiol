@@ -1,4 +1,4 @@
-classdef Individual < matlab.mixin.Copyable
+classdef Individual < matlab.mixin.Copyable & LinearArray & CompactColumnDisplay
     %INDIVIDUAL Class for holding virtual individuals or experimental data 
     %
     %   The following modelling methods are available:
@@ -232,7 +232,7 @@ classdef Individual < matlab.mixin.Copyable
             
         
         %% Object display
-        function disp(obj)
+        function disp(obj,N)
             %DISP Display an Individual object
             %   DISP(OBJ) displays the content of an Individual object OBJ. To
             %   see the underlying structure of OBJ, use builtin('disp',OBJ).
@@ -283,12 +283,39 @@ classdef Individual < matlab.mixin.Copyable
                 disp(str)       
 
             else
-                sz    = size(obj);
-                szcat = strjoin(cellfun(@num2str,num2cell(sz),'UniformOutput',false),'x');
-                fprintf('\t%s %s array (E: experimental data, V: virtual individuals):\n\n',szcat,lnk)
-                disp(individualtype(obj));
+                if nargin == 1
+                    disp@CompactColumnDisplay(obj)
+                else
+                    disp@CompactColumnDisplay(obj,N)
+                end
             end
             fprintf("Use builtin('disp',OBJ)) to see the underlying structure of the Individual object OBJ\n") 
+        end
+
+
+        function str = obj2str(obj, context)
+            switch context
+                case {'array','table'}
+
+                    tp = obj.type;
+                    if isempty(tp)
+                        tp = 'Undefined';
+                    end
+
+                    nm = obj.name;
+                    if isempty(nm)
+                        nm = '';
+                    else
+                        nm = [' "' nm '"'];
+                    end
+
+                    str = [tp nm];
+
+                otherwise
+                    error('compphysiol:Individual:obj2str:unknownContext', ...
+                        'Function not defined for context "%s"', context)
+            end
+
         end
         
         

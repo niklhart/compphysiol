@@ -56,7 +56,7 @@
 %   Example:
 %
 %       phys = Physiology('human35m');
-%       drug = loaddrugdata('Warfarin','species','human');
+%       drug = DrugData('Warfarin','species','human');
 %       organs = {'adi','bon','gut','hea','kid','liv','lun','mus','ski','spl'};
 %
 %       K = rodgersrowland(phys,drug,organs);

@@ -24,28 +24,23 @@ classdef DrugData < DB & LinearArray & CompactColumnDisplay
     end
     
     methods
-        function obj = DrugData(cpd)
+        function obj = DrugData(varargin)
             %DrugData Construct an instance of this class
             %   OBJ = DRUGDATA() initializes an empty DrugData object OBJ.
             %
             %   OBJ = DRUGDATA(CPD) loads compound(s) CPD from the drug 
             %         database.
                         
-            arguments
-                cpd string = string.empty
-            end
-            
-            params = DrugData.param;
-            perspecies = DrugData.perspecies;
+            if nargin >= 1
+                obj = loaddrugdata(varargin{:});
+            else
+                perspecies = DrugData.perspecies;
 
-            if nargin < 1
                 dbtmp  = cell(numel(perspecies),1);
                 dbtmp(perspecies) = {emptydbtable('Species')};
                 dbtmp(~perspecies) = {emptydbtable()};
             
-                obj.db = cell2struct(dbtmp, params);
-            else
-                obj = loaddrugdata(cpd);
+                obj.db = cell2struct(dbtmp, DrugData.param);
             end
 
         end
@@ -53,17 +48,18 @@ classdef DrugData < DB & LinearArray & CompactColumnDisplay
         function str = obj2str(obj, context)
             switch context
                 case {'array','table'}
-                   % nm = fieldnames(obj.db);
-                   % exclude = DrugData.perspecies | structfun(@isempty,obj.db);
-                   % nm = nm(~exclude);
-                   % cl = cellfun(@(x)num2str(getvalue(obj,x),'%.2f'),nm,'UniformOutput',false);
-                   % nmax = 6;
-                   % if numel(cl) > nmax
-                   %     cl{nmax} = [cl{nmax} '...'];
-                   %     cl(nmax+1:end) = [];
-                   % end
-                   cl = {obj.name, obj.class, obj.subclass, char(string(getvalue(obj,'MW'))), '...'}; 
-                   str = strjoin(cl,'\t');
+
+                    cl = {obj.name, obj.class, obj.subclass};
+                    cl = cl(~cellfun(@isempty,cl));
+
+                    isEmpty = structfun(@isempty,obj.db);
+                    isAllEmpty = all(isEmpty);
+                    if isAllEmpty
+                        cl = [cl, {'(empty)'}];
+                    else
+                        cl = [cl, {['(' num2str(sum(~isEmpty)) ' parameters)']}];
+                    end
+                    str = strjoin(cl,'\t');
                 otherwise
                     error('compphysiol:DrugData:obj2str:unknownContext', ...
                         'Function not defined for context "%s"',context)

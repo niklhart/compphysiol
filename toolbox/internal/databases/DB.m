@@ -87,11 +87,12 @@ classdef (Abstract) DB < matlab.mixin.Copyable
             if isobjarr
                 assert(~any(isclstr,'all'), 'compphysiol:DB:getvalue:objarrayAndCellstrArgs', ...
                     'If OBJ is an array, all categories must be scalar.')
-                if strcmp(obj(1).units.(nm), 'char')
+                if ischar(getvalue(obj(1), nm, varargin{:}))
                     val = arrayfun(@(x) {getvalue(x, nm, varargin{:})}, obj);
                 else
                     val = arrayfun(@(x) getvalue(x, nm, varargin{:}), obj);
                 end
+
                 return
             end
             

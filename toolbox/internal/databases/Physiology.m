@@ -357,16 +357,19 @@ classdef Physiology < DB & CompactColumnDisplay & LinearArray
         function str = obj2str(obj, context)
             switch context
                 case {'array','table'}
-                   nm = fieldnames(obj.db);
-                   exclude = Physiology.pertissue | structfun(@isempty,obj.db);
-                   nm = nm(~exclude);
-                   cl = cellfun(@(x)num2str(getvalue(obj,x),'%.2f'),nm,'UniformOutput',false);
-                   nmax = 6;
-                   if numel(cl) > nmax
-                       cl{nmax} = [cl{nmax} '...'];
-                       cl(nmax+1:end) = [];
-                   end
-                   str = strjoin(cl,'\t');
+                    nm = fieldnames(obj.db);
+                    exclude = Physiology.pertissue | structfun(@isempty,obj.db);
+                    nm = nm(~exclude);
+                    cl = cellfun(@(x)num2str(getvalue(obj,x),'%.2f'),nm,'UniformOutput',false);
+                    nmax = 6;
+                    if numel(cl) > nmax
+                        cl{nmax} = [cl{nmax} '...'];
+                        cl(nmax+1:end) = [];
+                    end
+                    str = strjoin(cl,'\t');
+                    if isempty(str)
+                        str = '(empty)';
+                    end
                 otherwise
                     error('compphysiol:Physiology:obj2str:unknownContext', ...
                         'Function not defined for context "%s"',context)
