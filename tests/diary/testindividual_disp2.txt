@@ -1,6 +1,6 @@
-	2x1 <a href="matlab:helpPopup Individual">Individual</a> array (E: experimental data, V: virtual individuals):
+	<a href="matlab:helpPopup Individual">Individual</a> array:
 
-    {'V'}
-    {'V'}
+1	Virtual individual
+2	Virtual individual
 
 Use builtin('disp',OBJ)) to see the underlying structure of the Individual object OBJ
