@@ -49,12 +49,10 @@ fprintf('Initializing the physiology database...\n')
 %%% a plateau of 475g at age 56-91 weeks.  
 
 nrats = 2;
-rat(nrats) = Physiology();   % IMPORTANT: since Physiology is a handle class, don't use `rat(1:nrats) = Physiology()`!
+rat(nrats,1) = Physiology();   % IMPORTANT: since Physiology is a handle class, don't use `rat(1:nrats) = Physiology()`!
 
 rat(1).name  = 'rat250';
-rat(1).alias = 'rat_male_250g';
 rat(2).name  = 'rat475';
-rat(2).alias = 'rat_male_475g';
 
 ref = 'Brown et al, Tox Ind Health 1997 (Table 3)';
 
@@ -661,13 +659,11 @@ addrecord(rat, 'rtpLip', 'spl', 0.207, ref, [])
 
 
 nmice = 2;
-mouse(nmice) = Physiology();   % IMPORTANT: since Physiology is a handle class, don't use `mouse(1:nmice) = Physiology()`!
+mouse(nmice,1) = Physiology();   % IMPORTANT: since Physiology is a handle class, don't use `mouse(1:nmice) = Physiology()`!
 
 
 mouse(1).name  = 'mouse25';
-mouse(1).alias = 'mouse_male_25g';
 mouse(2).name  = 'mouse40';
-mouse(2).alias = 'mouse_male_40g';
 
 ref = 'Brown et al, Tox Ind Health 1997 (Table 1)';
 
@@ -991,24 +987,16 @@ clonerecord(mouse,'rtpLip',rat(1))
 %%%
 
 nhumans = 8;
-human(nhumans) = Physiology();   % IMPORTANT: since Physiology is a handle class, don't use `humans(1:nhumans) = Physiology()`!
+human(nhumans,1) = Physiology();   % IMPORTANT: since Physiology is a handle class, don't use `humans(1:nhumans) = Physiology()`!
 
 human(1).name  = 'human0u';
-human(1).alias = 'human_unisex_0y_3,5kg_51cm';
 human(2).name  = 'human1u';
-human(2).alias = 'human_unisex_1y_10kg_76cm';
 human(3).name  = 'human5u';
-human(3).alias = 'human_unisex_5y_19kg_109cm';
 human(4).name  = 'human10u';
-human(4).alias = 'human_unisex_10y_32kg_138cm';
 human(5).name  = 'human15m';
-human(5).alias = 'human_male_15y_56kg_167cm';
 human(6).name  = 'human15f';
-human(6).alias = 'human_female_15y_53kg_161cm';
 human(7).name  = 'human35m';
-human(7).alias = 'human_male_35y_73kg_176cm';
 human(8).name  = 'human35f';
-human(8).alias = 'human_female_35y_60kg_163cm';
 
 ref = 'Basic covariates';
 

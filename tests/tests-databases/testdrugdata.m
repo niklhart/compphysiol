@@ -51,7 +51,7 @@ dd2 = loaddrugdata('drugB');
 
 % getrecord
 assert(abs(getrecord(dd1,'MW')/(u.kg/u.mol) - 0.3083) < 1e-4)
-assert(all(abs(getrecord([dd1 dd2], 'MW')/(u.kg/u.mol) - [0.3083 0.2343]) < 1e-4))
+assert(all(abs(getrecord([dd1 dd2], 'MW')/(u.kg/u.mol) - [0.3083; 0.2343]) < 1e-4))
 assertError(@() getrecord(dd1, 'test'), ...
     'compphysiol:DrugData:getrecord:parameterNotFound')
 assertError(@() getrecord(dd1, 'CLint_hep_perOWliv'), ...

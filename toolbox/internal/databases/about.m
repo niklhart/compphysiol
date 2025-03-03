@@ -52,32 +52,32 @@ end
 
 function aboutpar(name)
 
-    sptmp = physiologytemplate();
-    drtmp = drugtemplate();
+    phystmp = evalfhopt('PhysiologyTemplate');
+    drugtmp = evalfhopt('DrugTemplate');
     
-    if ismember(name,sptmp(:,1))
-        row = strcmp(name,sptmp(:,1));
+    if ismember(name,phystmp(:,1))
+        row = strcmp(name,phystmp(:,1));
     
-        fprintf('Description: %s\n',sptmp{row,4})
-        fprintf('Unit type: %s\n', sptmp{row,2})
-        if sptmp{row,3}
-            fprintf('Vector (per tissue) parameter\n\n')
+        fprintf('Description: %s\n',phystmp{row,4})
+        fprintf('Unit type: %s\n', phystmp{row,2})
+        if phystmp{row,3}
+            fprintf('Per tissue parameter\n\n')
         else
             fprintf('Scalar parameter\n\n')
         end
 
-    elseif ismember(name,drtmp(:,1))
-        row = strcmp(name,drtmp(:,1));
+    elseif ismember(name,drugtmp(:,1))
+        row = strcmp(name,drugtmp(:,1));
         
-        fprintf('Description: %s\n',drtmp{row,4})
-        fprintf('Unit type: %s\n', drtmp{row,2})
-        if drtmp{row,3}
+        fprintf('Description: %s\n',drugtmp{row,4})
+        fprintf('Unit type: %s\n', drugtmp{row,2})
+        if drugtmp{row,3}
             fprintf('Per species parameter\n\n')
         else
             fprintf('Scalar parameter\n\n')
         end
     else
-        error('Not a species / drug parameter.')
+        error('Not a physiology / drug parameter.')
     end
 end
 

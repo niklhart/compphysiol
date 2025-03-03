@@ -51,7 +51,7 @@ end
 function ddb = build_database()
 
     ndrugs = 21;
-    ddb(ndrugs) = DrugData(); % IMPORTANT: since DrugData is a handle class, don't use `ddb(1:n) = DrugDB()`!
+    ddb(ndrugs,1) = DrugData(); % IMPORTANT: since DrugData is a handle class, don't use `ddb(1:n) = DrugDB()`!
     
     i = 0;
     

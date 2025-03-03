@@ -110,7 +110,7 @@ classdef (Abstract) DB < matlab.mixin.Copyable
                         cls = class(obj);
                         collect_assumptions({[cls ':' nm ':' strjoin(varargin,'-') ':' tab.Assumption{1}]});
                     end
-                    if strcmp(obj.units.(nm), 'char')
+                    if iscellstr(val) && isscalar(val) %#ok<ISCLSTR>
                         val = val{1};
                     end
                 case 1                    

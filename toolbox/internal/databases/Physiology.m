@@ -1,4 +1,4 @@
-classdef Physiology < DB & CompactColumnDisplay
+classdef Physiology < DB & CompactColumnDisplay & LinearArray
     %PHYSIOLOGY A handle class for storing physiological information.
     %   For the definition of Physiology objects, see functions Covariates,
     %   Physiology/Physiology, and physiological scaling functions.
@@ -19,16 +19,12 @@ classdef Physiology < DB & CompactColumnDisplay
     
     properties
         name
-        alias
     end
     
-    properties (SetAccess = protected)
-        units
-        pertissue
-    end
-    
-    properties(Constant = true, Access = protected)
-        tmp = evalfhopt('PhysiologyTemplate');
+    properties (Constant = true)
+        param     = Physiology.setParnames()
+        units     = Physiology.setUnits()
+        pertissue = Physiology.setPertissue();
     end
     
     methods
@@ -47,16 +43,14 @@ classdef Physiology < DB & CompactColumnDisplay
             if nargin == 1
                 obj = referenceid(refid);
             else
-                pertissue = [obj.tmp{:,3}];
+                pertissue = Physiology.pertissue;
 
                 dbtmp  = cell(numel(pertissue),1);
                 dbtmp(pertissue) = {emptydbtable('Tissue')};
                 dbtmp(~pertissue) = {emptydbtable()};
 
-                obj.db = cell2struct(dbtmp, obj.tmp(:,1));
+                obj.db = cell2struct(dbtmp, Physiology.param);
 
-                obj.pertissue = cell2struct(obj.tmp(:,3),obj.tmp(:,1));
-                obj.units = cell2struct(obj.tmp(:,2), obj.tmp(:,1));
                 obj.name = '';            
             end
         end
@@ -97,8 +91,8 @@ classdef Physiology < DB & CompactColumnDisplay
             assert(~isempty(varargin{end}) || ~isempty(varargin{end-1}), ...
                 'Must provide source and/or assumption')
 
-            typecheck(varargin{iVal}, obj(1).units.(nm))
-            if ~strcmp(obj(1).units.(nm), 'char')
+            typecheck(varargin{iVal}, Physiology.getUnits(nm))
+            if ~strcmp(Physiology.getUnits(nm), 'char')
                 varargin{iVal} = tounit(varargin{iVal});
             end            
             % to be able to call the faster table() instead of cell2table()
@@ -211,7 +205,7 @@ classdef Physiology < DB & CompactColumnDisplay
             assert(ischar(nm) && ischar(source) && ischar(alias), ...
                 'compphysiol:Physiology:aliasrecord:mustBeChar', ...
                 'Inputs #2-#4 must be a char.')
-            assert(obj(1).pertissue.(nm), ...
+            assert(Physiology.ispertissue(nm), ...
                 'compphysiol:Physiology:aliasrecord:mustBePerTissueParameter', ...
                 'Input #2 must be a per-tissue parameter.')
             
@@ -251,7 +245,7 @@ classdef Physiology < DB & CompactColumnDisplay
             
             if isscalar(obj)
                 
-                if obj(1).pertissue.(nm)  % expect varargin of length 2
+                if Physiology.ispertissue(nm)  % expect varargin of length 2
                     narginchk(4,4)
                     
                     tis = cellstr(varargin{1});
@@ -275,8 +269,8 @@ classdef Physiology < DB & CompactColumnDisplay
                     locTissue = 1;
                     val = varargin{1};
                 end
-                typecheck(val, obj.units.(nm))
-                if strcmp(obj.units.(nm),'char')
+                typecheck(val, Physiology.getUnits(nm))
+                if strcmp(Physiology.getUnits(nm),'char')
                     val = cellstr(val);
                 else
                     val = tounit(val);
@@ -364,7 +358,7 @@ classdef Physiology < DB & CompactColumnDisplay
             switch context
                 case {'array','table'}
                    nm = fieldnames(obj.db);
-                   exclude = structfun(@(x)x,obj.pertissue) | structfun(@isempty,obj.db);
+                   exclude = Physiology.pertissue | structfun(@isempty,obj.db);
                    nm = nm(~exclude);
                    cl = cellfun(@(x)num2str(getvalue(obj,x),'%.2f'),nm,'UniformOutput',false);
                    nmax = 6;
@@ -380,7 +374,7 @@ classdef Physiology < DB & CompactColumnDisplay
 
        end
 
-       function disp(obj)
+       function disp(obj,N)
             if isscalar(obj)
                 link = helpPopupStr('Physiology');
                 if all(structfun(@isempty,obj.db))
@@ -394,8 +388,47 @@ classdef Physiology < DB & CompactColumnDisplay
                     dispdbcontent(obj)
                 end 
             else
-                disp@CompactColumnDisplay(obj)
+                if nargin == 1
+                    disp@CompactColumnDisplay(obj)
+                else
+                    disp@CompactColumnDisplay(obj,N)
+                end
             end
+        end
+
+    end
+
+    methods (Static = true)
+        
+        function TF = ispertissue(par)
+            allpar = Physiology.param;
+            par = validatestring(par, allpar);
+            TF = Physiology.pertissue(ismember(allpar,par));
+        end
+
+        function units = getUnits(par)
+            allpar = Physiology.param;
+            par = validatestring(par, allpar);
+            units = Physiology.units{ismember(allpar,par)};
+        end
+
+    end
+
+    methods (Static = true, Access = protected)
+
+        function parnames = setParnames()
+            tmp = evalfhopt('PhysiologyTemplate');
+            parnames = tmp(:,1);
+        end
+
+        function units = setUnits()
+            tmp = evalfhopt('PhysiologyTemplate');
+            units = tmp(:,2);
+        end
+
+        function pertissue = setPertissue()
+            tmp = evalfhopt('PhysiologyTemplate');
+            pertissue = cell2mat(tmp(:,3));
         end
 
     end

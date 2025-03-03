@@ -59,9 +59,9 @@ end
 
 function out = getfromphys(phys, cmt, nm, varargin)
 
-    nm = validatestring(nm, fieldnames(phys.db));
+    nm = validatestring(nm, Physiology.param);
 
-    if ~phys.pertissue.(nm) || nargin == 4
+    if ~Physiology.ispertissue(nm) || nargin == 4
         out = getvalue(phys, nm, varargin{:});
     else
         tab = phys.db.(nm);

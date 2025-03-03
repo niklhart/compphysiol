@@ -1,4 +1,4 @@
-classdef DrugData < DB 
+classdef DrugData < DB & LinearArray & CompactColumnDisplay
     %DrugData A handle class for storing the drug information
     %   For each drug, the following information can be stored:
     %   - MW           molecular weight
@@ -17,9 +17,10 @@ classdef DrugData < DB
         subclass
     end
     
-    properties (SetAccess = protected)
-        units
-        perspecies
+    properties (Constant = true)
+        param      = DrugData.setParnames()
+        units      = DrugData.setUnits()
+        perspecies = DrugData.setPerspecies();
     end
     
     methods
@@ -33,27 +34,44 @@ classdef DrugData < DB
             arguments
                 cpd string = string.empty
             end
-
-            params = evalfhopt('DrugTemplate');
             
-            perspecies = [params{:,3}];
-            
-            obj.perspecies = cell2struct(params(:,3),params(:,1));
-            obj.units = cell2struct(params(:,2), params(:,1));
+            params = DrugData.param;
+            perspecies = DrugData.perspecies;
 
             if nargin < 1
                 dbtmp  = cell(numel(perspecies),1);
                 dbtmp(perspecies) = {emptydbtable('Species')};
                 dbtmp(~perspecies) = {emptydbtable()};
             
-                obj.db = cell2struct(dbtmp, params(:,1));
+                obj.db = cell2struct(dbtmp, params);
             else
                 obj = loaddrugdata(cpd);
             end
 
         end
         
-        function disp(obj)
+        function str = obj2str(obj, context)
+            switch context
+                case {'array','table'}
+                   % nm = fieldnames(obj.db);
+                   % exclude = DrugData.perspecies | structfun(@isempty,obj.db);
+                   % nm = nm(~exclude);
+                   % cl = cellfun(@(x)num2str(getvalue(obj,x),'%.2f'),nm,'UniformOutput',false);
+                   % nmax = 6;
+                   % if numel(cl) > nmax
+                   %     cl{nmax} = [cl{nmax} '...'];
+                   %     cl(nmax+1:end) = [];
+                   % end
+                   cl = {obj.name, obj.class, obj.subclass, char(string(getvalue(obj,'MW'))), '...'}; 
+                   str = strjoin(cl,'\t');
+                otherwise
+                    error('compphysiol:DrugData:obj2str:unknownContext', ...
+                        'Function not defined for context "%s"',context)
+            end
+
+        end
+
+        function disp(obj,N)
             if isscalar(obj)
                 link = helpPopupStr('DrugData');
                 if all(structfun(@isempty,obj.db))
@@ -64,7 +82,11 @@ classdef DrugData < DB
                     dispdbcontent(obj)
                 end 
             else
-                builtin('disp',obj)
+                if nargin == 1
+                    disp@CompactColumnDisplay(obj)
+                else
+                    disp@CompactColumnDisplay(obj,N)
+                end
             end
         end
 
@@ -97,8 +119,8 @@ classdef DrugData < DB
             end
 
             % check units of value variable
-            typecheck(varargin{iVal}, obj.units.(nm))     
-            if strcmp(obj(1).units.(nm), 'char')
+            typecheck(varargin{iVal}, DrugData.getUnits(nm))     
+            if strcmp(DrugData.getUnits(nm), 'char')
                 varargin{iVal} = varargin(iVal); % char --> cellstr
             else
                 varargin{iVal} = tounit(varargin{iVal});
@@ -138,7 +160,7 @@ classdef DrugData < DB
 
             if isscalar(obj)
                 
-                if obj(1).perspecies.(nm)  % expect varargin of length 2
+                if DrugData.isperspecies(nm)  % expect varargin of length 2
                     narginchk(4,4)                    
                     [~,irec] = ismember(varargin{1}, obj.db.(nm).Species);
                     if ~irec
@@ -150,7 +172,7 @@ classdef DrugData < DB
                     irec = 1;
                     val = varargin{1};
                 end
-                typecheck(val, obj.units.(nm))
+                typecheck(val, DrugData.getUnits(nm))
                 val = tounit(val);
                 obj.db.(nm).Value(irec) = val;
                 
@@ -268,7 +290,7 @@ classdef DrugData < DB
                 end
                 props = struct(varargin{:});
 
-                fnm = fieldnames(obj.perspecies);
+                fnm = DrugData.param;
 
                 % control message display
                 silent = isfield(props,'silent') && isequal(props.silent,true);
@@ -288,8 +310,8 @@ classdef DrugData < DB
                 % argument 'species'
                 if isfield(props, 'species')
 
-                    persp = fnm(structfun(@(x)x, obj.perspecies));
-                    par = intersect(par, persp); % only filter per-species parameters
+                    persp = fnm(DrugData.perspecies);
+                    par = intersect(par, persp);        % only filter per-species parameters
                     
                     for i = 1:numel(par)
                         p = par{i};
@@ -367,6 +389,41 @@ classdef DrugData < DB
 %                    'IgG1'});
 %         end        
         
+    end
+
+    methods (Static = true)
+        
+        function TF = isperspecies(par)
+            allpar = DrugData.param;
+            par = validatestring(par, allpar);
+            TF = DrugData.perspecies(ismember(allpar,par));
+        end
+
+        function units = getUnits(par)
+            allpar = DrugData.param;
+            par = validatestring(par, allpar);
+            units = DrugData.units{ismember(allpar,par)};
+        end
+
+    end
+
+    methods (Static = true, Access = protected)
+
+        function parnames = setParnames()
+            tmp = evalfhopt('DrugTemplate');
+            parnames = tmp(:,1);
+        end
+
+        function units = setUnits()
+            tmp = evalfhopt('DrugTemplate');
+            units = tmp(:,2);
+        end
+
+        function perspecies = setPerspecies()
+            tmp = evalfhopt('DrugTemplate');
+            perspecies = cell2mat(tmp(:,3));
+        end
+
     end
 end
 

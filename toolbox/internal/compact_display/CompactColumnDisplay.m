@@ -10,9 +10,10 @@ classdef (Abstract, HandleCompatible) CompactColumnDisplay
     %   Each concrete subclass of COMPACTCOLUMNDISPLAY must define the
     %   obj2str() method, which encodes a scalar object as a string.
     %   
-    %   Currently, classes Ref and Observable make use of this interface.
+    %   Currently, classes Ref, Observable and Physiology make use of this 
+    %   interface.
     %   
-    %   See also Ref, Observable.
+    %   See also Ref, Observable, Physiology.
 
     methods (Abstract)
         str = obj2str(obj, context)

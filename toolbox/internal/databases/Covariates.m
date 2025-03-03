@@ -39,7 +39,6 @@ function phys = Covariates(varargin)
     end
     
     phys = Physiology();
-    physpars = fieldnames(phys.pertissue);
 
     assert(~mod(length(varargin),2), ...
         'compphysiol:Covariates:missingValue', ...
@@ -54,7 +53,7 @@ function phys = Covariates(varargin)
 
         % determine if property is stratified
         strat   = strsplit(prop,'|');
-        par     = validatestring(strat{1}, physpars);
+        par     = validatestring(strat{1}, Physiology.param);
 
         if  numel(strat) > 1  % statified
             addrecord(phys,par,strat{2},val,'Covariate','manually set');
