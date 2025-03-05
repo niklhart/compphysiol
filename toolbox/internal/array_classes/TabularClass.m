@@ -162,6 +162,7 @@ classdef (Abstract, HandleCompatible) TabularClass <  ...
         end
 
         function varargout = dotReference(obj,indexOp)
+            %DOTASSIGN Subsref into table column or dot method call
 
             nm = indexOp(1).Name;
             if istablecol(obj.table, nm)                
@@ -175,8 +176,9 @@ classdef (Abstract, HandleCompatible) TabularClass <  ...
 
         end
 
-        function obj = dotAssign(obj,~,~) %#ok<INUSD>
-            error('Cannot assign new value to TabularClass table column.')
+        function obj = dotAssign(obj,indexOp,varargin)
+            %DOTASSIGN Subassignment into table column
+            [obj.table.(indexOp)] = varargin{:};
         end
 
         function n = dotListLength(obj,indexOp,indexContext)
