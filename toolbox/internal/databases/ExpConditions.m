@@ -1,4 +1,4 @@
-classdef ExpConditions < CompactColumnDisplay
+classdef ExpConditions < ColumnClass
 
     properties
         conditions

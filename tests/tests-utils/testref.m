@@ -23,10 +23,10 @@ assert(isempty(val) && islogical(val))
 
 r1 = Ref('label','bla');
 r2 = Ref('key',  'bla bla');
-r1211 = [r1 r2; r1 r1];
+r1211 = [r1; r2; r1; r1];
 
 val1211  = r1211 == 'label';
-expected = [true false; true true];
+expected = [true; false; true; true];
 assert(isequal(val1211,expected))
 
 %% Concatenation with empty Ref working

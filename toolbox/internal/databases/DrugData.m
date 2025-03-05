@@ -1,4 +1,4 @@
-classdef DrugData < DB & LinearArray & CompactColumnDisplay
+classdef DrugData < DB & ColumnClass
     %DrugData A handle class for storing the drug information
     %   For each drug, the following information can be stored:
     %   - MW           molecular weight
@@ -79,9 +79,9 @@ classdef DrugData < DB & LinearArray & CompactColumnDisplay
                 end 
             else
                 if nargin == 1
-                    disp@CompactColumnDisplay(obj)
+                    disp@ColumnClass(obj)
                 else
-                    disp@CompactColumnDisplay(obj,N)
+                    disp@ColumnClass(obj,N)
                 end
             end
         end

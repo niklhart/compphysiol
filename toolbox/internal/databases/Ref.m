@@ -1,4 +1,4 @@
-classdef Ref < CompactColumnDisplay
+classdef Ref < ColumnClass
     %REF Class for literature references
     %   The Ref class is used to assign a short and easy to remember label
     %   (e.g. AuthorYear) to a complicated literature reference, containing
@@ -104,7 +104,7 @@ classdef Ref < CompactColumnDisplay
             %           description of OBJ
             %       'table' only uses label of OBJ but not the description.
             %   
-            %   See also CompactColumnDisplay
+            %   See also ColumnClass
 
             assert(isscalar(obj))
             switch context

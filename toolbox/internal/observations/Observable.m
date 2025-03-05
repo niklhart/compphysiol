@@ -1,4 +1,4 @@
-classdef Observable < CompactColumnDisplay & LinearArray
+classdef Observable < ColumnClass
     %OBS A class for storing observables
     %
     %   See also Observable/Observable (syntax of constructor)
@@ -196,7 +196,7 @@ classdef Observable < CompactColumnDisplay & LinearArray
             %      displayed
             %    - 'table': only attribute values are displayed.
             %   
-            %   See also CompactColumnDisplay
+            %   See also ColumnClass
 
             assert(isscalar(obj))
             

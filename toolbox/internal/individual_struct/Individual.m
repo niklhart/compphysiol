@@ -1,4 +1,4 @@
-classdef Individual < matlab.mixin.Copyable & LinearArray & CompactColumnDisplay
+classdef Individual < matlab.mixin.Copyable & ColumnClass
     %INDIVIDUAL Class for holding virtual individuals or experimental data 
     %
     %   The following modelling methods are available:
@@ -284,9 +284,9 @@ classdef Individual < matlab.mixin.Copyable & LinearArray & CompactColumnDisplay
 
             else
                 if nargin == 1
-                    disp@CompactColumnDisplay(obj)
+                    disp@ColumnClass(obj)
                 else
-                    disp@CompactColumnDisplay(obj,N)
+                    disp@ColumnClass(obj,N)
                 end
             end
             fprintf("Use builtin('disp',OBJ)) to see the underlying structure of the Individual object OBJ\n") 

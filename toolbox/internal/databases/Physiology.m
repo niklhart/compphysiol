@@ -1,4 +1,4 @@
-classdef Physiology < DB & CompactColumnDisplay & LinearArray
+classdef Physiology < DB & ColumnClass
     %PHYSIOLOGY A handle class for storing physiological information.
     %   For the definition of Physiology objects, see functions Covariates,
     %   Physiology/Physiology, and physiological scaling functions.
@@ -392,9 +392,9 @@ classdef Physiology < DB & CompactColumnDisplay & LinearArray
                 end 
             else
                 if nargin == 1
-                    disp@CompactColumnDisplay(obj)
+                    disp@ColumnClass(obj)
                 else
-                    disp@CompactColumnDisplay(obj,N)
+                    disp@ColumnClass(obj,N)
                 end
             end
         end
