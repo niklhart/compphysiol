@@ -1,4 +1,4 @@
-classdef Observable < CompactColumnDisplay
+classdef Observable < CompactColumnDisplay & LinearArray
     %OBS A class for storing observables
     %
     %   See also Observable/Observable (syntax of constructor)
@@ -89,10 +89,6 @@ classdef Observable < CompactColumnDisplay
                 obs = Observable(typ, attrcl{:});
             end
             
-        end
-                
-        function out = horzcat(varargin)
-            out = vertcat(varargin{:});            
         end
         
         function out = unique(obj)

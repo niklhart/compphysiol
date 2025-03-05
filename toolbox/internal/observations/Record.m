@@ -1,4 +1,4 @@
-classdef Record < CompactTabularDisplay
+classdef Record < TabularClass
     %RECORD A class for storing observation records
     %   Records may be experimental data or model predictions. They behave 
     %   like tables with three colums 'Time', 'Observable' and 'Value'.
@@ -8,10 +8,6 @@ classdef Record < CompactTabularDisplay
     %   throughout the toolbox.
     %
     %   See also Record/Record (syntax of constructor)
-
-    properties
-        record    % table with columns 'Time', 'Observable', 'Value'
-    end
     
     methods
         
@@ -33,7 +29,7 @@ classdef Record < CompactTabularDisplay
             if nargin == 0
                 
                 default_names = {'Time','Observable','Value'};
-                obj.record = emptytable(default_names{:});
+                obj.table = emptytable(default_names{:});
                 
             else
                 
@@ -77,123 +73,25 @@ classdef Record < CompactTabularDisplay
                 tab = movevars(tab, {'Time','Observable','Value'},'Before',1); 
                 tab = sortrows(tab,'Time');
                 
-                % assign to record property
-                obj.record = tab;
+                % assign to table property
+                obj.table = tab;
 
             end
         end
-        
-        function ind = end(obj,k,n)
-        %END Last index in a Record object
-            assert(n == 2 && k == 1, 'compphysiol:Record:invalidUseOfEndKeyword', ...
-                "Invalid use of 'end' keyword")
-            ind = height(obj.record);
-        end
-
-        function n = numel(obj)
-        %NUMEL Number of records in a Record object
-            
-            n = height(obj.record);
-        end
-        
-        function varargout = size(obj)
-        %SIZE Size of a Record object
-            
-            nargoutchk(0,2)
-            sz = [numel(obj) 1];
-            if nargout < 2
-                varargout{1} = sz;                    
-            else
-                varargout{1} = sz(1);                    
-                varargout{2} = sz(2);                    
-            end
-        end
-        
-        function n = numArgumentsFromSubscript(~,~,~)
-            n = 1;
-        end
-        
+               
         function tf = isempty(obj)
         %ISEMPTY True if a Record object is empty
 
-            tf = isempty(obj.record);
-        end
-            
-        function disp(obj)
-            %DISP Display a Record object
-            %   DISP(OBJ) displays the content of a Record object OBJ. 
-            %   To see its underlying structure, use builtin('disp',OBJ).
-
-            link = helpPopupStr('Record');
-            if isempty(obj.record)
-                fprintf('\tEmpty %s object.\n\n',link)
-            else
-                fprintf('\t%s array:\n\n', link)
-                disptable(obj)
-            end
+            tf = isempty(obj.table);
         end
         
         function str = summary(obj)
             %SUMMARY Summarize a Record object
             str = sprintf('%s records',...
-                          num2str(height(obj.record)));
+                          num2str(height(obj.table)));
         end
-
-        function t = gettable(obj)
-            t = obj.record;
-        end
-        
-        %% Concatenation
-        function out = cat(~,varargin)
-            assert(all(cellfun(@(x) isa(x,'Record'), varargin)), ...
-                'All input arguments must be Record objects.');
-            cl = cellfun(@(x) x.record, varargin, 'UniformOutput', false);
-            out = Record(vertcat(cl{:}));
-        end
-        function out = horzcat(varargin)
-            out = cat(2,varargin{:});
-        end
-        function out = vertcat(varargin)
-            out = cat(1,varargin{:});
-        end        
-        
+          
         %% Subsref
-        function v = subsref(v,S)
-            %SUBSREF Subscripted referencing for Record objects
-            %   R(I,:), with Record object R and indexing vector I, 
-            %   returns the rows of the subsetted Record object.
-            %
-            %   R.Time returns a Time-type DimVar column vector of
-            %   observation tupes,
-            %   R.Value, or R.Observable returns a vector 
-            switch S(1).type
-                case '()'
-                    v.record = subsref(v.record,S(1));
-                    assert(all(ismember({'Time','Observable','Value'}, ...
-                        v.record.Properties.VariableNames)), ...
-                        'Invalid call to subsref. Use V(I,:) instead.')
-                    switch numel(S)
-                        case 1
-                            % pass
-                        case 2
-                            % TODO not working properly yet. Probably there
-                            %      is some problem with function
-                            %      numArgumentsFromSubscript.
-                            assert(strcmp(S(2).type,'.'),'Invalid call to subsref.')
-                            v = builtin('subsref',v.record,S(2));
-                        otherwise 
-                            error('Invalid call to subsref.')
-                    end
-                case '.'
-                    if strcmp(S(1).subs,'record')
-                        v = builtin('subsref',v,S);                        
-                    else
-                        v = builtin('subsref',v.record,S);
-                    end
-                otherwise 
-                    error('Invalid call to subsref.')
-            end
-        end   
         
         function obj = transform(obj, varargin)
             %TRANSFORM Transform Record objects
@@ -216,7 +114,7 @@ classdef Record < CompactTabularDisplay
                 case 2
                     fun = varargin{1};
                     assert(isa(fun,'function_handle'), 'Input #2 must be a function handle.')
-                    obj.record.Value = fun(obj.record.Value);
+                    obj.table.Value = fun(obj.table.Value);
                 case 3
                     obj = transform(obj, @(x) x, varargin{:});  % -> case 4
                 case 4                   
@@ -229,10 +127,10 @@ classdef Record < CompactTabularDisplay
                         'Observable objects must have the same size.')
 
                     for i=1:numel(ObsIn)
-                        tf_i = ismember(obj.record.Observable, ObsIn(i));
+                        tf_i = ismember(obj.table.Observable, ObsIn(i));
                         if any(tf_i,'all')
-                            obj.record.Value(tf_i) = fun(obj.record.Value(tf_i));
-                            obj.record.Observable(tf_i) = ObsOut(i);
+                            obj.table.Value(tf_i) = fun(obj.table.Value(tf_i));
+                            obj.table.Observable(tf_i) = ObsOut(i);
                         end
                     end
                     
@@ -284,9 +182,9 @@ classdef Record < CompactTabularDisplay
                 if ~isempty(r.(fld))
                     if isa(r.(fld),'function_handle')
                         f = r.(fld);
-                        rec.record = rec.record(f(rec.record.(fld)), :);                    
+                        rec.table = rec.table(f(rec.table.(fld)), :);                    
                     else
-                        rec.record = rec.record(ismember(rec.record.(fld),r.(fld)), :);
+                        rec.table = rec.table(ismember(rec.table.(fld),r.(fld)), :);
                     end
                 end
             end
@@ -296,7 +194,7 @@ classdef Record < CompactTabularDisplay
         function sdl = schedule(obj)
             %SCHEDULE Extract the schedule of a Record object.
             sdl = Sampling();
-            sdl.schedule = obj.record(:,{'Time','Observable'});            
+            sdl.schedule = obj.table(:,{'Time','Observable'});            
         end
         
         function tab = expand(obj)
@@ -305,22 +203,26 @@ classdef Record < CompactTabularDisplay
             %   per attribute of observables in OBJ, ordered in the same
             %   way as the Record object OBJ.
             
-            obs   = obj.record.Observable;
+            obs   = obj.table.Observable;
             
             if isempty(obs) % edge case: empty input
                 obs = Observable();
                 obs = obs([]);
             end
-            Time  = obj.record.Time;
-            Value = obj.record.Value;
-            rest  = obj.record(:,4:end);    % optional colums
+            Time  = obj.table.Time;
+            Value = obj.table.Value;
+            rest  = obj.table(:,4:end);    % optional colums
             
             tab = [table(Time) expand(obs) table(Value) rest];
             
         end
         
     end
-   
+    methods (Static, Access = public)
+        function obj = empty()
+            obj = Record();
+        end
+    end
     
 end
     

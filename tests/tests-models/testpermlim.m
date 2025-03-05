@@ -31,8 +31,8 @@ indv(2).model.options.tissuePartitioning = @rodgersrowland;
 initialize(indv);
 simulate(indv);
 
-C_permlim = indv(1).observation.record.Value;
-C_wellst  = indv(2).observation.record.Value;
+C_permlim = indv(1).observation.Value;
+C_wellst  = indv(2).observation.Value;
 
 relErr = abs((C_permlim - C_wellst) ./ C_wellst);
 

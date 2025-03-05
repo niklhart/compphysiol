@@ -28,7 +28,7 @@ classdef (Abstract) Dosing
             end
             
         end
-        
+
     end
 
 end

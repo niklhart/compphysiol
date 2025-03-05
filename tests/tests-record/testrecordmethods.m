@@ -76,6 +76,7 @@ assert(isequal(r12(2, :), r2))
 assert(isequal(r12.Time, [0; 0]*u.h))
 
 %TODO: check invalid use
+assertError(@() r1(:,1), 'compphysiol:TabularClass:parenReference:invalidUse')
 
 %% Display
 
@@ -92,4 +93,3 @@ tab = table([1;2;3]*u.h,Observable('SimplePK',{'a','b','c'},'',''),[1;2;3], ...
 r1 = Record(tab);
 
 assert(isequal(r1(end,:), r1(3,:)))
-assertError(@() r1(:,end), 'compphysiol:Record:invalidUseOfEndKeyword')

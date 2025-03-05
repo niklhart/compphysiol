@@ -1,4 +1,4 @@
-	<a href="matlab:helpPopup Record">Record</a> array:
+	<a href="matlab:helpPopup Record">Record</a> object:
 
     Time   Observable                       Value
     ----   ------------------------------   -----

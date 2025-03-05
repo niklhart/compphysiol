@@ -20,8 +20,8 @@ li = findobj(h, 'Type', 'Line');
 
 % expected content of plot: the Record object (as double). We have to check
 % which units are used for plotting.
-xobs = indv.observation.record.Time / u.h;
-yobs = indv.observation.record.Value;
+xobs = indv.observation.Time / u.h;
+yobs = indv.observation.Value;
 
 xplot = li.XData';
 yplot = li.YData';
@@ -55,11 +55,11 @@ yplot1 = li1.YData';
 xplot2 = li2.XData';
 yplot2 = li2.YData';
 
-site = expand(indv.observation.record.Observable).Site;
-xobs1 = indv.observation.record.Time(ismember(site, 'tis'),:) / u.h;
-yobs1 = indv.observation.record.Value(ismember(site, 'tis'),:);
-xobs2 = indv.observation.record.Time(ismember(site, 'pla'),:) / u.h;
-yobs2 = indv.observation.record.Value(ismember(site, 'pla'),:);
+site = expand(indv.observation.Observable).Site;
+xobs1 = indv.observation.Time(ismember(site, 'tis'),:) / u.h;
+yobs1 = indv.observation.Value(ismember(site, 'tis'),:);
+xobs2 = indv.observation.Time(ismember(site, 'pla'),:) / u.h;
+yobs2 = indv.observation.Value(ismember(site, 'pla'),:);
 
 assert(isequal(xobs1,xplot1) && isequal(yobs1,yplot1), ...
     'Unexpected x/y values plotted.')
@@ -77,18 +77,18 @@ ax = findobj(get(h,'Children'), '-depth', 1, 'type', 'axes');
 assert(length(ax) == 1)
 
 % check plot contents. The plot is expected to have two lines, plotting two
-% different subsets of values of the indiv.observation.record.
+% different subsets of values of the indiv.observation.
 li = findobj(ax(1), 'Type', 'Line');
 xplot1 = li(1).XData';
 yplot1 = li(1).YData';
 xplot2 = li(2).XData';
 yplot2 = li(2).YData';
 
-site = expand(indv.observation.record.Observable).Site;
-xobs1 = indv.observation.record.Time(ismember(site, 'tis'),:) / u.h;
-yobs1 = indv.observation.record.Value(ismember(site, 'tis'),:);
-xobs2 = indv.observation.record.Time(ismember(site, 'pla'),:) / u.h;
-yobs2 = indv.observation.record.Value(ismember(site, 'pla'),:);
+site = expand(indv.observation.Observable).Site;
+xobs1 = indv.observation.Time(ismember(site, 'tis'),:) / u.h;
+yobs1 = indv.observation.Value(ismember(site, 'tis'),:);
+xobs2 = indv.observation.Time(ismember(site, 'pla'),:) / u.h;
+yobs2 = indv.observation.Value(ismember(site, 'pla'),:);
 
 assert(isequal(xobs1,xplot1) && isequal(yobs1,yplot1), ...
     'Unexpected x/y values plotted.')
@@ -112,7 +112,7 @@ assert(isequal(ax(1).Title.String, 'Compound = B'))
 assert(isequal(ax(2).Title.String, 'Compound = A'))
 
 % check plot contents. Each subplot is expected to have two lines, plotting
-% four different subsets of values of the indiv.observation.record.
+% four different subsets of values of the indiv.observation.
 li1 = findobj(ax(1), 'Type', 'Line');
 li2 = findobj(ax(2), 'Type', 'Line');
 xplot11 = li1(1).XData';
@@ -124,20 +124,20 @@ yplot21 = li2(1).YData';
 xplot22 = li2(2).XData';
 yplot22 = li2(2).YData';
 
-site = expand(indv.observation.record.Observable).Site;
-compound = expand(indv.observation.record.Observable).Compound;
+site = expand(indv.observation.Observable).Site;
+compound = expand(indv.observation.Observable).Compound;
 idx22 = ismember(site, 'pla') & ismember(compound, 'A');
 idx21 = ismember(site, 'tis') & ismember(compound, 'A');
 idx12 = ismember(site, 'pla') & ismember(compound, 'B');
 idx11 = ismember(site, 'tis') & ismember(compound, 'B');
-xobs11 = indv.observation.record.Time(idx11,:) / u.h;
-yobs11 = indv.observation.record.Value(idx11,:);
-xobs12 = indv.observation.record.Time(idx12,:) / u.h;
-yobs12 = indv.observation.record.Value(idx12,:);
-xobs21 = indv.observation.record.Time(idx21,:) / u.h;
-yobs21 = indv.observation.record.Value(idx21,:);
-xobs22 = indv.observation.record.Time(idx22,:) / u.h;
-yobs22 = indv.observation.record.Value(idx22,:);
+xobs11 = indv.observation.Time(idx11,:) / u.h;
+yobs11 = indv.observation.Value(idx11,:);
+xobs12 = indv.observation.Time(idx12,:) / u.h;
+yobs12 = indv.observation.Value(idx12,:);
+xobs21 = indv.observation.Time(idx21,:) / u.h;
+yobs21 = indv.observation.Value(idx21,:);
+xobs22 = indv.observation.Time(idx22,:) / u.h;
+yobs22 = indv.observation.Value(idx22,:);
 
 assert(isequal(xobs11,xplot11) && isequal(yobs11,yplot11), ...
     'Unexpected x/y values plotted.')

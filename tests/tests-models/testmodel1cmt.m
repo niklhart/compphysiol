@@ -16,7 +16,7 @@ d = 15*u.mg;
 
 obs = Observable('SimplePK','pla','total','Mass/Volume');
 
-tmp.drugdata   = loaddrugdata('Warfarin');
+tmp.drugdata   = DrugData('Warfarin');
 tmp.sampling   = Sampling(t, obs); 
 tmp.model      = empirical1CMT_PLASMA_macroConstants_linearCL;
 tmp.model.par  = p;
@@ -30,7 +30,7 @@ indv.dosing = EmptyDosing;
 initialize(indv);
 simulate(indv);
 
-num = indv.observation.record.Value; % numerical solution
+num = indv.observation.Value; % numerical solution
 
 % assertions: 
 assert(isequal(size(num),size(t)))  % numerical approx. equal to reference?
@@ -45,7 +45,7 @@ indv.dosing = Bolus('Warfarin', 0*u.h, d, 'iv');
 initialize(indv);
 simulate(indv);
 
-num = indv.observation.record.Value; % numerical solution
+num = indv.observation.Value; % numerical solution
 ref = (d/p.V)*exp(-(p.CL/p.V)*t);    % reference solution
 
 % assertions: numerical approx. equal to reference?
@@ -64,7 +64,7 @@ indv.dosing = Oral('Warfarin', 0*u.h, d);
 initialize(indv);
 simulate(indv);
 
-num = indv.observation.record.Value; % numerical solution
+num = indv.observation.Value; % numerical solution
 
 % reference solution (Bateman function)
 ka = p.lambda_po;
@@ -90,7 +90,7 @@ indv.dosing = Infusion('Warfarin', 0*u.h, d, dur, 'iv');
 initialize(indv);
 simulate(indv);
 
-num = indv.observation.record.Value; % numerical solution
+num = indv.observation.Value; % numerical solution
 
 % reference solution (synthesis-degradation model)
 ke = p.CL / p.V;
@@ -107,6 +107,6 @@ assert(isequal(size(ref),size(num)))
 absErr = abs(ref-num);
 relErr = absErr ./ ref;
 
-t = indv.observation.record.Time;
+t = indv.observation.Time;
 
 assert(all(relErr<1e-6 | double(absErr) < 1e-8))   % accounts for ODE solver inaccuracy

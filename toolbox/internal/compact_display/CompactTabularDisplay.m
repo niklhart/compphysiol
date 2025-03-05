@@ -5,7 +5,7 @@ classdef (Abstract, HandleCompatible) CompactTabularDisplay
     %   makes method 'disptable' accessible which displays the tabular
     %   content in compact form.
 
-    methods (Abstract = true)
+    methods (Abstract)
         tab = gettable(obj)
     end
 

@@ -252,7 +252,7 @@ assert(length(ax) == 1)
 assert(strcmp(ax.Title.String, 'Plasma concentration'))
 
 % check plot contents. The plot is expected to have two lines, plotting two
-% different subsets of values of the indiv.observation.record.
+% different subsets of values of the indiv.observation.table.
 li = findobj(ax(1), 'Type', 'Line');
 assert(strcmp(li(1).DisplayName, 'Ind2'))
 assert(strcmp(li(2).DisplayName, 'Ind1'))
@@ -262,10 +262,10 @@ yplot1 = li(2).YData';
 xplot2 = li(1).XData';
 yplot2 = li(1).YData';
 
-xobs1 = vid(1).observation.record.Time / u.h;
-yobs1 = vid(1).observation.record.Value;
-xobs2 = vid(2).observation.record.Time / u.h;
-yobs2 = vid(2).observation.record.Value;
+xobs1 = vid(1).observation.Time / u.h;
+yobs1 = vid(1).observation.Value;
+xobs2 = vid(2).observation.Time / u.h;
+yobs2 = vid(2).observation.Value;
 
 assert(isequal(xobs1,xplot1) && isequal(yobs1,yplot1), ...
     'Unexpected x/y values plotted.')

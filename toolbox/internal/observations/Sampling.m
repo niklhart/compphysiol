@@ -1,4 +1,4 @@
-classdef Sampling < CompactTabularDisplay
+classdef Sampling < CompactTabularDisplay & matlab.mixin.Scalar
     %SAMPLING Class for storing sampling-related information
     %   
     %   See also Sampling/Sampling (syntax of constructor)
@@ -155,5 +155,6 @@ classdef Sampling < CompactTabularDisplay
             
         end
     end
+
 end
 

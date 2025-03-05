@@ -24,9 +24,9 @@ initialize(indv)
 simulate(indv)
 
 % observations of all three models
-A_full  = indv(1).observation.record.Value;
-A_lump1 = indv(2).observation.record.Value;
-A_lump2 = indv(3).observation.record.Value;
+A_full  = indv(1).observation.Value;
+A_lump1 = indv(2).observation.Value;
+A_lump2 = indv(3).observation.Value;
 
 % compute relative errors
 relErr1 = abs((A_full - A_lump1) ./ A_full);
@@ -57,8 +57,8 @@ initialize(indv)
 simulate(indv)
 
 % observations of all three models
-A_full = indv(1).observation.record.Value;
-A_lump = indv(2).observation.record.Value;
+A_full = indv(1).observation.Value;
+A_lump = indv(2).observation.Value;
 
 % compute relative errors
 relErr = abs((A_full - A_lump) ./ A_full);
@@ -90,8 +90,8 @@ initialize(indv)
 simulate(indv)
 
 % observations of all three models
-A_full = indv(1).observation.record.Value;
-A_lump = indv(2).observation.record.Value;
+A_full = indv(1).observation.Value;
+A_lump = indv(2).observation.Value;
 
 % compute relative errors
 relErr = abs((A_full - A_lump) ./ A_full);
@@ -130,8 +130,8 @@ initialize(indv);
 simulate(indv);
 
 % observations of all three models
-A_full = indv(1).observation.record.Value;
-A_lump = indv(2).observation.record.Value;
+A_full = indv(1).observation.Value;
+A_lump = indv(2).observation.Value;
 
 % compute relative errors
 relErr = abs((A_full - A_lump) ./ A_full);
