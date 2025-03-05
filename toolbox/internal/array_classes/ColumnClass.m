@@ -35,8 +35,8 @@ classdef (Abstract, HandleCompatible) ColumnClass
         function out = repmat(obj,varargin)
             dims = [varargin{:}];
             if length(dims) == 1 || any(dims(2:end) ~= 1)
-                msg = 'When calling "repmat" on a LinearArray object, the dimensions must be N-by-1.';
-                error('compphysiol:LinearArray:repmat',msg)
+                msg = 'When calling "repmat" on a ColumnClass object, the dimensions must be N-by-1.';
+                error('compphysiol:ColumnClass:repmat',msg)
             end
             out = matlab.internal.builtinhelper.repmat(obj,dims);
         end

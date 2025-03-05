@@ -89,7 +89,7 @@ classdef ExpConditions < ColumnClass
         %       'scalar' and 'array' show all experimental conditions
         %       'table' only uses the first two experimental conditions
         %   
-        %   See also CompactColumnDisplay
+        %   See also ColumnClass
 
             cond = obj.conditions;
             appendStr = '';
