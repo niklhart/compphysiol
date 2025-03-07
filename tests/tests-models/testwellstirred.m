@@ -142,7 +142,7 @@ indv.dosing      = Bolus('Lidocaine', 0*u.h, Dose, 'iv');
 indv.sampling    = Sampling((0:0.1:10)*u.h, obs);
 indv.model       = sMD_PBPK_12CMT_wellstirred; 
 indv.model.options.tissuePartitioning = @rodgersrowland;
-indv.drugdata    = loaddrugdata('Lidocaine','species','human');
+indv.drugdata    = DrugData('Lidocaine','species','human');
 
 % numerical solution
 initialize(indv);
@@ -156,7 +156,7 @@ X0(idx.Id.Bolus.iv.cmt) = Dose/idx.Id.Bolus.iv.scaling;
 
 X = solve_linode(setup.V.tot, setup.Q.blo, setup.K.tot, X0, idx, setup.CLuint.hep*setup.fuB);
 
-numtimes = double(unique(indv.sampling.schedule.Time));
+numtimes = double(unique(indv.sampling.Time));
 Xtref = arrayfun(X, numtimes, 'UniformOutput', false);
 
 Xtref = [Xtref{:}]';

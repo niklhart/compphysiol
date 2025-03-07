@@ -40,8 +40,8 @@ assert(isequal(s1, 1))
 assert(isequal(s2, 1))
 
 % empty record
-r1 = Record();
-assert(isequal(size(r1), [0,1]))
+r2 = Record();
+assert(isequal(numel(r2), 0))
 
 %% Test concatenation of Record objects
 
@@ -75,7 +75,7 @@ r12 = [r1;r2];
 assert(isequal(r12(2, :), r2))
 assert(isequal(r12.Time, [0; 0]*u.h))
 
-%TODO: check invalid use
+%Checking invalid use
 assertError(@() r1(:,1), 'compphysiol:TabularClass:parenReference:invalidUse')
 
 %% Display

@@ -25,6 +25,14 @@ classdef Record < TabularClass
             %   form, i.e. via a column 'Type' specifying the observable 
             %   type and one column per attribute (named accordingly), 
             %   instead of column 'Observable'.
+            %
+            %   Examples:
+            %   obs = Observable('SimplePK','pla','total','Mass/Volume');
+            %   tab = table([0;1;2]*u.h, ...
+            %               repelem(obs,3), ...
+            %               [1;3;5]*u.mg/u.h, ...
+            %               'VariableNames',{'Time','Observable','Value'});
+            %   rec = Record(tab)
 
             if nargin == 0
                 
@@ -193,8 +201,8 @@ classdef Record < TabularClass
 
         function sdl = schedule(obj)
             %SCHEDULE Extract the schedule of a Record object.
-            sdl = Sampling();
-            sdl.schedule = obj.table(:,{'Time','Observable'});            
+            tab = obj.table(:,{'Time','Observable'}); 
+            sdl = SamplingSchedule(tab);
         end
         
         function tab = expand(obj)

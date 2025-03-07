@@ -132,12 +132,9 @@ assertError(@() setPhysiology(ind1, 'abc'), 'compphysiol:Individual:setphysiolog
 ind1 = Individual('Virtual');
 
 % correct usage
-ind1.sampling = Sampling((0:0.1:0.2)*u.h);
-assert(isequal(ind1.sampling.timespan, [0; 0.1; 0.2]*u.h))
-
-% empty
-ind1.sampling = [];
-assert(isempty(ind1.sampling))
+s = Sampling([0;1;2]*u.h,PBPKobservables);
+ind1.sampling = s;
+assert(isequal(ind1.sampling, s))
 
 % wrong object type
 assertError(@() setSampling(ind1, 'abc'), 'compphysiol:Individual:setsampling:wrongObjType')
@@ -191,8 +188,8 @@ sim = exp2sim(expid);
 assert(isa(sim, 'Individual'))
 assert(strcmp(sim.type, 'Virtual individual'))
 assert(strcmp(sim.name, 'ID 1'))
-assert(isa(sim.sampling, 'Sampling'))
-assert(isequal(sim.sampling.schedule.Time, [0.5 1 2 4 8 12 24 32]'*u.h))
+assert(isa(sim.sampling, 'SamplingSchedule'))
+assert(isequal(sim.sampling.Time, [0.5 1 2 4 8 12 24 32]'*u.h))
 
 % exp2sim: virtual individual input
 expid.type = 'Virtual individual';

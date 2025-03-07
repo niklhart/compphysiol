@@ -20,7 +20,7 @@ classdef (Abstract, HandleCompatible) TabularClass <  ...
 
     methods 
         
-        function out = variableNames(obj)
+        function out = VariableNames(obj)
             out = obj.table.Properties.VariableNames;
         end
 
@@ -38,20 +38,14 @@ classdef (Abstract, HandleCompatible) TabularClass <  ...
             out.table = vertcat(tabs{:});
         end
 
-        function varargout = size(obj)
+        function varargout = size(obj, varargin)
         %SIZE Size of a TabularClass object
         %   The size of a TabularClass object is N-by-1, with N the height 
         %   of its table property.
+            [varargout{1:nargout}] = size(obj.table.(1), varargin{:});
             
-            nargoutchk(0,2)
-            sz = [height(obj.table) 1];
-            if nargout < 2
-                varargout{1} = sz;                    
-            else
-                varargout{1} = sz(1);                    
-                varargout{2} = sz(2);                    
-            end
         end
+        
 
         function disp(obj, maxprint)
         %DISP Display a TabularClass object

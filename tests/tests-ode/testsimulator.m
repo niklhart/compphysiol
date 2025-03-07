@@ -8,7 +8,7 @@ indv.name = 'Warfarin 12-CMT';
 indv.physiology = Physiology('human35m');
 indv.dosing     = EmptyDosing();
 indv.drugdata   = loaddrugdata('Warfarin','species','human');
-indv.sampling   = Sampling();
+indv.sampling   = SamplingSchedule();
 
 % Model specification
 indv.model      = sMD_PBPK_12CMT_wellstirred;

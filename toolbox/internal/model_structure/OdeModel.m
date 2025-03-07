@@ -60,12 +60,14 @@ classdef OdeModel < Model
         %       .X     solution of the ODE system approximated by the 
         %              numerical integrator (n-by-k)
 
-            timespan = sampling.timespan;
-            if isempty(timespan)   % -> by schedule
-                timespan = unique(sampling.schedule.Time);
+            switch class(sampling)
+                case 'SamplingRange'
+                    times = sampling.timespan;
+                case 'SamplingSchedule'
+                    times = unique(sampling.Time);
             end
 
-            odestate = simulator(model, timespan, dosing);
+            odestate = simulator(model, times, dosing);
 
         end
 
@@ -77,8 +79,11 @@ classdef OdeModel < Model
         %   sampling timespan, default observables are loaded. If these are
         %   undefined, an error is thrown.
 
-            assert(isscalar(model))
-            validateattributes(sampling,'Sampling',{'scalar'})
+            arguments
+                model (1,1) OdeModel
+                sampling {mustBeSampling}
+            end
+
             assert(~isempty(model.odestate), 'ODEs must be solved first.')
 
             % first establish observation schedule and observables
@@ -89,38 +94,39 @@ classdef OdeModel < Model
             end
 
             % if sampling isn't defined as a schedule, convert to it first.
-            if isempty(sampling.schedule)
-                if ~isempty(sampling.obs)   % sampling window
-                    sampling = Sampling(t, sampling.obs);
-                else                            % sampling times w/o observable
+            if isa(sampling,'SamplingRange')
+                if ~isempty(sampling.obs)
+                    sampling = SamplingSchedule(t, sampling.obs);
+                else                        % sampling times w/o observable
                     obs = getoptcompphysiol('DefaultObservable');
                     assert(~isempty(obs), ...
-                        'For sampling timespans, default observables must be defined.')
-                    sampling = Sampling(t, obs);
+                        'For SamplingRange objects with empty observables, default observables must be defined.')
+                    sampling = SamplingSchedule(t, obs);
                 end
             end
 
-            % exctract schedule, observables and dimensions
-            schedule = sampling.schedule;
-            obs      = unique(schedule.Observable);
-            nsched   = height(schedule);
-            nobs     = numel(obs);
+            % exctract observables and dimensions
+            time   = sampling.Time;
+            allobs = sampling.Observable;
+            uniobs = unique(allobs);
+            nsamp  = numel(sampling);
+            nobs   = numel(uniobs);
           
-            % add predictions to schedule via split-apply-combine
-            data = unan(nsched,1);
-            keep = false(nsched,1); % filter unsupported observables
+            % add predictions to sampling schedule via split-apply-combine
+            data = unan(nsamp,1);
+            keep = false(nsamp,1); % filter unsupported observables
 
             for i = 1:nobs
-                typei = obs(i);
-                ind_d = ismember(schedule.Observable, typei);
-                ind_y = ismember(t, schedule.Time(ind_d));
+                typei = uniobs(i);
+                ind_d = ismember(allobs, typei);
+                ind_y = ismember(t, time(ind_d));
                 yout = model.obsfun(model.odestate, model.setup, typei);
                 if ~isempty(yout)
                     data(ind_d) = yout(ind_y);
                     keep(ind_d) = true;
                 end
             end            
-            rec = [schedule table(data)];
+            rec = table(time,allobs,data);
 
             rec = rec(keep,:);
             

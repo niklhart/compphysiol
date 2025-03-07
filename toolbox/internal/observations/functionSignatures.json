@@ -24,8 +24,15 @@
     {
         "inputs": 
         [
-            {"name":"time", "kind":"required", "type":"DimVar", "purpose":"Sampling times"},
+            {"name":"time", "kind":"required", "type":"DimVar", "purpose":"Sampling range/times"},
             {"name":"obs", "kind":"ordered", "type":"Observable", "purpose":"Observable(s)"}
+        ]
+    },
+    "Sampling.Sampling": 
+    {
+        "inputs": 
+        [
+            {"name":"tab", "kind":"required", "type":"table", "purpose":"Table with columns 'Time' and 'Observable'"}
         ]
     }
 }

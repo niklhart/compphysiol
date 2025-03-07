@@ -120,9 +120,9 @@ classdef Individual < matlab.mixin.Copyable & ColumnClass
         
         function set.sampling(obj,smpl)
             assert(isscalar(obj), 'Properties can only be set for a scalar Individual object.')
-            assert(isempty(smpl) || isa(smpl,'Sampling'), ...
+            assert(isempty(smpl) || isa(smpl,'SamplingRange') || isa(smpl,'SamplingSchedule'), ...
                 'compphysiol:Individual:setsampling:wrongObjType', ...
-                'Property "sampling" must be a Sampling object.') 
+                'Property "sampling" must be a SamplingRange or SamplingSchedule object.') 
             obj.sampling = smpl;
         end
         function set.observation(obj,obs)
@@ -386,7 +386,7 @@ classdef Individual < matlab.mixin.Copyable & ColumnClass
                 validateattributes(obj(i).model,      'Model',     {},         nm, 'property "model"')
                 validateattributes(obj(i).physiology, 'Physiology',{'scalar'}, nm, 'property "physiology"')
                 validateattributes(obj(i).dosing,     'Dosing',    {},         nm, 'property "dosing"')
-                validateattributes(obj(i).sampling,   'Sampling',  {},         nm, 'property "sampling"')
+                validateattributes(obj(i).sampling,   {'SamplingRange','SamplingSchedule'},  {},         nm, 'property "sampling"')
                 validateattributes(obj(i).drugdata,   'DrugData',  {'scalar'}, nm, 'property "drugdata"')
                 validateattributes(obj(i).options,    'struct',    {'scalar'}, nm, 'property "options"')
                                 

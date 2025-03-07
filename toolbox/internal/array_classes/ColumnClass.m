@@ -113,6 +113,7 @@ classdef (Abstract, HandleCompatible) ColumnClass
                 error('Input to num2str must be numeric.')
             end
         end
+        
         function out = isnumeric(~)
             ST = dbstack(1,'-completenames');
             out = ~isempty(ST) && contains(ST(1).file,['@tabular' filesep 'disp.m']);            

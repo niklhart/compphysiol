@@ -199,7 +199,8 @@ function setup = initfun(phys, drug, ~, options)
     eK = struct;
     eK.exc = K.exc;
     eK.cel = K.cel;
-    eK.cel(I.liv) = PS(I.liv) * fn.pla * fuB / (PS(I.liv)*fn.cel(I.liv) + CLucel * fu.cel(I.liv));
+    eK.exc(I.liv) = K.exc(I.liv); % TODO!
+    eK.cel(I.liv) = PS(I.liv) * fn.pla * fuB / ((PS(I.liv)*fn.cel(I.liv) + CLucel) * fu.cel(I.liv));
     eK.tot = V.exc ./ V.tot .* eK.exc + V.cel ./ V.tot .* eK.cel;
 
     %%% fraction excreted in feces and metabolized in the gut

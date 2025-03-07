@@ -8,7 +8,7 @@ classdef ConcreteTabularClass < TabularClass
             if nargin > 0
                 obj.table = tab;
             else
-                obj.table = table();
+                obj.table = emptytable('test');
             end
         end
 

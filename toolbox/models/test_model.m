@@ -54,29 +54,27 @@ function rec = solfun(~, ~, sampling)
 %SOLFUN Solution of test model
 
     % check that sampling is as expected 
-    schedule = sampling.schedule;
-    
+    obs = sampling.Observable;
     C_Apla = Observable('MultiPK','A','pla');
     C_Atis = Observable('MultiPK','A','tis');
     C_Bpla = Observable('MultiPK','B','pla');
     C_Btis = Observable('MultiPK','B','tis');
-    assert(all(ismember(schedule.Observable, ...
-        [C_Apla C_Atis C_Bpla C_Btis])), ...
+    assert(all(ismember(obs, [C_Apla C_Atis C_Bpla C_Btis])), ...
         'Only plasma concentration observable allowed.')
 
     % allocate result
-    Value = unan(height(schedule),1);
-    Value(schedule.Observable == C_Apla) = 1;
-    Value(schedule.Observable == C_Atis) = 2;
-    Value(schedule.Observable == C_Bpla) = 3;
-    Value(schedule.Observable == C_Btis) = 4;
+    Value = unan(height(sampling),1);
+    Value(obs == C_Apla) = 1;
+    Value(obs == C_Atis) = 2;
+    Value(obs == C_Bpla) = 3;
+    Value(obs == C_Btis) = 4;
 
     % observation times
-    tObs = schedule.Time;   
+    tObs = sampling.Time;   
 
     Value = Value .* exp(-tObs/u.h);
 
     % return a Record object
-    rec = Record([schedule table(Value)]);
+    rec = Record(table(tObs,obs,Value,'VariableNames',{'Time','Observable','Value'}));
 
 end
