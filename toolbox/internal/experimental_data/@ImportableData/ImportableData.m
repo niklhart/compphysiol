@@ -68,7 +68,7 @@ classdef ImportableData < handle & matlab.mixin.Copyable % & CompactTabularDispl
 
             % before reading in the data table, turn off the modified
             % varnames warning, since we explicitly want to use this syntax
-            % for unit headers. Afterwards, it it turned on safely again
+            % for unit headers. Afterwards, it it turned on again safely
             % using onCleanup.
             warnid = 'MATLAB:table:ModifiedAndSavedVarnames';
             prev = warning('off',warnid);            

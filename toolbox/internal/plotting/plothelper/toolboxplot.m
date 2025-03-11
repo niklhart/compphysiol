@@ -51,24 +51,46 @@ function h = toolboxplot(tab, plotter, options)
         h = figure();
     end
 
+    if isplotgrid
+        if options.linkAxes
+            tilespacing = 'tight';
+        else
+            tilespacing = 'compact';
+        end
+        t = tiledlayout(nRow,nCol,'TileSpacing',tilespacing, 'Padding', 'compact');
+    end
     for i = 1:nSub
         if isplotgrid
-            subplot(nRow,nCol,i)
+            ax = nexttile;
         end
         for j = 1:nGrp
             plotter(tabgrid{j,i}, units{i}, options.style{j});         
             hold on
         end                
+
+        % subplot titles
         if isplotgrid
             title([options.subplot_by ' = ' num2str(subplot_lvl{i})])
         end
-        if getoptcompphysiol('DimVarPlot')
-            xlabel(options.xlabel)
-            ylabel(options.ylabel)
-        else
-            xlabel([options.xlabel ' [' options.tunit{i} ']' ])
-            ylabel([options.ylabel ' [' options.yunit{i} ']' ])
+
+        % inverting role of col <--> row since tiledlayout works by
+        % row, not by column as in matrix indexing
+        [col,row] = ind2sub([nCol nRow],i);
+
+        % in a plot grid, only show xlabels in the last row
+%        if options.linkAxes && sub2ind([nCol nRow+1],col,row+1) <= nSub                
+        if options.linkAxes && row < nRow                 
+            ax.XTickLabel = [];
+%            ax.XLabel.String = '';
         end
+
+        % in a plot grid, only show ylabels in the first column
+        if options.linkAxes && col ~= 1
+            ax.YTickLabel = [];
+%            ax.YLabel.String = '';
+        end
+
+
         if options.xscalelog
             set(gca,'XScale','log');
         end
@@ -76,11 +98,23 @@ function h = toolboxplot(tab, plotter, options)
             set(gca,'YScale','log');
         end
     end
+
     if isplotgrid
+        gob = t;
         sgtitle(options.title)
     else
+        gob = gca;
         title(options.title)
     end
+
+    if getoptcompphysiol('DimVarPlot')
+        xlabel(gob,options.xlabel)
+        ylabel(gob,options.ylabel)
+    else
+        xlabel(gob,[options.xlabel ' [' options.tunit{i} ']' ])
+        ylabel(gob,[options.ylabel ' [' options.yunit{i} ']' ])
+    end
+
     if options.linkAxes         
         ax = findobj(h,'Type','Axes');
         if ~isempty(ax)

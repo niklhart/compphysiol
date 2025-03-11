@@ -58,12 +58,17 @@ function [] = polish(varargin)
     eb = findobj(h, 'Type', 'ErrorBar');
     set(eb,'LineWidth',lw);
 
-    tx = findobj(h, 'Type', 'Subplottext');
-    isplotgrid = ~isempty(tx);
+    tx = findall(h,'Type','Text');
+    set(tx,'FontSize',fs);
+    
+    isplotgrid = all(isa(h.Children,'matlab.graphics.layout.TiledChartLayout'));
     if isplotgrid
-        set(tx,'FontSize',fs+1);
-        set(tx,'LineWidth',lw);
-        set(tx,'FontWeight','bold');
+        ttl =  h.Children.Title;
+        labs = [h.Children.XLabel h.Children.YLabel];
+
+        set(ttl,'FontSize',fs+1);
+        set(labs,'FontSize',fs);
+        set(ttl,'FontWeight','bold');
     end
     
     ax = findobj(h, 'Type', 'Axes');
@@ -76,8 +81,6 @@ function [] = polish(varargin)
         if isplotgrid
             set(ttl_i,'FontWeight','normal')
         end
-        set(get(ax(i),'xlabel'),'Fontsize',fs);
-        set(get(ax(i),'ylabel'),'Fontsize',fs);
     end
     
     leg = findobj(h,'Type','Legend');
