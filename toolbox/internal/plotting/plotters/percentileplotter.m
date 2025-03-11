@@ -1,9 +1,12 @@
 %PERCENTILEPLOTTER Plotting function for dimensioned tabular longitudinal data
-function percentileplotter(tab, xvar, yvar, xunit, yunit, percentiles)
+function percentileplotter(tab, xvar, yvar, xunit, yunit, coverage)
     
-    if nargin < 6 || isempty(percentiles)
-        percentiles = [5 25 50 75 95];
+    if nargin < 6
+        coverage = [50 90];
     end
+    ncov = numel(coverage);
+
+    percentiles = coverage2percentile(coverage);
 
     if getoptcompphysiol('DimVarPlot')
         if isempty(tab)
@@ -39,10 +42,10 @@ function percentileplotter(tab, xvar, yvar, xunit, yunit, percentiles)
         pctmat = pctmat(ix,:);
     end 
     
-    plot(xG, pctmat(:,3), 'r-')
+    plot(xG, pctmat(:,ncov+1), 'r-')
     hold on
-    ciplot(pctmat(:,2), pctmat(:,4), xG, [.4 .4 .4]);
-    ciplot(pctmat(:,1), pctmat(:,5), xG, [.6 .6 .6]);   
- 
+    for i = 1:ncov
+        ciplot(pctmat(:,ncov+1-i), pctmat(:,ncov+1+i), xG, (i+1)*0.2*[1 1 1]);
+    end 
 end
 

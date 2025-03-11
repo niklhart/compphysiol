@@ -63,7 +63,8 @@ function pRes = parseplotinput(varargin)
     p.addParameter('linkAxes',       [],             @isboolean);
     p.addParameter('polish',         struct,         @isstruct);
     p.addParameter('tableOutput',    false,          @isboolean);
-    p.addParameter('percentiles',    [5 25 50 75 95],@isnumeric);
+    p.addParameter('coverage',       [50 90],        @isnumeric);
+%    p.addParameter('percentiles',    [5 25 50 75 95],@isnumeric);
     p.addParameter('plotter',        []);
     
     p.parse(varargin{:});
@@ -73,7 +74,7 @@ function pRes = parseplotinput(varargin)
         
     %% percentile plotter default
     if isempty(pRes.plotter)
-        pRes.plotter = @(T,u,~) percentileplotter(T,'Time','Value',u{1},u{2},pRes.percentiles);
+        pRes.plotter = @(T,u,~) percentileplotter(T,'Time','Value',u{1},u{2},pRes.coverage);
     end
 
 

@@ -73,24 +73,19 @@ function h = toolboxplot(tab, plotter, options)
             title([options.subplot_by ' = ' num2str(subplot_lvl{i})])
         end
 
-        % inverting role of col <--> row since tiledlayout works by
-        % row, not by column as in matrix indexing
+        % inverting role of col <--> row since tiledlayout works by row, 
+        % not by column as in matrix indexing
         [col,row] = ind2sub([nCol nRow],i);
 
-        % in a plot grid, only show xlabels in the last row
-%        if options.linkAxes && sub2ind([nCol nRow+1],col,row+1) <= nSub                
+        % linked plot grid --> tick labels only in last row & first column
         if options.linkAxes && row < nRow                 
             ax.XTickLabel = [];
-%            ax.XLabel.String = '';
         end
-
-        % in a plot grid, only show ylabels in the first column
         if options.linkAxes && col ~= 1
             ax.YTickLabel = [];
-%            ax.YLabel.String = '';
         end
 
-
+        % log one or both axes if requested
         if options.xscalelog
             set(gca,'XScale','log');
         end

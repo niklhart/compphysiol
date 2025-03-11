@@ -11,8 +11,7 @@
 %
 %   Parameter        Explanation                Default         
 %   ---------        -----------                -------
-%   percentiles      Percentiles to plot        [5 25 50 75 95]
-%                    (a length 5 vector)
+%   coverage         Coverage probability       [50 90]
 %   tunit            Time unit                  Same as in dataset/model
 %   yunit            Unit(s) of observables     Same as in dataset/model
 %   subplot_by       'ID', 'IdType', 'Name' or  [] (no subplotting)
@@ -90,8 +89,16 @@ function varargout = percentileplot(individual, varargin)
 
     h = toolboxplot(tab, pRes.plotter, pRes);
     
-    perc = cellfun(@num2str,num2cell(pRes.percentiles),'UniformOutput',false);
-    hleg = legend(perc{3}, [perc{2} '-' perc{4}], [perc{1} '-' perc{5}]);
+    percentiles = coverage2percentile(pRes.coverage);
+
+    perc = cellfun(@num2str,num2cell(percentiles),'UniformOutput',false);
+    ncov = numel(pRes.coverage);
+    legendArgs = cell(ncov+1,1);
+    legendArgs{1} = perc{ncov+1};
+    for i = 1:ncov
+        legendArgs{i+1} = [perc{ncov+1-i} '-' perc{ncov+1+i}];
+    end
+    hleg = legend(legendArgs{:});
     title(hleg, 'Percentiles')
 
     
