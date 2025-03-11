@@ -68,7 +68,7 @@ function ddb = build_database()
     obach1999.Tab2 = Ref('Obach1999','Obach, Drug Metab Disposit 27(11), 1999, Table 2');
     obach1999.Tab4 = Ref('Obach1999','Obach, Drug Metab Disposit 27(11), 1999, Table 4');
 
-    bae2009       = Ref('Bae2009','Bae et al, J Pharm Sci, VOL. 98, NO. 4, APRIL 2009');
+    bae2009       = Ref('Bae2009','Bae et al, J Pharm Sci, VOL. 98, NO. 4, APRIL 2009','10.1002/jps.21511');
     kuss1985      = Ref('Kuss1985');
     alsaidan2005  = Ref('AlSaidan2005','Al-Saidan etal (2005), AAPS PharmSciTech');
     schmitt2008   = Ref('Schmitt2008','Schmitt, Toxicol in Vitro 22, 2008, Table 1');

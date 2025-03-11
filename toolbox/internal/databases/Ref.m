@@ -14,13 +14,14 @@ classdef Ref < ColumnClass
     %   r == 'Rodgers2007'
     %   r.description
     
-    properties
-        label char
-        description char
+    properties (Access = private)
+        label
+        description
+        DOI
     end
     
     methods
-        function obj = Ref(lbl, dscr)
+        function obj = Ref(lbl, dscr, doi)
             %REF Construct an instance of this class
             %   OBJ = REF(LBL, DSCR), with char LBL and DSCR, creates a Ref
             %   object OBJ. OBJ behaves like a categorical array with
@@ -34,35 +35,33 @@ classdef Ref < ColumnClass
             %   missing references as [] in databases because the 
             %   concatenation method can take care of the class conversion.
             
+            arguments 
+                lbl (1,:) {Ref.mustBeCharLike} = '<undefined>'
+                dscr (1,:) char = ''
+                doi (1,:) char = ''
+            end
+
             % early return for single REF input
-            if isa(lbl, 'Ref') && nargin == 1
-                obj = lbl;
-                return
-            end
-
-            % pre-processing: {'text'} --> 'text' and {[]} --> []
-            if iscell(lbl)             
-                assert(isscalar(lbl))
-                lbl = lbl{1};
-            end
-
             if nargin == 1
-                dscr = '';
-            elseif iscell(dscr)  
-                assert(isscalar(dscr))
-                dscr = dscr{1};
+                if isa(lbl, 'Ref')
+                    obj = lbl;
+                    return
+                else
+                    lbl = char(lbl);
+                end
             end
             
             % main branching: undefined or defined reference?
             if isempty(lbl) 
-                assert(isempty(dscr), 'Description must be empty for empty labels.')
+                assert(isempty(dscr) && isempty(doi), ...
+                    'Description and DOI must be empty for empty labels.')
                 obj.label = '<undefined>';
                 obj.description = '';
+                obj.DOI = '';
             else
-                assert(ischar(lbl) && isrow(lbl),   'Input #1 must be char.')
-                assert(ischar(dscr) && (isrow(dscr) || isempty(dscr)), 'Input #2 must be char.')
                 obj.label = lbl;
                 obj.description = dscr;
+                obj.DOI = doi;
             end
 
         end
@@ -106,22 +105,40 @@ classdef Ref < ColumnClass
             %   
             %   See also ColumnClass
 
-            assert(isscalar(obj))
+            arguments
+                obj (1,1) Ref
+                context char {mustBeMember(context,{'scalar','array','table'})}
+            end
+
             switch context
                 case {'scalar','array'}
                     lbl = obj.label;
                     dsc = obj.description;
+                    doi = obj.DOI;
                     if ~isempty(dsc)
                         dsc = [':' dsc];
                     end
-                    str = strcat(lbl,dsc);
+                    if ~isempty(doi)
+                        doi = [' (DOI:' doi ')'];
+                    end
+                    str = strcat(lbl,doi,dsc);
                 case 'table'
                     str = obj.label;
-                otherwise
-                    error('Function not defined for context "%s"',context)
             end
         end
 
+    end
+
+    methods (Static, Hidden)
+        function mustBeCharLike(x)
+            try 
+                char(x);
+                %pass
+            catch 
+                error('compphysiol:Ref:mustBeCharLikeOrRef', ...
+                    'Input must be a Ref object or convertible to char.')
+            end
+        end
     end
 end
 

@@ -1,11 +1,5 @@
 % Tests for Ref class
 
-%% Constructor working as expected
-
-r = Ref('label','description');
-assert(isequal(r.label, 'label'))
-assert(isequal(r.description, 'description'))
-
 %% Comparison of scalar Ref working as expected
 
 r = Ref('label','description');
@@ -32,7 +26,7 @@ assert(isequal(val1211,expected))
 %% Concatenation with empty Ref working
 
 r1  = Ref('label','description');
-r2  = {[]};
+r2  = {''};
 r12 = [r1;r2];
 
 assert(isequal(r12 == '<undefined>',[false;true]))

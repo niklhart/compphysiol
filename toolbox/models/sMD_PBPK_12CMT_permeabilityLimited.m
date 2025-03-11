@@ -191,16 +191,28 @@ function setup = initfun(phys, drug, ~, options)
     %       As a consequence, either the current well-stirred or the newly
     %       defined permeability-limited model should be adapted.
 
-    %%% additional partition coefficients (book notation)
+    %%% additional partition coefficients
     K.exc = V.vas ./ V.exc + V.int ./ V.exc .* fuB ./ fu.int;
     K.cel = fn.pla * fuB ./ (fn.cel .* fu.cel);
 
-    %%% elimination corrected partition coefficients (book notation)
+    %%% elimination corrected partition coefficients
     eK = struct;
     eK.exc = K.exc;
     eK.cel = K.cel;
-    eK.exc(I.liv) = K.exc(I.liv); % TODO!
-    eK.cel(I.liv) = PS(I.liv) * fn.pla * fuB / ((PS(I.liv)*fn.cel(I.liv) + CLucel) * fu.cel(I.liv));
+
+    % liver eK calculation
+    fuI = fu.int(I.liv);
+    fuC = fu.cel(I.liv);
+    fuE = 1 / (V.vas(I.liv) / V.exc(I.liv) / fuB + V.int(I.liv) / V.exc(I.liv) / fuI);
+    Qliv = Q.blo(I.liv);
+    PSew = PS(I.liv) * fn.int(I.liv);
+    PScw = PS(I.liv) * fn.cel(I.liv);
+    Kpuu = PSew / (PScw + CLucel);
+
+    eK.exc(I.liv) = Qliv / (fuE * (Qliv / fuB + CLucel * Kpuu));
+    eK.cel(I.liv) = Qliv * Kpuu / (fuC * (Qliv / fuB + CLucel * Kpuu));
+
+    % back to all tissues
     eK.tot = V.exc ./ V.tot .* eK.exc + V.cel ./ V.tot .* eK.cel;
 
     %%% fraction excreted in feces and metabolized in the gut

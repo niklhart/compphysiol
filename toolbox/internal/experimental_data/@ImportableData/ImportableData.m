@@ -59,7 +59,7 @@ classdef ImportableData < handle & matlab.mixin.Copyable % & CompactTabularDispl
 
 
             % relative path to toolbox folder or absolute path?
-            tbx_folder = 'toolbox';
+            tbx_folder = getCompphysiolPath();
             if isfile(fullfile(tbx_folder,folder,filename)) % relative path
                 folder = fullfile(tbx_folder, folder);
             end

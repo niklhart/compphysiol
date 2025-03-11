@@ -42,18 +42,18 @@ parameter "lambda_po":
     {'human'}    0.00016667 1/s    {'?'}     {0×0 char}
 
 parameter "Egut":
-     <strong>Species</strong>     <strong>Value</strong>       <strong>Source</strong>           <strong>Assumption</strong>    
-    <strong>_________</strong>    <strong>_____</strong>    <strong>____________</strong>    <strong>__________________</strong>
+     <strong>Species</strong>     <strong>Value</strong>      <strong>Source</strong>          <strong>Assumption</strong>    
+    <strong>_________</strong>    <strong>_____</strong>    <strong>__________</strong>    <strong>__________________</strong>
 
-    {'rat'  }      0      {0×0 double}    {'Assumed Egut=0'}
-    {'mouse'}      0      {0×0 double}    {'Assumed Egut=0'}
-    {'human'}      0      {0×0 double}    {'Assumed Egut=0'}
+    {'rat'  }      0      {0×0 char}    {'Assumed Egut=0'}
+    {'mouse'}      0      {0×0 char}    {'Assumed Egut=0'}
+    {'human'}      0      {0×0 char}    {'Assumed Egut=0'}
 
 parameter "Efeces":
-     <strong>Species</strong>     <strong>Value</strong>       <strong>Source</strong>            <strong>Assumption</strong>     
-    <strong>_________</strong>    <strong>_____</strong>    <strong>____________</strong>    <strong>____________________</strong>
+     <strong>Species</strong>     <strong>Value</strong>      <strong>Source</strong>           <strong>Assumption</strong>     
+    <strong>_________</strong>    <strong>_____</strong>    <strong>__________</strong>    <strong>____________________</strong>
 
-    {'rat'  }      0      {0×0 double}    {'Assumed Efeces=0'}
-    {'mouse'}      0      {0×0 double}    {'Assumed Efeces=0'}
-    {'human'}      0      {0×0 double}    {'Assumed Efeces=0'}
+    {'rat'  }      0      {0×0 char}    {'Assumed Efeces=0'}
+    {'mouse'}      0      {0×0 char}    {'Assumed Efeces=0'}
+    {'human'}      0      {0×0 char}    {'Assumed Efeces=0'}
 

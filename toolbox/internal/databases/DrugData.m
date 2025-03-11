@@ -109,7 +109,10 @@ classdef DrugData < DB & ColumnClass
             assert(~isempty(varargin{end}) || ~isempty(varargin{end-1}), ...
                 'Must provide source and/or assumption')
 
-            % convert empty double assumption to empty string
+            % convert empty double source/assumption to empty char
+            if isempty(varargin{end-1})
+                varargin{end-1} = '';
+            end
             if isempty(varargin{end})
                 varargin{end} = '';
             end
