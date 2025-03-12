@@ -1,13 +1,10 @@
 %GRAPHICSTYLE_ATTR Create graphic style / legend from attribute information
 function [style, leg] = graphicstyle_attr(attr)
 
-    % validate arguments
-    if ischar(attr)
-        attr = {attr};
-    else
-        assert(iscellstr(attr),'Input #1 must be char or cellstr.') %#ok<ISCLSTR>
+    arguments
+        attr (:,1) string
     end
-    
+       
 %    markers = {'x','o','+','*'};
     lines   = {'-.','-',':','--'};
     colors = {'y','r','b','k','c','m','g'};

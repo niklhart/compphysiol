@@ -48,6 +48,8 @@
 %   tableOutput      Return table output in-    false
 %                    stead of creating figure?
 %   plotter          Fct. handle for plotting   xyplotter (Time/Value args)
+%   style            cellstr of plotting styles []
+%                    (e.g., {'b:','r-'})
 %   
 %   See also Individual/plot, plottemplate, parseplotinput, xyplotter
 %   compileplottable, aggregatelevels, toolboxplot, percentileplot
@@ -84,25 +86,33 @@ function varargout = longitudinalplot(individual, varargin)
     if isgrouped
         tab.GROUPCAT   = aggregatelevels(tab.(pRes.group_by), pRes.group_lvl);
         group_lvl      = categories(tab.GROUPCAT);
-        switch pRes.group_by
-            case 'ID'
-                [style, ~] = graphicstyle(individual);
-            case 'Name'
-                if isempty(pRes.group_lvl)
-                    [style, leg] = graphicstyle(individual);
-                    tab.GROUPCAT = categorical(cellstr(tab.GROUPCAT), leg);
-                else
+
+        if ~isempty(pRes.style)
+            assert(numel(group_lvl) == numel(pRes.style), ...
+                'Number of styles must equal number of groups.')
+            style = pRes.style;
+        else
+            switch pRes.group_by
+                case 'ID'
+                    [style, ~] = graphicstyle(individual);
+                case 'Name'
+                    if isempty(pRes.group_lvl)
+                        [style, leg] = graphicstyle(individual);
+                        tab.GROUPCAT = categorical(cellstr(tab.GROUPCAT), leg);
+                    else
+                        [style, ~] = graphicstyle_attr(group_lvl);
+                    end
+                case 'Observable'
+                    assert(isempty(pRes.group_lvl), ...
+                        'group_lvl argument not yet implemented for group_by = "Observable".')
                     [style, ~] = graphicstyle_attr(group_lvl);
-                end
-            case 'Observable'
-                assert(isempty(pRes.group_lvl), ...
-                    'group_lvl argument not yet implemented for group_by = "Observable".')
-                [style, ~] = graphicstyle_attr(group_lvl);
-            case 'IdType'
-                style = {'+','-'};
-            otherwise % attributes
-                [style, ~] = graphicstyle_attr(group_lvl);
+                case 'IdType'
+                    style = {'+','-'};
+                otherwise % attributes
+                    [style, ~] = graphicstyle_attr(group_lvl);
+            end
         end
+
     else 
         if all(issimid(individual),'all')
             style = {'k-'};

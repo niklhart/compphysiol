@@ -28,6 +28,8 @@
 %   polish           Arg. OPTS to polish()      From global options
 %   tableOutput      Return table output in-    false
 %                    stead of creating figure?
+%   style            cellstr of plotting styles []
+%                    (e.g., {'b:','r-'})
 %
 %   Also, Observable attributes ('Site', 'Subspace', 'Binding', 'UnitType', 
 %   ...) can be provided as parameters, in which case the data are filtered
@@ -66,7 +68,8 @@ function pRes = parseplotinput(varargin)
     p.addParameter('coverage',       [50 90],        @isnumeric);
 %    p.addParameter('percentiles',    [5 25 50 75 95],@isnumeric);
     p.addParameter('plotter',        []);
-    
+    p.addParameter('style',          [],             @(x) ischar(x) || iscellstr(x));
+
     p.parse(varargin{:});
        
     %% string input validation & standardization
