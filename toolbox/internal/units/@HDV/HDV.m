@@ -323,8 +323,8 @@ classdef (InferiorClasses = {?DimVar}) HDV < ContainerDisplay
         function tf = isempty(obj); tf = isempty(obj.value); end
 
         %% simple functions that return HDV
-        function v = real(v);           v.value = real(v.value);                end
-        function v = imag(v);           v.value = imag(v.value);                end
+        function v = real(v);           v.value = real(v.value);        end
+        function v = imag(v);           v.value = imag(v.value);        end
 
         function obj = unitsOf(obj)
             %TODO: implement the two output case (see DimVar.unitsOf)

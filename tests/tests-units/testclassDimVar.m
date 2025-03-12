@@ -414,8 +414,24 @@ assert(isequal(num2str(v4), '-2  2 m'))
 assert(isequal(num2str(v5), '[] m'))
 
 
-%% Display
-% TODO
+%% Displayparser
+
+% scalar, property units
+[val1,~,ustr1] = displayparser(u.h);
+assert(isequal(val1,1) && isequal(ustr1,'h'))
+
+% scalar, custom display unit
+[val2,~,ustr2] = displayparser(scd(u.m/u.s,'km/h'));
+assert(abs(val2-3.6) < 1e-10 && isequal(ustr2,'km/h'))
+
+% matrix, property unit
+[val3,~,ustr3] = displayparser(ones(2)*u.h);
+assert(isequal(val3,ones(2)) && isequal(ustr3,'h'))
+
+% empty, property unit
+[val4,~,ustr4] = displayparser([]*u.h);
+assert(isequal(val4,[]) && isequal(ustr4,'h'))
+
 
 %% ldivide / mldivide
 v1 = [-2, 2]*u.m;

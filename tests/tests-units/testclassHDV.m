@@ -129,6 +129,19 @@ assert(~isscalar(vmat))
 assert(~isscalar(vemp))
 
 
+%% Display
+
+% two different DimVar units
+str = strtrim(evalc('disp([u.m u.s])'));
+cll = strsplit(str,' ');
+ws = char(160); % significant whitespace
+assert(isequal(cll,{['1' ws 'm'],['1' ws 's']}))
+
+% DimVar and unitless
+str = strtrim(evalc('disp([u.m 1])'));
+cll = strsplit(str,' ');
+ws = char(160); % significant whitespace
+assert(isequal(cll,{['1' ws 'm'],['1' ws]}))
 
 
 
