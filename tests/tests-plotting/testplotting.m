@@ -166,3 +166,31 @@ longitudinalplot(indv,'tunit','h','yunit','g/L', ...
 ax = findobj(h,'Type','Axes');
 assert(isequal(ax.XScale, 'log'))
 assert(isequal(ax.YScale, 'log'))
+
+%% Name clash issue (fixed)
+
+indv.name = 'test';
+
+h = figure("Visible","off");
+longitudinalplot([indv indv])      % expect no error
+
+%% Style argument
+
+% grouped plot (cave: style ordered alphabetically, 
+%                     but not necessarily the line objects!)
+h = figure("Visible","off");
+longitudinalplot(indv, group_by = 'Site', style = {'g','r'})
+li = findobj(h,'Type','Line');
+
+assert(all(strcmp({li.LineStyle},'-')))
+assert(isequal(li(1).Color,[1 0 0]))
+assert(isequal(li(2).Color,[0 1 0]))
+
+% ungrouped plot
+h2 = figure("Visible","off");
+longitudinalplot(indv, style = 'g:')
+li2 = findobj(h2,'Type','Line');
+
+assert(all(strcmp(li2.LineStyle,':')))
+assert(isequal(li2.Color,[0 1 0]))
+

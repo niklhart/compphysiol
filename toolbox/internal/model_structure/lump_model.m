@@ -73,7 +73,7 @@ function lmod = lump_model(mod, partitioning)
     lmod.obsfun  = @(varargin) obsfun_lumped(varargin{:}, mod.obsfun);
     
     if ~isempty(mod.name)
-        lmod.name = [mod.name '(lumped)'];
+        lmod.name = [mod.name ' (lumped)'];
     end
 end
 

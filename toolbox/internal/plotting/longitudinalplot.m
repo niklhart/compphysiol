@@ -98,7 +98,9 @@ function varargout = longitudinalplot(individual, varargin)
                 case 'Name'
                     if isempty(pRes.group_lvl)
                         [style, leg] = graphicstyle(individual);
-                        tab.GROUPCAT = categorical(cellstr(tab.GROUPCAT), leg);
+                        [uleg, idx] = unique(leg);
+                        style = style(idx);
+                        tab.GROUPCAT = categorical(cellstr(tab.GROUPCAT), uleg);
                     else
                         [style, ~] = graphicstyle_attr(group_lvl);
                     end
@@ -114,10 +116,15 @@ function varargout = longitudinalplot(individual, varargin)
         end
 
     else 
-        if all(issimid(individual),'all')
-            style = {'k-'};
+        if ~isempty(pRes.style)
+            style = cellstr(pRes.style);
+            assert(numel(style) == 1, 'Exactly one style required for ungrouped plots.')
         else
-            style = {'k+'}; %in mixed exp/sim arrays, virtual IDs are plotted as markers
+            if all(issimid(individual),'all')
+                style = {'k-'};
+            else
+                style = {'k+'}; %in mixed exp/sim arrays, virtual IDs are plotted as markers
+            end
         end
     end
     pRes.style = style;
