@@ -180,16 +180,14 @@ function setup = initfun(phys, drug, ~, options)
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
     % define hepatic clearance with respect to cel tissue concentration by
-    % relating CLint to the cellular organ weight (TODO: discuss!)
+    % relating CLint to the cellular organ weight
     CLuint = querydrug('CLint_hep_perOWliv') * queryphys('OWtis','liv');
     CLucel = PS(I.liv)*fn.cel(I.liv)*CLuint/(PS(I.liv)*fn.int(I.liv)-CLuint);
 
-    % TODO: CLuint and CLucel are defined differently in the book, there it
-    %       holds that CLuint = CLucel*Kuu (well-stirred liver disposition).
-    %       However, it is not clear to me whether CLuint or CLucel should
-    %       be linked to the drug database parameter 'CLint_hep_perOWliv'.
-    %       As a consequence, either the current well-stirred or the newly
-    %       defined permeability-limited model should be adapted.
+    assert(double(CLucel) > 0, ...
+        ['The relationship CLcw = PScw * CLew / (PSew - CLew)'...    
+        ' resulted in a negative cellular clearance CLcw' ...
+        ' (inconsistent permeability and clearance drug data)'])
 
     %%% additional partition coefficients
     K.exc = V.vas ./ V.exc + V.int ./ V.exc .* fuB ./ fu.int;
