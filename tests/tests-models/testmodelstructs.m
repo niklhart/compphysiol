@@ -58,7 +58,8 @@ check_initcon(model,phys,drug,par,opt);
 phys = Physiology('human35m');
 dos  = Bolus('Lidocaine',t0,10*u.mg,'iv');
 drug = loaddrugdata(compounds(dos),'species',getvalue(phys,'species'));
-
+p = predict_perm(drug,'cellular');
+updaterecord(drug,'cellPerm','human',p);
 par  = [];
 opt  = struct('tissuePartitioning',@rodgersrowland);
 
