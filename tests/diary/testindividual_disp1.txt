@@ -1,14 +1,6 @@
-  <a href="matlab:helpPopup Individual" style="font-weight:bold">Individual</a> with properties:
+	<a href="matlab:helpPopup Individual">Individual</a> array:
 
-           type: []
-           name: []
-         dosing: [1×1 EmptyDosing]
-       drugdata: [1×1 DrugData]
-     physiology: [1×1 Physiology]
-        options: [1×1 struct]
-    observation: []
-       sampling: []
-          model: []
-         output: []
-          estim: []
+1	Virtual individual
+2	Virtual individual
 
+Use builtin('disp',OBJ)) to see the underlying structure of the Individual object OBJ

@@ -18,13 +18,11 @@ classdef Individual < matlab.mixin.Copyable & ColumnClass
         dosing = EmptyDosing;
         drugdata = DrugData;
         physiology = Physiology;
-        options = struct();
         observation                 % Record object
         
         % only for virtual individuals
         sampling
         model      % set during 'initialize', except for fields 'fun','par','options'
-        output     % set during 'simulate'
         estim      % set during 'estimate', except for fields 'data','parinit','options'
 
     end
@@ -143,20 +141,6 @@ classdef Individual < matlab.mixin.Copyable & ColumnClass
             end
         end
         
-%         NH: Will be added in a future toolbox version
-%
-%         function obj = set.options(obj, varargin)
-%             assert(isscalar(obj), 'Properties can only be set for a scalar Individual object.')
-%             
-%             %communicate here with an interface to global options and
-%             %validate the result.
-%             
-%             if ~isempty(obj.options)
-%                 varargin = [obj.options, varargin];
-%             end
-%             obj.options = optionsparser(varargin{:});
-%         end
-        
         %% Cloning Individual objects
         function out = clone(obj)
             %CLONE Create a deep copy of an Individual object
@@ -226,7 +210,6 @@ classdef Individual < matlab.mixin.Copyable & ColumnClass
             [obj.type]     = deal('Experimental data');    
             [obj.sampling] = deal([]);    
             [obj.model]    = deal([]);    
-            [obj.output]   = deal([]);    
             
         end
             
@@ -245,27 +228,21 @@ classdef Individual < matlab.mixin.Copyable & ColumnClass
                 str.name = obj.name;
                 str.dosing     = summary(obj.dosing);
                 str.physiology = summary(obj.physiology);        
-                if ~isempty(fieldnames(obj.options))
-                    str.options    = strjoin(fieldnames(obj.options),',');                        
-                end
 
                 % display model-related information for virtual individuals
                 if issimid(obj)
-                    if ~isempty(obj.model) && isstruct(obj.model) && isfield(obj.model,'fun')
-                        if isfield(obj.model,'name') && isfield(obj.model,'rhsfun') && isfield(obj.model,'obsfun')
-                            str.model = [obj.model.name ' (initialized)'];
+                    if isa(obj.model,'Model')
+                        if issimulated(obj)
+                            status = 'simulated';
+                        elseif isinitialized(obj)
+                            status = 'initialized';
                         else
-                            str.model = [func2str(obj.model.fun) ' (uninitialized)'];           
+                            status = 'uninitialized';
                         end
+                        str.model = [obj.model.name ' (' status ')'];
                     end
                     if ~isempty(obj.sampling)                    
                         str.sampling = summary(obj.sampling);                        
-                    end
-                    if ~isempty(obj.output)
-                        sz = size(obj.output.X);
-                        str.output = sprintf('%s timepoints for %s states',...
-                            num2str(sz(1)), ...
-                            num2str(sz(2)));                      
                     end
                     if ~isempty(obj.drugdata)
                         str.drugdata = summary(obj.drugdata);        
@@ -388,7 +365,6 @@ classdef Individual < matlab.mixin.Copyable & ColumnClass
                 validateattributes(obj(i).dosing,     'Dosing',    {},         nm, 'property "dosing"')
                 validateattributes(obj(i).sampling,   {'SamplingRange','SamplingSchedule'},  {},         nm, 'property "sampling"')
                 validateattributes(obj(i).drugdata,   'DrugData',  {'scalar'}, nm, 'property "drugdata"')
-                validateattributes(obj(i).options,    'struct',    {'scalar'}, nm, 'property "options"')
                                 
                 % if all checks passed, initialize the model
                 obj(i).model.setup = obj(i).model.initfun(...
@@ -583,20 +559,20 @@ classdef Individual < matlab.mixin.Copyable & ColumnClass
 
         end
         
-        function S = individualtype(obj)
-            %INDIVIDUALTYPE Abbreviated representation of Individual type
-            %   S = INDIVIDUALTYPE(OBJ) with Individual object OBJ returns 
-            %   a cellstr of the same size as OBJ with
-            %   - S{i} = 'E'  if OBJ(i) is experimental data
-            %   - S{i} = 'V'  if OBJ(i) is a virtual individual
-            %   - S{i} = ''   if OBJ(i) has no assigned type yet
-                        
-            S = cell(size(obj));
-            S(isexpid(obj)) = {'E'};
-            S(issimid(obj)) = {'V'};
-            
-            S(cellfun(@isempty,S)) = {''};
-        end
+        % function S = individualtype(obj)
+        %     %INDIVIDUALTYPE Abbreviated representation of Individual type
+        %     %   S = INDIVIDUALTYPE(OBJ) with Individual object OBJ returns 
+        %     %   a cellstr of the same size as OBJ with
+        %     %   - S{i} = 'E'  if OBJ(i) is experimental data
+        %     %   - S{i} = 'V'  if OBJ(i) is a virtual individual
+        %     %   - S{i} = ''   if OBJ(i) has no assigned type yet
+        % 
+        %     S = cell(size(obj));
+        %     S(isexpid(obj)) = {'E'};
+        %     S(issimid(obj)) = {'V'};
+        % 
+        %     S(cellfun(@isempty,S)) = {''};
+        % end
         
         function tf = issimid(obj) 
             %ISSIMID Check which array entries contain virtual individuals
@@ -616,16 +592,16 @@ classdef Individual < matlab.mixin.Copyable & ColumnClass
         function tf = isinitialized(obj)
             %ISINITIALIZED Check if virtual individuals are initialized
             %   TF = ISINITIALIZED(OBJ) returns a logical array TF of the 
-            %   same size as OBJ, with TF(i) = true if OBJ(i).model is as 
-            %   expected after execution of method 'initialize'.
+            %   same size as OBJ, with TF(i) = true if OBJ(i).model.setup 
+            %   is assigned, as expected after calling method 'initialize'.
             tf = arrayfun(@(x) isa(x.model,'Model') && ~isempty(x.model.setup), obj);
         end
         function tf = issimulated(obj)
             %ISSIMULATED Check if virtual individuals have been simulated
             %   TF = ISSIMULATED(OBJ) returns a logical array TF of the 
-            %   same size as OBJ, with TF(i) = true if OBJ(i).output is  
-            %   assigned.
-            tf = arrayfun(@(x) isa(x.observation,'Record'), obj);            
+            %   same size as OBJ, with TF(i) = true if OBJ(i).observation  
+            %   is assigned.
+            tf = arrayfun(@(x) isa(x.model,'Model') && isa(x.observation,'Record'), obj);            
         end
     end
 end

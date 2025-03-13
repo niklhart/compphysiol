@@ -71,7 +71,10 @@ function lmod = lump_model(mod, partitioning)
     lmod.initfun = @(varargin) initfun_lumped(varargin{:}, mod.initfun, partitioning);
     lmod.rhsfun  = @(varargin) rhsfun_lumped(varargin{:}, mod.rhsfun);
     lmod.obsfun  = @(varargin) obsfun_lumped(varargin{:}, mod.obsfun);
-
+    
+    if ~isempty(mod.name)
+        lmod.name = [mod.name '(lumped)'];
+    end
 end
 
 function setup = initfun_lumped(phys, drug, par, options, initfun_orig, partitioning)

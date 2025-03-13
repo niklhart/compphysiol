@@ -340,13 +340,8 @@ assertError(@() checkHandleDuplicates(indarr), ...
 indarr(2) = clone(indarr(1));
 checkHandleDuplicates(indarr)
 
-% individualtype
-indarr(1).type = 'Virtual individual';
-indarr(2).type = 'Experimental data';
-
-assert(isequal(individualtype(indarr), cell({'V'; 'E'})))
-
 % issimid/isexpid
+indarr(2).type = 'Experimental data';
 assert(isequal(issimid(indarr), [1;0]))
 assert(isequal(isexpid(indarr), [0;1]))
 
@@ -368,7 +363,7 @@ ind1(1).model = test_model();
 ind1(1).sampling = Sampling([0 0.5 1]*u.h, obs);
 ind1(2).model = test_model();
 ind1(2).sampling = Sampling([0 0.2 0.4 0.6 0.8 1]*u.h, obs);
-assertEqualsDiary(@() disp(ind1), 'testindividual_disp2.txt');
+assertEqualsDiary(@() disp(ind1), 'testindividual_disp1.txt');
 
 % simulated individual
 obs = Observable('MultiPK','A','pla');
@@ -378,7 +373,7 @@ ind2.sampling = Sampling([0 0.5 1]*u.h, obs);
 ind2.type = 'Virtual individual';
 initialize(ind2);
 simulate(ind2);
-assertEqualsDiary(@() disp(ind2), 'testindividual_disp3.txt');
+assertEqualsDiary(@() disp(ind2), 'testindividual_disp2.txt');
 
 %% 
 % helpers

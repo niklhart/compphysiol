@@ -19,19 +19,13 @@ function [style, leg] = graphicstyle(individual)
             leg{i} = individual(i).name;
         end
         
-        if ~isempty(individual(i).options) && isfield(individual(i).options, 'plotstyle')
-            % custom style
-            style{i} = individual(i).options.plotstyle;
+        col = colors{1+mod(i,numel(colors))};
+        if isexpid(individual(i))
+            typ = markers{1+mod(iexp(i),numel(markers))};
         else
-            % default style
-            col = colors{1+mod(i,numel(colors))};
-            if strcmp(individual(i).type, 'Experimental data')
-                typ = markers{1+mod(iexp(i),numel(markers))};
-            else
-                typ = lines{1+mod(isim(i),numel(lines))};
-            end
-            style{i} = [col typ];                       
+            typ = lines{1+mod(isim(i),numel(lines))};
         end
+        style{i} = [col typ];                       
 
     end
     
