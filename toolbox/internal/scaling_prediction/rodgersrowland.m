@@ -180,7 +180,8 @@ switch RRsubclass
     % Rodgers et al. (2005): substances with at least one basic pKa > 7
     case {'mod. to strong base','diprotic base','zwitter ion type I'} % binding to acidic phospholipids (aph)
         % Association constant to acidic phospholipids
-        KA_AP  = (Kery_up*fnn_ery/fnnP - fcwVtis_ery - Knl_ery*fnlVtis_ery...
+        Kpuu_ery = fnnP / fnn_ery;
+        KA_AP  = (Kery_up/Kpuu_ery - fcwVtis_ery - Knl_ery*fnlVtis_ery...
                          -Knp_ery*fnpVtis_ery) / (AP_ery*fcat_ery);
 
 
@@ -240,7 +241,8 @@ K.ery_uery = fnn_ery/fnnP * Kery_up;
 K.int_uint = (fiwVtis + KA_PR_x_PRtis) ./ fintVtis;   
 
 % tis = int + cel --> weighted partition coefficients (incl. ionization) 
-K.tis_up = fintVtis .* K.int_uint + fnnP./fnnC.*fcelVtis.*K.cel_ucel;
+KpuuC = fnnP ./ fnnC;
+K.tis_up = fintVtis .* K.int_uint + KpuuC .* fcelVtis .* K.cel_ucel;
 
 % blood-to-plasma concentration ratio
 BP = hct*fuP*Kery_up + (1-hct);

@@ -64,7 +64,7 @@ classdef (Abstract) DB < matlab.mixin.Copyable
 
             arguments 
                 obj
-                nm
+                nm = ''
             end
             arguments (Repeating)
                 varargin
@@ -81,11 +81,11 @@ classdef (Abstract) DB < matlab.mixin.Copyable
             end
 
             isobjarr = ~isscalar(obj);
-            isclstr  = cellfun(@iscellstr, varargin);
+            isproparr  = cellfun(@iscellstr, varargin);
             
             % recursive call in case of non-scalar OBJ
             if isobjarr
-                assert(~any(isclstr,'all'), 'compphysiol:DB:getvalue:objarrayAndCellstrArgs', ...
+                assert(~any(isproparr,'all'), 'compphysiol:DB:getvalue:objarrayAndCellstrArgs', ...
                     'If OBJ is an array, all categories must be scalar.')
                 if ischar(getvalue(obj(1), nm, varargin{:}))
                     val = arrayfun(@(x) {getvalue(x, nm, varargin{:})}, obj);
@@ -99,8 +99,7 @@ classdef (Abstract) DB < matlab.mixin.Copyable
             % scalar OBJ 
             nm = validatestring(nm, fieldnames(obj.db));
                 
-            isclstr = cellfun(@iscellstr, varargin);
-            switch sum(isclstr)
+            switch sum(isproparr)
                 case 0
                     varargin = cellstr(varargin);
                     tab = subset(obj.db.(nm), varargin{:});
@@ -115,8 +114,8 @@ classdef (Abstract) DB < matlab.mixin.Copyable
                         val = val{1};
                     end
                 case 1                    
-                    val = arrayfun(@(i) helper(obj, nm, varargin, isclstr, i), ...
-                        reshape(1:numel(varargin{isclstr}),size(varargin{isclstr})));
+                    val = arrayfun(@(i) helper(obj, nm, varargin, isproparr, i), ...
+                        reshape(1:numel(varargin{isproparr}),size(varargin{isproparr})));
                 otherwise 
                     error('compphysiol:DB:getvalue:multipleCellstrArgs','At most one category can be cellstr.')
             end

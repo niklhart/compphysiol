@@ -56,5 +56,9 @@ assert(numel(out1.t) > 5)
 assert(all(out2.t == samp_6_12_18(:)))
 assert(nnz(out2.X(1,:)) == 0)
 
+%% Bug fix: double observation at end of infusion
 
+infus = Infusion('Warfarin',0*u.h,u.mg,12*u.h,'iv');
 
+out = simulator(model,samp_0_12_24,infus);
+assert(numel(samp_0_12_24) == numel(out.t))

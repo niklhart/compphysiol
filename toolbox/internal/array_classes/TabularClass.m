@@ -10,20 +10,25 @@ classdef (Abstract, HandleCompatible) TabularClass <  ...
     %   - redefining concatenation operators to concatenate the tabular 
     %     content
     %
-    %   Currently, this interface is used by class Record.
+    %   Currently, this interface is used by classes Record and 
+    %   SamplingSchedule.
     %
-    %   See also Record.
+    %   See also Record, SamplingSchedule.
     
     properties (Access = protected)
         table
     end
 
+
+    methods (Access=public, Hidden)
+        function p = properties(obj)
+            % overload function properties in tabular for tab-completion
+            p = obj.table.Properties.VariableNames;
+        end
+    end
+
     methods 
         
-        function out = VariableNames(obj)
-            out = obj.table.Properties.VariableNames;
-        end
-
         function out = cat(~, varargin)
         %CAT Concatenate TabularClass objects
         %   TabularClass objects are concatenated by appending the table
