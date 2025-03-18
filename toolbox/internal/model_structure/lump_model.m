@@ -123,10 +123,18 @@ function setup = initfun_lumped(phys, drug, par, options, initfun_orig, partitio
     [~,perm] = ismember(cmt, fullpart);
 
     % check that all compartments to be lumped are physiological ones
-    if ~all(ismember(flatpart, cmt(I.phys)))
-        error('compphysiol:lump_model:initfun_lumped:unphysiologicalPartitioning', ...
-            'Only physiological compartments may be lumped together.')
-    end
+    cellfun(@(x) validatestring(x,cmt(I.phys),'lump_model'), flatpart, ...
+        'UniformOutput',false);
+
+    % check that no compartment is assigned multiple times
+    assert(numel(unique(flatpart)) == numel(flatpart), ...
+        'compphysiol:lump_model:duplicateCompartments', ...
+       'Each compartment can only be specified once in a lumping scheme.')
+
+    % if ~all(ismember(flatpart, cmt(I.phys)))
+    %     error('compphysiol:lump_model:initfun_lumped:unphysiologicalPartitioning', ...
+    %         'Only physiological compartments may be lumped together.')
+    % end
 
     % groups in lumping scheme in original order
     grp = lgrp(perm);

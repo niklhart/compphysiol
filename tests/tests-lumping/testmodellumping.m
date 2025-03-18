@@ -89,7 +89,7 @@ indv(2).model.options.tissuePartitioning = @rodgersrowland;
 initialize(indv)
 simulate(indv)
 
-% observations of all three models
+% observations of both models
 A_full = indv(1).observation.Value;
 A_lump = indv(2).observation.Value;
 
@@ -129,7 +129,7 @@ indv(2).model.options.tissuePartitioning = @rodgersrowland;
 initialize(indv);
 simulate(indv);
 
-% observations of all three models
+% observations of both models
 A_full = indv(1).observation.Value;
 A_lump = indv(2).observation.Value;
 
@@ -138,4 +138,40 @@ relErr = abs((A_full - A_lump) ./ A_full);
 
 % small numerical tolerance
 assert(all(relErr(22:end) < 1e-3))
+
+%% Erroneous input
+
+% unphysiological compartment
+m = sMD_PBPK_12CMT_wellstirred();
+l = lump_model(m, {{'art','GItract'}});
+
+indv = Individual('Virtual');
+
+indv.dosing     = Bolus('Warfarin', 0*u.h, 60*u.mg, 'iv'); 
+indv.drugdata   = loaddrugdata('Warfarin','species','human');
+indv.physiology = Physiology('human35m');
+indv.sampling   = Sampling((0:24)*u.h, obs);
+indv.model      = l;
+indv.model.options.tissuePartitioning = @rodgersrowland;
+
+assertError(@() initialize(indv), 'MATLAB:lump_model:unrecognizedStringChoice')
+
+
+% redundant compartment
+m = sMD_PBPK_12CMT_wellstirred();
+l = lump_model(m, {{'art','art','ven'}});
+
+indv = Individual('Virtual');
+
+indv.dosing     = Bolus('Warfarin', 0*u.h, 60*u.mg, 'iv'); 
+indv.drugdata   = loaddrugdata('Warfarin','species','human');
+indv.physiology = Physiology('human35m');
+indv.sampling   = Sampling((0:24)*u.h, obs);
+indv.model      = l;
+indv.model.options.tissuePartitioning = @rodgersrowland;
+
+assertError(@() initialize(indv), 'compphysiol:lump_model:duplicateCompartments')
+
+
+
 

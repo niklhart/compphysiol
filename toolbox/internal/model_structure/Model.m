@@ -1,6 +1,5 @@
 classdef (Abstract) Model < matlab.mixin.Copyable
     %MODEL Interface class for models
-    %   Detailed explanation goes here
 
     properties    
         par = struct;
