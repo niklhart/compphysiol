@@ -453,6 +453,73 @@ function yobs = obsfun(output, setup, obs)
             end
             yobs = ytmp;
 
+        case 'ArmVein'
+
+            % Arm vein = mix of adipose, muscle, skin, artery
+            amsa = [I.adi I.mus I.ski I.art];
+
+            % Unbound fractions
+            fuery = setup.fu.ery;
+            fupla = setup.fu.pla;
+
+            % Abbreviations
+            hct = setup.hct;
+            BP  = setup.BP;
+
+            % Partition coefficients relating exc to vas/ery/pla spaces
+            Kvas_tot = 1 ./ setup.K.tot(amsa)';
+            Kery_vas = (1 - (1-hct)/BP)/hct;
+            Kpla_vas = 1/BP;
+            
+            % Total and vascular muscle/skin concentrations
+            Ctot_amsa = output.X(:,amsa) ./ setup.V.tot(amsa)';               
+            Cvas_amsa = Kvas_tot .* Ctot_amsa;
+
+            % Concentrations in vas/ery/pla subspaces of arm vein
+            Cvas_arm = 0.075 * Cvas_amsa(:,1) ...    % adi
+                         + 0.05 * Cvas_amsa(:,2) ... % mus
+                         + 0.775 * Cvas_amsa(:,3) ...% ski
+                         + 0.1 * Cvas_amsa(:,4);     % art
+            Cery_arm = Kery_vas .* Cvas_arm;
+            Cpla_arm = Kpla_vas .* Cvas_arm;
+            
+            % Subspace
+            spc = obs.attr.Subspace;
+            switch spc
+                case 'ery' %erythrocytes                   
+                    Csub  = Cery_arm;
+                    fusub = fuery;
+                case 'pla' %plasma
+                    Csub  = Cpla_arm;
+                    fusub = fupla;
+                case 'vas' % vascular
+                    Csub  = [hct*Cery_arm (1-hct)*Cpla_arm];
+                    fusub = [fuery    fupla];
+                otherwise 
+                    return
+            end
+
+            % Binding
+            switch obs.attr.Binding
+                case 'total'
+                    Cspc = sum(Csub, 2);          % sum over sub(-cmts)
+                case 'unbound'
+                    Cspc = sum(Csub .* fusub, 2); % sum over unbound in sub
+                otherwise 
+                    return
+            end
+
+            % Units
+            switch obs.attr.UnitType
+                case 'Mass/Volume'
+                    yspc = Cspc;
+                case 'Amount/Volume'
+                    yspc = Cspc / setup.MW;
+                otherwise 
+                    return
+            end
+            yobs = yspc;
+
         case 'NormalizedConc'      % Site, Subspace
             
             % Site

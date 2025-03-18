@@ -31,6 +31,8 @@ function obs = obstemplate(type)
                 select = {'Site', 'Subspace'};         
             case 'SimplePK'
                 select = {'Site', 'Binding', 'UnitType'};         
+            case 'ArmVein'
+                select = {'Subspace', 'Binding', 'UnitType'};         
             case 'MultiPK'
                 select = {'Compound','Site'};         
             case 'PD'

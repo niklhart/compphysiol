@@ -597,6 +597,121 @@ function yobs = obsfun(output, setup, obs)
             end
             yobs = ytmp;
             
+        case 'ArmVein'
+
+            % Arm vein = mix of muscle and skin
+            mus_ski = [I.mus I.ski];
+
+            % Unbound fractions
+            fuery = setup.fu.ery;
+            fupla = setup.fu.pla;
+            fuint = setup.fu.int(mus_ski)';
+
+            % Abbreviations
+            hct = setup.hct;
+            BP  = setup.BP;
+            fuB = fupla / BP;
+
+            % Sub-compartmentalized volumes
+
+            Vvas = setup.V.vas(mus_ski)';
+            Vint = setup.V.tis(mus_ski)' - setup.V.cel(mus_ski)';
+            Vexc = Vint + Vvas;
+
+            % fractional volumes
+            fintVexc = Vint ./ Vexc;
+            fvasVexc = Vvas ./ Vexc;
+
+            % Partition coefficients relating exc to vas/ery/pla spaces
+            Kvas_exc = 1 ./ (fintVexc.*fuB./fuint + fvasVexc);
+            Kery_vas = (1 - (1-hct)/BP)/hct;
+            Kpla_vas = 1/BP;
+
+            % Extracellular and vascular muscle/skin concentrations
+            Cexc_ms = output.X(:,Ig.exc(mus_ski)) ./ Vexc;               
+            Cvas_ms = Kvas_exc .* Cexc_ms;
+
+            % Concentrations in vas/ery/pla subspaces of arm vein
+            Cvas_arm = 0.287 * Cvas_ms(:,1) + 0.713 * Cvas_ms(:,2);
+            Cery_arm = Kery_vas .* Cvas_arm;
+            Cpla_arm = Kpla_vas .* Cvas_arm;
+            
+            % Subspace
+            spc = obs.attr.Subspace;
+            switch spc
+                case 'ery' %erythrocytes                   
+                    Csub  = Cery_arm;
+                    fusub = fuery;
+                case 'pla' %plasma
+                    Csub  = Cpla_arm;
+                    fusub = fupla;
+                case 'vas' % vascular
+                    Csub  = [hct*Cery_arm (1-hct)*Cpla_arm];
+                    fusub = [fuery    fupla];
+                otherwise 
+                    return
+            end
+
+            % Binding
+            switch obs.attr.Binding
+                case 'total'
+                    Cspc = sum(Csub, 2);          % sum over sub(-cmts)
+                case 'unbound'
+                    Cspc = sum(Csub .* fusub, 2); % sum over unbound in sub
+                otherwise 
+                    return
+            end
+
+            % Units
+            switch obs.attr.UnitType
+                case 'Mass/Volume'
+                    yspc = Cspc;
+                case 'Amount/Volume'
+                    yspc = Cspc / setup.MW;
+                otherwise 
+                    return
+            end
+            yobs = yspc;
+
+        case 'NormalizedConc'      % Site, Subspace
+            
+            % Site
+            site = obs.attr.Site;
+            spc = obs.attr.Subspace;
+            if ismember(site, modelorgans)
+                if ~ismember(spc,{'exc','cel'})
+                    msg = ['In the permeability-based model, normalized concentrations ' ...
+                            'can only be calculated for subspaces "exc" or "cel".'];
+                    warning(msg)
+                    return
+                end
+        
+                Aspc  = output.X(:,Ig.(spc)(I.(site)));
+                Vspc  = setup.V.(spc)(I.(site));
+                eKspc = setup.eK.(spc)(I.(site));
+
+                % Normalized concentration (Mass/Volume units)
+                ytmp = Aspc / (Vspc * eKspc);
+
+            elseif ismember(site, {'art','ven'})
+                if ~ismember(spc,{'vas','exc','tot'})
+                    msg = ['In the permeability-based model, normalized concentrations ' ...
+                            'in blood compartments can only be calculated for subspaces "vas", "exc" or "tot".'];
+                    warning(msg)
+                    return
+                end
+
+                Vvas = setup.V.vas(I.(site));
+                Avas = output.X(:,I.(site));       
+
+                ytmp = Avas / Vvas;
+            else
+                return
+            end
+            
+            % all checks passed and all steps processed: return the result
+            yobs = ytmp;
+
         case 'MassBalance'
             iIV = I.IVrate;
             ytmp = sum(output.X(:,[1:(iIV-1) (iIV+1):end]),2);
