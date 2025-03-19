@@ -15,13 +15,13 @@
 %       loaddrugdata(compounds(dosing))
 function drugdata = loaddrugdata(compounds, varargin)
 
-    ddb = DrugDB.Instance;
+    h = DrugDB.Instance;
 
     compounds = cellstr(compounds);
-    drugdata = copy(ddb{compounds{:}});
+    drugdata = copy(h{compounds{:}});
                 
     if nargin > 1
-        filtervariants(drugdata,varargin{:});
+        filtervariants(drugdata, varargin{:});
     end
 
 end

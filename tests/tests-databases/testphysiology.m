@@ -7,7 +7,7 @@ assert(length(refids) == 12)
 
 % TODO: test for empty physiology database
 
-assertError(@() referenceid('test'), 'MATLAB:unrecognizedStringChoice')
+assertError(@() referenceid('test'), 'MATLAB:DB:braceReference:unrecognizedStringChoice')
 
 % correct usage
 ref = referenceid('human35f');
@@ -31,8 +31,8 @@ assert(strcmp(phys2.db.species.Value, {'human'}))
 phys1 = Physiology;
 phys1.name = 'test';
 assert(strcmp(phys1.name, 'test'))
-assertError(@() setName(phys1, 1), ...
-    'compphysiol:Physiology:setname:charInputExpected')
+assertError(@() setName(phys1, {'multiple','names'}), ...
+    'MATLAB:validators:mustBeTextScalar')
 
 
 %% Database record manipulation

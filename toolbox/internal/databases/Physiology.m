@@ -1,4 +1,4 @@
-classdef Physiology < DB & ColumnClass
+classdef Physiology < DB
     %PHYSIOLOGY A handle class for storing physiological information.
     %   For the definition of Physiology objects, see functions Covariates,
     %   Physiology/Physiology, and physiological scaling functions.
@@ -16,11 +16,7 @@ classdef Physiology < DB & ColumnClass
     %   Physiology/clonerecord, Physiology/aliasrecord, 
     %   Physiology/updaterecord, Physiology/deleterecord, 
     %   Physiology/hasrecord
-    
-    properties
-        name
-    end
-    
+        
     properties (Constant = true)
         param     = Physiology.setParnames()
         units     = Physiology.setUnits()
@@ -53,13 +49,6 @@ classdef Physiology < DB & ColumnClass
 
                 obj.name = '';            
             end
-        end
-
-        function set.name(obj, nm)
-            assert(ischar(nm), ...
-                'compphysiol:Physiology:setname:charInputExpected', ...
-                'Input must be char.')
-            obj.name = nm;
         end
         
         function addrecord(obj, nm, varargin)

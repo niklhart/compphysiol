@@ -15,7 +15,6 @@ classdef ExpDrugData < DB
     %   See also ExpDrugData/ExpDrugData (constructor), expdrugtemplate
 
     properties
-        name
         class
         subclass
     end
@@ -65,6 +64,28 @@ classdef ExpDrugData < DB
             else
                 builtin('disp',obj)
             end
+        end
+
+        function str = obj2str(obj, context)
+            switch context
+                case {'array','table'}
+
+                    cl = {obj.name, obj.class, obj.subclass};
+                    cl = cl(~cellfun(@isempty,cl));
+
+                    isEmpty = structfun(@isempty,obj.db);
+                    isAllEmpty = all(isEmpty);
+                    if isAllEmpty
+                        cl = [cl, {'(empty)'}];
+                    else
+                        cl = [cl, {['(' num2str(sum(~isEmpty)) ' parameters)']}];
+                    end
+                    str = strjoin(cl,'\t');
+                otherwise
+                    error('compphysiol:ExpDrugData:obj2str:unknownContext', ...
+                        'Function not defined for context "%s"',context)
+            end
+
         end
 
         function addrecord(obj, nm, value, ref, cond, assum)

@@ -1,47 +1,77 @@
-classdef (Abstract) DB < matlab.mixin.Copyable
+classdef (Abstract) DB < matlab.mixin.Copyable & ColumnClass ...
+        & matlab.mixin.indexing.RedefinesBrace
 
     %DB Superclass of Physiology and DrugData
     %   This class implements common methods of the two database formats.
     %   
     %   See also Physiology, DrugData
 
+    properties
+        name char {mustBeTextScalar}
+    end
     properties (SetAccess = protected)
         db
     end
 
+    methods (Access = protected)
+        function out = braceReference(obj, indexOp)
+            assert(isscalar(indexOp), 'DB:braceReference:nonscalarIndexOp', ...
+                'Brace referencing of DB objects cannot be combined with other indexing operations.')
+            str = cellstr(indexOp.Indices);
+            valid = {obj.name};
+            assert(numel(valid) == numel(obj), 'DB:braceReference:unnamedObj', ...
+                'Brace referencing of DB objects requires all objects to be named.')
+            str = cellfun(@(x) validatestring(x, valid, 'DB:braceReference', ...
+                                                ['name of ' class(obj) ' object']), ...
+                        str, 'UniformOutput', false);
+            out = obj(ismember(valid,str));
+        end
+
+        function obj = braceAssign(~, ~, ~) %#ok<STOUT>
+            error('compphysiol:DB:braceAssign', ...
+                  'Brace assignment of DB objects is not possible.')
+        end
+
+        function n = braceListLength(~, ~, ~)
+            n = 1;
+        end
+    end
+
+
     methods
-        function n = numArgumentsFromSubscript(A, S, indexingContext)
-            switch S(1).type
-                case '{}'
-                    n = 1;
-                case {'()','.'}
-                    n = builtin('numArgumentsFromSubscript',A,S,indexingContext);
-            end
-        end
+
+        % function n = numArgumentsFromSubscript(A, S, indexingContext)
+        %     switch S(1).type
+        %         case '{}'
+        %             n = 1;
+        %         case {'()','.'}
+        %             n = builtin('numArgumentsFromSubscript',A,S,indexingContext);
+        %     end
+        % end
         
-        function varargout = subsref(A,S)
-            nargout = numArgumentsFromSubscript(A,S,matlab.mixin.util.IndexingContext.Statement);
-            switch S(1).type
-                case '{}'                    
-                    subs = S(1).subs;
-                    if iscellstr(subs)%#ok<ISCLSTR>
-                        [lia, locb] = ismember(subs, {A.name});
-                        if ~all(lia(:)) %unmatched compound
-                            unmatched = subs(~lia);
-                            error('compphysiol:DB:subsref:noEntryFound',['No entry/entries named "' strjoin(unmatched,',') '" in the database.'])
-                        end
-                        varargout{1} = A(locb);
-                        if numel(S) > 1  
-                            nargout = numArgumentsFromSubscript(varargout{1},S(2:end),matlab.mixin.util.IndexingContext.Statement);
-                            [varargout{1:nargout}] = builtin('subsref', varargout{1}, S(2:end));
-                        end
-                    else
-                        [varargout{1:nargout}] = builtin('subsref', A, S);
-                    end
-                case {'()','.'}
-                    [varargout{1:nargout}] = builtin('subsref', A, S);
-            end
-        end
+        % function varargout = subsref(A,S)
+        %     nargout = numArgumentsFromSubscript(A,S,matlab.mixin.util.IndexingContext.Statement);
+        %     switch S(1).type
+        %         case '{}'                    
+        %             subs = S(1).subs;
+        %             if iscellstr(subs)%#ok<ISCLSTR>
+        %                 [lia, locb] = ismember(subs, {A.name});
+        %                 if ~all(lia(:)) %unmatched compound
+        %                     unmatched = subs(~lia);
+        %                     error('compphysiol:DB:subsref:noEntryFound',['No entry/entries named "' strjoin(unmatched,',') '" in the database.'])
+        %                 end
+        %                 varargout{1} = A(locb);
+        %                 if numel(S) > 1  
+        %                     nargout = numArgumentsFromSubscript(varargout{1},S(2:end),matlab.mixin.util.IndexingContext.Statement);
+        %                     [varargout{1:nargout}] = builtin('subsref', varargout{1}, S(2:end));
+        %                 end
+        %             else
+        %                 [varargout{1:nargout}] = builtin('subsref', A, S);
+        %             end
+        %         case {'()','.'}
+        %             [varargout{1:nargout}] = builtin('subsref', A, S);
+        %     end
+        % end
 
         % Accessing database values
 

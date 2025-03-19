@@ -12,11 +12,8 @@ function out = referenceid(name)
     h = PhysiologyDB.Instance;
     
     if nargin == 0
-        out = {h.name};
+        out = arrayfun(@(x) x.name, h, 'UniformOutput', false);
     else
-        valid = {h.name};
-        name = validatestring(name, valid);
-
         out = copy(h{name});
     end    
 end

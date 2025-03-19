@@ -989,14 +989,9 @@ clonerecord(mouse,'rtpLip',rat(1))
 nhumans = 8;
 human(nhumans,1) = Physiology();   % IMPORTANT: since Physiology is a handle class, don't use `humans(1:nhumans) = Physiology()`!
 
-human(1).name  = 'human0u';
-human(2).name  = 'human1u';
-human(3).name  = 'human5u';
-human(4).name  = 'human10u';
-human(5).name  = 'human15m';
-human(6).name  = 'human15f';
-human(7).name  = 'human35m';
-human(8).name  = 'human35f';
+human_names = {'human0u','human1u','human5u','human10u',...
+               'human15m','human15f','human35m','human35f'};
+[human.name] = deal(human_names{:});
 
 ref = 'Basic covariates';
 
@@ -1005,25 +1000,9 @@ for i=1:nhumans
     addrecord(human(i), 'type', 'Caucasian', ref, [])
 end
 
-addrecord(human(1), 'sex', 'unisex', ref, [])
-addrecord(human(2), 'sex', 'unisex', ref, [])
-addrecord(human(3), 'sex', 'unisex', ref, [])
-addrecord(human(4), 'sex', 'unisex', ref, [])
-addrecord(human(5), 'sex', 'male',   ref, [])
-addrecord(human(6), 'sex', 'female', ref, [])
-addrecord(human(7), 'sex', 'male',   ref, [])
-addrecord(human(8), 'sex', 'female', ref, [])
-
-addrecord(human(1), 'age', 0*u.year,  ref, [])
-addrecord(human(2), 'age', 1*u.year,  ref, [])
-addrecord(human(3), 'age', 5*u.year,  ref, [])
-addrecord(human(4), 'age', 10*u.year, ref, [])
-addrecord(human(5), 'age', 15*u.year, ref, [])
-addrecord(human(6), 'age', 15*u.year, ref, [])
-addrecord(human(7), 'age', 35*u.year, ref, [])
-addrecord(human(8), 'age', 35*u.year, ref, [])
-
-
+%                         nb       age1     age5     age10   age15m  age15f  age35m   age35f
+addrecord(human, 'sex', {'unisex','unisex','unisex','unisex','male','female','male','female'}, ref, [])
+addrecord(human, 'age', [  0        1        5        10       15      15      35      35   ] * u.year, ref, [])
 
 %%% ========================================================================================================
 %%% Data  : Body weight (BW), body height (BH) and body surface area (BSA)
@@ -1034,24 +1013,9 @@ addrecord(human(8), 'age', 35*u.year, ref, [])
 
 ref = 'ICRP report 2002 (Table 2.9)';
 
-addrecord(human(1), 'BW', 3.5*u.kg, ref, [])
-addrecord(human(2), 'BW',  10*u.kg, ref, [])
-addrecord(human(3), 'BW',  19*u.kg, ref, [])
-addrecord(human(4), 'BW',  32*u.kg, ref, [])
-addrecord(human(5), 'BW',  56*u.kg, ref, [])
-addrecord(human(6), 'BW',  53*u.kg, ref, [])
-addrecord(human(7), 'BW',  73*u.kg, ref, [])
-addrecord(human(8), 'BW',  60*u.kg, ref, [])
-
-addrecord(human(1), 'BH', 51*u.cm,  ref, [])
-addrecord(human(2), 'BH', 76*u.cm,  ref, [])
-addrecord(human(3), 'BH', 109*u.cm, ref, [])
-addrecord(human(4), 'BH', 138*u.cm, ref, [])
-addrecord(human(5), 'BH', 167*u.cm, ref, [])
-addrecord(human(6), 'BH', 161*u.cm, ref, [])
-addrecord(human(7), 'BH', 176*u.cm, ref, [])
-addrecord(human(8), 'BH', 163*u.cm, ref, [])
-
+%                       nb   age1    age5   age10  age15m  age15f  age35m   age35f
+addrecord(human, 'BW', [3.5  10      19     32     56      53      73       60] * u.kg, ref, [])
+addrecord(human, 'BH', [51   76     109    138    167     161     176      163] * u.cm, ref, [])
 
 for i=1:nhumans
     BW = getrecord(human(i), 'BW');
@@ -1165,7 +1129,7 @@ addrecord(human, 'OWtis', 'uterus',           [  4.0    1.5    3      4       0 
 ref = 'ICRP report 2002 (Table 2.14)';
 
 %%%                                              
-adults = human{'human35m','human35f'};         %        age35m   age35f
+adults = human{'human35m','human35f'};                 % age35m   age35f
 addrecord(adults, 'fregVtbl', 'fat',                    [ 5.00    8.50] * u.percent, ref, [])
 addrecord(adults, 'fregVtbl', 'brain',                  [ 1.20    1.20] * u.percent, ref, [])
 addrecord(adults, 'fregVtbl', 'stomach_and_oesophagus', [ 1.00    1.00] * u.percent, ref, [])
@@ -1751,21 +1715,6 @@ clonerecord(human, 'rtpAlb', rat{'rat250'})
 %%% Unit  : --
 
 clonerecord(human, 'rtpLip', rat{'rat250'})
-
-
-
-% %%% set male/female children to corresponding unisex values
-% for subtype = {'human0','human1','human5','human10'}
-%     
-%     age_root   = char(subtype);
-%     age_uni    = [age_root,'u'];
-%     age_male   = [age_root,'m'];
-%     age_female = [age_root,'f'];
-%     
-%     human.(age_male)   = human.(age_uni);
-%     human.(age_female) = human.(age_uni);
-%     
-% end
 
 
 %%% ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

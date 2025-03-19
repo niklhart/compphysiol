@@ -1,4 +1,4 @@
-classdef DrugData < DB & ColumnClass
+classdef DrugData < DB
     %DrugData A handle class for storing the drug information
     %   For each drug, the following information can be stored:
     %   - MW           molecular weight
@@ -12,7 +12,6 @@ classdef DrugData < DB & ColumnClass
     %   See also DrugData/DrugData (constructor), drugtemplate
 
     properties
-        name
         class
         subclass
     end
