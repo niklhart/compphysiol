@@ -416,7 +416,9 @@ function dX = rhsfun(t, X, setup) % t will be used for infusion rate
     dA_IVbag   = -infusion_rate;
 
     % drug amount metabolized or excreted
-    dA_metab   = +CLucel*fucel(liv)*C_cel(liv) + (1-(1-E.gut)*(1-E.feces))*lambda_po*A_GItract;
+    dA_metab   = +CLucel*fucel(liv)*C_cel(liv) ...
+        + (1-(1-E.gut)*(1-E.feces))*lambda_po*A_GItract ...
+        + (GFR*setup.fuP/setup.BP + CLsec)*(1-Freabs)*C_art;
 
     
     % END OF ODEs 

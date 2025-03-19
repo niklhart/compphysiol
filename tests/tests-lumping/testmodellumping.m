@@ -145,17 +145,18 @@ assert(all(relErr(22:end) < 1e-3))
 m = sMD_PBPK_12CMT_wellstirred();
 l = lump_model(m, {{'art','GItract'}});
 
+
+
 indv = Individual('Virtual');
 
 indv.dosing     = Bolus('Warfarin', 0*u.h, 60*u.mg, 'iv'); 
 indv.drugdata   = loaddrugdata('Warfarin','species','human');
 indv.physiology = Physiology('human35m');
-indv.sampling   = Sampling((0:24)*u.h, obs);
+indv.sampling   = Sampling((0:24)*u.h);
 indv.model      = l;
 indv.model.options.tissuePartitioning = @rodgersrowland;
 
 assertError(@() initialize(indv), 'MATLAB:lump_model:unrecognizedStringChoice')
-
 
 % redundant compartment
 m = sMD_PBPK_12CMT_wellstirred();
@@ -166,7 +167,7 @@ indv = Individual('Virtual');
 indv.dosing     = Bolus('Warfarin', 0*u.h, 60*u.mg, 'iv'); 
 indv.drugdata   = loaddrugdata('Warfarin','species','human');
 indv.physiology = Physiology('human35m');
-indv.sampling   = Sampling((0:24)*u.h, obs);
+indv.sampling   = Sampling((0:24)*u.h);
 indv.model      = l;
 indv.model.options.tissuePartitioning = @rodgersrowland;
 
