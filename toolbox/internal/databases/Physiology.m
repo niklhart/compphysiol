@@ -80,10 +80,18 @@ classdef Physiology < DB
             assert(~isempty(varargin{end}) || ~isempty(varargin{end-1}), ...
                 'Must provide source and/or assumption')
 
-            typecheck(varargin{iVal}, Physiology.getUnits(nm))
-            if ~strcmp(Physiology.getUnits(nm), 'char')
+            if strcmp(Physiology.getUnits(nm), 'char')
+                assert(ischar(varargin{iVal}) || iscellstr(varargin{iVal}), ...
+                    'compphysiol:typecheck:nonChar', ...
+                    'Invalid input (must be char or cellstr).')
+            else
+                typecheck(varargin{iVal}, Physiology.getUnits(nm))
                 varargin{iVal} = tounit(varargin{iVal});
             end            
+            % typecheck(varargin{iVal}, Physiology.getUnits(nm))
+            % if ~strcmp(Physiology.getUnits(nm), 'char')
+            %     varargin{iVal} = tounit(varargin{iVal});
+            % end            
             % to be able to call the faster table() instead of cell2table()
             % for creation of one-row tables, we need to put character
             % arrays into cells

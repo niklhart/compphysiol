@@ -12,7 +12,7 @@ function out = tounit(in)
                 out = reshape([out{:}],size(out));
             end
         catch 
-            error('gPBPK:cannotConvert',...
+            error('compphysiol:cannotConvert',...
                 ['Cannot convert argument "' in '" to class "DimVar"'])
         end
     end
