@@ -39,6 +39,9 @@ codegen/
 # MATLAB Project files
 resources/project/*
 
+# Toolbox documentation html files
+toolbox/examples/html/**
+!toolbox/examples/html/helptoc.xml
 
 # Reports generated during build
 reports/*
