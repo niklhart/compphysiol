@@ -16,8 +16,8 @@
 %   yunit            Unit(s) of observables     Same as in dataset/model
 %   subplot_by       'ID', 'IdType', 'Name' or  [] (no subplotting)
 %                    any Observable attribute
-%                    (e.g., 'Site')
-%   subplot_lvl      Custom subplotting levels  One subplot per category
+%                    (e.g., 'Site'), or a 
+%                    cellstr thereof.
 %   Site             Filter by Site attribute   [] (don't filter by site)
 %                    of class Observable
 %                    (e.g. {'liv','adi'})     
@@ -60,8 +60,8 @@ function varargout = percentileplot(individual, varargin)
     isplotgrid = ~isempty(subplot_by);
     
     if isplotgrid 
-        tab = filterbylvl(tab, pRes.subplot_by, pRes.subplot_lvl);
-        tab.SUBPLOTCAT = aggregatelevels(tab.(pRes.subplot_by), pRes.subplot_lvl);
+        tab.SUBPLOTCAT = aggregatelevels(tab, pRes.subplot_by);
+        pRes.subplot_by = strjoin(cellstr(pRes.subplot_by),'/');
     end
     pRes.style = {''}; % no plotting style required
 

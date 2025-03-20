@@ -10,12 +10,12 @@
 %   yunit            Unit(s) of observables     Same as in dataset/model
 %   subplot_by       'ID', 'Name', 'IdType'     [] (no subplotting)
 %                    or any Observable attri-
-%                    bute (e.g., 'Site')
-%   subplot_lvl      Custom subplotting levels  One subplot per category
+%                    bute (e.g., 'Site'), or 
+%                    a cellstr of those.
 %   group_by         'ID', 'Name', 'IdType'     [] (no grouping)
 %                    or any Observable attri-
-%                    bute (e.g., 'Site')
-%   group_lvl        Custom grouping levels     One group per category
+%                    bute (e.g., 'Site'), or 
+%                    a cellstr of those.
 %   xlabel           x label (without tunit)    'Time'
 %   ylabel           y label (without yunit)    'Data'
 %   xscalelog        log x axis (boolean)?      From global options      
@@ -43,10 +43,8 @@ function pRes = parseplotinput(varargin)
 %                  Parameter         Default         Validation function
     p.addParameter('tunit',          [],             @ischar);
     p.addParameter('yunit',          [],             @(x) isempty(x) || ischar(x) || iscellstr(x)); %#ok<*ISCLSTR>
-    p.addParameter('subplot_by',     [],             @(x) isempty(x) || ischar(x));
-    p.addParameter('subplot_lvl',    {},             @isaggregation); 
-    p.addParameter('group_by',       [],             @(x) isempty(x) || ischar(x));
-    p.addParameter('group_lvl',      {},             @isaggregation); 
+    p.addParameter('subplot_by',     [],             @(x) isempty(x) || ischar(x) || iscellstr(x));
+    p.addParameter('group_by',       [],             @(x) isempty(x) || ischar(x) || iscellstr(x));
 
     obsattr = evalfhopt('ObservableTemplate');
     for i = 1:size(obsattr,1)
@@ -66,7 +64,6 @@ function pRes = parseplotinput(varargin)
     p.addParameter('polish',         struct,         @isstruct);
     p.addParameter('tableOutput',    false,          @isboolean);
     p.addParameter('coverage',       [50 90],        @isnumeric);
-%    p.addParameter('percentiles',    [5 25 50 75 95],@isnumeric);
     p.addParameter('plotter',        []);
     p.addParameter('style',          [],             @(x) ischar(x) || iscellstr(x));
 

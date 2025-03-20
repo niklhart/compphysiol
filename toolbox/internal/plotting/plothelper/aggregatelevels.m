@@ -1,36 +1,25 @@
 %AGGREGATELEVELS Aggregate levels of a categorical variable
-%   A = AGGREGATELEVELS(V, CLV), with categorical array V and cell array of
-%   cellstr CLV, assembles categories in CLV{1}, ... into one. If CLV is
-%   cellstr, it is interpreted as {CLV}, i.e., a single aggregate category.
-%
-%   A = AGGREGATELEVELS(V, SLV), with categorical array V and a struct of
-%   cellstr SLV, uses fieldnames of SLV to name the aggregate categories.
-%   
-%
+%   C = AGGREGATELEVELS(T, GRP), with a table T and a string array or 
+%   cellstr GRP containing column names in T, returns a height(T)-by-1 
+%   categorical array C that contains aggregate names that can be used as
+%   a grouping column.
 
-function V = aggregatelevels(V, lvl)
+function C = aggregatelevels(T, grp)
     
-    assert(iscategorical(V),'Input #1 must be a categorical array.')
-    
-    if isempty(lvl)
-        return
+    arguments 
+        T table
+        grp (:,1) string {mustBeTableCols(grp,T)}
     end
-    if iscellstr(lvl) %#ok<ISCLSTR>
-        lvl = {lvl};
-    end
-    if isstruct(lvl)
-        aggnm = fieldnames(lvl);
-        lvl   = struct2cell(lvl);
-    else
-        aggnm = cellfun(@(c) strjoin(c,'/'),lvl,'UniformOutput',false);
-    end
-    assert(iscell(lvl) && all(cellfun(@iscellstr,lvl),'all'), ...
-            'Input #3 must be cellstr or a cell array of cellstr.')
-    assert(all(ismember([lvl{:}],categories(V))), 'Undefined categories found.')
 
-    nagg = numel(lvl);
-    for i = 1:nagg
-        V = mergecats(V, lvl{i}, aggnm{i});
-    end
-    
+    TT = cellfun(@(c) T{:,c}, grp,'UniformOutput',false);
+    C = categorical(Reduce(@times,TT{:}));
+
 end
+
+function mustBeTableCols(grp, T)
+
+    assert(all(istablecol(T,grp)),'compphysiol:aggregatelevels:noTableCols',...
+        'All grouping variables must be columns of the input table.')
+
+end
+

@@ -22,13 +22,13 @@
 %   subplot_by       'ID', 'Observable',        [] (no subplotting)
 %                    'IdType', 'Name' or 
 %                    any Observable attribute
-%                    (e.g., 'Site')
-%   subplot_lvl      Custom subplotting levels  One subplot per category
+%                    (e.g., 'Site'), or a 
+%                    cellstr thereof.
 %   group_by         'ID', 'Observable',        [] (no grouping)
 %                    'IdType', 'Name' or 
 %                    any Observable attribute
-%                    (e.g., 'Site')
-%   group_lvl        Custom grouping levels     One group per category
+%                    (e.g., 'Site'), or a 
+%                    cellstr thereof.
 %   Site             Filter by Site attribute   [] (don't filter by site)
 %                    of class Observable
 %                    (e.g. {'liv','adi'})     
@@ -84,7 +84,8 @@ function varargout = longitudinalplot(individual, varargin)
     isgrouped  = ~isempty(pRes.group_by);
         
     if isgrouped
-        tab.GROUPCAT   = aggregatelevels(tab.(pRes.group_by), pRes.group_lvl);
+        tab.GROUPCAT   = aggregatelevels(tab, pRes.group_by);
+        pRes.group_by = strjoin(cellstr(pRes.group_by),'/');
         group_lvl      = categories(tab.GROUPCAT);
 
         if ~isempty(pRes.style)
@@ -96,18 +97,10 @@ function varargout = longitudinalplot(individual, varargin)
                 case 'ID'
                     [style, ~] = graphicstyle(individual);
                 case 'Name'
-                    if isempty(pRes.group_lvl)
-                        [style, leg] = graphicstyle(individual);
-                        [uleg, idx] = unique(leg);
-                        style = style(idx);
-                        tab.GROUPCAT = categorical(cellstr(tab.GROUPCAT), uleg);
-                    else
-                        [style, ~] = graphicstyle_attr(group_lvl);
-                    end
-                case 'Observable'
-                    assert(isempty(pRes.group_lvl), ...
-                        'group_lvl argument not yet implemented for group_by = "Observable".')
-                    [style, ~] = graphicstyle_attr(group_lvl);
+                    [style, leg] = graphicstyle(individual);
+                    [uleg, idx] = unique(leg);
+                    style = style(idx);
+                    tab.GROUPCAT = categorical(cellstr(tab.GROUPCAT), uleg);
                 case 'IdType'
                     style = {'+','-'};
                 otherwise % attributes
@@ -130,8 +123,8 @@ function varargout = longitudinalplot(individual, varargin)
     pRes.style = style;
 
     if isplotgrid 
-        tab = filterbylvl(tab, pRes.subplot_by, pRes.subplot_lvl);
-        tab.SUBPLOTCAT = aggregatelevels(tab.(pRes.subplot_by), pRes.subplot_lvl);
+        tab.SUBPLOTCAT = aggregatelevels(tab, pRes.subplot_by);
+        pRes.subplot_by = strjoin(cellstr(pRes.subplot_by),'/');
     end
     
     %% Early return if table output was requested
