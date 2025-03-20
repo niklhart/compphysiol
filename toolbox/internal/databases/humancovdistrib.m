@@ -46,7 +46,7 @@ function humans = humancovdistrib(N, sex)
     BW  = BMI.*(BH.^2);
 
     % create the output object
-    humans(N) = Physiology();    % not using `humans(1:N) = Physiology()` to avoid handle reference copies
+    humans(N,1) = Physiology();    % not using `humans(1:N) = Physiology()` to avoid handle reference copies
     for i=1:N
         humans(i) = Covariates(...
             'species','human',...
