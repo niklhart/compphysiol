@@ -7,7 +7,7 @@
     <param.summary>Computational Physiology Toolbox</param.summary>
     <param.description>"compphysiol" is a MATLAB toolbox for computations with physiology-based models, in particular physiologically-based pharmacokinetics. It features a modular object-oriented design, has fully integrated unit computation capabilities and an intuitive scripting language.</param.description>
     <param.screenshot>${PROJECT_ROOT}/images/toolboxPackaging.png</param.screenshot>
-    <param.version>0.1.5.43</param.version>
+    <param.version>0.1.5.44</param.version>
     <param.output>${PROJECT_ROOT}/compphysiol.mltbx</param.output>
     <param.products.name />
     <param.products.id />
