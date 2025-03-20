@@ -119,12 +119,11 @@ function h = toolboxplot(tab, plotter, options)
                      % are sometimes plotted into the wrong figure
     end
     if isgrouped
-        hleg = legend(group_lvl{:});
-        if isplotgrid
-            % suitable legend position for default 3x4 layout and 10 plots
-            set(hleg,'Position',[0.60 0.15 0.3 0.13])
-        end
-        title(hleg, options.group_by)
+        leg = legend(group_lvl{:},'Location','East');
+        title(leg, options.group_by)
+        % if isplotgrid
+        %     leg.Layout.Tile = 'East'; %TODO: turn legend placement into a plot option
+        % end
     end
     
     polish(h, options.polish)
