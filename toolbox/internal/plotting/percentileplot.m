@@ -39,7 +39,7 @@
 %   Note: groupings are not supported by PERCENTILEPLOT.
 %
 %   See also Individual/plot, plottemplate, parseplotinput, 
-%   compileplottable, aggregatelevels, toolboxplot, longitudinalplot
+%   compileplottable, aggregatelevels, toolboxplot
 
 function varargout = percentileplot(individual, varargin)
 

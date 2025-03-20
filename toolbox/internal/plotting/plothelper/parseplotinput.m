@@ -21,7 +21,6 @@
 %   xscalelog        log x axis (boolean)?      From global options      
 %   yscalelog        log y axis (boolean)?      From global options      
 %   title            Global plot title          [] (no title)
-%   maxSubplots      Max # of subplots          12 
 %   maxSubplotRows   Max # of subplot rows       3 
 %   maxSubplotCols   Max # of subplot cols       4 
 %   linkAxes         Link axes of subplots?     true if all yunits are equal
@@ -57,7 +56,6 @@ function pRes = parseplotinput(varargin)
     p.addParameter('xscalelog',      getoptcompphysiol('XScaleLog'),  @isboolean);
     p.addParameter('yscalelog',      getoptcompphysiol('YScaleLog'),  @isboolean);
     p.addParameter('title',          [],             @ischar);
-    p.addParameter('maxSubplots',    12,             @isnumeric);
     p.addParameter('maxSubplotRows',  3,             @isnumeric);
     p.addParameter('maxSubplotCols',  4,             @isnumeric);
     p.addParameter('linkAxes',       [],             @isboolean);

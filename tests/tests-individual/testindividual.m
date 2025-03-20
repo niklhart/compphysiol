@@ -226,7 +226,7 @@ assertError(@() sim2exp(vid), 'compphysiol:Individual:sim2exp:needVirtualIndivid
 vid = Individual('Virtual',2);
 
 % not simulated virtual individual
-assertError(@() plot(vid), 'compphysiol:Individual:plot:missingSimulation')
+assertError(@() plot(vid), 'compphysiol:Individual:checkSimulated:notSimulated')
 
 obs = Observable('MultiPK','A','pla');
 vid(1).model = test_model();
@@ -243,7 +243,7 @@ vid(1).name = 'Ind1';
 vid(2).name = 'Ind2';
 
 h = figure('Visible','off');
-plot(vid, 'plasmaConcentration')
+defaultPlots(vid, 'plasmaConcentration')
 ax = findobj(get(h,'Children'), '-depth', 1, 'type', 'axes');
 assert(length(ax) == 1)
 assert(strcmp(ax.Title.String, 'Plasma concentration'))

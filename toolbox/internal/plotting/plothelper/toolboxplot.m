@@ -12,14 +12,18 @@
 %     For example, @(T,u,s) xyplotter(T,'time','data',u{1},u{2},s)
 %   - OPTIONS is a parsed input struct as outputted from 'parseplotinput()'.
 %
-%   See also compileplottable, parseplotinput, polish, longitudinalplot,
+%   See also Individual/plot, compileplottable, parseplotinput, polish,
 %   percentileplot, xyplotter, xysortplotter, percentileplotter.
 
 function h = toolboxplot(tab, plotter, options)
 
+    arguments
+        tab table
+        plotter function_handle 
+        options struct
+    end
+
     %% Preparations
-    assert(istable(tab), 'Input #1 must be a table.')
-    assert(isa(plotter,'function_handle'), 'Input #2 must be a function handle')
     
     isgrouped  = istablecol(tab, 'GROUPCAT');
     isplotgrid = istablecol(tab, 'SUBPLOTCAT');
@@ -34,7 +38,7 @@ function h = toolboxplot(tab, plotter, options)
     end
     
     [nGrp,nSub] = size(tabgrid);
-    [nRow,nCol] = subplotsize(nSub,options.maxSubplots,options.maxSubplotRows,options.maxSubplotCols);
+    [nRow,nCol] = plotgridsize(nSub,options.maxSubplotRows,options.maxSubplotCols);
 
     units = cellfun(@(x,y) {x y}, options.tunit, options.yunit, 'UniformOutput', false);
     
@@ -133,19 +137,14 @@ end
 
 %% Local subfunctions
 
-function [nRow,nCol] = subplotsize(nSub,maxSub,maxRow,maxCol)
+function [nRow,nCol] = plotgridsize(nSub,maxRow,maxCol)
 
-    maxSub2 = min(maxSub,maxRow*maxCol);
-        if nSub > maxSub2
-            if maxSub2 >= maxSub
-                msg = ['At most %s subplots allowed, but %s requested. '...
-                   'Filter the data or increase option maxSubplots'];
-            else
-                msg = ['At most %s subplots allowed, but %s requested. '...
-                   'Filter the data or increase option maxSubplotRows'...
-                   'and/or maxSubplotCols'];
-            end
-            error(msg, num2str(maxSub2), num2str(nSub))
+    maxSub = maxRow*maxCol;
+        if nSub > maxSub
+            msg = ['At most %s subplots allowed, but %s requested. '...
+               'Filter the data or increase option maxSubplotRows'...
+               'and/or maxSubplotCols'];
+            error(msg, num2str(maxSub), num2str(nSub))
         end
 
         nRow = ceil(nSub * maxRow / maxSub);

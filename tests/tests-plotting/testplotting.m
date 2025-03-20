@@ -14,7 +14,7 @@ simulate(indv);
 %% Single plot, ungrouped
 
 h = figure('Visible','off');
-longitudinalplot(indv,'tunit','h','yunit','');
+plot(indv,'tunit','h','yunit','');
 
 li = findobj(h, 'Type', 'Line');
 
@@ -30,13 +30,13 @@ assert(isequal(xobs,xplot) && isequal(yobs,yplot), ...
     'Unexpected x/y values plotted.')
 
 % here, the plot is empty, although indv.observation is populated.
-% Apparently, only indv.sampling and the 'obs' argument to longitudinalplot
+% Apparently, only indv.sampling and the 'obs' argument to plot
 % are checked, hence this third possibility is missing.
 
 %% Multiple plots, ungrouped
 
 h = figure('Visible','off');
-longitudinalplot(indv,'tunit','h','yunit','','subplot_by','Site');
+plot(indv,'tunit','h','yunit','','subplot_by','Site');
 
 % plot is expected to have 2 subplots
 ax = findobj(get(h,'Children'), '-depth', 1, 'type', 'axes');
@@ -70,7 +70,7 @@ assert(isequal(xobs2,xplot2) && isequal(yobs2,yplot2), ...
 %% Single plot, grouped
 
 h = figure('Visible','off');
-longitudinalplot(indv,'tunit','h','yunit','g/L','group_by','Site');
+plot(indv,'tunit','h','yunit','g/L','group_by','Site');
 
 % plot is expected to have 1 subplot
 ax = findobj(get(h,'Children'), '-depth', 1, 'type', 'axes');
@@ -100,7 +100,7 @@ assert(isequal(xobs2,xplot2) && isequal(yobs2,yplot2), ...
 %% Multiple plots, grouped
 
 h = figure('Visible','off');
-longitudinalplot(indv,'tunit','h','yunit','g/L', ...
+plot(indv,'tunit','h','yunit','g/L', ...
     'subplot_by','Compound','group_by','Site');
 
 % plot is expected to have 2 subplots
@@ -151,16 +151,16 @@ assert(isequal(xobs22,xplot22) && isequal(yobs22,yplot22), ...
 %% Max number of subplots
 
 h = figure('Visible','off');
-assertError(@() longitudinalplot(indv,'tunit','h','yunit','g/L', ...
+assertError(@() plot(indv,'tunit','h','yunit','g/L', ...
     'subplot_by','Subspace','maxSubplots',1))
-assertError(@() longitudinalplot(indv,'tunit','h','yunit','g/L', ...
+assertError(@() plot(indv,'tunit','h','yunit','g/L', ...
     'subplot_by','Subspace','maxSubplots',2, ...
     'maxSubplotRows',1,'maxSubplotCols',1))
 
 %% Log scales
 
 h = figure('Visible','off');
-longitudinalplot(indv,'tunit','h','yunit','g/L', ...
+plot(indv,'tunit','h','yunit','g/L', ...
     'xscalelog',true,'yscalelog',true)
 
 ax = findobj(h,'Type','Axes');
@@ -172,14 +172,14 @@ assert(isequal(ax.YScale, 'log'))
 indv.name = 'test';
 
 h = figure("Visible","off");
-longitudinalplot([indv indv])      % expect no error
+plot([indv indv])      % expect no error
 
 %% Style argument
 
 % grouped plot (cave: style ordered alphabetically, 
 %                     but not necessarily the line objects!)
 h = figure("Visible","off");
-longitudinalplot(indv, group_by = 'Site', style = {'g','r'})
+plot(indv, group_by = 'Site', style = {'g','r'})
 li = findobj(h,'Type','Line');
 
 assert(all(strcmp({li.LineStyle},'-')))
@@ -188,7 +188,7 @@ assert(isequal(li(2).Color,[0 1 0]))
 
 % ungrouped plot
 h2 = figure("Visible","off");
-longitudinalplot(indv, style = 'g:')
+plot(indv, style = 'g:')
 li2 = findobj(h2,'Type','Line');
 
 assert(all(strcmp(li2.LineStyle,':')))

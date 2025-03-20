@@ -295,17 +295,16 @@ classdef Individual < matlab.mixin.Copyable & ColumnClass
 
         end
         
-        
-        
+                
         %% Script level methods
 
-        function varargout = plot(obj,varargin)
-        %PLOT Plot experimental data and simulations
-        %   PLOT(OBJ) displays the default plots defined in the plot
-        %   template.
+        function varargout = defaultPlots(obj,varargin)
+        %DEFAULTPLOTS Plot experimental data and simulations
+        %   DEFAULTPLOTS(OBJ) displays the default plots defined in the 
+        %   plot template.
         %
-        %   PLOT(OBJ, TYPE) displays graphics TYPE, which must also be
-        %   defined in the plot template, but not necessarily as a default
+        %   DEFAULTPLOTS(OBJ, TYPE) displays graphics TYPE, which must also
+        %   be defined in the plot template, but not necessarily as a default
         %   plot.
         %
         %   For changing the behaviour of the plot method, define a custom 
@@ -315,7 +314,7 @@ classdef Individual < matlab.mixin.Copyable & ColumnClass
         %
         %   where PLOTTEMPL is the name of the custom plot template.
         %      
-        %   See also PLOTTEMPLATE, LONGITUDINALPLOT
+        %   See also PLOTTEMPLATE, INDIVIDUAL/PLOT
 
             checkHandleDuplicates(obj)
 

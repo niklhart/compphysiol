@@ -1,15 +1,13 @@
 {
-    "longitudinalplot": 
+    "Individual.plot": 
     {
         "inputs": 
         [
             {"name":"indv", "kind":"required", "type":"Individual", "purpose":"Individual object (array) to plot"},
             {"name":"tunit", "kind":"namevalue", "type":"DimVar", "purpose":"Time unit"},
             {"name":"yunit", "kind":"namevalue", "type":[["double","DimVar"]], "purpose":"Unit(s) of observable"},
-            {"name":"subplot_by", "kind":"namevalue", "type":"choices={'ID','Observable','IdType','Name','Compound','Site','Subspace','Binding','UnitType'}", "purpose":"Variable to subplot by"},
-            {"name":"group_by", "kind":"namevalue", "type":"choices={'ID','Observable','IdType','Name','Compound','Site','Subspace','Binding','UnitType'}", "purpose":"Variable to group by"},
-            {"name":"subplot_lvl", "kind":"namevalue", "purpose":"Subplot levels"},
-            {"name":"group_lvl", "kind":"namevalue", "purpose":"Grouping levels"},
+            {"name":"subplot_by", "kind":"namevalue", "type":"choices={'ID','Observable','IdType','Name','Compound','Site','Subspace','Binding','UnitType'}", "purpose":"Variable(s) to subplot by"},
+            {"name":"group_by", "kind":"namevalue", "type":"choices={'ID','Observable','IdType','Name','Compound','Site','Subspace','Binding','UnitType'}", "purpose":"Variable(s) to group by"},
             {"name":"Site", "kind":"namevalue", "purpose":"Site to filter by"},
             {"name":"Subspace", "kind":"namevalue", "purpose":"Subspace to filter by"},
             {"name":"Binding", "kind":"namevalue", "purpose":"Binding level to filter by"},
@@ -19,7 +17,6 @@
             {"name":"xscalelog", "kind":"namevalue", "type":["logical","scalar"], "purpose":"Use logarithmic X axis?"},
             {"name":"yscalelog", "kind":"namevalue", "type":["logical","scalar"], "purpose":"Use logarithmic Y axis?"},
             {"name":"title", "kind":"namevalue", "purpose":"Global plot title"},
-            {"name":"maxSubplots", "kind":"namevalue", "purpose":"Max. # of subplots"},
             {"name":"maxSubplotRows", "kind":"namevalue", "purpose":"Max. # of subplot rows"},
             {"name":"maxSubplotCols", "kind":"namevalue", "purpose":"Max. # of subplot columns"},
             {"name":"linkAxes", "kind":"namevalue", "type":["logical","scalar"], "purpose":"Link subplot axes?"},

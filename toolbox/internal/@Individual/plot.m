@@ -1,13 +1,13 @@
-%LONGITUDINALPLOT Plotting function for longitudinal data
-%   LONGITUDINALPLOT(INDIVIDUAL) produces an observable-time plot for the
+%PLOT Plotting method of Individual class
+%   PLOT(INDIVIDUAL) produces an observable-time plot for the
 %   Individual object (array) INDIVIDUAL, with default options.
 %
-%   LONGITUDINALPLOT(INDIVIDUAL,NM1,VAL1,NM2,VAL2,...) uses plot options 
+%   PLOT(INDIVIDUAL,NM1,VAL1,NM2,VAL2,...) uses plot options 
 %   specified as name-value pairs NM1,VAL1,NM2,VAL2,... (see below)
 %
-%   H = LONGITUDINALPLOT(...) returns the handle to the plot.
+%   H = PLOT(...) returns the handle to the plot.
 %
-%   TAB = LONGITUDINALPLOT(INDIVIDUAL, 'tableOutput', true, ...) returns an
+%   TAB = PLOT(INDIVIDUAL, 'tableOutput', true, ...) returns an
 %   aggregated table that can be used for customized plotting if there is
 %   need for more control over the plots. Of the additional arguments (...)
 %   provided, only 'obs' will impact (=subsetting TAB) on the output. No
@@ -51,10 +51,10 @@
 %   style            cellstr of plotting styles []
 %                    (e.g., {'b:','r-'})
 %   
-%   See also Individual/plot, plottemplate, parseplotinput, xyplotter
+%   See also plottemplate, parseplotinput, xyplotter
 %   compileplottable, aggregatelevels, toolboxplot, percentileplot
 
-function varargout = longitudinalplot(individual, varargin)
+function varargout = plot(individual, varargin)
 
     %% Input check
     nargoutchk(0,1)
