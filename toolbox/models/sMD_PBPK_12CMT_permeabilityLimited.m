@@ -420,6 +420,18 @@ function yobs = obsfun(output, setup, obs)
 %       Site:     'pla'
 %       Binding:  'total','unbound'
 %       UnitType: 'Mass/Volume','Amount/Volume'
+%
+%   Type 'ArmVein':
+%       Subspace: 'ery','pla','vas'
+%       Binding:  'total','unbound'
+%       UnitType: 'Mass/Volume','Amount/Volume'
+%   
+%   Type 'NormalizedConc':
+%       Site:     'adi','bon','gut','hea','kid','liv','lun','mus','ski','spl'
+%       Subspace: 'exc','cel'
+%       - OR- 
+%       Site:     'art','ven'
+%       Subspace: 'vas','exc','tot'       
 %    
 %   Type 'MassBalance':
 %       UnitType: 'Mass','Amount'

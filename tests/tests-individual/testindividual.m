@@ -226,7 +226,8 @@ assertError(@() sim2exp(vid), 'compphysiol:Individual:sim2exp:needVirtualIndivid
 vid = Individual('Virtual',2);
 
 % not simulated virtual individual
-assertError(@() plot(vid), 'compphysiol:Individual:checkSimulated:notSimulated')
+assertError(@() plot(vid), ...
+    'compphysiol:Individual:checkSimulatedOrExperimental:notSimOrExp')
 
 obs = Observable('MultiPK','A','pla');
 vid(1).model = test_model();

@@ -25,7 +25,8 @@ assert(isequal(size(tab3), [6 9]))
 
 % Using with not initialized individual
 indv2 = Individual('Virtual');
-assertError(@() compileplottable(indv2), 'compphysiol:Individual:checkSimulated:notSimulated')
+assertError(@() compileplottable(indv2), ...
+    'compphysiol:Individual:checkSimulatedOrExperimental:notSimOrExp')
 
 %% Individual with empty name
 % TODO: switch to test model

@@ -4,6 +4,7 @@ classdef Individual < matlab.mixin.Copyable & ColumnClass
     %   The following modelling methods are available:
     %   - Individual/simulate
     %   - Individual/plot
+    %   - Individual/percentileplot
     %   - Individual/initialize
     %   - Individual/estimate
     %   - Individual/observe
@@ -543,6 +544,13 @@ classdef Individual < matlab.mixin.Copyable & ColumnClass
             if ~all(issimulated(obj),'all')
                 msg = 'All elements in Individual array must have simulation output.';
                 error('compphysiol:Individual:checkSimulated:notSimulated', msg)
+            end
+        end
+
+        function checkSimulatedOrExperimental(obj)
+            if ~all(issimulated(obj) | isexpid(obj), 'all')
+                msg = 'All elements in Individual array must have simulation output or experimental data.';
+                error('compphysiol:Individual:checkSimulatedOrExperimental:notSimOrExp', msg)
             end
         end
 

@@ -51,8 +51,8 @@
 %   style            cellstr of plotting styles []
 %                    (e.g., {'b:','r-'})
 %   
-%   See also plottemplate, parseplotinput, xyplotter
-%   compileplottable, aggregatelevels, toolboxplot, percentileplot
+%   See also Individual/percentileplot, plottemplate, parseplotinput,   
+%   xyplotter, compileplottable, aggregatelevels, toolboxplot. 
 
 function varargout = plot(individual, varargin)
 

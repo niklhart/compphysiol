@@ -12,7 +12,7 @@
 
 function tab = compileplottable(individual, obsargs)
 
-    checkSimulated(individual);
+    checkSimulatedOrExperimental(individual);
 
     nid = numel(individual);
     tabs = cell(nid,1);

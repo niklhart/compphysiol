@@ -1,4 +1,4 @@
-%PERCENTILEPLOT Plotting function for percentile plots
+%PERCENTILEPLOT Percentile plot method for the Individual class
 %   PERCENTILEPLOT(INDIVIDUAL) produces a percentile plot for the
 %   Individual object (array) INDIVIDUAL, with default options.
 %
@@ -29,7 +29,6 @@
 %   xscalelog        log x axis (boolean)?      From global options      
 %   yscalelog        log y axis (boolean)?      From global options      
 %   title            Global plot title          [] (no title)
-%   maxSubplots      Max # of subplots          12 
 %   maxSubplotRows   Max # of subplot rows       3 
 %   maxSubplotCols   Max # of subplot cols       4 
 %   linkAxes         Link axes of subplots?     true if all yunits are equal
@@ -66,7 +65,7 @@ function varargout = percentileplot(individual, varargin)
     pRes.style = {''}; % no plotting style required
 
     %% Early return if table output was requested
-    % (TODO: rather a summary of percentiles)??
+    % (TODO: rather a summary of percentiles?)
     if pRes.tableOutput
         varargout{1} = tab;
         return
