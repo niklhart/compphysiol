@@ -1,4 +1,6 @@
-	<a href="matlab:helpPopup Physiology">Physiology</a> object (human35f) with parameters:
+	<a href="matlab:helpPopup Physiology">Physiology</a> object:
+
+	"human35f" with parameters
 
 species: human
 type: Caucasian
@@ -35,3 +37,5 @@ rtpLip: [11 values]
 co: 5.9 L/min
 fqbloCO: [34 values]
 Qblo: [10 values]
+
+

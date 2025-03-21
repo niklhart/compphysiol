@@ -352,8 +352,29 @@ classdef Physiology < DB
         end
 
         function str = obj2str(obj, context)
+
             switch context
+                case 'scalar'
+
+                    isAllEmpty = all(structfun(@isempty,obj.db));
+                    if isAllEmpty
+                        if isempty(obj.name)
+                            str = '(unnamed, empty)';
+                        else
+                            str = ['"' obj.name '" (empty)'];
+                        end
+                    else
+                        if isempty(obj.name)
+                            head = '\n';
+                        else
+                            head = ['"' obj.name '" with parameters\n\n'];
+                        end
+                        body = evalc('dispdbcontent(obj)');
+                        str = [head body];
+                    end
+
                 case {'array','table'}
+
                     nm = fieldnames(obj.db);
                     exclude = Physiology.pertissue | structfun(@isempty,obj.db);
                     nm = nm(~exclude);
@@ -367,34 +388,13 @@ classdef Physiology < DB
                     if isempty(str)
                         str = '(empty)';
                     end
+
                 otherwise
                     error('compphysiol:Physiology:obj2str:unknownContext', ...
                         'Function not defined for context "%s"',context)
             end
 
        end
-
-       function disp(obj,N)
-            if isscalar(obj)
-                link = helpPopupStr('Physiology');
-                if all(structfun(@isempty,obj.db))
-                    fprintf('\tEmpty %s object.\n\n',link)
-                else
-                    nm = obj.name;
-                    if isempty(nm)
-                        nm = 'unnamed';
-                    end
-                    fprintf('\t%s object (%s) with parameters:\n\n',link,nm)
-                    dispdbcontent(obj)
-                end 
-            else
-                if nargin == 1
-                    disp@ColumnClass(obj)
-                else
-                    disp@ColumnClass(obj,N)
-                end
-            end
-        end
 
     end
 

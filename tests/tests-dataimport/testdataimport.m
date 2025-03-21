@@ -33,6 +33,7 @@ data2.flagcov('BH', 'BH');
 expid2 = import(data2,'silent');
 physarr = [expid2.physiology];
 
+assert(iscolumn(expid2))
 assert(all(hasrecord(physarr,'sex')))
 assert(all(hasrecord(physarr,'age')))
 assert(all(hasrecord(physarr,'BW')))

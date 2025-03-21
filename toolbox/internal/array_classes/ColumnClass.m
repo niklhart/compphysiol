@@ -26,10 +26,10 @@ classdef (Abstract, HandleCompatible) ColumnClass
         end
 
         % cancel effects of reshaping operators
-        function obj = transpose(obj);   end
-        function obj = ctranspose(obj);  end
-        function obj = permute(obj,~);  end
-        function obj = reshape(obj,varargin);  end
+        function obj = transpose(obj);        obj = obj(:);  end
+        function obj = ctranspose(obj);       obj = obj(:);  end
+        function obj = permute(obj,~);        obj = obj(:);  end
+        function obj = reshape(obj,varargin); obj = obj(:);  end
 
         % repeat all/single elements
         function out = repmat(obj,varargin)
@@ -110,7 +110,8 @@ classdef (Abstract, HandleCompatible) ColumnClass
                 end
                 out = char(tmp{:});
             else
-                error('Input to num2str must be numeric.')
+                error('MATLAB:num2str:nonNumericInput', ...
+                    'Input to num2str must be numeric.')
             end
         end
         

@@ -43,6 +43,9 @@ dd2 = DrugData;
 assertEqualsDiary(@() disp(dd2), ...
     'testdrugdata_disp2.txt');
 
+dd3 = DrugData.empty;
+assertEqualsDiary(@() disp(dd3), ...
+    'testdrugdata_disp3.txt');
 
 %% Database record manipulation
 

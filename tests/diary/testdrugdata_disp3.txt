@@ -1,0 +1,2 @@
+	Empty <a href="matlab:helpPopup DrugData">DrugData</a> array.
+

@@ -7,7 +7,7 @@
     <param.summary>Computational Physiology Toolbox</param.summary>
     <param.description>"compphysiol" is a MATLAB toolbox for computations with physiology-based models, in particular physiologically-based pharmacokinetics. It features a modular object-oriented design, has fully integrated unit computation capabilities and an intuitive scripting language.</param.description>
     <param.screenshot>${PROJECT_ROOT}/images/toolboxPackaging.png</param.screenshot>
-    <param.version>0.1.5.44</param.version>
+    <param.version>0.2.0.47</param.version>
     <param.output>${PROJECT_ROOT}/compphysiol.mltbx</param.output>
     <param.products.name />
     <param.products.id />
@@ -37,10 +37,22 @@
     <param.exclude.pcodedmfiles>true</param.exclude.pcodedmfiles>
     <param.examples>&lt;?xml version="1.0" encoding="utf-8"?&gt;
 &lt;examples&gt;
-   &lt;exampleCategory name="units"&gt;
-      &lt;example name="u" type="html"&gt;
-         &lt;file type="source"&gt;/internal/units/html/u.html&lt;/file&gt;
-         &lt;file type="main"&gt;/internal/units/u.m&lt;/file&gt;
+   &lt;exampleCategory name="Tutorials"&gt;
+      &lt;example name="Accessing physiology and drug databases" type="html"&gt;
+         &lt;file type="source"/&gt;
+         &lt;file type="main"/&gt;
+         &lt;file type="thumbnail"/&gt;
+      &lt;/example&gt;
+      &lt;example name="Customizing physiology and drug databases" type="html"&gt;
+         &lt;file type="source"/&gt;
+         &lt;file type="main"/&gt;
+         &lt;file type="thumbnail"/&gt;
+      &lt;/example&gt;
+   &lt;/exampleCategory&gt;
+   &lt;exampleCategory name="Default Category"&gt;
+      &lt;example name="Solution of tutorials" type="html"&gt;
+         &lt;file type="source"/&gt;
+         &lt;file type="main"/&gt;
          &lt;file type="thumbnail"/&gt;
       &lt;/example&gt;
    &lt;/exampleCategory&gt;
@@ -48,7 +60,7 @@
     <param.demosxml />
     <param.apps />
     <param.registered.apps />
-    <param.docs />
+    <param.docs>${PROJECT_ROOT}/toolbox/info.xml</param.docs>
     <param.getting.started.guide />
     <param.matlabpath.excludes />
     <param.javaclasspath.excludes />
@@ -79,7 +91,6 @@
       <param.demosxml />
       <param.apps />
       <param.registered.apps />
-      <param.docs />
       <param.getting.started.guide />
       <param.matlabpath.excludes />
       <param.javaclasspath.excludes />
@@ -103,11 +114,12 @@
       <file>${PROJECT_ROOT}/toolbox</file>
     </fileset.rootdir>
     <fileset.rootfiles>
+      <file>${PROJECT_ROOT}/toolbox/Contents.m</file>
       <file>${PROJECT_ROOT}/toolbox/data</file>
       <file>${PROJECT_ROOT}/toolbox/demos.xml</file>
       <file>${PROJECT_ROOT}/toolbox/examples</file>
       <file>${PROJECT_ROOT}/toolbox/gettingStarted.mlx</file>
-      <file>${PROJECT_ROOT}/toolbox/initcompphysiol.m</file>
+      <file>${PROJECT_ROOT}/toolbox/info.xml</file>
       <file>${PROJECT_ROOT}/toolbox/internal</file>
       <file>${PROJECT_ROOT}/toolbox/models</file>
     </fileset.rootfiles>

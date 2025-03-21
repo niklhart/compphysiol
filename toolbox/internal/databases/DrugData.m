@@ -45,44 +45,39 @@ classdef DrugData < DB
         end
         
         function str = obj2str(obj, context)
+
+            isEmpty = structfun(@isempty,obj.db);
+            isAllEmpty = all(isEmpty);
+
             switch context
+                case 'scalar'
+
+                    if isAllEmpty
+                        str = '(empty)';
+                    else
+                        str1 = sprintf('%s (%s, %s) with parameters:\n\n',...
+                                obj.name,obj.class,obj.subclass);
+                        str2 = evalc('dispdbcontent(obj)');
+                        str = [str1 str2];
+                    end
+
                 case {'array','table'}
 
                     cl = {obj.name, obj.class, obj.subclass};
                     cl = cl(~cellfun(@isempty,cl));
 
-                    isEmpty = structfun(@isempty,obj.db);
-                    isAllEmpty = all(isEmpty);
                     if isAllEmpty
                         cl = [cl, {'(empty)'}];
                     else
                         cl = [cl, {['(' num2str(sum(~isEmpty)) ' parameters)']}];
                     end
                     str = strjoin(cl,'\t');
+                    
                 otherwise
                     error('compphysiol:DrugData:obj2str:unknownContext', ...
                         'Function not defined for context "%s"',context)
             end
 
-        end
-
-        function disp(obj,N)
-            if isscalar(obj)
-                link = helpPopupStr('DrugData');
-                if all(structfun(@isempty,obj.db))
-                    fprintf('\tEmpty %s object.\n\n',link)
-                else
-                    fprintf('\t%s object (%s,%s,%s) with parameters:\n\n',...
-                        link,obj.name,obj.class,obj.subclass)
-                    dispdbcontent(obj)
-                end 
-            else
-                if nargin == 1
-                    disp@ColumnClass(obj)
-                else
-                    disp@ColumnClass(obj,N)
-                end
-            end
         end
 
         function addrecord(obj, nm, varargin)

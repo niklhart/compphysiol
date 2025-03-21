@@ -7,12 +7,11 @@ Value = [0.2; 0.3; 1.2; 1.3; 2.2; 2.3; 3.2; 3.3]*u.kg/u.m^3;
 
 tbl = table(Time, Site, Subspace, Value);
 
-
-%% Correct usage: single plot
-
-% temporarily deactivate display units for this test
+% temporarily deactivate display units for these tests
 oldopt = setoptcompphysiol('DisplayUnits',{});
 c = onCleanup(@() setoptcompphysiol(oldopt));
+
+%% Correct usage: single plot
 
 % empty input units
 [tUnit, yUnit] = getunits(tbl, [], []);

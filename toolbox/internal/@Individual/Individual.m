@@ -315,7 +315,7 @@ classdef Individual < matlab.mixin.Copyable & ColumnClass
         %
         %   where PLOTTEMPL is the name of the custom plot template.
         %      
-        %   See also PLOTTEMPLATE, INDIVIDUAL/PLOT
+        %   See also PLOTTEMPLATE, INDIVIDUAL/PLOT, INDIVIDUAL/PERCENTILEPLOT.
 
             checkHandleDuplicates(obj)
 

@@ -1,4 +1,6 @@
-	<a href="matlab:helpPopup DrugData">DrugData</a> object (drugA,sMD,acid) with parameters:
+	<a href="matlab:helpPopup DrugData">DrugData</a> object:
+
+	drugA (sMD, acid) with parameters:
 
 MW: 0.30833 kg/mol
 pKa_ani: 5.08
@@ -11,3 +13,5 @@ K_ery_up: [2 values]
 lambda_po: [2 values]
 Egut: [3 values]
 Efeces: [3 values]
+
+

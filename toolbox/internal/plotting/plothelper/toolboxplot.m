@@ -74,7 +74,14 @@ function h = toolboxplot(tab, plotter, options)
 
         % subplot titles
         if isplotgrid
-            title([options.subplot_by ' = ' num2str(subplot_lvl{i})])
+            switch options.subplot_label
+                case 'name/value'
+                    title([options.subplot_by ' = ' num2str(subplot_lvl{i})])
+                case 'value'
+                    title(num2str(subplot_lvl{i}))
+                case 'none'
+                    % pass
+            end
         end
 
         % inverting role of col <--> row since tiledlayout works by row, 

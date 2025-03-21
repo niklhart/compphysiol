@@ -18,6 +18,9 @@
 %                    a cellstr of those.
 %   xlabel           x label (without tunit)    'Time'
 %   ylabel           y label (without yunit)    'Data'
+%   subplot_label    subplot labelling method   'name/value'
+%                    ('name/value','value' or
+%                    'none')
 %   xscalelog        log x axis (boolean)?      From global options      
 %   yscalelog        log y axis (boolean)?      From global options      
 %   title            Global plot title          [] (no title)
@@ -53,6 +56,7 @@ function pRes = parseplotinput(varargin)
     p.addParameter('Type',           [],             @ischar);
     p.addParameter('xlabel',         'Time',         @ischar);
     p.addParameter('ylabel',         'Data',         @ischar);
+    p.addParameter('subplot_label',  'name/value',   @(x) ismember(x,{'name/value','value','none'}));
     p.addParameter('xscalelog',      getoptcompphysiol('XScaleLog'),  @isboolean);
     p.addParameter('yscalelog',      getoptcompphysiol('YScaleLog'),  @isboolean);
     p.addParameter('title',          [],             @ischar);
@@ -75,7 +79,6 @@ function pRes = parseplotinput(varargin)
         pRes.plotter = @(T,u,~) percentileplotter(T,'Time','Value',u{1},u{2},pRes.coverage);
     end
 
-
     %% Derived plot options
     
     % polish option priority: 
@@ -83,20 +86,5 @@ function pRes = parseplotinput(varargin)
     %   2) global plot options
     %   3) defaults defined in polish 
     pRes.polish = mergestructs(getoptcompphysiol('PlotOptions'), pRes.polish);
-end
-    
-function tf = isaggregation(x)
-    
-    if iscell(x) && ~iscellstr(x)
-         % cell array of cellstr --> unnamed aggregation --> ok
-        tf = all(cellfun(@iscellstr,x),'all');   
-    elseif isstruct(x)
-        % struct of cellstr --> named aggregation --> ok
-        tf = all(structfun(@iscellstr,x),'all');  
-    else
-        % cellstr --> equivalent to scalar cell of cellstr --> ok
-        tf = iscellstr(x);
-    end
-
 end
     

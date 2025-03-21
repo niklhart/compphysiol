@@ -1,2 +1,4 @@
-	Empty <a href="matlab:helpPopup Physiology">Physiology</a> object.
+	<a href="matlab:helpPopup Physiology">Physiology</a> object:
+
+	(unnamed, empty)
 
