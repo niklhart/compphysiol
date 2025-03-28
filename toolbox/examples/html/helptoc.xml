@@ -1,22 +1,69 @@
-<?xml version='1.0' encoding="utf-8"?>
-
+<?xml version="1.0" encoding="utf-8"?>
 <toc version="2.0">
-    <tocitem target="GettingStarted.html">Getting Started
-    
-    </tocitem>
-
-<!-- First tocitem specifies top level in Help browser Contents pane -->
-<!-- This can be a roadmap page, as shown below, or a content page -->
-    <tocitem target="solution_tutorials.html">Solution to tutorials
-        <!-- Nest tocitems to create hierarchical entries in  Contents-->
-        <!-- To include icons, use the following syntax for tocitems: -->
-        <!-- <tocitem target="foo.html" image="HelpIcon.NAME"> -->
-        <!-- Title-of-Section </tocitem> -->
-        <!-- where NAME is one of the following (use capital letters): -->
-        <!-- FUNCTION, USER_GUIDE, EXAMPLES, BLOCK, GETTING_STARTED, -->
-        <!-- DEMOS, RELEASE_NOTES --> 
-        <!-- Icon images used for these entries are also stored in -->
-        <!-- matlabroot/toolbox/matlab/icons -->
-        <!-- A Getting Started Guide usually comes first -->
+    <tocitem target="index.html">
+        Computational Physiology Toolbox
+        <tocitem target="function-index.html">
+            Function Index
+        </tocitem>
+        <tocitem target="gettingStarted.html">
+            Getting started with the Computational Physiology Toolbox
+        </tocitem>
+        <tocitem target="index.html">
+            Toolbox Documentation
+        </tocitem>
+        <tocitem target="solution_tutorials.html">
+            Solutions to all tutorial exercises
+        </tocitem>
+        <tocitem target="tutorial_accessing_physiology_and_drug_databases.html">
+            Tutorial: Accessing physiology and drug databases
+        </tocitem>
+        <tocitem target="tutorial_customizing_physiology_and_drug_databases.html">
+            Tutorial: Customizing physiology and drug databases
+        </tocitem>
+        <tocitem target="tutorial_defining_a_dosing_scheme.html">
+            Tutorial: Defining a dosing scheme
+        </tocitem>
+        <tocitem target="tutorial_defining_a_physiology.html">
+            Tutorial: Defining a physiology
+        </tocitem>
+        <tocitem target="tutorial_defining_a_sampling_scheme.html">
+            Tutorial: Defining a sampling scheme
+        </tocitem>
+        <tocitem target="tutorial_defining_an_observable.html">
+            Tutorial: Defining an observable
+        </tocitem>
+        <tocitem target="tutorial_getting_help.html">
+            Tutorial: Getting help
+        </tocitem>
+        <tocitem target="tutorial_getting_started.html">
+            Tutorial: Getting started
+        </tocitem>
+        <tocitem target="tutorial_global_options.html">
+            Tutorial: Global options
+        </tocitem>
+        <tocitem target="tutorial_importing_experimental_data.html">
+            Tutorial: Importing experimental data
+        </tocitem>
+        <tocitem target="tutorial_lumping.html">
+            Tutorial: Lumping
+        </tocitem>
+        <tocitem target="tutorial_plot_customizations.html">
+            Tutorial: Plot customizations
+        </tocitem>
+        <tocitem target="tutorial_script_level_information_for_models.html">
+            Tutorial: Script-level information for models
+        </tocitem>
+        <tocitem target="tutorial_the_individual_class.html">
+            Tutorial: The Individual class
+        </tocitem>
+        <tocitem target="tutorial_virtual_populations.html">
+            Tutorial: Virtual populations
+        </tocitem>
+        <tocitem target="tutorial_workflow_simulate_plot.html">
+            Tutorial: Workflow "Simulate + Plot"
+        </tocitem>
+        <tocitem target="tutorial_working_with_units.html">
+            Tutorial: Working with units
+        </tocitem>
     </tocitem>
 </toc>

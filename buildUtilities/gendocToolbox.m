@@ -12,5 +12,16 @@ function gendocToolbox(rootDir)
         [~, filename] = fileparts(mlxFiles(iFile));
         export(fullfile(docDir,mlxFiles(iFile)),fullfile(htmlDir,filename + ".html"));
     end
+
+    % create alphabetical function list
+    internalDir = fullfile(rootDir,'toolbox','internal');
+    generateFunctionIndex(internalDir,htmlDir)
+
+    % create helptoc.xml file
+    generateHelptoc(htmlDir)
+
+    % make the documentation searchable
+    builddocsearchdb(htmlDir)
+
 end
 

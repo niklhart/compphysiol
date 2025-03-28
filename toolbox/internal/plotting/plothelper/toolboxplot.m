@@ -129,12 +129,16 @@ function h = toolboxplot(tab, plotter, options)
         pause(0.15)  % linkaxis takes some time; otherwise legends/titles 
                      % are sometimes plotted into the wrong figure
     end
+
+    % process legend
     if isgrouped
-        leg = legend(group_lvl{:},'Location','East');
+        loc = 'northeast';
+        leg = legend(group_lvl{:},'Location',loc);
         title(leg, options.group_by)
-        % if isplotgrid
-        %     leg.Layout.Tile = 'East'; %TODO: turn legend placement into a plot option
-        % end
+        if isplotgrid && nSub < nRow*nCol
+            % last tile: good default positioning
+            leg.Layout.Tile = nRow*nCol;
+        end
     end
     
     polish(h, options.polish)

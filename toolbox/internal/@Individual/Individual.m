@@ -331,7 +331,35 @@ classdef Individual < matlab.mixin.Copyable & ColumnClass
             end
         end
         
+        % variants of 'plot' with one or two logarithmic axes
         
+        function varargout = semilogy(obj, varargin)
+        %SEMILOGY Semilogarithmic plot for Individual class
+            nargoutchk(0,1)
+            h = plot(obj, 'yscalelog', true, varargin{:});
+            if nargout == 1
+                varargout{1} = h;
+            end
+        end
+
+        function varargout = semilogx(obj, varargin)
+        %SEMILOGX Semilogarithmic plot for Individual class
+            nargoutchk(0,1)
+            h = plot(obj, 'xscalelog', true, varargin{:});
+            if nargout == 1
+                varargout{1} = h;
+            end
+        end
+
+        function varargout = loglog(obj, varargin)
+        %LOGLOG Double-logarithmic plot for Individual class
+            nargoutchk(0,1)
+            h = plot(obj, 'xscalelog', true, 'yscalelog', true, varargin{:});
+            if nargout == 1
+                varargout{1} = h;
+            end
+        end
+
         function initialize(obj)
         %INITIALIZE Initialize virtual individuals
         %   INITIALIZE(OBJ) initializes the model setup struct for any 
