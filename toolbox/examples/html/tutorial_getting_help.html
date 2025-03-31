@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,chrome=1"><meta name="generator" content="MATLAB 2023b"><title>Tutorial: Getting help</title><style type="text/css">.rtcContent { padding: 30px; } .S0 { margin: 3px 10px 5px 4px; padding: 0px; line-height: 28.8px; min-height: 0px; white-space: pre-wrap; color: rgb(192, 76, 11); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 24px; font-weight: 400; text-align: left;  }
+.S1 { margin: 2px 10px 9px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 400; text-align: left;  }
+.S2 { margin: 10px 10px 5px 4px; padding: 0px; line-height: 18px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 15px; font-weight: 700; text-align: left;  }
+.CodeBlock { background-color: #F5F5F5; margin: 10px 0 10px 0; }
+.S3 { border-left: 1px solid rgb(217, 217, 217); border-right: 1px solid rgb(217, 217, 217); border-top: 1px solid rgb(217, 217, 217); border-bottom: 1px solid rgb(217, 217, 217); border-radius: 4px 4px 0px 0px; padding: 6px 45px 4px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S4 { color: rgb(33, 33, 33); padding: 10px 0px 6px 17px; background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box; font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px; overflow-x: hidden; line-height: 17.234px;  }
+/* Styling that is common to warnings and errors is in diagnosticOutput.css */.embeddedOutputsErrorElement {    min-height: 18px;    max-height: 550px;}
+.embeddedOutputsErrorElement .diagnosticMessage-errorType {    overflow: auto;}
+.embeddedOutputsErrorElement.inlineElement {}
+.embeddedOutputsErrorElement.rightPaneElement {}
+/* Styling that is common to warnings and errors is in diagnosticOutput.css */.embeddedOutputsWarningElement {    min-height: 18px;    max-height: 550px;}
+.embeddedOutputsWarningElement .diagnosticMessage-warningType {    overflow: auto;}
+.embeddedOutputsWarningElement.inlineElement {}
+.embeddedOutputsWarningElement.rightPaneElement {}
+/* Copyright 2015-2023 The MathWorks, Inc. *//* In this file, styles are not scoped to rtcContainer since they could be in the Dojo Tooltip */.diagnosticMessage-wrapper {    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;    font-size: 12px;}
+.diagnosticMessage-wrapper.diagnosticMessage-warningType {    /*This fallback value will be used for appdesigner warnings*/    color: var(--rtc-warning-output-color, var(--mw-color-matlabWarning));}
+.diagnosticMessage-wrapper.diagnosticMessage-warningType a {    /*This fallback value will be used for appdesigner warnings*/    color: var(--rtc-warning-output-color, var(--mw-color-matlabWarning));    text-decoration: underline;}
+.rtcThemeDefaultOverride .diagnosticMessage-wrapper.diagnosticMessage-warningType,.rtcThemeDefaultOverride .diagnosticMessage-wrapper.diagnosticMessage-warningType a {    color: var(--mw-color-matlabWarning) !important;}
+.diagnosticMessage-wrapper.diagnosticMessage-errorType {    /*This fallback value will be used in appdesigner error tooltip text*/    color: var(--rtc-error-output-color, var(--mw-color-matlabErrors));}
+.diagnosticMessage-wrapper.diagnosticMessage-errorType a {    /*This fallback value will be used in appdesigner error tooltip text*/    color: var(--rtc-error-output-color, var(--mw-color-matlabErrors));    text-decoration: underline;}
+.rtcThemeDefaultOverride .diagnosticMessage-wrapper.diagnosticMessage-errorType,.rtcThemeDefaultOverride .diagnosticMessage-wrapper.diagnosticMessage-errorType a {    color: var(--mw-color-matlabErrors) !important;}
+.diagnosticMessage-wrapper .diagnosticMessage-messagePart,.diagnosticMessage-wrapper .diagnosticMessage-causePart {    white-space: pre-wrap;}
+.diagnosticMessage-wrapper .diagnosticMessage-stackPart {    white-space: pre;}
+.embeddedOutputsTextElement,.embeddedOutputsVariableStringElement {    white-space: pre;    word-wrap:  initial;    min-height: 18px;    max-height: 550px;}
+.embeddedOutputsTextElement .textElement,.embeddedOutputsVariableStringElement .textElement {    overflow: auto;}
+.textElement,.rtcDataTipElement .textElement {    padding-top: 2px;}
+.embeddedOutputsTextElement.inlineElement,.embeddedOutputsVariableStringElement.inlineElement {}
+.inlineElement .textElement {}
+.embeddedOutputsTextElement.rightPaneElement,.embeddedOutputsVariableStringElement.rightPaneElement {    min-height: 16px;}
+.rightPaneElement .textElement {    padding-top: 2px;    padding-left: 9px;}
+.S5 { margin: 10px 10px 9px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 400; text-align: left;  }
+.S6 { border-left: 1px solid rgb(217, 217, 217); border-right: 1px solid rgb(217, 217, 217); border-top: 1px solid rgb(217, 217, 217); border-bottom: 0px none rgb(33, 33, 33); border-radius: 4px 4px 0px 0px; padding: 6px 45px 0px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S7 { border-left: 1px solid rgb(217, 217, 217); border-right: 1px solid rgb(217, 217, 217); border-top: 0px none rgb(33, 33, 33); border-bottom: 1px solid rgb(217, 217, 217); border-radius: 0px; padding: 0px 45px 4px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S8 { margin: 10px 0px 20px; padding-left: 0px; font-family: Helvetica, Arial, sans-serif; font-size: 14px;  }
+.S9 { margin-left: 56px; line-height: 21px; min-height: 0px; text-align: left; white-space: pre-wrap;  }</style></head><body><div class = rtcContent><h1  class = 'S0'><span>Tutorial: Getting help</span></h1><div  class = 'S1'><span>Similar to standard MATLAB, you can obtain help for any function, class or method in the Computational Physiology Toolbox using the </span><span style=' font-family: monospace;'>help</span><span> function at the command line. </span></div><h4  class = 'S2'><span>Help for functions</span></h4><div  class = 'S1'><span>The following code displays the help text on the function that does lean body weight-based scaling.</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S3'><span style="white-space: pre"><span >help </span><span style="color: #a709f5;">scaling_LBW</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement scrollableOutput" uid="35782867" prevent-scroll="true" data-testid="output_0" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent scrollArea" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="534" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"> <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">scaling_LBW</strong> Lean body weight-based scaling of physiological parameters.
+    TARGPHYS = <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">scaling_LBW</strong>(ORIGPHYS, TARGCOV), with Physiology objects
+    ORIGPHYS and TARGCOV, scales the detailed physiological properties of 
+    ORIGPHYS to the covariate information in TARGCOV using the scaling
+    approach described in Huisinga et al., CPT:PSP (2012) 1:e4.
+ 
+    This scaling method is only applicable for humans.
+ 
+    Physiological parameters required in ORIGPHYS:
+ 
+        'species','sex','age','BH','BW','BSA','hct','dens','rtpAlb',
+        'rtpLip','pH','fqbloCO','fnliVtis','fnphVtis','faphVtis',
+        'fintVtis','fwecVtis','fwicVtis','fwtotVtis','fregVtbl','fartVtbl',
+        'fvenVtbl','OWtis','Vtbl','fcelVtis','co'.
+ 
+    Possible physiological parameters in TARGCOV:
+ 
+        'species','sex','age','BH','BW'.
+ 
+    If any of these parameters are not specified in TARGCOV, they will be
+    taken from ORIGPHYS instead.
+ 
+    Output TARGPHYS will have the physiological parameters required in 
+    ORIGPHYS, scaled to TARGCOV.
+    
+    Examples:
+    
+    	origPhys = Physiology('human35m');
+        targCov  = Covariates('Species','human', ...
+                              'sex',    'male', ...
+                              'age',    40*u.y, ...
+                              'BW',     70*u.kg, ...
+                              'BH',     1.70*u.m);
+    	targPhys = <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">scaling_LBW</strong>(origPhys, targCov);
+ 
+    See also scaling_BW, Physiology, Covariates</div></div></div></div></div><div  class = 'S5'><span>Following MATLAB conventions, input/output arguments to the function described are shown in capital letters. At the bottom, there are links to related help pages, in this case, to another scaling method and to functions </span><span style=' font-family: monospace;'>Physiology()</span><span> and </span><span style=' font-family: monospace;'>Covariates()</span><span> which create physiologies.</span></div><h4  class = 'S2'><span>Help for classes</span></h4><div  class = 'S1'><span>For classes like </span><span style=' font-family: monospace;'>Bolus</span><span>, the help usually displays the purpose of the class:</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S3'><span style="white-space: pre"><span >help </span><span style="color: #a709f5;">Bolus</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="85D06122" prevent-scroll="true" data-testid="output_1" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="76" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"> <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Bolus</strong> Class for storing bolus dosing events
+    See also Dosing, SimpleDosing, ComplexDosing, Oral, Infusion,
+    Bolus/Bolus (constructor).
+
+    Documentation for Bolus</div></div></div></div></div><div  class = 'S5'><span>However, it does not explain how to create an object of that class. For that information, type</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S3'><span style="white-space: pre"><span >help </span><span style="color: #a709f5;">Bolus/Bolus</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="4FE5F789" prevent-scroll="true" data-testid="output_2" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="327" data-hashorizontaloverflow="false" style="max-height: 338px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"> <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Bolus</strong> Create a dosing object with bolus dosing
+    OBJ = <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Bolus</strong>(COMPOUND, TIME, DOSE, TARGET) creates an object of
+    class <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Bolus</strong>, OBJ, containing information from bolus dosing. The
+    following input is expected: 
+    * COMPOUND: a character array (e.g. 'Warfarin') or a cellstr
+    * TIME:     convertible to a Time-type DimVar, e.g. 0*u.h or '0 h'
+    * DOSE:     in most cases, a Mass- or Amount-type DimVar, e.g. 
+                200*u.ug or '200 ug', but units are not checked to allow
+                for dosing e.g. in [mg/kg]
+    * TARGET:   a character array (e.g. 'iv') or a cellstr
+ 
+    OBJ = <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Bolus</strong>(TAB) with a table TAB containing columns 'Compound', 
+    'Time', 'Dose' and 'Target' as specified above, is an equivalent
+    way of specifying bolus dosing.
+ 
+    Examples:
+ 
+        <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Bolus</strong>('Warfarin',0*u.h,10*u.mg,'iv')
+ 
+    See also Infusion, Oral, ComplexDosing
+
+    Documentation for Bolus/Bolus</div></div></div></div></div><div  class = 'S5'><span>In addition, by clicking on "Documentation for Bolus" below the class help provides additional information on the class properties and methods. For example, you can see the </span><span style=' font-family: monospace;'>Bolus</span><span> class has one properties: </span><span style=' font-family: monospace;'>schedule</span><span> (the tabular data structure in which bolus dosing information is stored), and seven methods: </span><span style=' font-family: monospace;'>combine()</span><span>, </span><span style=' font-family: monospace;'>compounds()</span><span>, </span><span style=' font-family: monospace;'>disp()</span><span>, </span><span style=' font-family: monospace;'>dosingTypes()</span><span>, </span><span style=' font-family: monospace;'>filterDosing()</span><span>, </span><span style=' font-family: monospace;'>plus()</span><span>, and </span><span style=' font-family: monospace;'>summary()</span><span>.</span></div><div  class = 'S1'><span>You can click on one of these to get help, say method </span><span style=' font-family: monospace;'>compounds</span><span>. The help page can also be accessed from the console via</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S3'><span style="white-space: pre"><span >help </span><span style="color: #a709f5;">Bolus/compounds</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="18D15790" prevent-scroll="true" data-testid="output_3" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="76" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"> <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">compounds</strong> Return compounds defined in a SimpleDosing object
+    CPD = <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">compounds</strong>(D), with a SimpleDosing object D, returns
+    the compounds specified in the schedule as a cellstr CPD.
+
+Help for <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Bolus/compounds</strong> is inherited from superclass SimpleDosing</div></div></div></div></div><h4  class = 'S2'><span>Function </span><span style=' font-family: monospace;'>about()</span></h4><div  class = 'S1'><span>Next, in addition to the </span><span style=' font-family: monospace;'>help</span><span> command, there is a specific function </span><span style=' font-family: monospace;'>about()</span><span> which provides information on physiological or drug-related parameters. This function can be used in different ways. </span></div><div  class = 'S1'><span>First, you can get a summary of the database content. As an example, we query the 250g reference rat in the physiological database:</span></div><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre"><span >rat = Physiology(</span><span style="color: #a709f5;">'rat250'</span><span >);</span></span></div></div><div class="inlineWrapper outputs"><div  class = 'S7'><span style="white-space: pre"><span >about(rat)</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement scrollableOutput" uid="3B1ABF54" prevent-scroll="true" data-testid="output_4" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent scrollArea" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="726" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Parameters in database rat250:
+- species:	1 record(s).
+- type:	1 record(s).
+- sex:	1 record(s).
+- age:	1 record(s).
+- BW:	1 record(s).
+- LBW:	1 record(s).
+- fowtisBW:	11 record(s).
+- ftblBW:	1 record(s).
+- hct:	1 record(s).
+- pH:	13 record(s).
+- OWtis:	11 record(s).
+- OWtot:	11 record(s).
+- OWrbt:	11 record(s).
+- OWtbl:	1 record(s).
+- fcelOWtot:	13 record(s).
+- fintOWtot:	13 record(s).
+- fvasOWtot:	13 record(s).
+- fresOWrbt:	11 record(s).
+- fcelOWtis:	13 record(s).
+- fintOWtis:	13 record(s).
+- faphOWtis:	12 record(s).
+- dens:	12 record(s).
+- Vtot:	11 record(s).
+- Vtis:	11 record(s).
+- Vvas:	11 record(s).
+- Vres:	11 record(s).
+- Vtbl:	1 record(s).
+- fcelVtot:	13 record(s).
+- fintVtot:	13 record(s).
+- fvasVtot:	13 record(s).
+- fcelVtis:	13 record(s).
+- fintVtis:	13 record(s).
+- fnliVtis:	13 record(s).
+- fnphVtis:	13 record(s).
+- faphVtis:	12 record(s).
+- fwecVtis:	11 record(s).
+- fwicVtis:	12 record(s).
+- fwtotVtis:	11 record(s).
+- fwecVrbt:	12 record(s).
+- fwicVrbt:	12 record(s).
+- fregVtbl:	11 record(s).
+- fartVtbl:	1 record(s).
+- fvenVtbl:	1 record(s).
+- rtpAlb:	11 record(s).
+- rtpLip:	11 record(s).
+- co:	1 record(s).
+- fqbloCO:	10 record(s).
+- Qblo:	10 record(s).</div></div></div></div></div><div  class = 'S5'><span>and you get a summary of records stored in this database. </span></div><div  class = 'S1'><span>Second, for any defined physiological or drug-related parameter in a database, you can get information about its meaning. For example, you might wonder what is </span><span style=' font-family: monospace;'>fwicVtis</span><span> in the summary above. Querying this parameter</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S3'><span style="white-space: pre"><span >about(</span><span style="color: #a709f5;">'fwicVtis'</span><span >)</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="DBCD077A" prevent-scroll="true" data-testid="output_5" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="46" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Description: Intracellular water fraction of tissue organ volume
+Unit type: unitless
+Per tissue parameter</div></div></div></div></div><div  class = 'S5'><span>gives the answer: Intracellular water fraction of tissue organ volume. It also provides the unit type of the parameter, in this case, it's unitless, and tells you whether the physiological parameter is scalar or defined per tissue.</span></div><div  class = 'S1'><span>Combining the two above calls, you can move one level into the database:</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S3'><span style="white-space: pre"><span >about(rat, </span><span style="color: #a709f5;">'fwicVtis'</span><span >)</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="B0193685" prevent-scroll="true" data-testid="output_6" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="253" data-hashorizontaloverflow="false" style="max-height: 264px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Entries for parameter fwicVtis in database rat250:
+
+    <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Tissue</strong>     <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Value</strong>       <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Source</strong>                                    <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Assumption</strong>                              
+    <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">_______</strong>    <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">_____</strong>    <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">____________</strong>    <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">_____________________________________________________________________</strong>
+
+    {'adi'}    0.009    {0×0 double}    {'Residual blood-corrected total minus extracellular water fraction'}
+    {'bon'}    0.317    {0×0 double}    {'Residual blood-corrected total minus extracellular water fraction'}
+    {'bra'}    0.591    {0×0 double}    {'Residual blood-corrected total minus extracellular water fraction'}
+    {'gut'}    0.456    {0×0 double}    {'Residual blood-corrected total minus extracellular water fraction'}
+    {'hea'}    0.248    {0×0 double}    {'Residual blood-corrected total minus extracellular water fraction'}
+    {'kid'}    0.399    {0×0 double}    {'Residual blood-corrected total minus extracellular water fraction'}
+    {'liv'}    0.481    {0×0 double}    {'Residual blood-corrected total minus extracellular water fraction'}
+    {'lun'}    0.238    {0×0 double}    {'Residual blood-corrected total minus extracellular water fraction'}
+    {'mus'}    0.608    {0×0 double}    {'Residual blood-corrected total minus extracellular water fraction'}
+    {'ski'}    0.276    {0×0 double}    {'Residual blood-corrected total minus extracellular water fraction'}
+    {'spl'}    0.355    {0×0 double}    {'Residual blood-corrected total minus extracellular water fraction'}
+    {'ery'}    0.603    {'derived' }    {0×0 char                                                           }</div></div></div></div></div><h4  class = 'S2'><span>Notation</span></h4><div  class = 'S1'><span>The final resource for getting help is the tutorial "Notation", which contains lists of important abbreviations used consistently within the toolbox:</span></div><ul  class = 'S8'><li  class = 'S9'><span>abbreviations for tissue subspaces, such as "cel" for the cellular part of a tissue,</span></li><li  class = 'S9'><span>abbreviations for organs, like "adi" for adipose tissue, </span></li><li  class = 'S9'><span>and finally abbreviations for tissue constituents, which are used during prediction of tissue partitioning.</span></li></ul><div  class = 'S1'><span></span></div><div  class = 'S1'><span></span></div><div  class = 'S1'><span></span></div><div  class = 'S1'></div>
+<br>
+<!-- 
+##### SOURCE BEGIN #####
+%% Tutorial: Getting help
+% Similar to standard MATLAB, you can obtain help for any function, class or 
+% method in the Computational Physiology Toolbox using the |help| function at 
+% the command line. 
+% Help for functions
+% The following code displays the help text on the function that does lean body 
+% weight-based scaling.
+
+help scaling_LBW
+%% 
+% Following MATLAB conventions, input/output arguments to the function described 
+% are shown in capital letters. At the bottom, there are links to related help 
+% pages, in this case, to another scaling method and to functions |Physiology()| 
+% and |Covariates()| which create physiologies.
+% Help for classes
+% For classes like |Bolus|, the help usually displays the purpose of the class:
+
+help Bolus
+%% 
+% However, it does not explain how to create an object of that class. For that 
+% information, type
+
+help Bolus/Bolus
+%% 
+% In addition, by clicking on "Documentation for Bolus" below the class help 
+% provides additional information on the class properties and methods. For example, 
+% you can see the |Bolus| class has one properties: |schedule| (the tabular data 
+% structure in which bolus dosing information is stored), and seven methods: |combine()|, 
+% |compounds()|, |disp()|, |dosingTypes()|, |filterDosing()|, |plus()|, and |summary()|.
+% 
+% You can click on one of these to get help, say method |compounds|. The help 
+% page can also be accessed from the console via
+
+help Bolus/compounds
+% Function |about()|
+% Next, in addition to the |help| command, there is a specific function |about()| 
+% which provides information on physiological or drug-related parameters. This 
+% function can be used in different ways. 
+% 
+% First, you can get a summary of the database content. As an example, we query 
+% the 250g reference rat in the physiological database:
+
+rat = Physiology('rat250');
+about(rat)
+%% 
+% and you get a summary of records stored in this database. 
+% 
+% Second, for any defined physiological or drug-related parameter in a database, 
+% you can get information about its meaning. For example, you might wonder what 
+% is |fwicVtis| in the summary above. Querying this parameter
+
+about('fwicVtis')
+%% 
+% gives the answer: Intracellular water fraction of tissue organ volume. It 
+% also provides the unit type of the parameter, in this case, it's unitless, and 
+% tells you whether the physiological parameter is scalar or defined per tissue.
+% 
+% Combining the two above calls, you can move one level into the database:
+
+about(rat, 'fwicVtis')
+% Notation
+% The final resource for getting help is the tutorial "Notation", which contains 
+% lists of important abbreviations used consistently within the toolbox:
+%% 
+% * abbreviations for tissue subspaces, such as "cel" for the cellular part 
+% of a tissue,
+% * abbreviations for organs, like "adi" for adipose tissue, 
+% * and finally abbreviations for tissue constituents, which are used during 
+% prediction of tissue partitioning.
+%% 
+% 
+% 
+% 
+% 
+% 
+% 
+%
+##### SOURCE END #####
+-->
+</div></body></html>

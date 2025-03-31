@@ -1,0 +1,384 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,chrome=1"><meta name="generator" content="MATLAB 2023b"><title>Tutorial: Importing experimental data</title><style type="text/css">.rtcContent { padding: 30px; } .S0 { margin: 3px 10px 5px 4px; padding: 0px; line-height: 28.8px; min-height: 0px; white-space: pre-wrap; color: rgb(192, 76, 11); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 24px; font-weight: 400; text-align: left;  }
+.S1 { margin: 2px 10px 9px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 400; text-align: left;  }
+.S2 { margin: 10px 10px 5px 4px; padding: 0px; line-height: 18px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 15px; font-weight: 700; text-align: left;  }
+.CodeBlock { background-color: #F5F5F5; margin: 10px 0 10px 0; }
+.S3 { border-left: 1px solid rgb(217, 217, 217); border-right: 1px solid rgb(217, 217, 217); border-top: 1px solid rgb(217, 217, 217); border-bottom: 1px solid rgb(217, 217, 217); border-radius: 4px 4px 0px 0px; padding: 6px 45px 4px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S4 { color: rgb(33, 33, 33); padding: 10px 0px 6px 17px; background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box; font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px; overflow-x: hidden; line-height: 17.234px;  }
+/* Styling that is common to warnings and errors is in diagnosticOutput.css */.embeddedOutputsErrorElement {    min-height: 18px;    max-height: 550px;}
+.embeddedOutputsErrorElement .diagnosticMessage-errorType {    overflow: auto;}
+.embeddedOutputsErrorElement.inlineElement {}
+.embeddedOutputsErrorElement.rightPaneElement {}
+/* Styling that is common to warnings and errors is in diagnosticOutput.css */.embeddedOutputsWarningElement {    min-height: 18px;    max-height: 550px;}
+.embeddedOutputsWarningElement .diagnosticMessage-warningType {    overflow: auto;}
+.embeddedOutputsWarningElement.inlineElement {}
+.embeddedOutputsWarningElement.rightPaneElement {}
+/* Copyright 2015-2023 The MathWorks, Inc. *//* In this file, styles are not scoped to rtcContainer since they could be in the Dojo Tooltip */.diagnosticMessage-wrapper {    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;    font-size: 12px;}
+.diagnosticMessage-wrapper.diagnosticMessage-warningType {    /*This fallback value will be used for appdesigner warnings*/    color: var(--rtc-warning-output-color, var(--mw-color-matlabWarning));}
+.diagnosticMessage-wrapper.diagnosticMessage-warningType a {    /*This fallback value will be used for appdesigner warnings*/    color: var(--rtc-warning-output-color, var(--mw-color-matlabWarning));    text-decoration: underline;}
+.rtcThemeDefaultOverride .diagnosticMessage-wrapper.diagnosticMessage-warningType,.rtcThemeDefaultOverride .diagnosticMessage-wrapper.diagnosticMessage-warningType a {    color: var(--mw-color-matlabWarning) !important;}
+.diagnosticMessage-wrapper.diagnosticMessage-errorType {    /*This fallback value will be used in appdesigner error tooltip text*/    color: var(--rtc-error-output-color, var(--mw-color-matlabErrors));}
+.diagnosticMessage-wrapper.diagnosticMessage-errorType a {    /*This fallback value will be used in appdesigner error tooltip text*/    color: var(--rtc-error-output-color, var(--mw-color-matlabErrors));    text-decoration: underline;}
+.rtcThemeDefaultOverride .diagnosticMessage-wrapper.diagnosticMessage-errorType,.rtcThemeDefaultOverride .diagnosticMessage-wrapper.diagnosticMessage-errorType a {    color: var(--mw-color-matlabErrors) !important;}
+.diagnosticMessage-wrapper .diagnosticMessage-messagePart,.diagnosticMessage-wrapper .diagnosticMessage-causePart {    white-space: pre-wrap;}
+.diagnosticMessage-wrapper .diagnosticMessage-stackPart {    white-space: pre;}
+.embeddedOutputsTextElement,.embeddedOutputsVariableStringElement {    white-space: pre;    word-wrap:  initial;    min-height: 18px;    max-height: 550px;}
+.embeddedOutputsTextElement .textElement,.embeddedOutputsVariableStringElement .textElement {    overflow: auto;}
+.textElement,.rtcDataTipElement .textElement {    padding-top: 2px;}
+.embeddedOutputsTextElement.inlineElement,.embeddedOutputsVariableStringElement.inlineElement {}
+.inlineElement .textElement {}
+.embeddedOutputsTextElement.rightPaneElement,.embeddedOutputsVariableStringElement.rightPaneElement {    min-height: 16px;}
+.rightPaneElement .textElement {    padding-top: 2px;    padding-left: 9px;}
+.S5 { margin: 10px 10px 9px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 400; text-align: left;  }
+.S6 { margin: 10px 0px 20px; padding-left: 0px; font-family: Helvetica, Arial, sans-serif; font-size: 14px;  }
+.S7 { margin-left: 56px; line-height: 21px; min-height: 0px; text-align: left; white-space: pre-wrap;  }
+.S8 { border-left: 1px solid rgb(217, 217, 217); border-right: 1px solid rgb(217, 217, 217); border-top: 1px solid rgb(217, 217, 217); border-bottom: 0px none rgb(33, 33, 33); border-radius: 4px 4px 0px 0px; padding: 6px 45px 0px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S9 { border-left: 1px solid rgb(217, 217, 217); border-right: 1px solid rgb(217, 217, 217); border-top: 0px none rgb(33, 33, 33); border-bottom: 0px none rgb(33, 33, 33); border-radius: 0px; padding: 0px 45px 0px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S10 { border-left: 1px solid rgb(217, 217, 217); border-right: 1px solid rgb(217, 217, 217); border-top: 0px none rgb(33, 33, 33); border-bottom: 1px solid rgb(217, 217, 217); border-radius: 0px; padding: 0px 45px 4px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }</style></head><body><div class = rtcContent><h1  class = 'S0'><span>Tutorial: Importing experimental data</span></h1><div  class = 'S1'><span>Experimental measurements are usually stored in tabular data formats. In this tutorial, we will look at how to import such data into the Computational Physiology Toolbox. On a very broad level, the toolbox allows to import experimental datafiles specified in different formats through the use of so-called mapping functions, and stores them in a standardized format, an object or array of class "Individual".</span></div><h4  class = 'S2'><span>Theoretical concept</span></h4><div  class = 'S1'><span>Different types of data records are supported, and each type of data record expects a certain set of attributes, some mandatory, some optional. Here's an overview on types and their attributes:</span></div><div  class = 'S1'><span style=' font-family: monospace;'>Type              Attributes (optional ones in parenthesis)</span></div><div  class = 'S1'><span style=' font-family: monospace;'>---------------------------------------------------------</span></div><div  class = 'S1'><span style=' font-family: monospace;'>Covariate         Name, Value</span></div><div  class = 'S1'><span style=' font-family: monospace;'>Bolus dosing      Compound, Dose, Time, Target</span></div><div  class = 'S1'><span style=' font-family: monospace;'>Oral dosing       Compound, Dose, Time</span></div><div  class = 'S1'><span style=' font-family: monospace;'>Infusion dosing   Compound, Dose, Time, Target, Duration</span></div><div  class = 'S1'><span style=' font-family: monospace;'>Record            Time, Value, (Site), (Subspace), (Binding) </span></div><div  class = 'S1'><span>For example, a record of type "Covariate" has two attributes: the covariate name, such as 'BW' for body weight, and its value, like 70*u.kg (kilograms).</span></div><div  class = 'S1'><span>The important consequence of this formalization is that is specifies WHAT must be given, but not HOW. Indeed, different people use quite different data formats, which means that a flexibility in supported formats is an added value. Mapping functions define where attributes belonging to a certain data record are located in the dataset.</span></div><div  class = 'S1'><span></span></div><h4  class = 'S2'><span>An easy example</span></h4><div  class = 'S1'><span>Let's see how this works on an example, a Warfarin dataset. We start by creating an </span><span style=' font-family: monospace;'>ImportableData </span><span>object:</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S3'><span style="white-space: pre"><span >data = ImportableData(</span><span style="color: #a709f5;">'data/Warfarin_Holford1986.csv'</span><span >,</span><span style="color: #a709f5;">'Delimiter'</span><span >,</span><span style="color: #a709f5;">','</span><span >)</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsVariableStringElement" uid="CECF6494" prevent-scroll="true" data-testid="output_0" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="389" data-hashorizontaloverflow="false" style="max-height: 400px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><span class="variableNameElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">data = </span></div><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">	ImportableData object:
+
+File: Warfarin_Holford1986.csv
+
+Supplementary information: Warfarin_Holford1986_Info.txt
+
+     TIME    NAME                            VALUE         
+             (Name)                                        
+     -----   -----------------------------   --------------
+ 1   0 h     Species                         human         
+ 2   0 h     Warfarin oral dose              15 mg         
+ 3   0.5 h   Warfarin plasma concentration   472.4137 ug/L 
+ 4   1 h     Warfarin plasma concentration   1079.3103 ug/L
+ 5   2 h     Warfarin plasma concentration   1351.7241 ug/L
+ 6   4 h     Warfarin plasma concentration   1258.6206 ug/L
+ 7   8 h     Warfarin plasma concentration   1110.3448 ug/L
+ 8   12 h    Warfarin plasma concentration   979.3103 ug/L 
+ 9   24 h    Warfarin plasma concentration   713.7931 ug/L 
+10   32 h    Warfarin plasma concentration   641.3793 ug/L 
+
+Mappings:
+
+- [1x] Species                            (unmapped)
+- [1x] Warfarin oral dose                 (unmapped)
+- [8x] Warfarin plasma concentration      (unmapped)</div></div></div></div></div></div><div  class = 'S5'><span>The syntax of </span><span style=' font-family: monospace;'>ImportableData()</span><span> is the same as for the base MATLAB function </span><span style=' font-family: monospace;'>readtable()</span><span>, and you can provide any parameter-value pair described there, for example a delimiter. The result you get is different, however, in that one can attach so-called mappings to </span><span style=' font-family: monospace;'>ImportableData</span><span> objects.</span></div><div  class = 'S1'><span>On the console, you can see a summary of the dataset directly after the creation of that object. In the example, the full dataset is shown, because it is quite short. Also, you can see a section "Mappings" that lists the three unique values defined in column "NAME", and stating that no mappings have been defined so far. Due to its naming, column "NAME" has been recognized automatically as the so-called </span><span style=' font-family: monospace;'>Name</span><span> column that contains the names of different types of data records.</span></div><div  class = 'S1'><span>Now let's define some mappings. First, we want to map the covariate record:</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S3'><span style="white-space: pre"><span >data.maprow(</span><span style="color: #a709f5;">'Species'</span><span >,</span><span style="color: #a709f5;">'Covariate'</span><span >)</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsVariableStringElement" uid="13DBAF66" prevent-scroll="true" data-testid="output_1" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="389" data-hashorizontaloverflow="false" style="max-height: 400px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><span class="variableNameElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">ans = </span></div><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">	ImportableData object:
+
+File: Warfarin_Holford1986.csv
+
+Supplementary information: Warfarin_Holford1986_Info.txt
+
+     TIME    NAME                            VALUE         
+             (Name)                          (Value)       
+     -----   -----------------------------   --------------
+ 1   0 h     Species                         human         
+ 2   0 h     Warfarin oral dose              15 mg         
+ 3   0.5 h   Warfarin plasma concentration   472.4137 ug/L 
+ 4   1 h     Warfarin plasma concentration   1079.3103 ug/L
+ 5   2 h     Warfarin plasma concentration   1351.7241 ug/L
+ 6   4 h     Warfarin plasma concentration   1258.6206 ug/L
+ 7   8 h     Warfarin plasma concentration   1110.3448 ug/L
+ 8   12 h    Warfarin plasma concentration   979.3103 ug/L 
+ 9   24 h    Warfarin plasma concentration   713.7931 ug/L 
+10   32 h    Warfarin plasma concentration   641.3793 ug/L 
+
+Mappings:
+
+1 - [1x] Species                       ---&gt; Covariate(Name,Value)
+  - [1x] Warfarin oral dose                 (unmapped)           
+  - [8x] Warfarin plasma concentration      (unmapped)           </div></div></div></div></div></div><div  class = 'S5'><span>You can see that one mapping is now defined. The columns containing the attributes are marked with "Name" and "Value", respectively. Next, let's map the dosing row to an "Oral dosing" type data record:</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S3'><span style="white-space: pre"><span >data.maprow(</span><span style="color: #a709f5;">'Warfarin oral dose'</span><span >,</span><span style="color: #a709f5;">'Oral dosing'</span><span >)</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsVariableStringElement" uid="CC32C2F1" prevent-scroll="true" data-testid="output_2" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="389" data-hashorizontaloverflow="false" style="max-height: 400px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><span class="variableNameElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">ans = </span></div><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">	ImportableData object:
+
+File: Warfarin_Holford1986.csv
+
+Supplementary information: Warfarin_Holford1986_Info.txt
+
+     TIME     NAME                            VALUE         
+     (Time)   (Name)                          (Value,Dose)  
+     ------   -----------------------------   --------------
+ 1   0 h      Species                         human         
+ 2   0 h      Warfarin oral dose              15 mg         
+ 3   0.5 h    Warfarin plasma concentration   472.4137 ug/L 
+ 4   1 h      Warfarin plasma concentration   1079.3103 ug/L
+ 5   2 h      Warfarin plasma concentration   1351.7241 ug/L
+ 6   4 h      Warfarin plasma concentration   1258.6206 ug/L
+ 7   8 h      Warfarin plasma concentration   1110.3448 ug/L
+ 8   12 h     Warfarin plasma concentration   979.3103 ug/L 
+ 9   24 h     Warfarin plasma concentration   713.7931 ug/L 
+10   32 h     Warfarin plasma concentration   641.3793 ug/L 
+
+Mappings:
+
+1 - [1x] Species                       ---&gt; Covariate(Name,Value)           
+2 - [1x] Warfarin oral dose            -!-&gt; Oral dosing(!Compound,Dose,Time)
+  - [8x] Warfarin plasma concentration      (unmapped)                      </div></div></div></div></div></div><div  class = 'S5'><span>We can see that another mapping was added, but it is incomplete (marked by the sign "</span><span style=' font-family: monospace;'>!</span><span>"), because the mandatory attribute "Compound" is missing, which is not stated explicitly within a column of a dataset but rather as part of the name. We can make this explicit by specifying the compound name within the mapping:</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S3'><span style="white-space: pre"><span >data.maprow(</span><span style="color: #a709f5;">'Warfarin oral dose'</span><span >,</span><span style="color: #a709f5;">'Oral dosing'</span><span >,</span><span style="color: #a709f5;">'Compound'</span><span >,</span><span style="color: #a709f5;">'Warfarin'</span><span >)</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsVariableStringElement" uid="50FD1FAE" prevent-scroll="true" data-testid="output_3" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="389" data-hashorizontaloverflow="false" style="max-height: 400px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><span class="variableNameElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">ans = </span></div><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">	ImportableData object:
+
+File: Warfarin_Holford1986.csv
+
+Supplementary information: Warfarin_Holford1986_Info.txt
+
+     TIME     NAME                            VALUE         
+     (Time)   (Name)                          (Value,Dose)  
+     ------   -----------------------------   --------------
+ 1   0 h      Species                         human         
+ 2   0 h      Warfarin oral dose              15 mg         
+ 3   0.5 h    Warfarin plasma concentration   472.4137 ug/L 
+ 4   1 h      Warfarin plasma concentration   1079.3103 ug/L
+ 5   2 h      Warfarin plasma concentration   1351.7241 ug/L
+ 6   4 h      Warfarin plasma concentration   1258.6206 ug/L
+ 7   8 h      Warfarin plasma concentration   1110.3448 ug/L
+ 8   12 h     Warfarin plasma concentration   979.3103 ug/L 
+ 9   24 h     Warfarin plasma concentration   713.7931 ug/L 
+10   32 h     Warfarin plasma concentration   641.3793 ug/L 
+
+Mappings:
+
+1 - [1x] Species                       ---&gt; Covariate(Name,Value)                   
+2 - [1x] Warfarin oral dose            ---&gt; Oral dosing(Compound=Warfarin,Dose,Time)
+  - [8x] Warfarin plasma concentration      (unmapped)                              </div></div></div></div></div></div><div  class = 'S5'><span>Now, you can see that the second mapping is well defined. We finish by setting a mapping of the plasma concentration measurements:</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S3'><span style="white-space: pre"><span >data.maprow(</span><span style="color: #a709f5;">'Warfarin plasma concentration'</span><span >,</span><span style="color: #a709f5;">'Record'</span><span >,</span><span style="color: #a709f5;">'Site'</span><span >,</span><span style="color: #a709f5;">'pla'</span><span >)</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsVariableStringElement" uid="1CC98871" prevent-scroll="true" data-testid="output_4" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="389" data-hashorizontaloverflow="false" style="max-height: 400px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><span class="variableNameElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">ans = </span></div><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">	ImportableData object:
+
+File: Warfarin_Holford1986.csv
+
+Supplementary information: Warfarin_Holford1986_Info.txt
+
+     TIME     NAME                            VALUE         
+     (Time)   (Name)                          (Value,Dose)  
+     ------   -----------------------------   --------------
+ 1   0 h      Species                         human         
+ 2   0 h      Warfarin oral dose              15 mg         
+ 3   0.5 h    Warfarin plasma concentration   472.4137 ug/L 
+ 4   1 h      Warfarin plasma concentration   1079.3103 ug/L
+ 5   2 h      Warfarin plasma concentration   1351.7241 ug/L
+ 6   4 h      Warfarin plasma concentration   1258.6206 ug/L
+ 7   8 h      Warfarin plasma concentration   1110.3448 ug/L
+ 8   12 h     Warfarin plasma concentration   979.3103 ug/L 
+ 9   24 h     Warfarin plasma concentration   713.7931 ug/L 
+10   32 h     Warfarin plasma concentration   641.3793 ug/L 
+
+Mappings:
+
+1 - [1x] Species                       ---&gt; Covariate(Name,Value)                   
+2 - [1x] Warfarin oral dose            ---&gt; Oral dosing(Compound=Warfarin,Dose,Time)
+3 - [8x] Warfarin plasma concentration ---&gt; Record(Site=pla,Time,Value)             </div></div></div></div></div></div><div  class = 'S5'><span>and the dataset is ready to be imported:</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S3'><span style="white-space: pre"><span >expid = import(data)</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="6FDBAF38" prevent-scroll="true" data-testid="output_5" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="17" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">1 experimental dataset(s) imported successfully.</div></div><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsVariableStringElement" uid="20C0E724" prevent-scroll="true" data-testid="output_6" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="153" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><span class="variableNameElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">expid = </span></div><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">	Individual object:
+
+           type: 'Experimental data'
+           name: 'ID 1'
+         dosing: '1 Oral event(s)'
+     physiology: '1 parameters defined'
+    observation: '8 records'
+
+Use builtin('disp',OBJ)) to see the underlying structure of the Individual object OBJ</div></div></div></div></div></div><div  class = 'S5'><span>We get an object </span><span style=' font-family: monospace;'>expid</span><span> of class </span><span style=' font-family: monospace;'>Individual</span><span>, containing the experimental measurements in the toolbox-internal format.</span></div><div  class = 'S1'><span></span></div><div  class = 'S1'><span>It is also possible to set attributes to a column manually using function </span><span style=' font-family: monospace;'>setattr()</span><span>. Consult the function help for further details.</span></div><h4  class = 'S2'><span>Specifying units</span></h4><div  class = 'S1'><span>Some attributes have units associated (e.g., </span><span style=' font-family: monospace;'>Time</span><span>, </span><span style=' font-family: monospace;'>Dose</span><span>, ...). These can be specified in various ways:</span></div><ul  class = 'S6'><li  class = 'S7'><span>Either directly in the dataset (as in the example shown above). This format makes import straightforward, but requires pre-processing if the dataset does not comply with this format.</span></li><li  class = 'S7'><span>Directly in the mapping: for example, if a Record type data containing concentrations in units of </span><span style=' font-family: monospace;'>nM</span><span> is given as double, call the mapping </span><span style=' font-family: monospace;'>data.maprow(...,'[Value]','nM')</span></li><li  class = 'S7'><span>As a part of the column header: for example, a dataset column named "</span><span style=' font-family: monospace;'>Time [min]</span><span>" allows for the values themselves to be entered without units, automatically attaching the header unit during import (e.g., a value of 3 is turned into 3 min).</span></li><li  class = 'S7'><span>As a separate column: for example, if time unit is contained in a column, setting the attribute </span><span style=' font-family: monospace;'>'[Time]'</span><span> to that column allows for attaching the unit during import. </span></li></ul><h4  class = 'S2'><span>Six datasets of increasing complexity</span></h4><div  class = 'S1'><span>Now let's see these principles at work in six datasets of increasing complexity.</span></div><div  class = 'S1'><span style=' font-style: italic;'>Example 1:</span></div><ul  class = 'S6'><li  class = 'S7'><span>Units in headers</span></li><li  class = 'S7'><span>Multiple observation sites</span></li><li  class = 'S7'><span>Site column needs renaming</span></li><li  class = 'S7'><span>No name column</span></li></ul><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S8'><span style="white-space: pre"><span >data1 = ImportableData(</span><span style="color: #a709f5;">'data/mAb7E3_Garg2007.csv'</span><span >,</span><span style="color: #a709f5;">'Delimiter'</span><span >,</span><span style="color: #a709f5;">';'</span><span >);</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >data1.table.SITE = extractBefore(data1.table.SITE,4);</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >data1.mapall(</span><span style="color: #a709f5;">'Garg data'</span><span >,</span><span style="color: #a709f5;">'Record'</span><span >);</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >data1.setattr(</span><span style="color: #a709f5;">'Site'</span><span >,</span><span style="color: #a709f5;">'SITE'</span><span >);</span></span></div></div><div class="inlineWrapper outputs"><div  class = 'S10'><span style="white-space: pre"><span >expid1 = import(data1);</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="92A33538" prevent-scroll="true" data-testid="output_7" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="17" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">1 experimental dataset(s) imported successfully.</div></div></div></div></div><div  class = 'S5'><span style=' font-style: italic;'>Example 2:</span></div><ul  class = 'S6'><li  class = 'S7'><span>Units in headers</span></li><li  class = 'S7'><span>Multiple dosing</span></li><li  class = 'S7'><span>Multiple IDs</span></li></ul><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S8'><span style="white-space: pre"><span >data2 = ImportableData(</span><span style="color: #a709f5;">'data/Bevacizumab_Gordon2001.csv'</span><span >);</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >data2.maprow(</span><span style="color: #a709f5;">'Bevacizumab iv infusion'</span><span >,</span><span style="color: #a709f5;">'Infusion dosing'</span><span >,</span><span style="color: #0e00ff;">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >                </span><span style="color: #a709f5;">'Compound'</span><span >,</span><span style="color: #a709f5;">'Bevacizumab'</span><span >,</span><span style="color: #a709f5;">'Target'</span><span >,</span><span style="color: #a709f5;">'iv'</span><span >);</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >data2.maprow(</span><span style="color: #a709f5;">'Bevacizumab plasma concentration'</span><span >,</span><span style="color: #a709f5;">'Record'</span><span >,</span><span style="color: #0e00ff;">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >                </span><span style="color: #a709f5;">'Site'</span><span >,</span><span style="color: #a709f5;">'pla'</span><span >);</span></span></div></div><div class="inlineWrapper outputs"><div  class = 'S10'><span style="white-space: pre"><span >expid2 = import(data2);</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="34DEF5CD" prevent-scroll="true" data-testid="output_8" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="17" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">2 experimental dataset(s) imported successfully.</div></div></div></div></div><div  class = 'S5'><span style=' font-style: italic;'>Example 3:</span></div><ul  class = 'S6'><li  class = 'S7'><span>Different name of Value column</span></li><li  class = 'S7'><span>Zero observation at dosing time to be deleted</span></li></ul><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S8'><span style="white-space: pre"><span >data3 = ImportableData(</span><span style="color: #a709f5;">'data/Amitriptyline_Fachinfo.csv'</span><span >);</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >data3.table(data3.table.MEAN == 0*u.ng/u.mL,:) = []; </span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >data3.setattr(</span><span style="color: #a709f5;">'Value'</span><span >,</span><span style="color: #a709f5;">'MEAN'</span><span >);</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >data3.maprow(</span><span style="color: #a709f5;">'Amitriptyline oral dose'</span><span >,</span><span style="color: #a709f5;">'Oral dosing'</span><span >,</span><span style="color: #0e00ff;">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >                </span><span style="color: #a709f5;">'Compound'</span><span >,</span><span style="color: #a709f5;">'Amitriptyline'</span><span >);</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >data3.maprow(</span><span style="color: #a709f5;">'Amitriptyline plasma concentration'</span><span >,</span><span style="color: #a709f5;">'Record'</span><span >,</span><span style="color: #0e00ff;">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >                </span><span style="color: #a709f5;">'Site'</span><span >,</span><span style="color: #a709f5;">'pla'</span><span >);</span></span></div></div><div class="inlineWrapper outputs"><div  class = 'S10'><span style="white-space: pre"><span >expid3 = import(data3);</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="13C8DF18" prevent-scroll="true" data-testid="output_9" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="17" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">1 experimental dataset(s) imported successfully.</div></div></div></div></div><div  class = 'S5'><span style=' font-style: italic;'>Example 4:</span></div><ul  class = 'S6'><li  class = 'S7'><span>No units</span></li><li  class = 'S7'><span>Wide format (no name column)</span></li><li  class = 'S7'><span>Non-default name of ID &amp; Value columns </span></li></ul><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S8'><span style="white-space: pre"><span >data4 = ImportableData(</span><span style="color: #a709f5;">'data/Theophylline.csv'</span><span >);</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >data4.setattr(</span><span style="color: #a709f5;">'ID'</span><span >,</span><span style="color: #a709f5;">'Subject'</span><span >);</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >data4.mapall(</span><span style="color: #a709f5;">'Theophylline concentration'</span><span >,</span><span style="color: #a709f5;">'Record'</span><span >,</span><span style="color: #0e00ff;">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >    </span><span style="color: #a709f5;">'Value'</span><span >,</span><span style="color: #a709f5;">'conc'</span><span >,</span><span style="color: #a709f5;">'Site'</span><span >,</span><span style="color: #a709f5;">'pla'</span><span >,</span><span style="color: #a709f5;">'[Value]'</span><span >,</span><span style="color: #a709f5;">'mg/L'</span><span >,</span><span style="color: #a709f5;">'[Time]'</span><span >,</span><span style="color: #a709f5;">'h'</span><span >);</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >data4.flagcov(</span><span style="color: #a709f5;">'Wt'</span><span >,</span><span style="color: #a709f5;">'BW'</span><span >,</span><span style="color: #a709f5;">'[Value]'</span><span >,</span><span style="color: #a709f5;">'kg'</span><span >);</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >data4.mapall(</span><span style="color: #a709f5;">'Theophylline dosing'</span><span >,</span><span style="color: #a709f5;">'Oral dosing'</span><span >,</span><span style="color: #0e00ff;">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >    </span><span style="color: #a709f5;">'Compound'</span><span >,</span><span style="color: #a709f5;">'Theophylline'</span><span >,</span><span style="color: #a709f5;">'Time'</span><span >,0*u.h);</span></span></div></div><div class="inlineWrapper outputs"><div  class = 'S10'><span style="white-space: pre"><span >expid4 = import(data4);</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="B221F424" prevent-scroll="true" data-testid="output_10" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="17" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">12 experimental dataset(s) imported successfully.</div></div></div></div></div><div  class = 'S5'><span style=' font-style: italic;'>Example 5:</span></div><ul  class = 'S6'><li  class = 'S7'><span>No units</span></li><li  class = 'S7'><span>Long format with implicit ('.'-syntax) MDV and hence no Name column</span></li></ul><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S8'><span style="white-space: pre"><span >data5 = ImportableData(</span><span style="color: #a709f5;">'data/Test_NONMEM_Dataset402.csv'</span><span >);</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >data5.table.MDV = isnan(data5.table.DV);</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >data5.table.Name = categorical(data5.table.MDV,[true false],{</span><span style="color: #a709f5;">'Dosing'</span><span >,</span><span style="color: #a709f5;">'Measurement'</span><span >});</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >data5.setattr(</span><span style="color: #a709f5;">'[Time]'</span><span >,</span><span style="color: #a709f5;">'=h'</span><span >);</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >data5.maprow(</span><span style="color: #a709f5;">'Measurement'</span><span >,</span><span style="color: #a709f5;">'Record'</span><span >,</span><span style="color: #a709f5;">'[Value]'</span><span >,</span><span style="color: #a709f5;">'ng/mL'</span><span >);</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >data5.maprow(</span><span style="color: #a709f5;">'Dosing'</span><span >,</span><span style="color: #a709f5;">'Oral dosing'</span><span >,</span><span style="color: #a709f5;">'Compound'</span><span >,</span><span style="color: #a709f5;">'??'</span><span >,</span><span style="color: #a709f5;">'[Dose]'</span><span >,</span><span style="color: #a709f5;">'mg'</span><span >);</span></span></div></div><div class="inlineWrapper outputs"><div  class = 'S10'><span style="white-space: pre"><span >expid5 = import(data5);</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="FE04178B" prevent-scroll="true" data-testid="output_11" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="17" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">30 experimental dataset(s) imported successfully.</div></div></div></div></div><div  class = 'S5'><span style=' font-style: italic;'>Example 6:</span></div><ul  class = 'S6'><li  class = 'S7'><span>No units</span></li><li  class = 'S7'><span>Long format with implicit (0-syntax) MDV and hence no Name column</span></li><li  class = 'S7'><span>Covariate columns </span></li><li  class = 'S7'><span>Rate instead of Duration parametrization of Infusion dosing</span></li><li  class = 'S7'><span>Categorical covariate SEX encoded as 0/1</span></li></ul><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S8'><span style="white-space: pre"><span >data6 = ImportableData(</span><span style="color: #a709f5;">'data/Test_NONMEM_Dataset501.csv'</span><span >);</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >data6.table.MDV = ~logical(data6.table.DV);</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >data6.table.Name = categorical(data6.table.MDV,[true false],{</span><span style="color: #a709f5;">'Dosing'</span><span >,</span><span style="color: #a709f5;">'Measurement'</span><span >});</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >data6.table.SEX = categorical(data6.table.SEX, [0 1],{</span><span style="color: #a709f5;">'female'</span><span >,</span><span style="color: #a709f5;">'male'</span><span >});</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >data6.table.DURATION = data6.table.AMT ./ data6.table.RATE;</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >data6.maprow(</span><span style="color: #a709f5;">'Measurement'</span><span >,</span><span style="color: #a709f5;">'Record'</span><span >,</span><span style="color: #0e00ff;">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >    </span><span style="color: #a709f5;">'Site'</span><span >,</span><span style="color: #a709f5;">'pla'</span><span >,</span><span style="color: #a709f5;">'[Value]'</span><span >,</span><span style="color: #a709f5;">'mg/L'</span><span >,</span><span style="color: #a709f5;">'[Time]'</span><span >,</span><span style="color: #a709f5;">'h'</span><span >);</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >data6.maprow(</span><span style="color: #a709f5;">'Dosing'</span><span >,</span><span style="color: #a709f5;">'Infusion dosing'</span><span >,</span><span style="color: #0e00ff;">...</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >    </span><span style="color: #a709f5;">'[Dose]'</span><span >,</span><span style="color: #a709f5;">'mg'</span><span >,</span><span style="color: #a709f5;">'[Duration]'</span><span >,</span><span style="color: #a709f5;">'h'</span><span >,</span><span style="color: #a709f5;">'[Tstart]'</span><span >,</span><span style="color: #a709f5;">'h'</span><span >,</span><span style="color: #a709f5;">'Compound'</span><span >,</span><span style="color: #a709f5;">'??'</span><span >,</span><span style="color: #a709f5;">'Target'</span><span >,</span><span style="color: #a709f5;">'iv'</span><span >);</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'>&nbsp;</div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >data6.flagcov(</span><span style="color: #a709f5;">'WT'</span><span >,</span><span style="color: #a709f5;">'BW'</span><span >,</span><span style="color: #a709f5;">'[Value]'</span><span >,</span><span style="color: #a709f5;">'=kg'</span><span >);</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >data6.flagcov(</span><span style="color: #a709f5;">'AGE'</span><span >,</span><span style="color: #a709f5;">'age'</span><span >,</span><span style="color: #a709f5;">'[Value]'</span><span >,</span><span style="color: #a709f5;">'=year'</span><span >);</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >data6.flagcov(</span><span style="color: #a709f5;">'SEX'</span><span >,</span><span style="color: #a709f5;">'sex'</span><span >);</span></span></div></div><div class="inlineWrapper"><div  class = 'S9'>&nbsp;</div></div><div class="inlineWrapper outputs"><div  class = 'S10'><span style="white-space: pre"><span >expid6 = import(data6);</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="F695094B" prevent-scroll="true" data-testid="output_12" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="17" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">60 experimental dataset(s) imported successfully.</div></div></div></div></div><div  class = 'S5'><span></span></div><h4  class = 'S2'><span>Exercise</span></h4><div  class = 'S1'><span>Here's a small exercise to get started with import of experimental datafiles. </span></div><div  class = 'S1'><span>The Warfarin dataset is also encoded in a different format in file “</span><span style=' font-family: monospace;'>Warfarin_Holford1986_Variante</span><span>”. Look at this data file and import it into the Computational Physiology Tolbox using appropriate mappings. The resulting </span><span style=' font-family: monospace;'>Individual</span><span> object should be identical to the one obtained from dataset "</span><span style=' font-family: monospace;'>Warfarin_Holford1986</span><span>" shown in this tutorial.</span></div><div  class = 'S1'><span>As a hint, check the help for </span><span style=' font-family: monospace;'>setattr()</span><span>, you will need it. Try to do the computation in the toolbox; you can check your result in the solutions.</span></div><div  class = 'S1'></div>
+<br>
+<!-- 
+##### SOURCE BEGIN #####
+%% Tutorial: Importing experimental data
+% Experimental measurements are usually stored in tabular data formats. In this 
+% tutorial, we will look at how to import such data into the Computational Physiology 
+% Toolbox. On a very broad level, the toolbox allows to import experimental datafiles 
+% specified in different formats through the use of so-called mapping functions, 
+% and stores them in a standardized format, an object or array of class "Individual".
+% Theoretical concept
+% Different types of data records are supported, and each type of data record 
+% expects a certain set of attributes, some mandatory, some optional. Here's an 
+% overview on types and their attributes:
+% 
+% |Type              Attributes (optional ones in parenthesis)|
+% 
+% |REPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASHREPLACE_WITH_DASH_DASH-|
+% 
+% |Covariate         Name, Value|
+% 
+% |Bolus dosing      Compound, Dose, Time, Target|
+% 
+% |Oral dosing       Compound, Dose, Time|
+% 
+% |Infusion dosing   Compound, Dose, Time, Target, Duration|
+% 
+% |Record            Time, Value, (Site), (Subspace), (Binding)| 
+% 
+% For example, a record of type "Covariate" has two attributes: the covariate 
+% name, such as 'BW' for body weight, and its value, like 70*u.kg (kilograms).
+% 
+% The important consequence of this formalization is that is specifies WHAT 
+% must be given, but not HOW. Indeed, different people use quite different data 
+% formats, which means that a flexibility in supported formats is an added value. 
+% Mapping functions define where attributes belonging to a certain data record 
+% are located in the dataset.
+% 
+% 
+% An easy example
+% Let's see how this works on an example, a Warfarin dataset. We start by creating 
+% an |ImportableData| object:
+
+data = ImportableData('data/Warfarin_Holford1986.csv','Delimiter',',')
+%% 
+% The syntax of |ImportableData()| is the same as for the base MATLAB function 
+% |readtable()|, and you can provide any parameter-value pair described there, 
+% for example a delimiter. The result you get is different, however, in that one 
+% can attach so-called mappings to |ImportableData| objects.
+% 
+% On the console, you can see a summary of the dataset directly after the creation 
+% of that object. In the example, the full dataset is shown, because it is quite 
+% short. Also, you can see a section "Mappings" that lists the three unique values 
+% defined in column "NAME", and stating that no mappings have been defined so 
+% far. Due to its naming, column "NAME" has been recognized automatically as the 
+% so-called |Name| column that contains the names of different types of data records.
+% 
+% Now let's define some mappings. First, we want to map the covariate record:
+
+data.maprow('Species','Covariate')
+%% 
+% You can see that one mapping is now defined. The columns containing the attributes 
+% are marked with "Name" and "Value", respectively. Next, let's map the dosing 
+% row to an "Oral dosing" type data record:
+
+data.maprow('Warfarin oral dose','Oral dosing')
+%% 
+% We can see that another mapping was added, but it is incomplete (marked by 
+% the sign "|!|"), because the mandatory attribute "Compound" is missing, which 
+% is not stated explicitly within a column of a dataset but rather as part of 
+% the name. We can make this explicit by specifying the compound name within the 
+% mapping:
+
+data.maprow('Warfarin oral dose','Oral dosing','Compound','Warfarin')
+%% 
+% Now, you can see that the second mapping is well defined. We finish by setting 
+% a mapping of the plasma concentration measurements:
+
+data.maprow('Warfarin plasma concentration','Record','Site','pla')
+%% 
+% and the dataset is ready to be imported:
+
+expid = import(data)
+%% 
+% We get an object |expid| of class |Individual|, containing the experimental 
+% measurements in the toolbox-internal format.
+% 
+% 
+% 
+% It is also possible to set attributes to a column manually using function 
+% |setattr()|. Consult the function help for further details.
+% Specifying units
+% Some attributes have units associated (e.g., |Time|, |Dose|, ...). These can 
+% be specified in various ways:
+%% 
+% * Either directly in the dataset (as in the example shown above). This format 
+% makes import straightforward, but requires pre-processing if the dataset does 
+% not comply with this format.
+% * Directly in the mapping: for example, if a Record type data containing concentrations 
+% in units of |nM| is given as double, call the mapping |data.maprow(...,'[Value]','nM')|
+% * As a part of the column header: for example, a dataset column named "|Time 
+% [min]|" allows for the values themselves to be entered without units, automatically 
+% attaching the header unit during import (e.g., a value of 3 is turned into 3 
+% min).
+% * As a separate column: for example, if time unit is contained in a column, 
+% setting the attribute |'[Time]'| to that column allows for attaching the unit 
+% during import. 
+% Six datasets of increasing complexity
+% Now let's see these principles at work in six datasets of increasing complexity.
+% 
+% _Example 1:_
+%% 
+% * Units in headers
+% * Multiple observation sites
+% * Site column needs renaming
+% * No name column
+
+data1 = ImportableData('data/mAb7E3_Garg2007.csv','Delimiter',';');
+data1.table.SITE = extractBefore(data1.table.SITE,4);
+data1.mapall('Garg data','Record');
+data1.setattr('Site','SITE');
+expid1 = import(data1);
+%% 
+% _Example 2:_
+%% 
+% * Units in headers
+% * Multiple dosing
+% * Multiple IDs
+
+data2 = ImportableData('data/Bevacizumab_Gordon2001.csv');
+data2.maprow('Bevacizumab iv infusion','Infusion dosing',...
+                'Compound','Bevacizumab','Target','iv');
+data2.maprow('Bevacizumab plasma concentration','Record',...
+                'Site','pla');
+expid2 = import(data2);
+%% 
+% _Example 3:_
+%% 
+% * Different name of Value column
+% * Zero observation at dosing time to be deleted
+
+data3 = ImportableData('data/Amitriptyline_Fachinfo.csv');
+data3.table(data3.table.MEAN == 0*u.ng/u.mL,:) = []; 
+data3.setattr('Value','MEAN');
+data3.maprow('Amitriptyline oral dose','Oral dosing',...
+                'Compound','Amitriptyline');
+data3.maprow('Amitriptyline plasma concentration','Record',...
+                'Site','pla');
+expid3 = import(data3);
+%% 
+% _Example 4:_
+%% 
+% * No units
+% * Wide format (no name column)
+% * Non-default name of ID & Value columns 
+
+data4 = ImportableData('data/Theophylline.csv');
+data4.setattr('ID','Subject');
+data4.mapall('Theophylline concentration','Record',...
+    'Value','conc','Site','pla','[Value]','mg/L','[Time]','h');
+data4.flagcov('Wt','BW','[Value]','kg');
+data4.mapall('Theophylline dosing','Oral dosing',...
+    'Compound','Theophylline','Time',0*u.h);
+expid4 = import(data4);
+%% 
+% _Example 5:_
+%% 
+% * No units
+% * Long format with implicit ('.'-syntax) MDV and hence no Name column
+
+data5 = ImportableData('data/Test_NONMEM_Dataset402.csv');
+data5.table.MDV = isnan(data5.table.DV);
+data5.table.Name = categorical(data5.table.MDV,[true false],{'Dosing','Measurement'});
+data5.setattr('[Time]','=h');
+data5.maprow('Measurement','Record','[Value]','ng/mL');
+data5.maprow('Dosing','Oral dosing','Compound','??','[Dose]','mg');
+expid5 = import(data5);
+%% 
+% _Example 6:_
+%% 
+% * No units
+% * Long format with implicit (0-syntax) MDV and hence no Name column
+% * Covariate columns 
+% * Rate instead of Duration parametrization of Infusion dosing
+% * Categorical covariate SEX encoded as 0/1
+
+data6 = ImportableData('data/Test_NONMEM_Dataset501.csv');
+
+data6.table.MDV = ~logical(data6.table.DV);
+data6.table.Name = categorical(data6.table.MDV,[true false],{'Dosing','Measurement'});
+data6.table.SEX = categorical(data6.table.SEX, [0 1],{'female','male'});
+data6.table.DURATION = data6.table.AMT ./ data6.table.RATE;
+
+data6.maprow('Measurement','Record',...
+    'Site','pla','[Value]','mg/L','[Time]','h');
+data6.maprow('Dosing','Infusion dosing',...
+    '[Dose]','mg','[Duration]','h','[Tstart]','h','Compound','??','Target','iv');
+
+data6.flagcov('WT','BW','[Value]','=kg');
+data6.flagcov('AGE','age','[Value]','=year');
+data6.flagcov('SEX','sex');
+
+expid6 = import(data6);
+%% 
+% 
+% Exercise
+% Here's a small exercise to get started with import of experimental datafiles. 
+% 
+% The Warfarin dataset is also encoded in a different format in file “|Warfarin_Holford1986_Variante|”. 
+% Look at this data file and import it into the Computational Physiology Tolbox 
+% using appropriate mappings. The resulting |Individual| object should be identical 
+% to the one obtained from dataset "|Warfarin_Holford1986|" shown in this tutorial.
+% 
+% As a hint, check the help for |setattr()|, you will need it. Try to do the 
+% computation in the toolbox; you can check your result in the solutions.
+% 
+%
+##### SOURCE END #####
+-->
+</div></body></html>

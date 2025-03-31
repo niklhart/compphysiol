@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,chrome=1"><meta name="generator" content="MATLAB 2023b"><title>Tutorial: Customizing physiology and drug databases</title><style type="text/css">.rtcContent { padding: 30px; } .S0 { margin: 3px 10px 5px 4px; padding: 0px; line-height: 28.8px; min-height: 0px; white-space: pre-wrap; color: rgb(192, 76, 11); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 24px; font-weight: 400; text-align: left;  }
+.S1 { margin: 2px 10px 9px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 400; text-align: left;  }
+.S2 { margin: 15px 10px 5px 4px; padding: 0px; line-height: 18px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 17px; font-weight: 700; text-align: left;  }
+.CodeBlock { background-color: #F5F5F5; margin: 10px 0 10px 0; }
+.S3 { border-left: 1px solid rgb(217, 217, 217); border-right: 1px solid rgb(217, 217, 217); border-top: 1px solid rgb(217, 217, 217); border-bottom: 1px solid rgb(217, 217, 217); border-radius: 4px 4px 0px 0px; padding: 6px 45px 4px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S4 { color: rgb(33, 33, 33); padding: 10px 0px 6px 17px; background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box; font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px; overflow-x: hidden; line-height: 17.234px;  }
+/* Styling that is common to warnings and errors is in diagnosticOutput.css */.embeddedOutputsErrorElement {    min-height: 18px;    max-height: 550px;}
+.embeddedOutputsErrorElement .diagnosticMessage-errorType {    overflow: auto;}
+.embeddedOutputsErrorElement.inlineElement {}
+.embeddedOutputsErrorElement.rightPaneElement {}
+/* Styling that is common to warnings and errors is in diagnosticOutput.css */.embeddedOutputsWarningElement {    min-height: 18px;    max-height: 550px;}
+.embeddedOutputsWarningElement .diagnosticMessage-warningType {    overflow: auto;}
+.embeddedOutputsWarningElement.inlineElement {}
+.embeddedOutputsWarningElement.rightPaneElement {}
+/* Copyright 2015-2023 The MathWorks, Inc. *//* In this file, styles are not scoped to rtcContainer since they could be in the Dojo Tooltip */.diagnosticMessage-wrapper {    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;    font-size: 12px;}
+.diagnosticMessage-wrapper.diagnosticMessage-warningType {    /*This fallback value will be used for appdesigner warnings*/    color: var(--rtc-warning-output-color, var(--mw-color-matlabWarning));}
+.diagnosticMessage-wrapper.diagnosticMessage-warningType a {    /*This fallback value will be used for appdesigner warnings*/    color: var(--rtc-warning-output-color, var(--mw-color-matlabWarning));    text-decoration: underline;}
+.rtcThemeDefaultOverride .diagnosticMessage-wrapper.diagnosticMessage-warningType,.rtcThemeDefaultOverride .diagnosticMessage-wrapper.diagnosticMessage-warningType a {    color: var(--mw-color-matlabWarning) !important;}
+.diagnosticMessage-wrapper.diagnosticMessage-errorType {    /*This fallback value will be used in appdesigner error tooltip text*/    color: var(--rtc-error-output-color, var(--mw-color-matlabErrors));}
+.diagnosticMessage-wrapper.diagnosticMessage-errorType a {    /*This fallback value will be used in appdesigner error tooltip text*/    color: var(--rtc-error-output-color, var(--mw-color-matlabErrors));    text-decoration: underline;}
+.rtcThemeDefaultOverride .diagnosticMessage-wrapper.diagnosticMessage-errorType,.rtcThemeDefaultOverride .diagnosticMessage-wrapper.diagnosticMessage-errorType a {    color: var(--mw-color-matlabErrors) !important;}
+.diagnosticMessage-wrapper .diagnosticMessage-messagePart,.diagnosticMessage-wrapper .diagnosticMessage-causePart {    white-space: pre-wrap;}
+.diagnosticMessage-wrapper .diagnosticMessage-stackPart {    white-space: pre;}
+.embeddedOutputsTextElement,.embeddedOutputsVariableStringElement {    white-space: pre;    word-wrap:  initial;    min-height: 18px;    max-height: 550px;}
+.embeddedOutputsTextElement .textElement,.embeddedOutputsVariableStringElement .textElement {    overflow: auto;}
+.textElement,.rtcDataTipElement .textElement {    padding-top: 2px;}
+.embeddedOutputsTextElement.inlineElement,.embeddedOutputsVariableStringElement.inlineElement {}
+.inlineElement .textElement {}
+.embeddedOutputsTextElement.rightPaneElement,.embeddedOutputsVariableStringElement.rightPaneElement {    min-height: 16px;}
+.rightPaneElement .textElement {    padding-top: 2px;    padding-left: 9px;}
+.S5 { border-left: 1px solid rgb(217, 217, 217); border-right: 1px solid rgb(217, 217, 217); border-top: 1px solid rgb(217, 217, 217); border-bottom: 1px solid rgb(217, 217, 217); border-radius: 0px; padding: 6px 45px 4px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S6 { margin: 10px 10px 9px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 400; text-align: left;  }
+.S7 { margin: 10px 0px 20px; padding-left: 0px; font-family: Helvetica, Arial, sans-serif; font-size: 14px;  }
+.S8 { margin-left: 56px; line-height: 21px; min-height: 0px; text-align: left; white-space: pre-wrap;  }
+.S9 { border-left: 1px solid rgb(217, 217, 217); border-right: 1px solid rgb(217, 217, 217); border-top: 1px solid rgb(217, 217, 217); border-bottom: 1px solid rgb(217, 217, 217); border-radius: 4px; padding: 6px 45px 4px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S10 { margin: 10px 10px 5px 4px; padding: 0px; line-height: 18px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 15px; font-weight: 700; text-align: left;  }</style></head><body><div class = rtcContent><h1  class = 'S0'><span>Tutorial: Customizing physiology and drug databases</span></h1><div  class = 'S1'><span>Mechanistic pharmacokinetic modelling relies on physiological and drug related-parameters. In the Computational Physiology Toolbox, physiology and drug databases are used to store such data in a systematic way. In this tutorial, we will look at how to customize these databases.</span></div><h3  class = 'S2'><span>Initialization of custom physiology and drug databases</span></h3><div  class = 'S1'><span>When the physiology / drug databases are accessed for the first time, a database instance is created and maintained for the rest of the session (see tutorial "Accessing physiology and drug databases"). The initialization function is stored in a global option, defaulting to  </span><span style=' font-family: monospace;'>initphysiologydb()</span><span> / </span><span style=' font-family: monospace;'>initdrugdb()</span><span>:</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S3'><span style="white-space: pre"><span >getoptcompphysiol(</span><span style="color: #a709f5;">'PhysiologyDB'</span><span >)</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsVariableStringElement" uid="24C22900" prevent-scroll="true" data-testid="output_0" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="35" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><span class="variableNameElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">ans = <span class="headerElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">function_handle with value:</span></span></div><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">    @initphysiologydb
+</div></div></div></div></div><div class="inlineWrapper outputs"><div  class = 'S5'><span style="white-space: pre"><span >getoptcompphysiol(</span><span style="color: #a709f5;">'DrugDB'</span><span >)</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsVariableStringElement" uid="941C3DCB" prevent-scroll="true" data-testid="output_1" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="35" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><span class="variableNameElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">ans = <span class="headerElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">function_handle with value:</span></span></div><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">    @initdrugdb
+</div></div></div></div></div></div><div  class = 'S6'><span>However, any custom initialization function can be passed as initialization function, e.g. defining additional physiologies or drugs. To serve as a starting point for customization, we will briefly discuss the structure of the default initialization functions:</span></div><ul  class = 'S7'><li  class = 'S8'><span style=' text-decoration: underline;'>Function </span><span style=' text-decoration: underline; font-family: monospace;'>initphysiologydb()</span><span style=' text-decoration: underline;'>:</span><span> This is a very long function, with nearly 2000 lines of code, and we won't go through this in much detail. But you can already appreciate the general structure by looking at the first lines of code. First, two reference rats are defined, a young and an adult one. Function </span><span style=' font-family: monospace;'>addrecord()</span><span> is used a lot in this file, it has the following structure: first, the physiology object to add a record to, then, the name of the parameter, </span><span style=' font-family: monospace;'>'species'</span><span> in this case, then the value of the parameter, </span><span style=' font-family: monospace;'>'rat'</span><span>, then a literature reference, and lastly an assumption. Of the two last arguments, at least one must be provided, meaning that it is not possible to store just some number in the database without explaining its provenence. For our quick tour of </span><span style=' font-family: monospace;'>initphysiologydb()</span><span>, this will be sufficient.</span></li><li  class = 'S8'><span style=' text-decoration: underline;'>Function </span><span style=' text-decoration: underline; font-family: monospace;'>initdrugdb()</span><span style=' text-decoration: underline;'>:</span><span> It has a different structure, and the only relevant part for customizing it is subfunction </span><span style=' font-family: monospace;'>build_database()</span><span>. Let's go to the block defining the drug properties of Amitriptyline. Again, the main work is done by function </span><span style=' font-family: monospace;'>addrecord()</span><span>. First, the species-independent parameters are defined and afterwards, the species-dependent parameters. If you want to add a new drug, you just have to copy-paste such a block and enter the appropriate values. Also, don't forget to increment the number of drugs at the top.</span></li></ul><div  class = 'S1'><span>If you customize the initialization funtions for physiology / drug databases and they have already been initialized, call</span></div><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >clear </span><span style="color: #a709f5;">PhysiologyDB</span></span></div></div></div><div  class = 'S6'><span>and/or</span></div><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S9'><span style="white-space: pre"><span >clear </span><span style="color: #a709f5;">DrugDB</span></span></div></div></div><div  class = 'S6'><span>for the change in initialization functions to take effect.</span></div><h3  class = 'S2'><span></span></h3><h3  class = 'S2'><span>Defining a new type of physiological or drug-related parameter</span></h3><div  class = 'S1'><span>Another way of customizing the physiology or drug database is by defining a new type of physiological or drug-related parameter. To this end, it will not be enough to define a record of a new type in the initialization function. Instead, you also need to define a custom database template function. These are also stored in global options:</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S3'><span style="white-space: pre"><span >getoptcompphysiol(</span><span style="color: #a709f5;">'PhysiologyTemplate'</span><span >)</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsVariableStringElement" uid="89EAC6F1" prevent-scroll="true" data-testid="output_2" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="35" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><span class="variableNameElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">ans = <span class="headerElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">function_handle with value:</span></span></div><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">    @physiologytemplate
+</div></div></div></div></div><div class="inlineWrapper outputs"><div  class = 'S5'><span style="white-space: pre"><span >getoptcompphysiol(</span><span style="color: #a709f5;">'DrugTemplate'</span><span >)</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsVariableStringElement" uid="67A54D77" prevent-scroll="true" data-testid="output_3" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="35" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><span class="variableNameElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">ans = <span class="headerElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">function_handle with value:</span></span></div><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">    @drugtemplate
+</div></div></div></div></div></div><div  class = 'S6'><span>Again, you can start from the defaults, </span><span style=' font-family: monospace;'>physiologytemplate()</span><span> and </span><span style=' font-family: monospace;'>drugtemplate()</span><span>. Let us look at these two functions now.</span></div><h4  class = 'S10'><span>Function </span><span style=' font-family: monospace;'>physiologytemplate()</span></h4><div  class = 'S1'><span>The physiology template defines a large cell array, with four columns and one row per physiological parameter:</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S3'><span style="white-space: pre"><span >type </span><span style="color: #a709f5;">physiologytemplate</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement scrollableOutput" uid="15B0DC0F" prevent-scroll="true" data-testid="output_4" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent scrollArea" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="1493" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">%PHYSIOLOGYTEMPLATE Template for physiological parameters with metadata 
+%   PHYSIOLOGYTEMPLATE is a customizable template to define the type of
+%   physiological parameters that may be added to the physiology database. 
+%   
+%   Note that in order for a change in PHYSIOLOGYTEMPLATE to take effect,
+%   function 'resetcompphysiol' must be re-run, and that this clears all
+%   variables from the global workspace.
+%
+%   PARAMS = PHYSIOLOGYTEMPLATE() returns a N-by-4 cell array PARAMS. Every 
+%   row corresponds to a physiological parameter and must have the 
+%   following form:
+%   
+%       {&lt;name&gt; &lt;unit type&gt; &lt;per tissue&gt; &lt;description&gt;}
+%   
+%   - &lt;name&gt; specifies the parameter name (a char)
+%   - &lt;unit type&gt; specifies the unit type of the parameter (a char; see
+%       typecheck() for possible values)
+%   - &lt;per tissue&gt; is a boolean specifying whether the parameter is scalar
+%       (false) or a per-tissue parameter (true)
+%   - &lt;description&gt; is a descriptive text (character array) that can be
+%       displayed with function about()
+%
+%   The following naming convention is used for composite parameters:
+%   - parameters specifying a particular subtype of a main parameter have
+%   the form &lt;MAIN TYPE&gt;&lt;subtype&gt;, e.g. Vtis for tissue volume.
+%   - parameters specifying a fraction of a particular type have the form
+%   	f&lt;what&gt;&lt;OF WHAT&gt;, like fuP for fraction unbound in plasma.
+%
+%   See also initphysiologydb, Physiology, typecheck, about, 
+%       resetcompphysiol
+
+function params = physiologytemplate()
+
+%  Parameter      Unit type     Per tissue?  Description          
+params = {
+    'species'     'char'           false    'Species of individual' 
+    'type'        'char'           false    'Type of individual (race or strain)' 
+    'sex'         'char'           false    'Sex of individual' 
+
+    'age'         'Time'           false    'Age of individual'
+    'BH'          'Length'         false    'Body height'  
+    'BW'          'Mass'           false    'Body weight'  
+    'LBW'         'Mass'           false    'Lean body weight'  
+    'BMI'         'Mass/Area'      false    'Body mass index'  
+    'BSA'         'Area'           false    'Body surface area'  
+    
+    'fowtisBW'    'unitless'       true     'Tissue organ weight fraction of body weight'    
+    'ftblBW'      'unitless'       false    'Total blood volume (incl regional blood) fraction of body weight'
+
+    'hct'         'unitless'       false    'Hematocrit (cellular fraction of blood volume)'
+    'pH'          'unitless'       true     'pH value (acidity of a physiological liquid)'  
+
+    'OWtis'       'Mass'           true     'Tissue organ weight (without residual blood)'  
+    'OWtot'       'Mass'           true     'Total organ weight (including vascular part)' 
+    'OWrbt'       'Mass'           true     'Organ tissue weight including residual blood' 
+    'OWtbl'       'Mass'           false    'Total blood weight (including regional blood)'
+
+    'fcelOWtot'   'unitless'       true     'Cellular fraction of total organ weight'  
+    'fintOWtot'   'unitless'       true     'Interstitial fraction of total organ weight'  
+    'fvasOWtot'   'unitless'       true     'Vascular fraction of total organ weight'  
+    'fresOWrbt'   'unitless'       true     'Residual blood fraction of tissue organ weight with residual blood' 
+    'fcelOWtis'   'unitless'       true     'Cellular fraction of tissue organ weight'  
+    'fintOWtis'   'unitless'       true     'Interstitial fraction of tissue organ weight'
+    'faphOWtis'   'unitless'       true     'Intercellular acidic phospholipid fraction of tissue organ weight'
+    
+    'dens'        'Mass/Volume'    true     'Density'   
+
+    'Vtot'        'Volume'         true     'Total volume of an organ (including vascular part)'   
+    'Vtis'        'Volume'         true     'Tissue volume of an organ (without residual blood)'   
+    'Vvas'        'Volume'         true     'Vascular volume of an organ'   
+    'Vres'        'Volume'         true     'Residual blood volume of an organ'  
+    'Vtbl'        'Volume'         false    'Total blood volume (including regional blood)'
+ 
+    'fcelVtot'    'unitless'       true     'Cellular fraction of total organ volume'  
+    'fintVtot'    'unitless'       true     'Interstitial fraction of total organ volume'  
+    'fvasVtot'    'unitless'       true     'Vascular fraction of total organ volume'  
+    'fcelVtis'    'unitless'       true     'Cellular fraction of tissue organ volume'  
+    'fintVtis'    'unitless'       true     'Interstitial fraction of tissue organ volume'
+    'fnliVtis'    'unitless'       true     'Neutral lipid fraction of tissue organ volume'
+    'fnphVtis'    'unitless'       true     'Neutral phospholipid fraction of tissue organ volume'
+    'faphVtis'    'unitless'       true     'Acidic phospholipid fraction of tissue organ volume'
+    'fwecVtis'    'unitless'       true     'Extracellular water fraction of tissue organ volume'  
+    'fwicVtis'    'unitless'       true     'Intracellular water fraction of tissue organ volume'
+    'fwtotVtis'   'unitless'       true     'Total water fraction of tissue organ volume'
+    'fwecVrbt'    'unitless'       true     'Extracellular water fraction of tissue organ volume with residual blood'  
+    'fwicVrbt'    'unitless'       true     'Intracellular water fraction of tissue organ volume with residual blood'      
+    'fregVtbl'    'unitless'       true     'Regional peripheral blood fraction of total blood volume'  
+    'fartVtbl'    'unitless'       false    'Arterial fraction of total blood volume'  
+    'fvenVtbl'    'unitless'       false    'Venous fraction of total blood volume'  
+     
+    'fpwVpla'     'unitless'       false    'Water fraction of plasma'
+    'rtpAlb'      'unitless'       true     'Tissue-to-plasma ratio of albumin'   
+    'rtpLip'      'unitless'       true     'Tissue-to-plasma ratio of lipoprotein'     
+
+    'co'          'Volume/Time'    false    'Cardiac output'   
+    'fqbloCO'     'unitless'       true     'Blood flow fraction of cardiac output'    
+    'Qblo'        'Volume/Time'    true     'Blood flow'   
+    'GFR'         'Volume/Time'    false    'Glomerular filtration rate'
+};
+
+end</div></div></div></div></div><div  class = 'S6'><span>This information is used in different ways. First, you will already have recognized that this is where function "about" gets its information from. But more importantly, the physiologytemplate is used to enforce the unit type of any physiological parameter and to state whether a parameter is scalar or per tissue. To add a new physiological parameter, you can simply add a row to this cell array, providing the required information in the same way.</span></div><div  class = 'S1'><span></span></div><h4  class = 'S10'><span>Function </span><span style=' font-family: monospace;'>drugtemplate()</span></h4><div  class = 'S1'><span>The cell array defined here is very similar to the physiology template, and you can also expand it with the information of other drug-related parameters.</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S3'><span style="white-space: pre"><span >type </span><span style="color: #a709f5;">drugtemplate</span></span></div><div  class = 'S4'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement scrollableOutput" uid="2903A287" prevent-scroll="true" data-testid="output_5" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent scrollArea" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="696" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">% DRUGTEMPLATE Template for drug-related parameters with metadata 
+%   DRUGTEMPLATE is a customizable template to define the type of 
+%   drug-related parameters that may be added to the drug database. 
+%
+%   Note that in order for a change in DRUGTEMPLATE to take effect,
+%   function 'resetcompphysiol' must be re-run, and that this clears all
+%   variables from the global workspace.
+%
+%   PARAMS = DRUGTEMPLATE() returns a N-by-4 cell array PARAMS, where each
+%   row corresponds to a parameter type in the database and the columns 
+%   contain the following information:
+%   - column 1 is the parameter name
+%   - column 2 is the unit type of the parameter - either a type defined in
+%     function istype(), or DimVar, or a character array convertible to DimVar
+%   - column 3 specifies whether the parameter is defined globally or on a
+%     per-species level
+%   - column 4 is an explanatory text that can be queried with function
+%     about()
+%
+%   See also initdrugdb, DrugDB, typecheck, about, resetcompphysiol
+
+function params = drugtemplate()
+
+%    Parameter            Unit type    Per species?   Description
+params = {
+    'formula'             'char'           false      'Molecular formula'
+    'MW'                  'Mass/Amount'    false      'Molecular weight'
+    'pKa_ani'             'unitless'       false      'anionic log10 acid dissociation constant'
+    'pKa_cat'             'unitless'       false      'cationic log10 acid dissociation constant'
+    'Kz'                  'unitless'       false      'Tautomeric constant of ampholytes (ratio zwitter ion : neutral)'
+    'logPow'              'unitless'       false      'log10 octanol-water partition coefficient'
+    'logPvow'             'unitless'       false      'log10 vegetable oil-water partition coefficient'
+    'logMA'               'unitless'       false      'log10 membrane affinity (phosphatidylcholin:water partition coefficient at pH 7.4)'
+    'fuP'                 'unitless'       true       'Fraction unbound in plasma'
+    'BP'                  'unitless'       true       'Blood-to-plasma concentration ratio in steady-state'
+    'CLblood_hep'         'L/(h*kg)'       true       'In vivo hepatic blood clearance, scaled to body weight'    
+    'CLint_hep_perOWliv'  'L/(h*kg)'       true       'Intrinsic hepatic clearance per liver tissue weight'
+    'K_ery_up'            'unitless'       true       'Erythrocyte-to-plasma partition coefficient'
+    'lambda_po'           '1/Time'         true       'Absorption rate constant'
+    'Egut'                'unitless'       true       'Gut extraction ratio'
+    'Efeces'              'unitless'       true       'Feces extraction ratio'
+    'Freabs'              'unitless'       true       'Tubular reabsorbed fraction'
+    'cellPerm'            'Velocity'       true       'Cellular permeability (e.g., from CaCo-2 assay)'
+};
+
+
+end</div></div></div></div></div><div  class = 'S6'><span>For changes in the physiology or drug template to take effect, it is </span><span style=' font-style: italic;'>not sufficient to clear the database instances</span><span>. In addition, no </span><span style=' font-family: monospace;'>Physiology</span><span> / </span><span style=' font-family: monospace;'>DrugData</span><span> object may be defined. It is easiest to ensure by updating the database classes in a clean workspace. </span></div><div  class = 'S1'></div>
+<br>
+<!-- 
+##### SOURCE BEGIN #####
+%% Tutorial: Customizing physiology and drug databases
+% Mechanistic pharmacokinetic modelling relies on physiological and drug related-parameters. 
+% In the Computational Physiology Toolbox, physiology and drug databases are used 
+% to store such data in a systematic way. In this tutorial, we will look at how 
+% to customize these databases.
+% Initialization of custom physiology and drug databases
+% When the physiology / drug databases are accessed for the first time, a database 
+% instance is created and maintained for the rest of the session (see tutorial 
+% "Accessing physiology and drug databases"). The initialization function is stored 
+% in a global option, defaulting to  |initphysiologydb()| / |initdrugdb()|:
+
+getoptcompphysiol('PhysiologyDB')
+getoptcompphysiol('DrugDB')
+%% 
+% However, any custom initialization function can be passed as initialization 
+% function, e.g. defining additional physiologies or drugs. To serve as a starting 
+% point for customization, we will briefly discuss the structure of the default 
+% initialization functions:
+%% 
+% * Function |initphysiologydb()|: This is a very long function, with nearly 
+% 2000 lines of code, and we won't go through this in much detail. But you can 
+% already appreciate the general structure by looking at the first lines of code. 
+% First, two reference rats are defined, a young and an adult one. Function |addrecord()| 
+% is used a lot in this file, it has the following structure: first, the physiology 
+% object to add a record to, then, the name of the parameter, |'species'| in this 
+% case, then the value of the parameter, |'rat'|, then a literature reference, 
+% and lastly an assumption. Of the two last arguments, at least one must be provided, 
+% meaning that it is not possible to store just some number in the database without 
+% explaining its provenence. For our quick tour of |initphysiologydb()|, this 
+% will be sufficient.
+% * Function |initdrugdb()|: It has a different structure, and the only relevant 
+% part for customizing it is subfunction |build_database()|. Let's go to the block 
+% defining the drug properties of Amitriptyline. Again, the main work is done 
+% by function |addrecord()|. First, the species-independent parameters are defined 
+% and afterwards, the species-dependent parameters. If you want to add a new drug, 
+% you just have to copy-paste such a block and enter the appropriate values. Also, 
+% don't forget to increment the number of drugs at the top.
+%% 
+% If you customize the initialization funtions for physiology / drug databases 
+% and they have already been initialized, call
+
+clear PhysiologyDB
+%% 
+% and/or
+
+clear DrugDB
+%% 
+% for the change in initialization functions to take effect.
+% 
+% Defining a new type of physiological or drug-related parameter
+% Another way of customizing the physiology or drug database is by defining 
+% a new type of physiological or drug-related parameter. To this end, it will 
+% not be enough to define a record of a new type in the initialization function. 
+% Instead, you also need to define a custom database template function. These 
+% are also stored in global options:
+
+getoptcompphysiol('PhysiologyTemplate')
+getoptcompphysiol('DrugTemplate')
+%% 
+% Again, you can start from the defaults, |physiologytemplate()| and |drugtemplate()|. 
+% Let us look at these two functions now.
+% Function |physiologytemplate()|
+% The physiology template defines a large cell array, with four columns and 
+% one row per physiological parameter:
+
+type physiologytemplate
+%% 
+% This information is used in different ways. First, you will already have recognized 
+% that this is where function "about" gets its information from. But more importantly, 
+% the physiologytemplate is used to enforce the unit type of any physiological 
+% parameter and to state whether a parameter is scalar or per tissue. To add a 
+% new physiological parameter, you can simply add a row to this cell array, providing 
+% the required information in the same way.
+% 
+% 
+% Function |drugtemplate()|
+% The cell array defined here is very similar to the physiology template, and 
+% you can also expand it with the information of other drug-related parameters.
+
+type drugtemplate
+%% 
+% For changes in the physiology or drug template to take effect, it is _not 
+% sufficient to clear the database instances_. In addition, no |Physiology| / 
+% |DrugData| object may be defined. It is easiest to ensure by updating the database 
+% classes in a clean workspace. 
+% 
+%
+##### SOURCE END #####
+-->
+</div></body></html>

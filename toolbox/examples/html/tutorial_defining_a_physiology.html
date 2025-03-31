@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,chrome=1"><meta name="generator" content="MATLAB 2023b"><title>Tutorial: Defining a physiology</title><style type="text/css">.rtcContent { padding: 30px; } .S0 { margin: 3px 10px 5px 4px; padding: 0px; line-height: 28.8px; min-height: 0px; white-space: pre-wrap; color: rgb(192, 76, 11); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 24px; font-weight: 400; text-align: left;  }
+.S1 { margin: 2px 10px 9px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 400; text-align: left;  }
+.S2 { margin: 10px 10px 5px 4px; padding: 0px; line-height: 18px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 15px; font-weight: 700; text-align: left;  }
+.S3 { margin: 10px 0px 20px; padding-left: 0px; font-family: Helvetica, Arial, sans-serif; font-size: 14px;  }
+.S4 { margin-left: 56px; line-height: 21px; min-height: 0px; text-align: left; white-space: pre-wrap;  }
+.CodeBlock { background-color: #F5F5F5; margin: 10px 0 10px 0; }
+.S5 { border-left: 1px solid rgb(217, 217, 217); border-right: 1px solid rgb(217, 217, 217); border-top: 1px solid rgb(217, 217, 217); border-bottom: 0px none rgb(33, 33, 33); border-radius: 4px 4px 0px 0px; padding: 6px 45px 0px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S6 { border-left: 1px solid rgb(217, 217, 217); border-right: 1px solid rgb(217, 217, 217); border-top: 0px none rgb(33, 33, 33); border-bottom: 1px solid rgb(217, 217, 217); border-radius: 0px; padding: 0px 45px 4px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S7 { color: rgb(33, 33, 33); padding: 10px 0px 6px 17px; background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box; font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px; overflow-x: hidden; line-height: 17.234px;  }
+/* Styling that is common to warnings and errors is in diagnosticOutput.css */.embeddedOutputsErrorElement {    min-height: 18px;    max-height: 550px;}
+.embeddedOutputsErrorElement .diagnosticMessage-errorType {    overflow: auto;}
+.embeddedOutputsErrorElement.inlineElement {}
+.embeddedOutputsErrorElement.rightPaneElement {}
+/* Styling that is common to warnings and errors is in diagnosticOutput.css */.embeddedOutputsWarningElement {    min-height: 18px;    max-height: 550px;}
+.embeddedOutputsWarningElement .diagnosticMessage-warningType {    overflow: auto;}
+.embeddedOutputsWarningElement.inlineElement {}
+.embeddedOutputsWarningElement.rightPaneElement {}
+/* Copyright 2015-2023 The MathWorks, Inc. *//* In this file, styles are not scoped to rtcContainer since they could be in the Dojo Tooltip */.diagnosticMessage-wrapper {    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;    font-size: 12px;}
+.diagnosticMessage-wrapper.diagnosticMessage-warningType {    /*This fallback value will be used for appdesigner warnings*/    color: var(--rtc-warning-output-color, var(--mw-color-matlabWarning));}
+.diagnosticMessage-wrapper.diagnosticMessage-warningType a {    /*This fallback value will be used for appdesigner warnings*/    color: var(--rtc-warning-output-color, var(--mw-color-matlabWarning));    text-decoration: underline;}
+.rtcThemeDefaultOverride .diagnosticMessage-wrapper.diagnosticMessage-warningType,.rtcThemeDefaultOverride .diagnosticMessage-wrapper.diagnosticMessage-warningType a {    color: var(--mw-color-matlabWarning) !important;}
+.diagnosticMessage-wrapper.diagnosticMessage-errorType {    /*This fallback value will be used in appdesigner error tooltip text*/    color: var(--rtc-error-output-color, var(--mw-color-matlabErrors));}
+.diagnosticMessage-wrapper.diagnosticMessage-errorType a {    /*This fallback value will be used in appdesigner error tooltip text*/    color: var(--rtc-error-output-color, var(--mw-color-matlabErrors));    text-decoration: underline;}
+.rtcThemeDefaultOverride .diagnosticMessage-wrapper.diagnosticMessage-errorType,.rtcThemeDefaultOverride .diagnosticMessage-wrapper.diagnosticMessage-errorType a {    color: var(--mw-color-matlabErrors) !important;}
+.diagnosticMessage-wrapper .diagnosticMessage-messagePart,.diagnosticMessage-wrapper .diagnosticMessage-causePart {    white-space: pre-wrap;}
+.diagnosticMessage-wrapper .diagnosticMessage-stackPart {    white-space: pre;}
+.embeddedOutputsTextElement,.embeddedOutputsVariableStringElement {    white-space: pre;    word-wrap:  initial;    min-height: 18px;    max-height: 550px;}
+.embeddedOutputsTextElement .textElement,.embeddedOutputsVariableStringElement .textElement {    overflow: auto;}
+.textElement,.rtcDataTipElement .textElement {    padding-top: 2px;}
+.embeddedOutputsTextElement.inlineElement,.embeddedOutputsVariableStringElement.inlineElement {}
+.inlineElement .textElement {}
+.embeddedOutputsTextElement.rightPaneElement,.embeddedOutputsVariableStringElement.rightPaneElement {    min-height: 16px;}
+.rightPaneElement .textElement {    padding-top: 2px;    padding-left: 9px;}
+.S8 { margin: 10px 10px 9px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 400; text-align: left;  }
+.S9 { border-left: 1px solid rgb(217, 217, 217); border-right: 1px solid rgb(217, 217, 217); border-top: 1px solid rgb(217, 217, 217); border-bottom: 1px solid rgb(217, 217, 217); border-radius: 4px 4px 0px 0px; padding: 6px 45px 4px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }</style></head><body><div class = rtcContent><h1  class = 'S0'><span>Tutorial: Defining a physiology</span></h1><div  class = 'S1'><span>To run a simulation in the Computational Physiology Toolbox, the individual components of a simulation task must be specified. In this tutorial, we will look at how to specify physiological information.</span></div><h4  class = 'S2'><span>Overview: how to specify a physiology</span></h4><div  class = 'S1'><span>There are three different ways to define a physiology:</span></div><ol  class = 'S3'><li  class = 'S4'><span>Defining basic covariates at the script level (which is sufficient for empirical PK models).</span></li><li  class = 'S4'><span>Access the physiology database and retrieve detailed physiological information on a reference individual. This is the level of detailedness required by PBPK models.</span></li><li  class = 'S4'><span>To define detailed physiology for a non-reference individual, you can use a physiological scaling method. </span></li></ol><div  class = 'S1'><span>Let's look at how to implement each of these approaches. </span></div><h4  class = 'S2'><span>Specifying basic covariates</span></h4><div  class = 'S1'><span>To define basic covariates at the script level, use function </span><span style=' font-family: monospace;'>Covariates()</span><span>. For example, let's define a normal male adult:</span></div><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S5'><span style="white-space: pre"><span >human1 = Covariates(</span><span style="color: #a709f5;">'Species'</span><span >, </span><span style="color: #a709f5;">'human'</span><span >, </span><span style="color: #a709f5;">'BW'</span><span >, 70*u.kg, </span><span style="color: #0e00ff;">...</span></span></div></div><div class="inlineWrapper outputs"><div  class = 'S6'><span style="white-space: pre"><span >    </span><span style="color: #a709f5;">'BH'</span><span >, 1.80*u.m, </span><span style="color: #a709f5;">'sex'</span><span >, </span><span style="color: #a709f5;">'male'</span><span >, </span><span style="color: #a709f5;">'age'</span><span >, 35*u.year)</span></span></div><div  class = 'S7'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsVariableStringElement" uid="11E479CD" prevent-scroll="true" data-testid="output_0" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="153" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><span class="variableNameElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">human1 = </span></div><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">	Physiology object:
+
+	
+species: human
+sex: male
+age: 35 year
+BH: 1.8 m
+BW: 70 kg
+
+</div></div></div></div></div></div><div  class = 'S8'><span>Function </span><span style=' font-family: monospace;'>Covariates() </span><span>allows to define any number of physiological parameters. For example,</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S9'><span style="white-space: pre"><span >Covariates(</span><span style="color: #a709f5;">'Species'</span><span >, </span><span style="color: #a709f5;">'human'</span><span >)</span></span></div><div  class = 'S7'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsVariableStringElement" uid="2B3E645C" prevent-scroll="true" data-testid="output_1" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="94" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><span class="variableNameElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">ans = </span></div><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">	Physiology object:
+
+	
+species: human
+
+</div></div></div></div></div></div><div  class = 'S8'><span>is also a valid physiology. To see how per-tissue physiological parameters are specified, refer to the function help.</span></div><h4  class = 'S2'><span>Selecting a reference physiology</span></h4><div  class = 'S1'><span>To retrieve an individual from the physiology database, use function </span><span style=' font-family: monospace;'>Physiology()</span><span>. Let's get the typical 35-year-old male human from the database:</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S9'><span style="white-space: pre"><span >human2 = Physiology(</span><span style="color: #a709f5;">'human35m'</span><span >)</span></span></div><div  class = 'S7'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="3244580B" prevent-scroll="true" data-testid="output_2" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="32" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Initializing the physiology database...
+...finished.</div></div><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsVariableStringElement scrollableOutput" uid="CD8AD2CF" prevent-scroll="true" data-testid="output_3" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent scrollArea" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="610" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><span class="variableNameElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">human2 = </span></div><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">	Physiology object:
+
+	"human35m" with parameters
+
+species: human
+type: Caucasian
+sex: male
+age: 35 year
+BH: 176 cm
+BW: 73 kg
+LBW: 58.5 kg
+BMI: 23.5666 kg/m^2
+BSA: 1.9 m^2
+fowtisBW: [11 values]
+hct: 0.43396
+pH: [13 values]
+OWtis: [67 values]
+OWtbl: 5300 g
+dens: [12 values]
+Vtot: [11 values]
+Vtis: [13 values]
+Vvas: [11 values]
+Vtbl: 0.0053 m^3
+fcelVtis: [13 values]
+fintVtis: [13 values]
+fnliVtis: [13 values]
+fnphVtis: [13 values]
+faphVtis: [12 values]
+fwecVtis: [11 values]
+fwicVtis: [12 values]
+fwtotVtis: [13 values]
+fregVtbl: [48 values]
+fartVtbl: 0.295
+fvenVtbl: 0.705
+rtpAlb: [11 values]
+rtpLip: [11 values]
+co: 6.5 L/min
+fqbloCO: [34 values]
+Qblo: [10 values]
+
+</div></div></div></div></div></div><div  class = 'S8'><span>The names of available reference physiologies are presented as argument suggestion when typing </span><span style=' font-family: monospace;'>Physiology(</span><span> and pressing </span><span style=' font-family: monospace;'>TAB</span><span>.</span></div><h4  class = 'S2'><span>Specifying a physiology by physiological scaling</span></h4><div  class = 'S1'><span>The detailed physiology of a reference individual can be scaled to a target individual specified by some covariates. Two scaling methods are implemented, lean-bodyweight-based scaling and bodyweight-based scaling. </span></div><div  class = 'S1'><span>As an example, we will scale the detailed physiology </span><span style=' font-family: monospace;'>human2</span><span> to the covariates </span><span style=' font-family: monospace;'>human1</span><span>, using lean-bodyweight-based scaling:</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S9'><span style="white-space: pre"><span >human3 = scaling_LBW(human2, human1)</span></span></div><div  class = 'S7'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsVariableStringElement scrollableOutput" uid="31D3F64A" prevent-scroll="true" data-testid="output_4" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent scrollArea" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="610" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><span class="variableNameElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">human3 = </span></div><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">	Physiology object:
+
+	"scaled from "human35m" with "scaling_LBW"" with parameters
+
+species: human
+sex: male
+age: 35 year
+BH: 1.8 m
+BW: 70 kg
+LBW: 57.1886 kg
+BMI: 21.6049 kg/m^2
+BSA: 1.8708 m^2
+fowtisBW: [11 values]
+ftblBW: 0.073938
+hct: 0.43396
+pH: [13 values]
+OWtis: [11 values]
+OWtbl: 5.1757 kg
+dens: [12 values]
+Vtot: [11 values]
+Vtis: [11 values]
+Vvas: [11 values]
+Vtbl: 0.0051757 m^3
+fcelVtis: [13 values]
+fintVtis: [13 values]
+fnliVtis: [13 values]
+fnphVtis: [13 values]
+faphVtis: [12 values]
+fwecVtis: [11 values]
+fwicVtis: [12 values]
+fwtotVtis: [13 values]
+fregVtbl: [48 values]
+fartVtbl: 0.295
+fvenVtbl: 0.705
+rtpAlb: [11 values]
+rtpLip: [11 values]
+co: 6.3475 L/min
+fqbloCO: [34 values]
+Qblo: [10 values]
+
+</div></div></div></div></div></div><div  class = 'S8'><span>Each scaling method has specific requirements on the physiological parameters defined in the reference and target individual's physiology. These requirements can be found in the documentation of the scaling functions. In the above example, they were met, but otherwise an error will be produced.</span></div><h4  class = 'S2'><span>Overarching concept: </span><span style=' font-family: monospace;'>Physiology</span><span> objects</span></h4><div  class = 'S1'><span>Note that all three of these methods result in the same kind of object, an object of class </span><span style=' font-family: monospace;'>Physiology</span><span>. You can think of this class as comprising a continuum of degrees of detailedness, with very coarse-grained covariate information on the one end, and very detailed physiology at the other end.</span></div><div  class = 'S1'><span></span></div><h4  class = 'S2'><span>Exercise</span></h4><div  class = 'S1'><span>Here's an exercise to practice defining physiologies.</span></div><div  class = 'S1'><span>Derive a detailed physiology for a 400 g male adult rat by physiological scaling. To this end, choose an appropriate reference individual and an appropriate physiological scaling method.</span></div><div  class = 'S1'><span>Try to do the computation in the toolbox; you can check your result in the solutions.</span></div>
+<br>
+<!-- 
+##### SOURCE BEGIN #####
+%% Tutorial: Defining a physiology
+% To run a simulation in the Computational Physiology Toolbox, the individual 
+% components of a simulation task must be specified. In this tutorial, we will 
+% look at how to specify physiological information.
+% Overview: how to specify a physiology
+% There are three different ways to define a physiology:
+%% 
+% # Defining basic covariates at the script level (which is sufficient for empirical 
+% PK models).
+% # Access the physiology database and retrieve detailed physiological information 
+% on a reference individual. This is the level of detailedness required by PBPK 
+% models.
+% # To define detailed physiology for a non-reference individual, you can use 
+% a physiological scaling method. 
+%% 
+% Let's look at how to implement each of these approaches. 
+% Specifying basic covariates
+% To define basic covariates at the script level, use function |Covariates()|. 
+% For example, let's define a normal male adult:
+
+human1 = Covariates('Species', 'human', 'BW', 70*u.kg, ...
+    'BH', 1.80*u.m, 'sex', 'male', 'age', 35*u.year)
+%% 
+% Function |Covariates()| allows to define any number of physiological parameters. 
+% For example,
+
+Covariates('Species', 'human')
+%% 
+% is also a valid physiology. To see how per-tissue physiological parameters 
+% are specified, refer to the function help.
+% Selecting a reference physiology
+% To retrieve an individual from the physiology database, use function |Physiology()|. 
+% Let's get the typical 35-year-old male human from the database:
+
+human2 = Physiology('human35m')
+%% 
+% The names of available reference physiologies are presented as argument suggestion 
+% when typing |Physiology(| and pressing |TAB|.
+% Specifying a physiology by physiological scaling
+% The detailed physiology of a reference individual can be scaled to a target 
+% individual specified by some covariates. Two scaling methods are implemented, 
+% lean-bodyweight-based scaling and bodyweight-based scaling. 
+% 
+% As an example, we will scale the detailed physiology |human2| to the covariates 
+% |human1|, using lean-bodyweight-based scaling:
+
+human3 = scaling_LBW(human2, human1)
+%% 
+% Each scaling method has specific requirements on the physiological parameters 
+% defined in the reference and target individual's physiology. These requirements 
+% can be found in the documentation of the scaling functions. In the above example, 
+% they were met, but otherwise an error will be produced.
+% Overarching concept: |Physiology| objects
+% Note that all three of these methods result in the same kind of object, an 
+% object of class |Physiology|. You can think of this class as comprising a continuum 
+% of degrees of detailedness, with very coarse-grained covariate information on 
+% the one end, and very detailed physiology at the other end.
+% 
+% 
+% Exercise
+% Here's an exercise to practice defining physiologies.
+% 
+% Derive a detailed physiology for a 400 g male adult rat by physiological scaling. 
+% To this end, choose an appropriate reference individual and an appropriate physiological 
+% scaling method.
+% 
+% Try to do the computation in the toolbox; you can check your result in the 
+% solutions.
+##### SOURCE END #####
+-->
+</div></body></html>

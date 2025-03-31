@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,chrome=1"><meta name="generator" content="MATLAB 2023b"><title>Tutorial: Global options</title><style type="text/css">.rtcContent { padding: 30px; } .S0 { margin: 3px 10px 5px 4px; padding: 0px; line-height: 28.8px; min-height: 0px; white-space: pre-wrap; color: rgb(192, 76, 11); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 24px; font-weight: 400; text-align: left;  }
+.S1 { margin: 2px 10px 9px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 400; text-align: left;  }
+.CodeBlock { background-color: #F5F5F5; margin: 10px 0 10px 0; }
+.S2 { border-left: 1px solid rgb(217, 217, 217); border-right: 1px solid rgb(217, 217, 217); border-top: 1px solid rgb(217, 217, 217); border-bottom: 1px solid rgb(217, 217, 217); border-radius: 4px 4px 0px 0px; padding: 6px 45px 4px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S3 { color: rgb(33, 33, 33); padding: 10px 0px 6px 17px; background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box; font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px; overflow-x: hidden; line-height: 17.234px;  }
+/* Styling that is common to warnings and errors is in diagnosticOutput.css */.embeddedOutputsErrorElement {    min-height: 18px;    max-height: 550px;}
+.embeddedOutputsErrorElement .diagnosticMessage-errorType {    overflow: auto;}
+.embeddedOutputsErrorElement.inlineElement {}
+.embeddedOutputsErrorElement.rightPaneElement {}
+/* Styling that is common to warnings and errors is in diagnosticOutput.css */.embeddedOutputsWarningElement {    min-height: 18px;    max-height: 550px;}
+.embeddedOutputsWarningElement .diagnosticMessage-warningType {    overflow: auto;}
+.embeddedOutputsWarningElement.inlineElement {}
+.embeddedOutputsWarningElement.rightPaneElement {}
+/* Copyright 2015-2023 The MathWorks, Inc. *//* In this file, styles are not scoped to rtcContainer since they could be in the Dojo Tooltip */.diagnosticMessage-wrapper {    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;    font-size: 12px;}
+.diagnosticMessage-wrapper.diagnosticMessage-warningType {    /*This fallback value will be used for appdesigner warnings*/    color: var(--rtc-warning-output-color, var(--mw-color-matlabWarning));}
+.diagnosticMessage-wrapper.diagnosticMessage-warningType a {    /*This fallback value will be used for appdesigner warnings*/    color: var(--rtc-warning-output-color, var(--mw-color-matlabWarning));    text-decoration: underline;}
+.rtcThemeDefaultOverride .diagnosticMessage-wrapper.diagnosticMessage-warningType,.rtcThemeDefaultOverride .diagnosticMessage-wrapper.diagnosticMessage-warningType a {    color: var(--mw-color-matlabWarning) !important;}
+.diagnosticMessage-wrapper.diagnosticMessage-errorType {    /*This fallback value will be used in appdesigner error tooltip text*/    color: var(--rtc-error-output-color, var(--mw-color-matlabErrors));}
+.diagnosticMessage-wrapper.diagnosticMessage-errorType a {    /*This fallback value will be used in appdesigner error tooltip text*/    color: var(--rtc-error-output-color, var(--mw-color-matlabErrors));    text-decoration: underline;}
+.rtcThemeDefaultOverride .diagnosticMessage-wrapper.diagnosticMessage-errorType,.rtcThemeDefaultOverride .diagnosticMessage-wrapper.diagnosticMessage-errorType a {    color: var(--mw-color-matlabErrors) !important;}
+.diagnosticMessage-wrapper .diagnosticMessage-messagePart,.diagnosticMessage-wrapper .diagnosticMessage-causePart {    white-space: pre-wrap;}
+.diagnosticMessage-wrapper .diagnosticMessage-stackPart {    white-space: pre;}
+.embeddedOutputsTextElement,.embeddedOutputsVariableStringElement {    white-space: pre;    word-wrap:  initial;    min-height: 18px;    max-height: 550px;}
+.embeddedOutputsTextElement .textElement,.embeddedOutputsVariableStringElement .textElement {    overflow: auto;}
+.textElement,.rtcDataTipElement .textElement {    padding-top: 2px;}
+.embeddedOutputsTextElement.inlineElement,.embeddedOutputsVariableStringElement.inlineElement {}
+.inlineElement .textElement {}
+.embeddedOutputsTextElement.rightPaneElement,.embeddedOutputsVariableStringElement.rightPaneElement {    min-height: 16px;}
+.rightPaneElement .textElement {    padding-top: 2px;    padding-left: 9px;}
+.S4 { margin: 10px 10px 9px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 400; text-align: left;  }
+.S5 { margin: 10px 10px 5px 4px; padding: 0px; line-height: 18px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 15px; font-weight: 700; text-align: left;  }
+.S6 { border-left: 1px solid rgb(217, 217, 217); border-right: 1px solid rgb(217, 217, 217); border-top: 1px solid rgb(217, 217, 217); border-bottom: 1px solid rgb(217, 217, 217); border-radius: 4px; padding: 6px 45px 4px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }</style></head><body><div class = rtcContent><h1  class = 'S0'><span>Tutorial: Global options</span></h1><div  class = 'S1'><span>Global options in the Computational Physiology Toolbox are used for different purposes, for example to control the default behaviour of plotting functions. To see the current status of these options, type</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >getoptcompphysiol</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsVariableStringElement" uid="D8EDD143" prevent-scroll="true" data-testid="output_0" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="300" data-hashorizontaloverflow="false" style="max-height: 311px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><span class="variableNameElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">ans = <span class="headerElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">struct with fields:</span></span></div><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">              reporting: 'Assumptions'
+              XScaleLog: 0
+              YScaleLog: 0
+           OdeUnitCheck: 'once'
+           DisplayUnits: {}
+     AutoAssignDrugData: 0
+     AutoFilterDrugData: 0
+    AutoExpDataUnitType: 1
+            PlotOptions: [1×1 struct]
+        LoadExpDrugData: 1
+      DefaultObservable: [0×0 Observable]
+        ReportToConsole: 0
+             DimVarPlot: 0
+           PhysiologyDB: @initphysiologydb
+                 DrugDB: @initdrugdb
+     PhysiologyTemplate: @physiologytemplate
+           DrugTemplate: @drugtemplate
+           PlotTemplate: @plottemplate
+     ObservableTemplate: @obstemplate
+</div></div></div></div></div></div><div  class = 'S4'><span>These are the default options at startup, for example, no custom dispay units are used and plots are not shown on logarithmic scale.</span></div><div  class = 'S1'><span>To know more about these options, you can consult the help of the </span><span style=' font-family: monospace;'>optionsClass</span><span>.</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >help </span><span style="color: #a709f5;">optionsClass</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement scrollableOutput" uid="F937E698" prevent-scroll="true" data-testid="output_1" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent scrollArea" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="873" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"> <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">optionsClass</strong> Class defining global options, their format and defaults: 
+ 
+    reporting - Control level of reporting [character array {Assumptions}]
+        This option is currently unused.
+    
+    XScaleLog - Log x scale in plots by default [ true | {false} ]
+    
+    YScaleLog - Log y scale in plots by default [ true | {false} ]
+    
+    OdeUnitCheck - Unit check frequency when solving ODEs [ never | {once} | always] 
+    
+    DisplayUnits - List of preferred display units [ cellstr {empty} ]
+    
+    AutoAssignDrugData - Load drug data when assigning dosing [ true | {false} ]
+    
+    AutoFilterDrugData - Filter drug data by species when assigning physiology &amp; dosing [ true | {false} ]
+ 
+    DefaultObservable - An Observable array used by default when
+        unspecified in simulations, or empty (default).
+ 
+    PlotOptions - Size of plot lines, markers and text [ struct (see below) ]
+        One or several of the following fields can be defined: 
+           .lw    line width     default = 2
+           .ms    marker size    default = 10
+           .fs    font size      default = 18
+        On some systems, these defaults produce unreasonable plots and
+        should be modified.
+ 
+    LoadExpDrugData - Use ExpDrugData specification [ {true} | false ]
+    
+    AutoExpDataUnitType - Extract data unit type automatically [ {true} | false ]
+        If true, unit types of experimental data are determined automatically
+        from the units of the Value column. Otherwise, they always have to
+        be specified manually.
+ 
+    ReportToConsole - Console reports during modelling tasks [ true | {false} ]
+ 
+    DimVarPlot - Use DimVar plot method for toolbox plots [ true | {false} ]
+        If true, toolbox plots are created with the DimVar plot method,
+        which means that these plots can be customized afterwards using
+        dimensioned variables. It also shows units in a different location.
+ 
+    PhysiologyDB - Function handle to the initialization function of the
+        physiological database
+    
+    DrugDB - Function handle to the initialization function of the drug
+        database
+ 
+    PhysiologyTemplate - Function handle to the physiology template
+ 
+    DrugTemplate - Function handle to the drug template
+ 
+    PlotTemplate - Function handle to the plot template
+ 
+    ObservableTemplate - Function handle to the observable template
+ 
+    See also optionscompphysiol, getoptcompphysiol, setoptcompphysiol
+
+    Documentation for optionsClass</div></div></div></div></div><h4  class = 'S5'><span>Accessing a global option</span></h4><div  class = 'S1'><span>Global options are accessed in many toolbox functions, for example, if not specified otherwise, plotting functions use linear or logarithmic plots depending on the global options. Also, many functions use the global options to access the physiological or drug databases. During scripting, it is often not needed to access global options directly, but in principle, this is done by calling </span><span style=' font-family: monospace;'>getoptcompphysiol()</span><span> with an input: </span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >getoptcompphysiol(</span><span style="color: #a709f5;">'PlotOptions'</span><span >)</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsVariableStringElement" uid="F3839254" prevent-scroll="true" data-testid="output_2" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="64" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><span class="variableNameElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">ans = <span class="headerElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">struct with fields:</span></span></div><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">    lw: 2
+    ms: 10
+    fs: 18
+</div></div></div></div></div></div><div  class = 'S4'><span></span></div><h4  class = 'S5'><span>Changing a global option</span></h4><div  class = 'S1'><span>To change a global option, use function </span><span style=' font-family: monospace;'>setoptcompphysiol()</span><span>. As an example, let us set some custom display units. If you type</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >5*u.cm^3 </span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="30DC020F" prevent-scroll="true" data-testid="output_3" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="76" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">ans =
+
+   5.0000e-06
+
+		 m^3</div></div></div></div></div><div  class = 'S4'><span>you get the result in cubic meters, the default. But maybe we rather want to see all volumes in liters. Let's change the display units (and store the previous setting in the variable </span><span style=' font-family: monospace;'>oldopt</span><span>):</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >oldopt = setoptcompphysiol(</span><span style="color: #a709f5;">'displayUnits'</span><span >,{</span><span style="color: #a709f5;">'L'</span><span >,</span><span style="color: #a709f5;">'nM'</span><span >,</span><span style="color: #a709f5;">'min'</span><span >})</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsVariableStringElement" uid="B5DDC02D" prevent-scroll="true" data-testid="output_4" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="300" data-hashorizontaloverflow="false" style="max-height: 311px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><span class="variableNameElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">oldopt = <span class="headerElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">struct with fields:</span></span></div><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">              reporting: 'Assumptions'
+              XScaleLog: 0
+              YScaleLog: 0
+           OdeUnitCheck: 'once'
+           DisplayUnits: {}
+     AutoAssignDrugData: 0
+     AutoFilterDrugData: 0
+    AutoExpDataUnitType: 1
+            PlotOptions: [1×1 struct]
+        LoadExpDrugData: 1
+      DefaultObservable: [0×0 Observable]
+        ReportToConsole: 0
+             DimVarPlot: 0
+           PhysiologyDB: @initphysiologydb
+                 DrugDB: @initdrugdb
+     PhysiologyTemplate: @physiologytemplate
+           DrugTemplate: @drugtemplate
+           PlotTemplate: @plottemplate
+     ObservableTemplate: @obstemplate
+</div></div></div></div></div></div><div  class = 'S4'><span>We have also set a sensible display unit for molar concentrations and one for times. Now let's do the above computation again:</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >5*u.cm^3 </span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="2BFFD634" prevent-scroll="true" data-testid="output_5" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="76" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">ans =
+
+    0.0050
+
+		 L</div></div></div></div></div><div  class = 'S4'><span>and you see the result is given in liters.</span></div><h4  class = 'S5'><span>Restoring the previous state of an option</span></h4><div  class = 'S1'><span>Above, function </span><span style=' font-family: monospace;'>setoptcompphysiol()</span><span> was used with a return value, </span><span style=' font-family: monospace;'>oldopt</span><span>. This allows to reset the options to their previous state:</span></div><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre"><span >setoptcompphysiol(oldopt)</span></span></div></div></div><div  class = 'S4'><span>and we're back to cubic meters:</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >5*u.cm^3 </span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="E142F28C" prevent-scroll="true" data-testid="output_6" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="76" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">ans =
+
+   5.0000e-06
+
+		 m^3</div></div></div></div></div><div  class = 'S4'><span>You can also restore the default options at toolbox startup using the command</span></div><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre"><span >clear </span><span style="color: #a709f5;">optionscompphysiol</span></span></div></div></div><div  class = 'S4'><span></span></div><div  class = 'S1'><span></span></div><div  class = 'S1'><span></span></div><div  class = 'S1'><span></span></div><div  class = 'S1'><span></span></div><div  class = 'S1'><span></span></div><div  class = 'S1'></div>
+<br>
+<!-- 
+##### SOURCE BEGIN #####
+%% Tutorial: Global options
+% Global options in the Computational Physiology Toolbox are used for different 
+% purposes, for example to control the default behaviour of plotting functions. 
+% To see the current status of these options, type
+
+getoptcompphysiol
+%% 
+% These are the default options at startup, for example, no custom dispay units 
+% are used and plots are not shown on logarithmic scale.
+% 
+% To know more about these options, you can consult the help of the |optionsClass|.
+
+help optionsClass
+% Accessing a global option
+% Global options are accessed in many toolbox functions, for example, if not 
+% specified otherwise, plotting functions use linear or logarithmic plots depending 
+% on the global options. Also, many functions use the global options to access 
+% the physiological or drug databases. During scripting, it is often not needed 
+% to access global options directly, but in principle, this is done by calling 
+% |getoptcompphysiol()| with an input: 
+
+getoptcompphysiol('PlotOptions')
+%% 
+% 
+% Changing a global option
+% To change a global option, use function |setoptcompphysiol()|. As an example, 
+% let us set some custom display units. If you type
+
+5*u.cm^3 
+%% 
+% you get the result in cubic meters, the default. But maybe we rather want 
+% to see all volumes in liters. Let's change the display units (and store the 
+% previous setting in the variable |oldopt|):
+
+oldopt = setoptcompphysiol('displayUnits',{'L','nM','min'})
+%% 
+% We have also set a sensible display unit for molar concentrations and one 
+% for times. Now let's do the above computation again:
+
+5*u.cm^3 
+%% 
+% and you see the result is given in liters.
+% Restoring the previous state of an option
+% Above, function |setoptcompphysiol()| was used with a return value, |oldopt|. 
+% This allows to reset the options to their previous state:
+
+setoptcompphysiol(oldopt)
+%% 
+% and we're back to cubic meters:
+
+5*u.cm^3 
+%% 
+% You can also restore the default options at toolbox startup using the command
+
+clear optionscompphysiol
+%% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+% 
+%
+##### SOURCE END #####
+-->
+</div></body></html>

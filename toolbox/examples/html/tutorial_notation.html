@@ -1,0 +1,222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,chrome=1"><meta name="generator" content="MATLAB 2023b"><title>Tutorial: Notation</title><style type="text/css">.rtcContent { padding: 30px; } .S0 { margin: 3px 10px 5px 4px; padding: 0px; line-height: 28.8px; min-height: 0px; white-space: pre-wrap; color: rgb(192, 76, 11); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 24px; font-weight: 400; text-align: left;  }
+.S1 { margin: 2px 10px 9px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 400; text-align: left;  }
+.S2 { margin: 15px 10px 5px 4px; padding: 0px; line-height: 18px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 17px; font-weight: 700; text-align: left;  }
+.S3 { margin: 3px; border: 1px solid rgb(191, 191, 191); border-collapse: collapse;  }
+.S4 { background-color: rgb(245, 245, 245);  }
+.S5 { border: 1px solid rgb(191, 191, 191); vertical-align: top;  }
+.S6 { margin: 2px 10px 2px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: break-spaces; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 400; text-align: left;  }
+.S7 { background-color: rgba(0, 0, 0, 0);  }
+.S8 { margin: 10px 0px 20px; padding-left: 0px; font-family: Helvetica, Arial, sans-serif; font-size: 14px;  }
+.S9 { margin-left: 56px; line-height: 21px; min-height: 0px; text-align: left; white-space: pre-wrap;  }</style></head><body><div class = rtcContent><h1  class = 'S0'><span>Tutorial: Notation</span></h1><div  class = 'S1'><span>The following set of physiological abbreviations is used consistently in the Computational Physiology Toolbox.</span></div><h3  class = 'S2'><span>Tissue subspaces</span></h3><div  class = 'S1'><span>The following abbreviations are used to label particular tissue subspaces, expressed as their organ weights / volumes / fractions thereof</span></div><table  class = 'S3'><col/><col/><tr  class = 'S4'><td  class = 'S5'><div  class = 'S6'><span>Abbr.</span></div></td><td  class = 'S5'><div  class = 'S6'><span>Description</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>cel</span></div></td><td  class = 'S5'><div  class = 'S6'><span>Cellular part</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>int</span></div></td><td  class = 'S5'><div  class = 'S6'><span>Interstitial part</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>pla</span></div></td><td  class = 'S5'><div  class = 'S6'><span>Plasma in vascular part</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>ery</span></div></td><td  class = 'S5'><div  class = 'S6'><span>Erythrocytes in vascular part</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>vas</span></div></td><td  class = 'S5'><div  class = 'S6'><span>Vascular part (</span><span style=' font-family: monospace;'>pla + ery</span><span>)     </span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>tis</span></div></td><td  class = 'S5'><div  class = 'S6'><span>Tissue (</span><span style=' font-family: monospace;'>cel + int</span><span>)    </span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>exc</span></div></td><td  class = 'S5'><div  class = 'S6'><span>Extracellular (</span><span style=' font-family: monospace;'>int + vas</span><span>)  </span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>tot</span></div></td><td  class = 'S5'><div  class = 'S6'><span>Total (</span><span style=' font-family: monospace;'>tis + vas</span><span>)         </span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>reg</span></div></td><td  class = 'S5'><div  class = 'S6'><span>Regional blood (identical to vascular part, see note below)    </span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>res</span></div></td><td  class = 'S5'><div  class = 'S6'><span>Residual blood (contained in </span><span style=' font-family: monospace;'>vas</span><span>)       </span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>rbt</span></div></td><td  class = 'S5'><div  class = 'S6'><span>Tissue contaminated with residual blood (</span><span style=' font-family: monospace;'>tis + res</span><span>)</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>exp</span></div></td><td  class = 'S5'><div  class = 'S6'><span>Experimentally measured (depending on the experimental conditions, </span><span style=' font-family: monospace;'>tis</span><span>, </span><span style=' font-family: monospace;'>rbt</span><span>, or </span><span style=' font-family: monospace;'>tot</span><span>)</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>spc</span></div></td><td  class = 'S5'><div  class = 'S6'><span>Generic notation for a tissue subspace (any of the above)</span></div></td></tr></table><div  class = 'S1'><span>         </span></div><div  class = 'S1'><span style=' font-weight: bold;'>Difference </span><span style=' font-weight: bold; font-family: monospace;'>vas</span><span style=' font-weight: bold;'> vs </span><span style=' font-weight: bold; font-family: monospace;'>reg</span></div><ul  class = 'S8'><li  class = 'S9'><span>a fraction </span><span style=' font-family: monospace;'>vas</span><span> is relative to </span><span style=' font-style: italic;'>tissue volume</span><span>  </span></li><li  class = 'S9'><span>a fraction </span><span style=' font-family: monospace;'>reg</span><span> is relative to </span><span style=' font-style: italic;'>total blood volume</span></li></ul><h3  class = 'S2'><span>Body parts / sites</span></h3><div  class = 'S1'><span>The following notation is used consistenly in the toolbox to denote particular parts of the body. For tissues (=non-blood compartments), these labels can be combined with the subspace notation above to denote the respective tissue subspaces.                                                                                      </span></div><table  class = 'S3'><col/><col/><tr  class = 'S4'><td  class = 'S5'><div  class = 'S6'><span>Abbr.</span></div></td><td  class = 'S5'><div  class = 'S6'><span>Description</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>art</span></div></td><td  class = 'S5'><div  class = 'S6'><span>arterial blood</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>adi</span></div></td><td  class = 'S5'><div  class = 'S6'><span>adipose tissue</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>blo</span></div></td><td  class = 'S5'><div  class = 'S6'><span>blood (depending on the context, it may or may not contain regional blood)</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>bon</span></div></td><td  class = 'S5'><div  class = 'S6'><span>(total) bone tissue</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>bra</span></div></td><td  class = 'S5'><div  class = 'S6'><span>brain tissue</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>ery</span></div></td><td  class = 'S5'><div  class = 'S6'><span>erythrocytes (red blood cells)</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>gut</span></div></td><td  class = 'S5'><div  class = 'S6'><span>gut (small + large intestine)</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>hea</span></div></td><td  class = 'S5'><div  class = 'S6'><span>heart tissue</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>kid</span></div></td><td  class = 'S5'><div  class = 'S6'><span>kidney tissue</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>liv</span></div></td><td  class = 'S5'><div  class = 'S6'><span>liver tissue</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>lun</span></div></td><td  class = 'S5'><div  class = 'S6'><span>lung tissue</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>mus</span></div></td><td  class = 'S5'><div  class = 'S6'><span>muscle tissue</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>pla</span></div></td><td  class = 'S5'><div  class = 'S6'><span>blood plasma (depending on the context, it may or may not contain the plasma fraction of regional blood) </span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>rob</span></div></td><td  class = 'S5'><div  class = 'S6'><span>rest of body</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>ski</span></div></td><td  class = 'S5'><div  class = 'S6'><span>skin</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>spl</span></div></td><td  class = 'S5'><div  class = 'S6'><span>spleen tissue</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>tbl</span></div></td><td  class = 'S5'><div  class = 'S6'><span>total blood, incl. vascular part of tissues, i.e. regional blood </span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>ven</span></div></td><td  class = 'S5'><div  class = 'S6'><span>venous blood</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>org</span></div></td><td  class = 'S5'><div  class = 'S6'><span>Generic notation for a site (any of the above)   </span></div></td></tr></table><div  class = 'S1'><span></span></div><h3  class = 'S2'><span>Tissue composition (constituents)</span></h3><div  class = 'S1'><span>Used for prediction of tissue partitioning.</span></div><table  class = 'S3'><col/><col/><tr  class = 'S4'><td  class = 'S5'><div  class = 'S6'><span>Abbr.</span></div></td><td  class = 'S5'><div  class = 'S6'><span>Description</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>nl</span></div></td><td  class = 'S5'><div  class = 'S6'><span>neutral lipids</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>np</span></div></td><td  class = 'S5'><div  class = 'S6'><span>neutral phospholipids</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>ap</span></div></td><td  class = 'S5'><div  class = 'S6'><span>acidic phospholipids</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>ew</span></div></td><td  class = 'S5'><div  class = 'S6'><span>extracellular water </span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>iw</span></div></td><td  class = 'S5'><div  class = 'S6'><span>interstitial water</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>cw</span></div></td><td  class = 'S5'><div  class = 'S6'><span>cellular water</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>pw</span></div></td><td  class = 'S5'><div  class = 'S6'><span>plasma water</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>pr</span></div></td><td  class = 'S5'><div  class = 'S6'><span>proteins</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>Alb</span></div></td><td  class = 'S5'><div  class = 'S6'><span>Albumin</span></div></td></tr><tr  class = 'S7'><td  class = 'S5'><div  class = 'S6'><span style=' font-family: monospace;'>Lip</span></div></td><td  class = 'S5'><div  class = 'S6'><span>Lipoprotein</span></div></td></tr></table><div  class = 'S1'></div>
+<br>
+<!-- 
+##### SOURCE BEGIN #####
+%% Tutorial: Notation
+% The following set of physiological abbreviations is used consistently in the 
+% Computational Physiology Toolbox.
+% Tissue subspaces
+% The following abbreviations are used to label particular tissue subspaces, 
+% expressed as their organ weights / volumes / fractions thereof
+%% 
+% Abbr.
+%% 
+% Description
+%% 
+% |cel|
+%% 
+% Cellular part
+%% 
+% |int|
+%% 
+% Interstitial part
+%% 
+% |pla|
+%% 
+% Plasma in vascular part
+%% 
+% |ery|
+%% 
+% Erythrocytes in vascular part
+%% 
+% |vas|
+%% 
+% Vascular part (|pla + ery|)     
+%% 
+% |tis|
+%% 
+% Tissue (|cel + int|)    
+%% 
+% |exc|
+%% 
+% Extracellular (|int + vas|)  
+%% 
+% |tot|
+%% 
+% Total (|tis + vas|)         
+%% 
+% |reg|
+%% 
+% Regional blood (identical to vascular part, see note below)    
+%% 
+% |res|
+%% 
+% Residual blood (contained in |vas|)       
+%% 
+% |rbt|
+%% 
+% Tissue contaminated with residual blood (|tis + res|)
+%% 
+% |exp|
+%% 
+% Experimentally measured (depending on the experimental conditions, |tis|, 
+% |rbt|, or |tot|)
+%% 
+% |spc|
+%% 
+% Generic notation for a tissue subspace (any of the above)
+%% 
+% 
+% 
+% *Difference |vas| vs |reg*|
+%% 
+% * a fraction |vas| is relative to _tissue volume_  
+% * a fraction |reg| is relative to _total blood volume_
+% Body parts / sites
+% The following notation is used consistenly in the toolbox to denote particular 
+% parts of the body. For tissues (=non-blood compartments), these labels can be 
+% combined with the subspace notation above to denote the respective tissue subspaces.                                                                                      
+%% 
+% Abbr.
+%% 
+% Description
+%% 
+% |art|
+%% 
+% arterial blood
+%% 
+% |adi|
+%% 
+% adipose tissue
+%% 
+% |blo|
+%% 
+% blood (depending on the context, it may or may not contain regional blood)
+%% 
+% |bon|
+%% 
+% (total) bone tissue
+%% 
+% |bra|
+%% 
+% brain tissue
+%% 
+% |ery|
+%% 
+% erythrocytes (red blood cells)
+%% 
+% |gut|
+%% 
+% gut (small + large intestine)
+%% 
+% |hea|
+%% 
+% heart tissue
+%% 
+% |kid|
+%% 
+% kidney tissue
+%% 
+% |liv|
+%% 
+% liver tissue
+%% 
+% |lun|
+%% 
+% lung tissue
+%% 
+% |mus|
+%% 
+% muscle tissue
+%% 
+% |pla|
+%% 
+% blood plasma (depending on the context, it may or may not contain the plasma 
+% fraction of regional blood) 
+%% 
+% |rob|
+%% 
+% rest of body
+%% 
+% |ski|
+%% 
+% skin
+%% 
+% |spl|
+%% 
+% spleen tissue
+%% 
+% |tbl|
+%% 
+% total blood, incl. vascular part of tissues, i.e. regional blood 
+%% 
+% |ven|
+%% 
+% venous blood
+%% 
+% |org|
+%% 
+% Generic notation for a site (any of the above)   
+%% 
+% 
+% Tissue composition (constituents)
+% Used for prediction of tissue partitioning.
+%% 
+% Abbr.
+%% 
+% Description
+%% 
+% |nl|
+%% 
+% neutral lipids
+%% 
+% |np|
+%% 
+% neutral phospholipids
+%% 
+% |ap|
+%% 
+% acidic phospholipids
+%% 
+% |ew|
+%% 
+% extracellular water 
+%% 
+% |iw|
+%% 
+% interstitial water
+%% 
+% |cw|
+%% 
+% cellular water
+%% 
+% |pw|
+%% 
+% plasma water
+%% 
+% |pr|
+%% 
+% proteins
+%% 
+% |Alb|
+%% 
+% Albumin
+%% 
+% |Lip|
+%% 
+% Lipoprotein
+%% 
+%
+##### SOURCE END #####
+-->
+</div></body></html>

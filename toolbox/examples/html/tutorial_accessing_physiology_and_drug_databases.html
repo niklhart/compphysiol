@@ -1,0 +1,362 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,chrome=1"><meta name="generator" content="MATLAB 2023b"><title>Tutorial: Accessing physiology and drug databases</title><style type="text/css">.rtcContent { padding: 30px; } .S0 { margin: 3px 10px 5px 4px; padding: 0px; line-height: 28.8px; min-height: 0px; white-space: pre-wrap; color: rgb(192, 76, 11); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 24px; font-weight: 400; text-align: left;  }
+.S1 { margin: 2px 10px 9px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 400; text-align: left;  }
+.CodeBlock { background-color: #F5F5F5; margin: 10px 0 10px 0; }
+.S2 { border-left: 1px solid rgb(217, 217, 217); border-right: 1px solid rgb(217, 217, 217); border-top: 1px solid rgb(217, 217, 217); border-bottom: 1px solid rgb(217, 217, 217); border-radius: 4px 4px 0px 0px; padding: 6px 45px 4px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S3 { color: rgb(33, 33, 33); padding: 10px 0px 6px 17px; background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box; font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px; overflow-x: hidden; line-height: 17.234px;  }
+/* Styling that is common to warnings and errors is in diagnosticOutput.css */.embeddedOutputsErrorElement {    min-height: 18px;    max-height: 550px;}
+.embeddedOutputsErrorElement .diagnosticMessage-errorType {    overflow: auto;}
+.embeddedOutputsErrorElement.inlineElement {}
+.embeddedOutputsErrorElement.rightPaneElement {}
+/* Styling that is common to warnings and errors is in diagnosticOutput.css */.embeddedOutputsWarningElement {    min-height: 18px;    max-height: 550px;}
+.embeddedOutputsWarningElement .diagnosticMessage-warningType {    overflow: auto;}
+.embeddedOutputsWarningElement.inlineElement {}
+.embeddedOutputsWarningElement.rightPaneElement {}
+/* Copyright 2015-2023 The MathWorks, Inc. *//* In this file, styles are not scoped to rtcContainer since they could be in the Dojo Tooltip */.diagnosticMessage-wrapper {    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;    font-size: 12px;}
+.diagnosticMessage-wrapper.diagnosticMessage-warningType {    /*This fallback value will be used for appdesigner warnings*/    color: var(--rtc-warning-output-color, var(--mw-color-matlabWarning));}
+.diagnosticMessage-wrapper.diagnosticMessage-warningType a {    /*This fallback value will be used for appdesigner warnings*/    color: var(--rtc-warning-output-color, var(--mw-color-matlabWarning));    text-decoration: underline;}
+.rtcThemeDefaultOverride .diagnosticMessage-wrapper.diagnosticMessage-warningType,.rtcThemeDefaultOverride .diagnosticMessage-wrapper.diagnosticMessage-warningType a {    color: var(--mw-color-matlabWarning) !important;}
+.diagnosticMessage-wrapper.diagnosticMessage-errorType {    /*This fallback value will be used in appdesigner error tooltip text*/    color: var(--rtc-error-output-color, var(--mw-color-matlabErrors));}
+.diagnosticMessage-wrapper.diagnosticMessage-errorType a {    /*This fallback value will be used in appdesigner error tooltip text*/    color: var(--rtc-error-output-color, var(--mw-color-matlabErrors));    text-decoration: underline;}
+.rtcThemeDefaultOverride .diagnosticMessage-wrapper.diagnosticMessage-errorType,.rtcThemeDefaultOverride .diagnosticMessage-wrapper.diagnosticMessage-errorType a {    color: var(--mw-color-matlabErrors) !important;}
+.diagnosticMessage-wrapper .diagnosticMessage-messagePart,.diagnosticMessage-wrapper .diagnosticMessage-causePart {    white-space: pre-wrap;}
+.diagnosticMessage-wrapper .diagnosticMessage-stackPart {    white-space: pre;}
+.embeddedOutputsTextElement,.embeddedOutputsVariableStringElement {    white-space: pre;    word-wrap:  initial;    min-height: 18px;    max-height: 550px;}
+.embeddedOutputsTextElement .textElement,.embeddedOutputsVariableStringElement .textElement {    overflow: auto;}
+.textElement,.rtcDataTipElement .textElement {    padding-top: 2px;}
+.embeddedOutputsTextElement.inlineElement,.embeddedOutputsVariableStringElement.inlineElement {}
+.inlineElement .textElement {}
+.embeddedOutputsTextElement.rightPaneElement,.embeddedOutputsVariableStringElement.rightPaneElement {    min-height: 16px;}
+.rightPaneElement .textElement {    padding-top: 2px;    padding-left: 9px;}
+.S4 { margin: 10px 10px 9px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: 400; text-align: left;  }
+.S5 { border-left: 1px solid rgb(217, 217, 217); border-right: 1px solid rgb(217, 217, 217); border-top: 1px solid rgb(217, 217, 217); border-bottom: 1px solid rgb(217, 217, 217); border-radius: 4px; padding: 6px 45px 4px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S6 { margin: 15px 10px 5px 4px; padding: 0px; line-height: 18px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 17px; font-weight: 700; text-align: left;  }
+.S7 { margin: 10px 10px 5px 4px; padding: 0px; line-height: 18px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 15px; font-weight: 700; text-align: left;  }
+.S8 { border-left: 1px solid rgb(217, 217, 217); border-right: 1px solid rgb(217, 217, 217); border-top: 1px solid rgb(217, 217, 217); border-bottom: 1px solid rgb(217, 217, 217); border-radius: 0px; padding: 6px 45px 4px 13px; line-height: 18.004px; min-height: 0px; white-space: nowrap; color: rgb(33, 33, 33); font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 14px;  }
+.S9 { margin: 3px 10px 5px 4px; padding: 0px; line-height: 18px; min-height: 0px; white-space: pre-wrap; color: rgb(33, 33, 33); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 15px; font-weight: 700; text-align: left;  }</style></head><body><div class = rtcContent><h1  class = 'S0'><span>Tutorial: Accessing physiology and drug databases</span></h1><div  class = 'S1'><span>Mechanistic pharmacokinetic modelling relies on physiological and drug related-parameters. In the Computational Physiology Toolbox, the physiology and drug databases are used to store such data in a systematic way. In this tutorial, we will look at the general structure of these databases and how to access data from the databases.</span></div><div  class = 'S1'><span>Let's start with the physiology database. This database consists of an array of Physiology objects with detailed physiological information for a set of reference individuals, based on data collected from the literature. </span></div><div  class = 'S1'><span>Let's look at this object once:</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >PhysiologyDB.Instance</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsVariableStringElement" uid="EF117EEC" prevent-scroll="true" data-testid="output_0" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="241" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><span class="variableNameElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">ans = </span></div><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">	Physiology array:
+
+1	rat	F344	male	10.00 week	250.00 g	223.50 g...
+2	rat	F344	male	70.00 week	475.00 g	399.00 g...
+3	mouse	B6C3F1	male	9.00 week	25.00 g	23.25 g...
+4	mouse	B6C3F1	male	70.00 week	40.00 g	37.20 g...
+5	human	Caucasian	unisex	0.00 year	51.00 cm	3.50 kg...
+6	human	Caucasian	unisex	1.00 year	76.00 cm	10.00 kg...
+7	human	Caucasian	unisex	5.00 year	109.00 cm	19.00 kg...
+8	human	Caucasian	unisex	10.00 year	138.00 cm	32.00 kg...
+9	human	Caucasian	male	15.00 year	167.00 cm	56.00 kg...
+...
+12	human	Caucasian	female	35.00 year	163.00 cm	60.00 kg...
+
+(type disp(obj, Inf) to see all entries)
+</div></div></div></div></div></div><div  class = 'S4'><span>During modelling tasks, we do not need to access the database in this way, but rather use function </span><span style=' font-family: monospace;'>Physiology()</span><span> to access one of these reference physiologies. For this tutorial, we will consider a 35-year old female adult:</span></div><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S5'><span style="white-space: pre"><span >human35f = Physiology(</span><span style="color: #a709f5;">'human35f'</span><span >);</span></span></div></div></div><div  class = 'S4'><span>Let us also consider the drug database, again built from literature data:</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >DrugDB.Instance</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsVariableStringElement" uid="C2849232" prevent-scroll="true" data-testid="output_1" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="241" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><span class="variableNameElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">ans = </span></div><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">	DrugData array:
+
+1	Amitriptyline	sMD	base	(12 parameters)
+2	Linezolid	sMD	base	(11 parameters)
+3	Meropenem	sMD	ampholyte	(13 parameters)
+4	Fosfomycin	sMD	diprotic acid	(13 parameters)
+5	Caffeine	sMD	base	(13 parameters)
+6	Desipramine	sMD	base	(13 parameters)
+7	Diltiazem	sMD	base	(14 parameters)
+8	Diphenhydramine	sMD	base	(11 parameters)
+9	Imipramine	sMD	base	(14 parameters)
+...
+21	Bevacizumab	mAb	IgG1	(4 parameters)
+
+(type disp(obj, Inf) to see all entries)
+</div></div></div></div></div></div><div  class = 'S4'><span>and from this database, let us consider a particular drug, lidocaine (filtering for human values only):</span></div><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S5'><span style="white-space: pre"><span >lidocaine = DrugData(</span><span style="color: #a709f5;">'Lidocaine'</span><span >,</span><span style="color: #a709f5;">'species'</span><span >,</span><span style="color: #a709f5;">'human'</span><span >);</span></span></div></div></div><h3  class = 'S6'><span>Four ways of accessing the drug database</span></h3><h4  class = 'S7'><span>First way of accessing databases: function about</span><span style=' font-family: monospace;'>()</span></h4><div  class = 'S1'><span>There are four different ways to access the information within one of these databases. Function </span><span style=' font-family: monospace;'>about()</span><span> gives an overview of the database content:</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >about(human35f)</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement scrollableOutput" uid="122785AF" prevent-scroll="true" data-testid="output_2" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent scrollArea" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="534" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Parameters in database human35f:
+- species:	1 record(s).
+- type:	1 record(s).
+- sex:	1 record(s).
+- age:	1 record(s).
+- BH:	1 record(s).
+- BW:	1 record(s).
+- LBW:	1 record(s).
+- BMI:	1 record(s).
+- BSA:	1 record(s).
+- fowtisBW:	11 record(s).
+- hct:	1 record(s).
+- pH:	13 record(s).
+- OWtis:	67 record(s).
+- OWtbl:	1 record(s).
+- dens:	12 record(s).
+- Vtot:	11 record(s).
+- Vtis:	13 record(s).
+- Vvas:	11 record(s).
+- Vtbl:	1 record(s).
+- fcelVtis:	13 record(s).
+- fintVtis:	13 record(s).
+- fnliVtis:	13 record(s).
+- fnphVtis:	13 record(s).
+- faphVtis:	12 record(s).
+- fwecVtis:	11 record(s).
+- fwicVtis:	12 record(s).
+- fwtotVtis:	13 record(s).
+- fregVtbl:	37 record(s).
+- fartVtbl:	1 record(s).
+- fvenVtbl:	1 record(s).
+- rtpAlb:	11 record(s).
+- rtpLip:	11 record(s).
+- co:	1 record(s).
+- fqbloCO:	34 record(s).
+- Qblo:	10 record(s).</div></div></div></div></div><div  class = 'S4'><span>or, for a particular physiological parameter</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >about(human35f, </span><span style="color: #a709f5;">'BW'</span><span >)</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="3D82CCBB" prevent-scroll="true" data-testid="output_3" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="91" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Entries for parameter BW in database human35f:
+
+    <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Value</strong>                 <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Source</strong>                  <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Assumption</strong> 
+    <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">_____</strong>    <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">________________________________</strong>    <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">____________</strong>
+
+    60 kg    {'ICRP report 2002 (Table 2.9)'}    {0×0 double}</div></div></div></div><div class="inlineWrapper outputs"><div  class = 'S8'><span style="white-space: pre"><span >about(human35f, </span><span style="color: #a709f5;">'Vtis'</span><span >)</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="4FC22C49" prevent-scroll="true" data-testid="output_4" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="268" data-hashorizontaloverflow="false" style="max-height: 279px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Entries for parameter Vtis in database human35f:
+
+        <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Tissue</strong>             <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Value</strong>                   <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Source</strong>                <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Assumption</strong> 
+    <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">_______________</strong>    <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">_____________</strong>    <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">____________________________</strong>    <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">____________</strong>
+
+    {'erythrocyte'}    1500 mL          {'ICRP report (Table 2.12)'}    {0×0 double}
+    {'plasma'     }    2400 mL          {'ICRP report (Table 2.12)'}    {0×0 double}
+    {'adi'        }    20742.3581 mL    {'derived'                 }    {0×0 char  }
+    {'bon'        }    6000 mL          {'derived'                 }    {0×0 char  }
+    {'bra'        }    1300 mL          {'derived'                 }    {0×0 char  }
+    {'gut'        }    960 mL           {'derived'                 }    {0×0 char  }
+    {'hea'        }    250 mL           {'derived'                 }    {0×0 char  }
+    {'kid'        }    275 mL           {'derived'                 }    {0×0 char  }
+    {'liv'        }    1400 mL          {'derived'                 }    {0×0 char  }
+    {'lun'        }    420 mL           {'derived'                 }    {0×0 char  }
+    {'mus'        }    17500 mL         {'derived'                 }    {0×0 char  }
+    {'ski'        }    2300 mL          {'derived'                 }    {0×0 char  }
+    {'spl'        }    130 mL           {'derived'                 }    {0×0 char  }</div></div></div></div></div><div  class = 'S4'><span>We can also query individual parameter names without referring to any database to get details about these parameters.</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >about(</span><span style="color: #a709f5;">'BW'</span><span >)</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="A293A3A3" prevent-scroll="true" data-testid="output_5" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="46" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Description: Body weight
+Unit type: Mass
+Scalar parameter</div></div></div></div><div class="inlineWrapper outputs"><div  class = 'S8'><span style="white-space: pre"><span >about(</span><span style="color: #a709f5;">'Vtis'</span><span >)</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="7D4F5D0E" prevent-scroll="true" data-testid="output_6" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="46" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Description: Tissue volume of an organ (without residual blood)
+Unit type: Volume
+Per tissue parameter</div></div></div></div></div><div  class = 'S4'><span>In particular, we see that body weight is a scalar parameter, whereas Vtis is a per-tissue parameter. These are the two types of physiological parameters, and it is important to keep this distinction in mind.</span></div><div  class = 'S1'><span>Similarly, let's apply function </span><span style=' font-family: monospace;'>about()</span><span> to the drug data:</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >about(lidocaine)</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="32D0AB72" prevent-scroll="true" data-testid="output_7" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="238" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Parameters in database Lidocaine:
+- formula:	1 record(s).
+- MW:	1 record(s).
+- pKa_cat:	1 record(s).
+- logPow:	1 record(s).
+- logPvow:	1 record(s).
+- logMA:	1 record(s).
+- fuP:	1 record(s).
+- BP:	1 record(s).
+- CLblood_hep:	1 record(s).
+- CLint_hep_perOWliv:	1 record(s).
+- K_ery_up:	1 record(s).
+- lambda_po:	1 record(s).
+- Egut:	1 record(s).
+- Efeces:	1 record(s).
+- cellPerm:	1 record(s).</div></div></div></div></div><div  class = 'S4'><span>and to individual drug-related parameters:</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >about(lidocaine,</span><span style="color: #a709f5;">'MW'</span><span >)</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="EFBD2697" prevent-scroll="true" data-testid="output_8" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="91" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Entries for parameter MW in database Lidocaine:
+
+        <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Value</strong>             <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Source</strong>         <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Assumption</strong>
+    <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">______________</strong>    <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">_______________</strong>    <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">__________</strong>
+
+    0.23434 kg/mol    {'DrugBank.ca'}    {0×0 char}</div></div></div></div><div class="inlineWrapper outputs"><div  class = 'S8'><span style="white-space: pre"><span >about(lidocaine,</span><span style="color: #a709f5;">'Egut'</span><span >)</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="8437803E" prevent-scroll="true" data-testid="output_9" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="91" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Entries for parameter Egut in database Lidocaine:
+
+     <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Species</strong>     <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Value</strong>      <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Source</strong>          <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Assumption</strong>    
+    <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">_________</strong>    <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">_____</strong>    <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">__________</strong>    <strong style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">__________________</strong>
+
+    {'human'}      0      {0×0 char}    {'Assumed Egut=0'}</div></div></div></div></div><div  class = 'S4'><span>Again, we can query these parameter names without referring to any database.</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >about(</span><span style="color: #a709f5;">'MW'</span><span >)</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="DE5A86FF" prevent-scroll="true" data-testid="output_10" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="46" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Description: Molecular weight
+Unit type: Mass/Amount
+Scalar parameter</div></div></div></div><div class="inlineWrapper outputs"><div  class = 'S8'><span style="white-space: pre"><span >about(</span><span style="color: #a709f5;">'Egut'</span><span >)</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="67708906" prevent-scroll="true" data-testid="output_11" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="46" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">Description: Gut extraction ratio
+Unit type: unitless
+Per species parameter</div></div></div></div></div><div  class = 'S4'><span>and we see that there are also two types of drug-related parameters, namely scalar parameters, which are purely physiochemical parameters such as pKa, and species-specific parametes like the gut extraction ratio, which contain some organism-specific pharmacokinetic information.</span></div><div  class = 'S1'><span>Function "about" gives a quick overview, however it only prints the database content, which means we cannot use it subsequently in computations. It is meant as a way to explore a database.</span></div><h4  class = 'S7'><span>Second way of accessing databases: function </span><span style=' font-family: monospace;'>getvalue()</span></h4><div  class = 'S1'><span>Next, we can do a formal database query using function </span><span style=' font-family: monospace;'>getvalue()</span><span>:</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >getvalue(human35f, </span><span style="color: #a709f5;">'BW'</span><span >)</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="1A64BB12" prevent-scroll="true" data-testid="output_12" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="76" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">ans =
+
+    60
+
+		 kg</div></div></div></div></div><div  class = 'S4'><span>which returns the body weight of the reference individual, or</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >getvalue(human35f, </span><span style="color: #a709f5;">'Vtis'</span><span >, </span><span style="color: #a709f5;">'lun'</span><span >)</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="9F28B2EA" prevent-scroll="true" data-testid="output_13" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="76" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">ans =
+
+   420
+
+		 mL</div></div></div></div></div><div  class = 'S4'><span>which returns the lung tissue volume. </span></div><div  class = 'S1'><span>However, we cannot simply get all tissue volumes in the database together using this syntax, since the returned vector would not contain any information on which value is which:</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >getvalue(human35f, </span><span style="color: #a709f5;">'Vtis'</span><span >)</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsErrorElement" uid="B905D634" prevent-scroll="true" data-testid="output_14" tabindex="-1" style="width: 1145px; white-space: normal; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="diagnosticMessage-wrapper diagnosticMessage-errorType eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="34" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: normal; font-style: normal; color: rgb(183, 49, 44); font-size: 12px;"><div class="diagnosticMessage-messagePart" style="white-space: pre-wrap; font-style: normal; color: rgb(183, 49, 44); font-size: 12px;">Error using DB/getvalue<br style="white-space: pre-wrap; font-style: normal; color: rgb(183, 49, 44); font-size: 12px;">Several matches for parameter "Vtis" found in Physiology object "human35f".</div><div class="diagnosticMessage-stackPart" style="white-space: pre; font-style: normal; color: rgb(183, 49, 44); font-size: 12px;"></div></div></div></div></div></div><div  class = 'S1'><span>It is possible, however, to obtain specific entries for per-tissue parameters at once, e.g. lung and adipose tissue volumes:</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >getvalue(human35f, </span><span style="color: #a709f5;">'Vtis'</span><span >, {</span><span style="color: #a709f5;">'lun' 'adi'</span><span >})</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="216E673D" prevent-scroll="true" data-testid="output_15" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="105" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">ans =
+
+   1.0e+04 *
+
+    0.0420    2.0742
+
+		 mL</div></div></div></div></div><div  class = 'S4'><span>We can do the same queries for the drug database:</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >getvalue(lidocaine, </span><span style="color: #a709f5;">'MW'</span><span >)</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="60241982" prevent-scroll="true" data-testid="output_16" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="105" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">ans =
+
+    0.2343
+
+		kg
+		---
+		mol</div></div></div></div><div class="inlineWrapper outputs"><div  class = 'S8'><span style="white-space: pre"><span >getvalue(lidocaine, </span><span style="color: #a709f5;">'Egut'</span><span >, </span><span style="color: #a709f5;">'human'</span><span >)</span></span></div><div  class = 'S3'><div class='variableElement' style='font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 12px; '>ans = 0</div></div></div></div><h4  class = 'S7'><span>Third way of accessing databases: function </span><span style=' font-family: monospace;'>loaddatabases()</span></h4><div  class = 'S1'><span>Function </span><span style=' font-family: monospace;'>getvalue()</span><span> is best suited for computations at the script level. </span></div><div  class = 'S1'><span>However, within mechanistic models, there are many queries of a single database for a fixed set of tissues, like the 12 tissues in the standard well-stirred 12-compartment-PBPK model. There's a specific function for this setting, called </span><span style=' font-family: monospace;'>loaddatabases()</span><span>. This is the third way of accessing a database. It is called in the following way, providing a physiology, drug data and an array of tissues:</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >[queryphys, querydrug, I] = loaddatabases(human35f, lidocaine, {</span><span style="color: #a709f5;">'lun'</span><span >,</span><span style="color: #a709f5;">'adi'</span><span >})</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsVariableStringElement" uid="7A975384" prevent-scroll="true" data-testid="output_18" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="35" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><span class="variableNameElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">queryphys = <span class="headerElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">function_handle with value:</span></span></div><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">    @(varargin)getfromphys(phys,cmt,varargin{:})
+</div></div></div><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsVariableStringElement" uid="099064D6" prevent-scroll="true" data-testid="output_19" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="35" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><span class="variableNameElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">querydrug = <span class="headerElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">function_handle with value:</span></span></div><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">    @(varargin)getfromdrug(drug,varargin{:})
+</div></div></div><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsVariableStringElement" uid="62FD44BB" prevent-scroll="true" data-testid="output_20" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="49" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><span class="variableNameElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">I = <span class="headerElement" style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">struct with fields:</span></span></div><div style="white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">    lun: 1
+    adi: 2
+</div></div></div></div></div></div><div  class = 'S4'><span>It returns two new query functions, </span><span style=' font-family: monospace;'>queryphys()</span><span> and </span><span style=' font-family: monospace;'>querydrug()</span><span>, which are wrappers around function </span><span style=' font-family: monospace;'>getvalue()</span><span>, and an indexing struct </span><span style=' font-family: monospace;'>I</span><span>.</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >queryphys(</span><span style="color: #a709f5;">'Vtis'</span><span >)</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="98500446" prevent-scroll="true" data-testid="output_21" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="120" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">ans =
+
+   1.0e+04 *
+
+    0.0420
+    2.0742
+
+		 mL</div></div></div></div></div><div  class = 'S4'><span>can now be used as shorthand for</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >getvalue(human35f, </span><span style="color: #a709f5;">'Vtis'</span><span >, {</span><span style="color: #a709f5;">'lun' 'adi'</span><span >})</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="536D02A5" prevent-scroll="true" data-testid="output_22" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="105" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">ans =
+
+   1.0e+04 *
+
+    0.0420    2.0742
+
+		 mL</div></div></div></div></div><div  class = 'S4'><span>That is, queries for tissue-dependent parameters are vectorized for all tissues. The indexing struct </span><span style=' font-family: monospace;'>I</span><span> can be used to relate the name of the tissue to the index in the vector returned by </span><span style=' font-family: monospace;'>queryphys()</span><span>. You can see this principle at work in any of the models.</span></div><div  class = 'S1'><span>Also,</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >querydrug(</span><span style="color: #a709f5;">'Egut'</span><span >)</span></span></div><div  class = 'S3'><div class='variableElement' style='font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 12px; '>ans = 0</div></div></div></div><div  class = 'S4'><span>is shorthand for</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >getvalue(lidocaine, </span><span style="color: #a709f5;">'Egut'</span><span >)</span></span></div><div  class = 'S3'><div class='variableElement' style='font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 12px; '>ans = 0</div></div></div></div><h4  class = 'S9'><span>Fourth way of accessing databases: directly using the database structure</span></h4><div  class = 'S1'><span>Finally, we can directly use the underlying implementation of the databases. For example,</span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >human35f.db.BW.Value</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="22DFBB1B" prevent-scroll="true" data-testid="output_25" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="76" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">ans =
+
+    60
+
+		 kg</div></div></div></div></div><div  class = 'S4'><span>yields the same result as </span></div><div class="CodeBlock"><div class="inlineWrapper outputs"><div  class = 'S2'><span style="white-space: pre"><span >getvalue(human35f, </span><span style="color: #a709f5;">'BW'</span><span >)</span></span></div><div  class = 'S3'><div class="inlineElement eoOutputWrapper disableDefaultGestureHandling embeddedOutputsTextElement" uid="6648F74E" prevent-scroll="true" data-testid="output_26" tabindex="-1" style="width: 1145px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;"><div class="textElement eoOutputContent" tabindex="-1" data-previous-available-width="1108" data-previous-scroll-height="76" data-hashorizontaloverflow="false" style="max-height: 261px; white-space: pre; font-style: normal; color: rgb(33, 33, 33); font-size: 12px;">ans =
+
+    60
+
+		 kg</div></div></div></div></div><div  class = 'S4'><span>However, a direct access to the database should be done with special caution. It does not have any error handling, it doesn't support the vectorized assignments shown above.</span></div><h3  class = 'S6'><span>Exercise</span></h3><div  class = 'S1'><span>Here's an exercise to get used to accessing databases. In a 12-compartment whole-body PBPK model, the 10 tissues</span></div><div  class = 'S1'><span>adipose tissue, bone, gut, heart, kidney, liver, lung, muscle, skin and spleen,</span></div><div  class = 'S1'><span>are modelled, as well as blood (tbl). Which percentage of body weight does the sum of these organ weights constitute?  Compare these values for an adult, a child, a rat, and a mouse. Note that tbl is a different type of physiological parameter than the others. Try to do the computation in the toolbox; you can check your result in the solutions.</span></div>
+<br>
+<!-- 
+##### SOURCE BEGIN #####
+%% Tutorial: Accessing physiology and drug databases
+% Mechanistic pharmacokinetic modelling relies on physiological and drug related-parameters. 
+% In the Computational Physiology Toolbox, the physiology and drug databases are 
+% used to store such data in a systematic way. In this tutorial, we will look 
+% at the general structure of these databases and how to access data from the 
+% databases.
+% 
+% Let's start with the physiology database. This database consists of an array 
+% of Physiology objects with detailed physiological information for a set of reference 
+% individuals, based on data collected from the literature. 
+% 
+% Let's look at this object once:
+
+PhysiologyDB.Instance
+%% 
+% During modelling tasks, we do not need to access the database in this way, 
+% but rather use function |Physiology()| to access one of these reference physiologies. 
+% For this tutorial, we will consider a 35-year old female adult:
+
+human35f = Physiology('human35f');
+%% 
+% Let us also consider the drug database, again built from literature data:
+
+DrugDB.Instance
+%% 
+% and from this database, let us consider a particular drug, lidocaine (filtering 
+% for human values only):
+
+lidocaine = DrugData('Lidocaine','species','human');
+% Four ways of accessing the drug database
+% First way of accessing databases: function about|()|
+% There are four different ways to access the information within one of these 
+% databases. Function |about()| gives an overview of the database content:
+
+about(human35f)
+%% 
+% or, for a particular physiological parameter
+
+about(human35f, 'BW')
+about(human35f, 'Vtis')
+%% 
+% We can also query individual parameter names without referring to any database 
+% to get details about these parameters.
+
+about('BW')
+about('Vtis')
+%% 
+% In particular, we see that body weight is a scalar parameter, whereas Vtis 
+% is a per-tissue parameter. These are the two types of physiological parameters, 
+% and it is important to keep this distinction in mind.
+% 
+% Similarly, let's apply function |about()| to the drug data:
+
+about(lidocaine)
+%% 
+% and to individual drug-related parameters:
+
+about(lidocaine,'MW')
+about(lidocaine,'Egut')
+%% 
+% Again, we can query these parameter names without referring to any database.
+
+about('MW')
+about('Egut')
+%% 
+% and we see that there are also two types of drug-related parameters, namely 
+% scalar parameters, which are purely physiochemical parameters such as pKa, and 
+% species-specific parametes like the gut extraction ratio, which contain some 
+% organism-specific pharmacokinetic information.
+% 
+% Function "about" gives a quick overview, however it only prints the database 
+% content, which means we cannot use it subsequently in computations. It is meant 
+% as a way to explore a database.
+% Second way of accessing databases: function |getvalue()|
+% Next, we can do a formal database query using function |getvalue()|:
+
+getvalue(human35f, 'BW')
+%% 
+% which returns the body weight of the reference individual, or
+
+getvalue(human35f, 'Vtis', 'lun')
+%% 
+% which returns the lung tissue volume. 
+% 
+% However, we cannot simply get all tissue volumes in the database together 
+% using this syntax, since the returned vector would not contain any information 
+% on which value is which:
+
+getvalue(human35f, 'Vtis')
+%% 
+% It is possible, however, to obtain specific entries for per-tissue parameters 
+% at once, e.g. lung and adipose tissue volumes:
+
+getvalue(human35f, 'Vtis', {'lun' 'adi'})
+%% 
+% We can do the same queries for the drug database:
+
+getvalue(lidocaine, 'MW')
+getvalue(lidocaine, 'Egut', 'human')
+% Third way of accessing databases: function |loaddatabases()|
+% Function |getvalue()| is best suited for computations at the script level. 
+% 
+% However, within mechanistic models, there are many queries of a single database 
+% for a fixed set of tissues, like the 12 tissues in the standard well-stirred 
+% 12-compartment-PBPK model. There's a specific function for this setting, called 
+% |loaddatabases()|. This is the third way of accessing a database. It is called 
+% in the following way, providing a physiology, drug data and an array of tissues:
+
+[queryphys, querydrug, I] = loaddatabases(human35f, lidocaine, {'lun','adi'})
+%% 
+% It returns two new query functions, |queryphys()| and |querydrug()|, which 
+% are wrappers around function |getvalue()|, and an indexing struct |I|.
+
+queryphys('Vtis')
+%% 
+% can now be used as shorthand for
+
+getvalue(human35f, 'Vtis', {'lun' 'adi'})
+%% 
+% That is, queries for tissue-dependent parameters are vectorized for all tissues. 
+% The indexing struct |I| can be used to relate the name of the tissue to the 
+% index in the vector returned by |queryphys()|. You can see this principle at 
+% work in any of the models.
+% 
+% Also,
+
+querydrug('Egut')
+%% 
+% is shorthand for
+
+getvalue(lidocaine, 'Egut')
+% Fourth way of accessing databases: directly using the database structure
+% Finally, we can directly use the underlying implementation of the databases. 
+% For example,
+
+human35f.db.BW.Value
+%% 
+% yields the same result as 
+
+getvalue(human35f, 'BW')
+%% 
+% However, a direct access to the database should be done with special caution. 
+% It does not have any error handling, it doesn't support the vectorized assignments 
+% shown above.
+% Exercise
+% Here's an exercise to get used to accessing databases. In a 12-compartment 
+% whole-body PBPK model, the 10 tissues
+% 
+% adipose tissue, bone, gut, heart, kidney, liver, lung, muscle, skin and spleen,
+% 
+% are modelled, as well as blood (tbl). Which percentage of body weight does 
+% the sum of these organ weights constitute?  Compare these values for an adult, 
+% a child, a rat, and a mouse. Note that tbl is a different type of physiological 
+% parameter than the others. Try to do the computation in the toolbox; you can 
+% check your result in the solutions.
+##### SOURCE END #####
+-->
+</div></body></html>
