@@ -23,10 +23,12 @@ function rtab = residuals(model, data)
     ypredtab = simid.observation;
     yobstab  = data.observation;
     
-    rtab = yobstab.record;
-    rtab.Properties.VariableNames{'Value'} = 'Observation';
-    rtab.Prediction = ypredtab.record.Value;
-    
-    rtab.Residuals = rtab.Observation - rtab.Prediction;
+    Time        = ypredtab.Time;
+    Observable  = ypredtab.Observable;
+    Prediction  = ypredtab.Value;
+    Observation = yobstab.Value;
+    Residuals   = Observation - Prediction;
+
+    rtab = table(Time,Observable,Prediction,Observation,Residuals);
     
 end

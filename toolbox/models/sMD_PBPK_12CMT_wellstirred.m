@@ -265,13 +265,16 @@ function dX = rhsfun(t, X, setup) % t will be used for infusion rate
     dA_tot(orgA) = Q.blo(orgA).*(C_art - C_vbl(orgA));
 
     % liver
-    dA_tot(liv) = Q.blo(liv)*(C_in_liv - C_vbl(liv)) ...
-                    - CLuint.hep*fuB*C_vbl(liv) + (1-E.gut)*(1-E.feces)*lambda_po*A_GItract;
+    dA_tot(liv) = Q.blo(liv)*(C_in_liv - C_vbl(liv)) - CLuint.hep*fuB*C_vbl(liv);
+
     % vein
     dA_ven = Q.co*(C_in_ven - C_ven) + infusion_rate;
 
     % drug amount in GItract for absorption
     dA_GItract = -lambda_po*A_GItract;
+
+    % absorption into gut
+    dA_tot(I.gut) = dA_tot(I.gut) + (1-E.gut)*(1-E.feces)*lambda_po*A_GItract;
 
     % drug amount in IVbag for infusion
     dA_IVbag   = -infusion_rate;

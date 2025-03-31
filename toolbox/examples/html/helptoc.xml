@@ -44,6 +44,12 @@
         <tocitem target="tutorial_lumping.html">
             Tutorial: Lumping
         </tocitem>
+        <tocitem target="tutorial_notation.html">
+            Tutorial: Notation
+        </tocitem>
+        <tocitem target="tutorial_parameter_estimation.html">
+            Tutorial: Parameter estimation
+        </tocitem>
         <tocitem target="tutorial_plot_customizations.html">
             Tutorial: Plot customizations
         </tocitem>
