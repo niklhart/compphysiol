@@ -23,6 +23,7 @@
 
 # Generated helpsearch folders
 helpsearch*/
+custom_toolbox.json
 
 # Code generation folders
 slprj/

@@ -20,11 +20,11 @@
 
 function gfrphys = cockcroftgault(phys, serumCreatinine, sizeDescriptor)
 
-    % input checking
-    assert(isa(phys, 'Physiology') && isscalar(phys), ...
-        'Input #1 must be a scalar Physiology object.')
-    assert(istype(serumCreatinine,'Mass/Volume') && isscalar(serumCreatinine), ...
-        'Input #1 must be a scalar Mass/Volume type DimVar.')
+    arguments 
+        phys (1,1) Physiology
+        serumCreatinine (1,1) DimVar {mustBeUnitType(serumCreatinine,'Mass/Volume')}
+        sizeDescriptor (1,:) char {mustBeMember(sizeDescriptor,{'BW','LBW','ABW'})} = 'ABW'
+    end
 
     % check required properties in Physiology object
     required = {'species','sex','age','BW'};
@@ -43,11 +43,6 @@ function gfrphys = cockcroftgault(phys, serumCreatinine, sizeDescriptor)
     sex = validatestring(getvalue(phys,'sex'), {'male','female'});
 
     % choose size descriptor
-    if nargin < 3
-        sizeDescriptor = 'ABW';
-    end
-    sizeDescriptor = validatestring(sizeDescriptor,{'BW','LBW','ABW'});
-
     switch sizeDescriptor
         case 'BW'
             BSD = BW;
