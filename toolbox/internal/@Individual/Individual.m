@@ -143,22 +143,25 @@ classdef Individual < matlab.mixin.Copyable & ColumnClass
         end
         
         %% Cloning Individual objects
-        function out = clone(obj)
-            %CLONE Create a deep copy of an Individual object
+        function out = clone(obj);          out = copy(obj);            end
 
-            assert(isscalar(obj), 'Only scalar Individual objects can be cloned.')
-            out = copy(obj);
 
-            % the following code should be stored as read-only in some
-            % global place, rather than in this function.
-            allProperties = properties(obj);
-            isHandleProperty = cellfun(@(x) isa(obj.(x), 'handle'), allProperties);
-            handleProperties = allProperties(isHandleProperty);
-            for i = 1:numel(handleProperties)
-                prop = handleProperties{i};
-                [out.(prop)] = copy(obj.(prop));
-            end
-        end
+        % function out = clone(obj)
+        %     %CLONE Create a deep copy of an Individual object
+        % 
+        %     assert(isscalar(obj), 'Only scalar Individual objects can be cloned.')
+        %     out = copy(obj);
+        % 
+        %     % the following code should be stored as read-only in some
+        %     % global place, rather than in this function.
+        %     allProperties = properties(obj);
+        %     isHandleProperty = cellfun(@(x) isa(obj.(x), 'handle'), allProperties);
+        %     handleProperties = allProperties(isHandleProperty);
+        %     for i = 1:numel(handleProperties)
+        %         prop = handleProperties{i};
+        %         [out.(prop)] = copy(obj.(prop));
+        %     end
+        % end
         
         %% Conversion methods
 
@@ -639,6 +642,28 @@ classdef Individual < matlab.mixin.Copyable & ColumnClass
             tf = arrayfun(@(x) isa(x.model,'Model') && isa(x.observation,'Record'), obj);            
         end
     end
+
+    methods (Access = protected)
+
+        function out = copyElement(obj)
+        %COPYELEMENT Create a deep copy of a scalar Individual object
+
+            out = copyElement@matlab.mixin.Copyable(obj);
+
+            % the following code should be stored as read-only in some
+            % global place, rather than in this function.
+            allProperties = properties(obj);
+            isHandleProperty = cellfun(@(x) isa(obj.(x), 'handle'), allProperties);
+            handleProperties = allProperties(isHandleProperty);
+            for i = 1:numel(handleProperties)
+                prop = handleProperties{i};
+                [out.(prop)] = copy(obj.(prop));
+            end
+
+        end
+
+    end
+
 end
 
 

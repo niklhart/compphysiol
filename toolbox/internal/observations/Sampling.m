@@ -2,7 +2,7 @@ function obj = Sampling(time, obs)
 %SAMPLING Create a SamplingRange or SamplingSchedule object
 
     arguments
-        time (:,1) DimVar {mustBeTimeVariable}
+        time (:,1) DimVar {mustBeUnitType(time,'Time')}
         obs Observable = Observable.empty
     end
 

@@ -15,7 +15,7 @@ classdef SamplingRange < matlab.mixin.Scalar
             %SAMPLINGRANGE Construct an instance of this class
 
             arguments
-                time (1,2) DimVar {mustBeTimeVariable} = nan(1,2)*u.h
+                time (1,2) DimVar {mustBeUnitType(time,'Time')} = nan(1,2)*u.h
                 obs Observable = Observable.empty
             end
 

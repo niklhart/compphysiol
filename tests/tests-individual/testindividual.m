@@ -301,7 +301,7 @@ assertError(@() simulate(indarr), 'compphysiol:Individual:checkInitialized:notIn
 
 indarr(1).model = test_model();
 indarr(1).sampling = Sampling([0 0.5 1]*u.h, obs);
-indarr(2) = clone(indarr(1));
+indarr(2) = copy(indarr(1));
 indarr(1).name = 'Ind1';
 indarr(2).name = 'Ind2';
 
@@ -338,7 +338,7 @@ indarr(2) = indarr(1);
 assertError(@() checkHandleDuplicates(indarr), ...
     'compphysiol:Individual:checkHandleDuplicates:handleDuplicates')
 
-indarr(2) = clone(indarr(1));
+indarr(2) = copy(indarr(1));
 checkHandleDuplicates(indarr)
 
 % issimid/isexpid
