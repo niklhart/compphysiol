@@ -14,5 +14,10 @@ computation capabilities and an intuitive scripting language.
 
 * download file `compphysiol.mlxtb` from the latest release;
 * double-click on the file from within MATLAB to install the toolbox;
-* type `doc Computational Physiology Toolbox` to access the documentation.
+
+To render the toolbox documentation searchable, call function 
+`compphysiol_builddocsearchdb()` once after installation.
+ 
+* You can then simply type `doc Computational Physiology Toolbox` 
+to access the documentation.
 
