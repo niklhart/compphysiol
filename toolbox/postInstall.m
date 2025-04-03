@@ -1,9 +1,7 @@
 function postInstall()
-%STARTUP compphysiol startup function to render documentation searchable
-%   At the first restart of MATLAB after installing the Computational 
-%   Physiology Toolbox, this function runs automatically and renders
-%   the toolbox documentation searchable. It can also be executed manually
-%   after toolbox installation.
+%POSTINSTALL render compphysiol documentation searchable
+%   Run this function once after toolbox installation to render the toolbox
+%   documentation searchable.
 %   
 %   See also builddocsearchdb.
 
