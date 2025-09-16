@@ -75,7 +75,7 @@ function newVersion = packageToolbox(releaseType, versionString)
         oldVersion = string(matlab.addons.toolbox.toolboxVersion(packagingProjectFile));
         pat = digitsPattern;
         versionParts = extract(oldVersion,pat);
-        if numel(versionParts) == 1 % Using numel == 1 for symmetry
+        if numel(versionParts) == 1 %#ok<ISCL> % Using numel == 1 for symmetry
             versionParts(2) = "0";
         end
         if numel(versionParts) == 2

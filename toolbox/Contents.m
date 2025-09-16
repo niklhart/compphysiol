@@ -1,2 +1,2 @@
 % compphysiol Computational Physiology Toolbox
-% Version 0.2.2.66 03-Apr-2025.
+% Version 0.2.2.70 16-Sep-2025.
