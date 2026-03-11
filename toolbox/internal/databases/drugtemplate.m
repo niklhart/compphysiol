@@ -41,6 +41,7 @@ params = {
     'Efeces'              'unitless'       true       'Feces extraction ratio'
     'Freabs'              'unitless'       true       'Tubular reabsorbed fraction'
     'cellPerm'            'Velocity'       true       'Cellular permeability (e.g., from CaCo-2 assay)'
+    'intestPerm'          'Velocity'       true       'Intestinal permeability (e.g., from CaCo-2 assay)'
 };
 
 

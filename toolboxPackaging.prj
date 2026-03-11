@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.toolbox" plugin-version="1.0">
-  <configuration build-checksum="1490974033" file="/Users/niklashartung/work/Forschung/Projekte/PBPK Toolbox/compphysiol/toolboxPackaging.prj" location="/Users/niklashartung/work/Forschung/Projekte/PBPK Toolbox/compphysiol" name="toolboxPackaging" target="target.toolbox" target-name="Package Toolbox">
+  <configuration build-checksum="1490974033" file="/Users/niklashartung/work/Forschung/Projekte/PBPK Toolbox/MATLAB/compphysiol/toolboxPackaging.prj" location="/Users/niklashartung/work/Forschung/Projekte/PBPK Toolbox/MATLAB/compphysiol" name="toolboxPackaging" target="target.toolbox" target-name="Package Toolbox">
     <param.appname>compphysiol</param.appname>
     <param.authnamewatermark>Niklas Hartung</param.authnamewatermark>
     <param.email>niklas.hartung@uni-potsdam.de</param.email>
@@ -7,7 +7,7 @@
     <param.summary>Computational Physiology Toolbox</param.summary>
     <param.description>"compphysiol" is a MATLAB toolbox for computations with physiology-based models, in particular physiologically-based pharmacokinetics. It features a modular object-oriented design, has fully integrated unit computation capabilities and an intuitive scripting language.</param.description>
     <param.screenshot>${PROJECT_ROOT}/images/toolboxPackaging.png</param.screenshot>
-    <param.version>0.2.2.70</param.version>
+    <param.version>0.2.3.73</param.version>
     <param.output>${PROJECT_ROOT}/compphysiol.mltbx</param.output>
     <param.products.name />
     <param.products.id />
@@ -127,7 +127,7 @@
     <fileset.depfun.excluded />
     <fileset.package />
     <build-deliverables>
-      <file location="${PROJECT_ROOT}" name="compphysiol.mltbx" optional="false">/Users/niklashartung/work/Forschung/Projekte/PBPK Toolbox/compphysiol/compphysiol.mltbx</file>
+      <file location="${PROJECT_ROOT}" name="compphysiol.mltbx" optional="false">/Users/niklashartung/work/Forschung/Projekte/PBPK Toolbox/MATLAB/compphysiol/compphysiol.mltbx</file>
     </build-deliverables>
     <workflow />
     <matlab>
@@ -156,7 +156,7 @@
       <vista>false</vista>
       <linux>false</linux>
       <solaris>false</solaris>
-      <osver>15.6.1</osver>
+      <osver>15.7.4</osver>
       <os32>true</os32>
       <os64>false</os64>
       <arch>maci64</arch>

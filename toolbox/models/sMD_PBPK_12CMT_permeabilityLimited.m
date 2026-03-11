@@ -72,7 +72,7 @@ function setup = initfun(phys, drug, ~, options)
     % volumes for blood compartments, for consistency
     V.vas([I.art I.ven]) = [V.art V.ven];
     V.tis([I.art I.ven]) = 0*u.L;
-    V.cel([I.art I.ven]) = 0*u.L;  
+    V.cel([I.art I.ven]) = 0*u.L;
     
     % derived volumes (Vtot = Vas+Vint+Vcel, Vexc = Vvas+Vint)
     V.tot = V.vas + V.tis;

@@ -1,9 +1,9 @@
-%SMD_PBPK_12CMT_WELLSTIRRED Well-stirred model with new CL module
+%SMD_PBPK_12CMT_WELLSTIRRED Well-stirred model (2026 version)
 %    This function specifies a 12 cmt PBPK model for sMD (small molecule 
-%    drugs) with well-stirred tissue distribution and hepatic clearance.
+%    drugs) with well-stirred tissue distribution, hepatic clearance and an
+%    empirical oral absorption module.
 %
-%    This is the model which is shown in the slides of the PharMetrX A2
-%    module 2024.
+%    This is the model which is used in the PharMetrX A2 module 2026.
 %   
 %    To execute this model, the following options must be defined:
 %    - tissuePartitioning     

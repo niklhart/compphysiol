@@ -135,7 +135,7 @@ function ddb = build_database()
     addrecord(ddb(i), 'BP',          'human', 1,                   hedaya2017, [])
     %addrecord(ddb(i), 'CLblood_hep', 'human', '10 mL/(min*kg)',    gandelman2011, [])
     addrecord(ddb(i), 'lambda_po',   'human', 2.8/u.h,             gandelman2011,[])
-    addrecord(ddb(i), 'cellPerm',    'human', 6.90e-6*u.cm/u.sec,  nti2012, 'CaCo-2 assay')
+    addrecord(ddb(i), 'intestPerm',    'human', 6.90e-6*u.cm/u.sec,  nti2012, 'CaCo-2 assay')
     
     % ---------------------------------------------------------------------
 
@@ -315,7 +315,7 @@ function ddb = build_database()
     addrecord(ddb(i), 'BP',          'human', 0.84,             '?',            [])
     addrecord(ddb(i), 'CLblood_hep', 'human', '15 mL/(min*kg)', obach1999.Tab4, [])        
     addrecord(ddb(i), 'lambda_po',   'human', 0.018/u.min,      boyes1970, 'measured in dog')        
-%    addrecord(ddb(i), 'cellPerm',    'human', 6.17e-5*u.cm/u.sec, 'Deciga-Campos et al. (2016)', 'CaCo-2 assay')
+    addrecord(ddb(i), 'intestPerm',  'human', 6.17e-5*u.cm/u.sec, 'Deciga-Campos et al. (2016)', 'CaCo-2 assay')
     addrecord(ddb(i), 'cellPerm',    'human', 3.67e-6*u.cm/u.s, willmann2004,   'predicted')
     addrecord(ddb(i), 'Efeces',      'human', 0,              willmann2004,   [])    
 
