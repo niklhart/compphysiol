@@ -147,6 +147,7 @@ function h = toolboxplot(tab, plotter, options)
             % last tile: good default positioning
             leg.Layout.Tile = nRow*nCol;
         end
+        drawnow
     end
     
     polish(h, options.polish)
