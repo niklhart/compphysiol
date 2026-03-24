@@ -66,12 +66,16 @@ function h = toolboxplot(tab, plotter, options)
     for i = 1:nSub
         if isplotgrid
             ax = nexttile;
+        else 
+            ax = gca;
         end
         for j = 1:nGrp
             plotter(tabgrid{j,i}, units{i}, options.style{j});         
             hold on
         end                
 
+        drawnow
+        
         % subplot titles
         if isplotgrid
             switch options.subplot_label
@@ -98,10 +102,10 @@ function h = toolboxplot(tab, plotter, options)
 
         % log one or both axes if requested
         if options.xscalelog
-            set(gca,'XScale','log');
+            set(ax,'XScale','log');
         end
         if options.yscalelog
-            set(gca,'YScale','log');
+            set(ax,'YScale','log');
         end
     end
 
@@ -109,7 +113,7 @@ function h = toolboxplot(tab, plotter, options)
         gob = t;
         sgtitle(options.title)
     else
-        gob = gca;
+        gob = ax;
         title(options.title)
     end
 
@@ -121,13 +125,16 @@ function h = toolboxplot(tab, plotter, options)
         ylabel(gob,[options.ylabel ' [' options.yunit{i} ']' ])
     end
 
+    drawnow
+
     if options.linkAxes         
-        ax = findobj(h,'Type','Axes');
-        if ~isempty(ax)
-            linkaxes(ax)
+        axs = findobj(h,'Type','Axes');
+        if ~isempty(axs)
+            linkaxes(axs)
+
+            drawnow      % linkaxis takes some time; otherwise legends/titles 
+                         % are sometimes plotted into the wrong figure
         end
-        pause(0.15)  % linkaxis takes some time; otherwise legends/titles 
-                     % are sometimes plotted into the wrong figure
     end
 
     % process legend
@@ -136,6 +143,7 @@ function h = toolboxplot(tab, plotter, options)
         leg = legend(group_lvl{:},'Location',loc);
         title(leg, options.group_by)
         if isplotgrid && nSub < nRow*nCol
+            drawnow
             % last tile: good default positioning
             leg.Layout.Tile = nRow*nCol;
         end
